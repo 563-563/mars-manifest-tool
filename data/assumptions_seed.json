@@ -86,6 +86,25 @@
         "power.fission_unit_volume_m3": 45,
         "_note": "NASA Aug-2025 FSP directive (Duffy): >=100 kWe closed-Brayton unit sized for a 15 t heavy-class lander, launch by Q1 FY2030. Mass = lander ceiling (conservative); stowed volume notional. Same 0.15 t/kWe slope as the old 40 kWe/6 t spec."
       }
+    },
+    "informed_spares": {
+      "inherits": "baseline",
+      "overrides": {
+        "overheads.spares_fraction_by_group": {
+          "Habitat & life support": 0.40,
+          "ISRU": 0.40,
+          "Water mining": 0.35,
+          "Robotics": 0.30,
+          "Site prep & construction": 0.25,
+          "Thermal & support": 0.20,
+          "Comms nav & autonomy": 0.20,
+          "Power generation": 0.15,
+          "Power storage": 0.15,
+          "Power system": 0.10,
+          "Recon & science": 0.10
+        },
+        "_note": "Literature-informed per-group sparing replacing the flat 35%. Anchors: ECLSS spares 34-41% of system mass for a 919-day Mars mission (Owens/de Weck-line ECLSS reliability analyses; ISS ECLSS = 34% of all logistics mass, NTRS 20210000437) -> 0.40 for life support, and 0.40 for ISRU (same continuous-process class, zero flight heritage). Mechanisms in abrasive regolith 0.30-0.35. FSP reactors are specified for 10 years unattended -> 0.15. Passive distribution/structures 0.10. Groups not listed fall back to spares_fraction_of_dry. See PROVENANCE.md section 3."
+      }
     }
   },
   "windows": {

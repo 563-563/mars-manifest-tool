@@ -98,3 +98,25 @@ def test_baseline_launch_math_unchanged_by_split_feature(catalog, baseline, prec
     lm = PackingEngine(catalog, baseline).pack(precursor).launch
     assert not lm.split_rates
     assert lm.launch_cost_musd == pytest.approx(85 * 90.0)
+
+
+def test_informed_spares_per_group(manager, catalog, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    a = manager.resolve("informed_spares")
+    b = BudgetEngine(catalog, a).compute(precursor)
+    # hand-computed: group masses x literature fractions + 0.15 on gen/storage
+    assert b.mass.spares_t == pytest.approx(37.5, abs=0.05)
+    assert b.mass.grand_total_t == pytest.approx(220.8, abs=0.1)
+    # baseline flat sparing must be untouched (regression contract)
+    base = BudgetEngine(catalog, manager.resolve("baseline")).compute(precursor)
+    assert base.mass.spares_t == pytest.approx(53.08, abs=0.05)
+
+
+def test_ship_manifest_detail_sums_match(catalog, baseline, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    from mars_manifest.packing import PackingEngine
+    budget = BudgetEngine(catalog, baseline).compute(precursor)
+    packed = PackingEngine(catalog, baseline).pack(precursor, budget)
+    for s in packed.ships:
+        assert sum(d[2] for d in s.manifest_detail) == pytest.approx(s.mass_t)
+        assert sum(d[3] for d in s.manifest_detail) == pytest.approx(s.volume_m3)

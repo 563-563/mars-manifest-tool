@@ -51,6 +51,7 @@ class ShipReport:
     volume_utilisation: float
     binding_constraint: str  # "mass" | "volume"
     items: tuple[tuple[str, float], ...]  # (component_id, qty)
+    manifest_detail: tuple[tuple[str, float, float, float], ...] = ()  # (id, qty, mass_t, vol_m3)
 
 
 @dataclass(frozen=True)
@@ -140,6 +141,7 @@ class PackingEngine:
             ship = ships[idx]
             mass_util = ship.mass_t / mass_cap
             vol_util = ship.volume_m3 / vol_cap
+            rollup = self._rollup(ship.items)
             reports.append(ShipReport(
                 index=idx,
                 mass_t=ship.mass_t,
@@ -147,7 +149,8 @@ class PackingEngine:
                 mass_utilisation=mass_util,
                 volume_utilisation=vol_util,
                 binding_constraint="mass" if mass_util >= vol_util else "volume",
-                items=tuple(sorted(self._rollup(ship.items).items())),
+                items=tuple((cid, v[0]) for cid, v in sorted(rollup.items())),
+                manifest_detail=tuple((cid, v[0], v[1], v[2]) for cid, v in sorted(rollup.items())),
             ))
 
         ship_count = len(ships)
@@ -220,8 +223,12 @@ class PackingEngine:
         return items
 
     @staticmethod
-    def _rollup(items: list[PackItem]) -> dict[str, float]:
-        out: dict[str, float] = {}
+    def _rollup(items: list[PackItem]) -> dict[str, list[float]]:
+        """component_id -> [qty, mass_t, volume_m3] using packed (actual) figures."""
+        out: dict[str, list[float]] = {}
         for i in items:
-            out[i.component_id] = out.get(i.component_id, 0.0) + i.qty
+            acc = out.setdefault(i.component_id, [0.0, 0.0, 0.0])
+            acc[0] += i.qty
+            acc[1] += i.mass_t
+            acc[2] += i.volume_m3
         return out

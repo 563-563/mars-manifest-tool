@@ -154,7 +154,20 @@ class BudgetEngine:
         gen_t, storage_t = hardware.generation_t, hardware.storage_t
         spares_frac = a.get("overheads.spares_fraction_of_dry")
         contingency_frac = a.get("overheads.contingency_fraction")
-        spares_t = spares_frac * (fixed_hw_t - consumables_t + gen_t + storage_t)
+        spares_base_t = fixed_hw_t - consumables_t + gen_t + storage_t
+        # Per-group sparing (literature-informed) when a scenario provides a
+        # group->fraction map; groups absent from the map fall back to the
+        # flat fraction. Baseline keeps the flat §5.1 formula exactly.
+        by_group_spares = a.get("overheads.spares_fraction_by_group", None)
+        if by_group_spares:
+            def gfrac(group: str) -> float:
+                return by_group_spares.get(group, spares_frac)
+            spares_t = sum(gfrac(c.group) * c.unit_mass_t * q
+                           for c, q in fixed_items if c.group != CONSUMABLES_GROUP)
+            spares_t += gfrac(self.catalog.get(hardware.generator_component_id).group) * gen_t
+            spares_t += gfrac(self.catalog.get(hardware.storage_component_id).group) * storage_t
+        else:
+            spares_t = spares_frac * spares_base_t
         contingency_t = contingency_frac * (fixed_hw_t + gen_t + storage_t)
         by_group: dict[str, float] = {}
         for c, q in fixed_items:
@@ -172,7 +185,10 @@ class BudgetEngine:
 
         # -- volume ---------------------------------------------------------
         fixed_m3 = sum(c.unit_volume_m3 * q for c, q in fixed_items)
-        spares_m3 = spares_frac * fixed_m3
+        # volume spares track the effective (possibly per-group) mass fraction;
+        # identical to spares_frac * fixed_m3 under flat sparing
+        eff_spares_frac = spares_t / spares_base_t if spares_base_t else 0.0
+        spares_m3 = eff_spares_frac * fixed_m3
         raw_m3 = fixed_m3 + hardware.generation_m3 + hardware.storage_m3 + spares_m3
         volume = VolumeBudget(
             fixed_m3=fixed_m3,
