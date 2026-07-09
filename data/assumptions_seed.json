@@ -1,0 +1,109 @@
+{
+  "_comment": "Seed assumptions for the Mars Manifest Tool. All values are notional order-of-magnitude estimates. Every engine formula must read from here, never hard-code. See HANDOFF.md section 5 & 7.",
+  "baseline": {
+    "fleet": {
+      "payload_mass_per_ship_t": 100,
+      "payload_volume_per_ship_m3": 1000,
+      "packing_efficiency": 0.65,
+      "tankers_per_ship": 16
+    },
+    "power": {
+      "sol_hours": 24.6,
+      "night_hours": 12.3,
+      "dust_storm_autonomy_days": 5,
+      "diversity_factor": 0.85,
+      "solar_yield_w_per_m2": 30,
+      "solar_kg_per_m2": 1.5,
+      "battery_wh_per_kg": 150,
+      "battery_kwh_per_m3": 300,
+      "fission_unit_kwe": 40,
+      "fission_unit_mass_t": 6.0,
+      "fission_unit_volume_m3": 30,
+      "fission_buffer_hours": 6,
+      "power_path": "fission",
+      "solar_stowed_m3_per_1000m2": 10,
+      "fission_component": "fission_unit",
+      "solar_component": "solar_module_1000m2",
+      "battery_component": "battery_module_100kwh"
+    },
+    "overheads": {
+      "spares_fraction_of_dry": 0.35,
+      "contingency_fraction": 0.10
+    },
+    "cost": {
+      "per_launch_cost_musd": {
+        "aspirational": 2,
+        "operational": 30,
+        "near_term": 90
+      },
+      "active_launch_cost": "near_term",
+      "propellant_cost_per_launch_musd": 1,
+      "track_development_cost": false,
+      "development_cost_note": "Starship $15B+ to date; fission/ISRU/habitat R&D many more $B. Optional separate ledger."
+    }
+  },
+  "scenarios": {
+    "optimistic": {
+      "inherits": "baseline",
+      "overrides": {
+        "fleet.tankers_per_ship": 10,
+        "cost.active_launch_cost": "aspirational",
+        "overheads.spares_fraction_of_dry": 0.25,
+        "power.power_path": "fission",
+        "_note": "High reuse maturity, pilot-scale ISRU, lean spares."
+      }
+    },
+    "conservative": {
+      "inherits": "baseline",
+      "overrides": {
+        "fleet.tankers_per_ship": 16,
+        "cost.active_launch_cost": "near_term",
+        "overheads.spares_fraction_of_dry": 0.40,
+        "_note": "Near-term launch cost, full-scale ISRU load, heavy spares."
+      }
+    },
+    "solar_only": {
+      "inherits": "baseline",
+      "overrides": {
+        "power.power_path": "solar",
+        "_note": "Forces solar; dust-storm battery sizing should surface as a hard feasibility flag."
+      }
+    }
+  },
+  "windows": {
+    "_comment": "Synod index -> calendar label. Windows recur ~every 26 months. Extend toward full base ramp.",
+    "cadence_months": 26,
+    "schedule": [
+      {"synod_index": 0, "id": "2026-11", "transit_days": 210, "objective": "EDL proof + recon", "ship_count": 5, "crewed": false},
+      {"synod_index": 1, "id": "2028-12", "transit_days": 210, "objective": "Power + ISRU pilot + robots", "ship_count": 5, "crewed": false},
+      {"synod_index": 2, "id": "2031-01", "transit_days": 210, "objective": "Full ISRU + habitat + return-propellant demo", "ship_count": 10, "crewed": false},
+      {"synod_index": 3, "id": "2033-03", "transit_days": 210, "objective": "First crew (gated on capabilities)", "ship_count": 20, "crewed": true}
+    ]
+  },
+  "capability_gates": {
+    "_comment": "Flags unlocked when prerequisite components are installed on the surface (see HANDOFF.md section 6).",
+    "crewed_requires": [
+      "edl_proven",
+      "power_baseload",
+      "return_propellant_proven",
+      "life_support_closed",
+      "habitat_ready",
+      "radiation_managed"
+    ],
+    "capability_unlocks": {
+      "_comment": "Data-driven unlock rules evaluated by the CampaignPlanner after each window's deliveries. Conditions in a rule are ANDed: all_of/any_of (component ids delivered), min_installed_kwe, min_landings.",
+      "edl_proven": {"min_landings": 1},
+      "precision_landing": {"all_of": ["landing_beacons"]},
+      "comms_established": {"all_of": ["relay_ground_station"]},
+      "power_baseload": {"min_installed_kwe": 100},
+      "water_supply": {"all_of": ["ice_prospecting", "excavator_rassor", "water_processing"]},
+      "return_propellant_proven": {"all_of": ["co2_acquisition", "sabatier_reactor", "water_electrolysis", "cryo_liquefaction", "isru_control"]},
+      "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"]},
+      "habitat_ready": {"all_of": ["habitat_module"]},
+      "radiation_managed": {"all_of": ["radiation_shelter"]},
+      "autonomy_proven": {"all_of": ["central_compute", "robotic_maint_kit"]},
+      "mobility": {"all_of": ["rover_unpressurized"]},
+      "infrastructure_ready": {"all_of": ["cargo_crane", "power_distribution", "logistics_kit"]}
+    }
+  }
+}

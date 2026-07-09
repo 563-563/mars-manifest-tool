@@ -1,0 +1,70 @@
+"""Scenario resolution + diffing (§5.4), and report smoke tests (M5)."""
+import pytest
+
+from mars_manifest import report as rpt
+from mars_manifest.budgets import BudgetEngine
+from mars_manifest.campaign import CampaignPlanner
+from mars_manifest.packing import PackingEngine
+from mars_manifest.scenarios import ScenarioError, compare
+
+
+def test_scenario_presets_exist(manager):
+    names = manager.names()
+    for expected in ("baseline", "optimistic", "conservative", "solar_only"):
+        assert expected in names
+
+
+def test_override_resolution(manager):
+    opt = manager.resolve("optimistic")
+    assert opt.get("fleet.tankers_per_ship") == 10
+    assert opt.get("cost.active_launch_cost") == "aspirational"
+    assert opt.get("overheads.spares_fraction_of_dry") == 0.25
+    # untouched values inherit from baseline
+    assert opt.get("power.fission_unit_kwe") == 40
+
+
+def test_unknown_scenario_raises(manager):
+    with pytest.raises(ScenarioError):
+        manager.resolve("does_not_exist")
+
+
+def test_compare_mission(manager, catalog, precursor):
+    comp = compare(manager, catalog, "optimistic", "conservative", mission=precursor)
+    rows = {r.metric: r for r in comp.rows}
+    assert rows["total launches"].a == 55   # 5 x (1+10)
+    assert rows["total launches"].b == 85   # 5 x (1+16)
+    assert rows["tankers per ship"].changed
+    # conservative carries more spares -> heavier grand total
+    assert rows["grand total mass (t)"].b > rows["grand total mass (t)"].a
+
+
+def test_compare_campaign(manager, catalog, campaign_4w):
+    comp = compare(manager, catalog, "baseline", "optimistic", campaign=campaign_4w)
+    rows = {r.metric: r for r in comp.rows}
+    assert rows["first crew window"].a == "2033-03"
+    assert rows["total launches"].a > rows["total launches"].b
+
+
+def test_reports_render(tmp_path, manager, catalog, precursor, campaign_4w):
+    a = manager.resolve("baseline")
+    budget = BudgetEngine(catalog, a).compute(precursor)
+    packing = PackingEngine(catalog, a).pack(precursor, budget)
+
+    md = rpt.budget_markdown(budget, precursor, packing)
+    assert "GRAND TOTAL" in md and "Launch math" in md
+
+    xlsx = rpt.budget_xlsx(budget, precursor, catalog, a, tmp_path / "budget.xlsx", packing)
+    assert xlsx.exists()
+
+    planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+    result = planner.run(campaign_4w)
+    md = rpt.campaign_markdown(result)
+    assert "First crew window" in md
+    xlsx = rpt.campaign_xlsx(result, tmp_path / "campaign.xlsx")
+    assert xlsx.exists()
+
+    # rendered workbook numbers come from the engine, not recomputed
+    from openpyxl import load_workbook
+    wb = load_workbook(tmp_path / "budget.xlsx")
+    summary = {r[0]: r[1] for r in wb["Summary"].iter_rows(values_only=True) if r[0]}
+    assert summary["GRAND TOTAL MASS"] == pytest.approx(budget.mass.grand_total_t)

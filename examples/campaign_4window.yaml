@@ -1,0 +1,80 @@
+# Four-window campaign: robotic precursor -> scale-up -> full ISRU -> first crew.
+# Window cadence and objectives follow data/assumptions_seed.json windows.schedule.
+# Windows 1-3 manifests are illustrative scale-ups; window 0 is the validated
+# precursor batch (examples/precursor_2026.yaml).
+id: campaign_2026_2033
+
+windows:
+  - id: "2026-11"
+    synod_index: 0
+    transit_days: 210
+    objective: "EDL proof + recon + full precursor batch"
+    missions:
+      - file: precursor_2026.yaml
+
+  - id: "2028-12"
+    synod_index: 1
+    transit_days: 210
+    objective: "Power + ISRU scale-up + robot fleet growth"
+    missions:
+      - id: scaleup_2028
+        objective: "Second wave: double the ISRU chain, grow the robot fleet"
+        crewed: false
+        ships: 5
+        manifest:
+          - {id: co2_acquisition, qty: 2, ship: 2}
+          - {id: sabatier_reactor, qty: 2, ship: 2}
+          - {id: water_electrolysis, qty: 2, ship: 3}
+          - {id: cryo_liquefaction, qty: 2, ship: 3}
+          - {id: isru_control, qty: 1, ship: 2}
+          - {id: excavator_rassor, qty: 4, ship: 4}
+          - {id: water_processing, qty: 2, ship: 4}
+          - {id: optimus_robot, qty: 20, ship: 5}
+          - {id: rover_unpressurized, qty: 2, ship: 5}
+          - {id: robotic_maint_kit, qty: 2, ship: 5}
+          - {id: thermal_control, qty: 1, ship: 1}
+          - {id: dust_mitigation, qty: 1, ship: 1}
+          - {id: power_distribution, qty: 1, ship: 1}
+
+  - id: "2031-01"
+    synod_index: 2
+    transit_days: 210
+    objective: "Full ISRU + habitat build-out + return-propellant demo"
+    missions:
+      - id: buildout_2031
+        objective: "Third wave: habitat cluster, full ISRU load, deep consumable cache"
+        crewed: false
+        ships: 10
+        manifest:
+          - {id: water_electrolysis, qty: 4, ship: 2}
+          - {id: cryo_liquefaction, qty: 4, ship: 3}
+          - {id: co2_acquisition, qty: 4, ship: 2}
+          - {id: sabatier_reactor, qty: 4, ship: 4}
+          - {id: excavator_rassor, qty: 6}
+          - {id: water_processing, qty: 3}
+          - {id: habitat_module, qty: 2, ship: 5}
+          - {id: eclss_habitat, qty: 2, ship: 6}
+          - {id: radiation_shelter, qty: 2, ship: 6}
+          - {id: consumables_cache, qty: 4}
+          - {id: sintering_rig, qty: 2}
+          - {id: optimus_robot, qty: 30}
+          - {id: rover_unpressurized, qty: 4}
+          - {id: thermal_control, qty: 2}
+          - {id: power_distribution, qty: 2}
+
+  - id: "2033-03"
+    synod_index: 3
+    transit_days: 210
+    objective: "First crew (gated on capabilities unlocked by prior windows)"
+    missions:
+      - id: first_crew_2033
+        objective: "First crewed landing + surface stay"
+        crewed: true
+        ships: 20
+        manifest:
+          - {id: consumables_cache, qty: 10}
+          - {id: eclss_habitat, qty: 2}
+          - {id: habitat_module, qty: 2}
+          - {id: robotic_maint_kit, qty: 4}
+          - {id: thermal_control, qty: 2}
+          - {id: dust_mitigation, qty: 2}

@@ -1,0 +1,45 @@
+# First robotic precursor batch — window 2026-11 (synod 0).
+# Matches Mars-Precursor-Engineering-Budget.xlsx exactly: 26 line items,
+# ship assignments per the workbook's per-ship rollup. Quantities omitted
+# here default to the catalog's default_qty (catalog is the source of truth).
+#
+# Ship roles: 1 recon/EDL · 2 robots · 3 power · 4 ISRU/water · 5 habitat/LS
+id: precursor_2026
+window: "2026-11"
+objective: "Robotic precursor batch — EDL proof, power, ISRU pilot, habitat pre-position"
+crewed: false
+ships: 5
+power_ship: 3   # auto-sized generation + storage ride on the power ship
+
+manifest:
+  # Ship 1 — recon / EDL proof
+  - {id: relay_ground_station, ship: 1}
+  - {id: landing_beacons, ship: 1}
+  - {id: recon_instruments, ship: 1}
+  # Ship 2 — robots
+  - {id: optimus_robot, ship: 2}
+  - {id: rover_unpressurized, ship: 2}
+  - {id: cargo_crane, ship: 2}
+  - {id: robotic_maint_kit, ship: 2}
+  - {id: central_compute, ship: 2}
+  # Ship 3 — power (fission units + buffer battery are auto-sized onto this ship)
+  - {id: power_distribution, ship: 3}
+  - {id: thermal_control, ship: 3}
+  - {id: dust_mitigation, ship: 3}
+  - {id: logistics_kit, ship: 3}
+  # Ship 4 — ISRU + water mining
+  - {id: co2_acquisition, ship: 4}
+  - {id: sabatier_reactor, ship: 4}
+  - {id: water_electrolysis, ship: 4}
+  - {id: cryo_liquefaction, ship: 4}
+  - {id: isru_control, ship: 4}
+  - {id: ice_prospecting, ship: 4}
+  - {id: excavator_rassor, ship: 4}
+  - {id: water_processing, ship: 4}
+  # Ship 5 — habitat + life support pre-positioning
+  - {id: sintering_rig, ship: 5}
+  - {id: grading_tools, ship: 5}
+  - {id: habitat_module, ship: 5}
+  - {id: eclss_habitat, ship: 5}
+  - {id: radiation_shelter, ship: 5}
+  - {id: consumables_cache, ship: 5}

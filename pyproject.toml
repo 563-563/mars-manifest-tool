@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mars-manifest"
+version = "0.1.0"
+description = "Flight-manifest and campaign-planning tool for a SpaceX-style Mars program"
+requires-python = ">=3.10"
+dependencies = [
+    "openpyxl>=3.1",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+mars = "mars_manifest.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["mars_manifest*"]
