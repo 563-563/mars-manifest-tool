@@ -65,6 +65,10 @@ windows:
       - id: fuel_factory_2033
         objective: "Deliver the size_chain() matched buy; window-0 chain becomes hot spare"
         crewed: false
+        # prospect-before-commit (Handmer): the factory buy is gated on site
+        # water actually confirmed by window-0 prospecting (~18-month margin
+        # between data return and this fleet's ship date)
+        requires: [water_confirmed]
         ships: 5
         packing_policy: balanced
         pack_spares: true

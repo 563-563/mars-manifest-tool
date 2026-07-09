@@ -107,3 +107,25 @@ def test_chain_design_custom_target(catalog, baseline):
     assert d.steps[0].units_required >= 1
     small = {s.key: s.units_required for s in d.steps}
     assert small["electrolysis"] == 2  # 23.3 kg/hr needs 2 electrolyzers
+
+
+def test_oxygen_only_fallback(manager, catalog, precursor):
+    # DRA-5.0-style descope: LOX from CO2, methane from Earth, zero water risk
+    a = manager.resolve("oxygen_only_isru")
+    r = IsruEngine(catalog, a).assess(precursor)
+    assert r.mode == "oxygen_only"
+    assert r.bottleneck == "o2_electrolysis"
+    assert r.propellant_rate_kg_hr == pytest.approx(11.6, abs=0.1)
+    assert r.water_for_return_load_t == 0.0
+    assert r.ch4_import_t_per_load == pytest.approx(304.3, abs=0.5)
+    assert r.ch4_import_ships_per_load == 4
+    assert r.spec_energy_kwh_per_kg == pytest.approx(13.7, abs=0.1)
+
+
+def test_high_energy_scenario_matches_handmer_anchor(manager, catalog, precursor):
+    # Handmer all-in figure (~2x our chain math): spec ~15 kWh/kg, ~1.7 MW full-scale
+    a = manager.resolve("isru_high_energy")
+    r = IsruEngine(catalog, a).assess(precursor)
+    assert r.spec_energy_kwh_per_kg == pytest.approx(15.3, abs=0.2)
+    assert r.full_scale_kw_required == pytest.approx(1706, abs=25)
+    assert r.bottleneck == "electrolysis"

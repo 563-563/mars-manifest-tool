@@ -21,6 +21,7 @@ class LoadBudget:
     connected_peak_kw: float
     simultaneous_peak_kw: float
     daily_energy_kwh: float
+    critical_avg_kw: float = 0.0  # survival loads that must ride through storms
 
 
 @dataclass(frozen=True)
@@ -126,23 +127,35 @@ class BudgetEngine:
         # -- loads (consumers only) ---------------------------------------
         avg_kw = sum(c.peak_power_kw * q * c.duty_cycle for c, q in fixed_items)
         connected = sum(c.peak_power_kw * q for c, q in fixed_items)
+        critical_kw = sum(c.peak_power_kw * q * c.duty_cycle
+                          for c, q in fixed_items if c.load_class == "critical")
         loads = LoadBudget(
             avg_kw=avg_kw,
             connected_peak_kw=connected,
             simultaneous_peak_kw=connected * a.get("power.diversity_factor"),
             daily_energy_kwh=avg_kw * a.get("power.sol_hours"),
+            critical_avg_kw=critical_kw,
         )
 
         # -- both power options are always sized side by side --------------
-        solar = size_solar(avg_kw, a)
+        solar = size_solar(avg_kw, a, critical_kw)
         fission = size_fission(avg_kw, a)
         hardware = self._power_hardware(path, solar, fission, explicit_power, avg_kw)
-        if path == "solar" and solar.dust_storm_infeasible:
-            warnings.append(
-                f"Solar-only path: dust-storm battery alone is "
-                f"{solar.dust_storm_battery_t:,.0f} t -- exceeds one ship's payload; "
-                f"solar without fission is impractical for this load."
-            )
+        if path == "solar":
+            if solar.dust_storm_infeasible:
+                warnings.append(
+                    f"Solar path: even the survival-load storm battery is "
+                    f"{solar.dust_storm_battery_critical_t:,.0f} t -- exceeds one "
+                    f"ship's payload; solar without fission is impractical."
+                )
+            else:
+                warnings.append(
+                    f"Solar path: dust storms pause ~{avg_kw - critical_kw:,.0f} kW of "
+                    f"production load for up to {a.get('power.dust_storm_autonomy_days'):g} "
+                    f"days; survival loads ({critical_kw:,.0f} kW) ride on "
+                    f"{solar.dust_storm_battery_critical_t:,.0f} t of storm battery. "
+                    f"Real global storms last weeks-months: production halts accordingly."
+                )
         if hardware.explicit and hardware.installed_kwe < avg_kw:
             warnings.append(
                 f"Explicit power hardware supplies {hardware.installed_kwe:,.0f} kWe "

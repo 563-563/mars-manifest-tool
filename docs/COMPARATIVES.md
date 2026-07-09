@@ -38,30 +38,28 @@
 | ISRU energy | Handmer: 17 GWh per 240 t CH₄ ≈ **~70 kWh/kg CH₄** (≈14 kWh/kg propellant) | ~35 kWh/kg CH₄ (7.6 kWh/kg propellant) | We may be ~2× optimistic; his figure includes real-world inefficiencies |
 | ISRU scope | DRA 5.0: **oxygen-only** ISRU (no water dependency; methane from Earth) | Full Sabatier chain | Their descope is a compelling fallback — see adoption #3 |
 
-## Ideas worth adopting (recommended, not yet implemented)
+## Ideas adopted (all five implemented 2026-07-09)
 
 1. **Survival-vs-production load split for storm sizing.** Our dust-storm battery
    sizes for the *full* average load (290 t → "solar infeasible"). Handmer's framing:
    production loads (ISRU) can *pause* during storms; only survival loads (thermal,
    comms, ECLSS) need ride-through. Sizing storage for critical loads only would cut
    the solar dust-storm battery ~10× and make the solar-vs-fission trade honest
-   rather than rigged for fission. **Highest-value model change on this list.**
+   rather than rigged for fission. **Highest-value model change on this list.** *Adopted: catalog `load_class` column; storm storage sized on ~50 kW survival loads (41 t) with the 290 t full-load figure kept as reference.*
 2. **Prospect-before-commit decision point.** Add a `water_confirmed` gate between
    window 0's prospecting and the window-1 fuel-factory commit, and note the real
    schedule: window-0 data returns ~18 months before the window-1 fleet must ship —
-   tight but workable. Handmer's orbital prospecting assets (radar/ultraspectral,
-   Starlink-derived) are cheap catalog additions to window 0.
+   tight but workable. *Adopted: `water_confirmed` capability (200 prospecting sols) gates the window-1 factory via the new mission-level `requires` mechanism. Orbital prospecting assets remain outside the surface-cargo scope — noted, not modeled.*
 3. **Oxygen-only ISRU fallback scenario** (from DRA 5.0). O₂ is 78% of propellant
    mass and can be made from atmosphere alone (MOXIE-style or via Sabatier O₂
    co-product paths) — no mining, no water risk. Cost: ~304 t of Earth-supplied CH₄
-   per return load ≈ 3–4 extra cargo ships. A clean plan-B if window-0 prospecting
-   disappoints.
+   per return load ≈ 3–4 extra cargo ships. A clean plan-B if window-0 prospecting disappoints. *Adopted: `oxygen_only_isru` scenario (SOE chain, 304 t CH₄ import, ~4 extra ships, 13.7 kWh/kg O₂).*
 4. **ISRU energy sensitivity range.** Carry 7.6–15 kWh/kg propellant as an explicit
    low/high (our chain math vs Handmer's all-in figure); full-scale power becomes
-   0.85–1.7 MW, which still brackets the research constant.
+   0.85–1.7 MW, which still brackets the research constant. *Adopted: `isru_high_energy` scenario (15.3 kWh/kg, 1.7 MW).*
 5. **Rodwell rate anchor.** RedWater-class well: ~1 t water per 10 days per well
    (2022 paper) — a real datum to check `water_processing` rates against when
-   sharpening Tier-D ISRU rows.
+   sharpening Tier-D ISRU rows. *Adopted: recorded as the rate anchor in PROVENANCE §2b.*
 
 ## What we have that none of them do
 

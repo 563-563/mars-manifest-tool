@@ -47,11 +47,15 @@ class Catalog:
 
         earliest = (row.get("earliest_window") or "").strip()
         depends = tuple(d.strip() for d in (row.get("depends_on") or "").split(";") if d.strip())
+        role = row["power_role"].strip()
+        # absent column -> conservative default: consumers count as critical
+        load_class = (row.get("load_class") or "").strip() or ("critical" if role == "consumer" else "none")
         return Component(
             id=row["id"].strip(),
             name=row["name"].strip(),
             group=row["group"].strip(),
-            power_role=row["power_role"].strip(),
+            power_role=role,
+            load_class=load_class,
             unit_mass_t=num("unit_mass_t"),
             unit_volume_m3=num("unit_volume_m3"),
             peak_power_kw=num("peak_power_kw"),
@@ -81,6 +85,8 @@ class Catalog:
         for comp in self._by_id.values():
             if comp.power_role not in Component.POWER_ROLES:
                 raise CatalogError(f"{comp.id}: invalid power_role '{comp.power_role}'")
+            if comp.load_class not in ("critical", "interruptible", "none"):
+                raise CatalogError(f"{comp.id}: invalid load_class '{comp.load_class}'")
             for attr in ("unit_mass_t", "unit_volume_m3", "peak_power_kw", "duty_cycle",
                          "generation_kwe", "storage_kwh", "unit_cost_musd_low",
                          "unit_cost_musd_high"):

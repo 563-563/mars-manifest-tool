@@ -20,9 +20,14 @@ class SolarOption:
     night_kwh: float
     night_battery_t: float
     night_battery_m3: float
+    # full-load storm ride-through (workbook formula, kept as the worst-case
+    # reference metric) vs survival-load sizing (what a real design carries:
+    # production pauses during storms, only critical loads ride through)
     dust_storm_kwh: float
     dust_storm_battery_t: float
-    dust_storm_infeasible: bool  # dust-storm battery alone exceeds one ship's payload
+    dust_storm_critical_kwh: float
+    dust_storm_battery_critical_t: float
+    dust_storm_infeasible: bool  # survival-load storm battery exceeds one ship's payload
 
 
 @dataclass(frozen=True)
@@ -35,7 +40,7 @@ class FissionOption:
     buffer_battery_m3: float
 
 
-def size_solar(avg_kw: float, a: Assumptions) -> SolarOption:
+def size_solar(avg_kw: float, a: Assumptions, critical_kw: float = None) -> SolarOption:
     yield_w_m2 = a.get("power.solar_yield_w_per_m2")
     kg_m2 = a.get("power.solar_kg_per_m2")
     wh_per_kg = a.get("power.battery_wh_per_kg")
@@ -53,6 +58,9 @@ def size_solar(avg_kw: float, a: Assumptions) -> SolarOption:
     night_battery_t = night_kwh / wh_per_kg
     dust_kwh = avg_kw * dust_days * sol_hours
     dust_battery_t = dust_kwh / wh_per_kg
+    crit_kw = avg_kw if critical_kw is None else critical_kw
+    dust_crit_kwh = crit_kw * dust_days * sol_hours
+    dust_crit_t = dust_crit_kwh / wh_per_kg
     return SolarOption(
         array_m2=array_m2,
         array_mass_t=array_mass_t,
@@ -62,7 +70,9 @@ def size_solar(avg_kw: float, a: Assumptions) -> SolarOption:
         night_battery_m3=night_kwh / kwh_per_m3,
         dust_storm_kwh=dust_kwh,
         dust_storm_battery_t=dust_battery_t,
-        dust_storm_infeasible=dust_battery_t > a.get("fleet.payload_mass_per_ship_t"),
+        dust_storm_critical_kwh=dust_crit_kwh,
+        dust_storm_battery_critical_t=dust_crit_t,
+        dust_storm_infeasible=dust_crit_t > a.get("fleet.payload_mass_per_ship_t"),
     )
 
 

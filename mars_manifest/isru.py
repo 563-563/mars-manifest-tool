@@ -23,6 +23,9 @@ from .models import Assumptions, Mission
 # molar masses, kg/kmol
 _M_CH4, _M_CO2, _M_H2, _M_H2O, _M_O2 = 16.043, 44.009, 2.016, 18.015, 31.998
 
+# oxygen-only fallback (2 CO2 -> 2 CO + O2, solid-oxide electrolysis)
+CO2_PER_O2 = 2 * _M_CO2 / _M_O2  # 2.751
+
 # per kg CH4 (Sabatier stoichiometry)
 H2_PER_CH4 = 4 * _M_H2 / _M_CH4                      # 0.5027
 H2O_ELECTROLYZED_PER_CH4 = H2_PER_CH4 * (_M_H2O * 2 / (2 * _M_H2))   # 4.4917
@@ -63,6 +66,9 @@ class IsruResult:
     full_scale_kw_required: float
     o2_surplus_per_kg_ch4: float
     warnings: tuple[str, ...]
+    mode: str = "sabatier"
+    ch4_import_t_per_load: float = 0.0   # oxygen_only: Earth-supplied methane
+    ch4_import_ships_per_load: int = 0
 
 
 @dataclass(frozen=True)
@@ -206,7 +212,12 @@ class IsruEngine:
         sol_hours = a.get("power.sol_hours")
         window_sols = a.get("isru.production_sols_per_synod")
         load_t = a.get("isru.return_propellant_t")
+        mode = a.get("isru.mode", "sabatier")
         warnings: list[str] = []
+
+        if mode == "oxygen_only":
+            return self._assess_oxygen_only(quantities, a, chain, sol_hours,
+                                            window_sols, load_t, of, availability)
 
         def avg_kw(component_id: str) -> tuple[float, float]:
             comp = self.catalog.get(component_id)
@@ -287,4 +298,74 @@ class IsruEngine:
             full_scale_kw_required=full_scale_kw,
             o2_surplus_per_kg_ch4=o2_surplus,
             warnings=tuple(warnings),
+        )
+
+    def _assess_oxygen_only(self, quantities, a, chain, sol_hours, window_sols,
+                            load_t, of, availability) -> IsruResult:
+        """DRA-5.0-style fallback: LOX from atmospheric CO2 (solid-oxide
+        electrolysis, MOXIE heritage); methane imported from Earth. No water
+        dependency at all — the descope that buys out site-water risk.
+
+        The 'electrolysis' chain component stands in as the SOE plant; the
+        production commodity is O2 (the of/(1+of) fraction of a return load).
+        """
+        e_co2 = a.get("isru.co2_capture_kwh_per_kg_co2")
+        e_soe = a.get("isru.co2_electrolysis_kwh_per_kg_o2")
+        e_liq = a.get("isru.liquefaction_kwh_per_kg_propellant")
+        payload_t = a.get("fleet.payload_mass_per_ship_t")
+        o2_per_load = load_t * of / (1.0 + of)
+        ch4_import = load_t - o2_per_load
+        warnings = [
+            f"Oxygen-only mode: {ch4_import:,.0f} t of CH4 per return load ships "
+            f"from Earth (~{-(-ch4_import // payload_t):.0f} extra cargo ships); "
+            f"no water mining required."
+        ]
+
+        def avg_kw(cid):
+            comp = self.catalog.get(cid)
+            n = quantities.get(cid, 0.0)
+            return n, n * comp.peak_power_kw * comp.duty_cycle
+
+        steps = []
+        for key, cid, commodity, kwh_per_kg, o2_per_kg in (
+            ("co2_capture", chain["co2_capture"], "CO2", e_co2, 1.0 / CO2_PER_O2),
+            ("o2_electrolysis", chain["electrolysis"], "O2", e_soe, 1.0),
+            ("liquefaction", chain["liquefaction"], "O2 (liquid)", e_liq, 1.0),
+        ):
+            n, kw = avg_kw(cid)
+            thr = kw / kwh_per_kg if kwh_per_kg > 0 else 0.0
+            steps.append(ChainStep(key, cid, n, kw, thr, commodity, thr * o2_per_kg, False))
+        if any(s.units == 0 for s in steps):
+            warnings.append("Chain incomplete — no units of: "
+                            + ", ".join(s.key for s in steps if s.units == 0))
+        rate = min(s.propellant_rate_kg_hr for s in steps)
+        bottleneck = min(steps, key=lambda s: s.propellant_rate_kg_hr).key
+        steps = [ChainStep(s.key, s.component_id, s.units, s.avg_kw, s.throughput_kg_hr,
+                           s.commodity, s.propellant_rate_kg_hr, s.key == bottleneck)
+                 for s in steps]
+
+        spec = CO2_PER_O2 * e_co2 + e_soe + e_liq  # per kg O2
+        kg_per_sol = rate * sol_hours * availability
+        t_per_window = kg_per_sol * window_sols / 1000.0
+        sols_to_load = (o2_per_load * 1000.0 / kg_per_sol) if kg_per_sol > 0 else None
+        return IsruResult(
+            steps=tuple(steps),
+            bottleneck=bottleneck,
+            propellant_rate_kg_hr=rate,
+            propellant_kg_per_sol=kg_per_sol,
+            tonnes_per_window=t_per_window,
+            return_load_t=o2_per_load,
+            fraction_of_return_load=t_per_window / o2_per_load if o2_per_load else 0.0,
+            sols_to_return_load=sols_to_load,
+            years_to_return_load=sols_to_load * sol_hours / 8766.0 if sols_to_load else None,
+            net_water_kg_per_sol=0.0,
+            water_for_return_load_t=0.0,
+            spec_energy_kwh_per_kg=spec,
+            energy_per_return_load_gwh=o2_per_load * 1000.0 * spec / 1e6,
+            full_scale_kw_required=o2_per_load * 1000.0 * spec / (window_sols * sol_hours * availability),
+            o2_surplus_per_kg_ch4=0.0,
+            warnings=tuple(warnings),
+            mode="oxygen_only",
+            ch4_import_t_per_load=ch4_import,
+            ch4_import_ships_per_load=int(-(-ch4_import // payload_t)),
         )

@@ -19,6 +19,9 @@ class Component:
     name: str
     group: str
     power_role: str  # consumer | generator | storage | passive
+    # critical loads must ride through dust storms (thermal, comms, ECLSS...);
+    # interruptible loads (ISRU production, mining, robots) can pause
+    load_class: str  # critical | interruptible | none
     unit_mass_t: float
     unit_volume_m3: float
     peak_power_kw: float
@@ -56,6 +59,7 @@ class Mission:
     auto_power: bool = True           # auto-size power unless manifest places generators/storage
     packing_policy: str = "explicit"  # "explicit" (honor ship pins) | "balanced" (spread + redundancy)
     pack_spares: bool = False         # pack spares tonnage as explicit per-group cargo items
+    requires: list[str] = field(default_factory=list)  # capability flags gating this mission
     manifest: list[ManifestItem] = field(default_factory=list)
 
     @classmethod
@@ -76,6 +80,7 @@ class Mission:
             auto_power=bool(d.get("auto_power", True)),
             packing_policy=d.get("packing_policy", "explicit"),
             pack_spares=bool(d.get("pack_spares", False)),
+            requires=list(d.get("requires", [])),
             manifest=items,
         )
 

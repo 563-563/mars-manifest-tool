@@ -115,16 +115,17 @@ class CampaignPlanner:
             w_launch_cost = w_cargo_low = w_cargo_high = 0.0
 
             for mission in window.missions:
-                missing: tuple[str, ...] = ()
-                blocked = False
+                needed = list(mission.requires)
                 if mission.crewed:
-                    missing = tuple(c for c in self.crewed_requires if c not in state.capabilities)
-                    if missing:
-                        blocked = True
-                        violations.append(
-                            f"{window.id}/{mission.id}: crewed mission blocked -- "
-                            f"missing capabilities: {', '.join(missing)}"
-                        )
+                    needed += [c for c in self.crewed_requires if c not in needed]
+                missing = tuple(c for c in needed if c not in state.capabilities)
+                blocked = bool(missing)
+                if blocked:
+                    kind = "crewed mission" if mission.crewed else "mission"
+                    violations.append(
+                        f"{window.id}/{mission.id}: {kind} blocked -- "
+                        f"missing capabilities: {', '.join(missing)}"
+                    )
                 budget = self.budget_engine.compute(mission)
                 packing = self.packing_engine.pack(mission, budget)
                 outcomes.append(MissionOutcome(mission.id, mission.crewed, blocked, missing, budget, packing))

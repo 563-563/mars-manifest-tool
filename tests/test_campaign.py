@@ -87,3 +87,20 @@ def test_earliest_window_is_advisory_not_blocking(result):
     w0 = result.windows[0]
     assert any("earliest" in msg for msg in w0.warnings)
     assert not result.violations
+
+
+def test_water_confirmed_gates_the_fuel_factory(catalog, baseline, manager):
+    # prospect-before-commit: without window-0 prospecting on the surface,
+    # a mission that requires water_confirmed is blocked
+    from pathlib import Path
+    from mars_manifest.cli import load_campaign
+    plan = load_campaign(Path(__file__).resolve().parents[1] / "examples" / "program_plan.yaml", catalog)
+    planner = CampaignPlanner(catalog, baseline, manager.capability_unlocks(),
+                              manager.crewed_requires())
+    # full plan: prospecting lands window 0, factory flies window 1 -> no violations
+    assert not planner.run(copy.deepcopy(plan)).violations
+    # drop window 0: the factory launches blind -> blocked
+    gutted = copy.deepcopy(plan)
+    gutted.windows = gutted.windows[1:]
+    result = planner.run(gutted)
+    assert any("water_confirmed" in v for v in result.violations)

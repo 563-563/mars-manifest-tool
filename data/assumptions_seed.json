@@ -31,7 +31,9 @@
       "contingency_fraction": 0.10
     },
     "isru": {
-      "_comment": "Sabatier-chain rate & energy assumptions (see PROVENANCE.md). Stoichiometry is computed in isru.py from molar masses; these are efficiencies, timing, and the mixture ratio. Energies are system-level (include balance of plant).",
+      "_comment": "Sabatier-chain rate & energy assumptions (see PROVENANCE.md). Stoichiometry is computed in isru.py from molar masses; these are efficiencies, timing, and the mixture ratio. Energies are system-level (include balance of plant). mode: 'sabatier' (full methalox from water+CO2) or 'oxygen_only' (DRA-5.0-style fallback: LOX from atmospheric CO2 via solid-oxide electrolysis, CH4 imported from Earth -- no water dependency).",
+      "mode": "sabatier",
+      "co2_electrolysis_kwh_per_kg_o2": 11.0,
       "raptor_o_f_ratio": 3.6,
       "electrolysis_kwh_per_kg_h2o": 6.1,
       "co2_capture_kwh_per_kg_co2": 0.7,
@@ -129,6 +131,25 @@
         "_note": "NASA Aug-2025 FSP directive (Duffy): >=100 kWe closed-Brayton unit sized for a 15 t heavy-class lander, launch by Q1 FY2030. Mass = lander ceiling (conservative); stowed volume notional. Same 0.15 t/kWe slope as the old 40 kWe/6 t spec."
       }
     },
+    "oxygen_only_isru": {
+      "inherits": "baseline",
+      "overrides": {
+        "isru.mode": "oxygen_only",
+        "_note": "DRA-5.0-style descope: ISRU makes only LOX from atmospheric CO2 (solid-oxide electrolysis, MOXIE-heritage); methane ships from Earth (~304 t/return load = 3-4 extra cargo ships). Buys out the entire water-mining risk. See docs/COMPARATIVES.md."
+      }
+    },
+    "isru_high_energy": {
+      "inherits": "baseline",
+      "overrides": {
+        "isru.electrolysis_kwh_per_kg_h2o": 12.2,
+        "isru.co2_capture_kwh_per_kg_co2": 1.4,
+        "isru.sabatier_support_kwh_per_kg_ch4": 3.0,
+        "isru.liquefaction_kwh_per_kg_propellant": 1.6,
+        "isru.water_processing_kwh_per_kg_h2o": 0.4,
+        "isru.excavation_kwh_per_kg_h2o": 0.2,
+        "_note": "Handmer anchor: ~17 GWh per 240 t CH4 (~70 kWh/kg CH4, ~2x our chain math) -- all-in energies including real-world inefficiencies. Spec energy ~15.2 kWh/kg propellant; full-scale power ~1.7 MW. See docs/COMPARATIVES.md."
+      }
+    },
     "informed_spares": {
       "inherits": "baseline",
       "overrides": {
@@ -176,6 +197,7 @@
       "comms_established": {"all_of": ["relay_ground_station"]},
       "power_baseload": {"min_installed_kwe": 100},
       "water_supply": {"all_of": ["ice_prospecting", "excavator_rassor", "water_processing"]},
+      "water_confirmed": {"all_of": ["ice_prospecting"], "min_sols_on_surface": {"ice_prospecting": 200}},
       "return_propellant_proven": {"all_of": ["co2_acquisition", "sabatier_reactor", "water_electrolysis", "cryo_liquefaction", "isru_control"], "min_propellant_t": 1400},
       "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"], "min_sols_on_surface": {"eclss_habitat": 1000}},
       "habitat_ready": {"all_of": ["habitat_module"]},

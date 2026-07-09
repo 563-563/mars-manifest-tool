@@ -57,7 +57,8 @@ def budget_markdown(budget: BudgetResult, mission: Mission,
         ["Option", "Generation", "Mass (t)", "Storage (t)", "Note"],
         [["Solar + battery", f"{b.solar.array_m2:,.0f} m2", b.solar.array_mass_t,
           b.solar.night_battery_t,
-          f"dust-storm battery {b.solar.dust_storm_battery_t:,.0f} t"
+          f"storm battery {b.solar.dust_storm_battery_critical_t:,.0f} t survival-only "
+          f"({b.solar.dust_storm_battery_t:,.0f} t if production rides through)"
           + (" -- INFEASIBLE" if b.solar.dust_storm_infeasible else "")],
          ["Fission + buffer", f"{b.fission.units} units", b.fission.mass_t,
           b.fission.buffer_battery_t, "weather-independent"]]), ""]
@@ -215,7 +216,10 @@ def loss_markdown(lt) -> str:
 
 
 def isru_markdown(r) -> str:
-    parts = ["# ISRU propellant chain", ""]
+    title = "# ISRU propellant chain"
+    if getattr(r, "mode", "sabatier") == "oxygen_only":
+        title += " — OXYGEN-ONLY FALLBACK (CH4 from Earth)"
+    parts = [title, ""]
     rows = [[("-> " if s.is_bottleneck else "") + s.key, s.component_id, f"{s.units:g}",
              s.avg_kw, f"{s.throughput_kg_hr:,.1f} kg/hr {s.commodity}",
              s.propellant_rate_kg_hr] for s in r.steps]
@@ -233,7 +237,10 @@ def isru_markdown(r) -> str:
          ["Specific energy", f"{r.spec_energy_kwh_per_kg:,.2f} kWh/kg propellant"],
          ["Energy per return load", f"{r.energy_per_return_load_gwh:,.2f} GWh"],
          ["Full-scale power (one load per window)", f"{r.full_scale_kw_required:,.0f} kW continuous"],
-         ["O2 balance", f"{r.o2_surplus_per_kg_ch4:+.2f} kg O2 per kg CH4 vs engine demand"]]), ""]
+         ["O2 balance", f"{r.o2_surplus_per_kg_ch4:+.2f} kg O2 per kg CH4 vs engine demand"]]
+        + ([["CH4 imported from Earth",
+             f"{r.ch4_import_t_per_load:,.0f} t per load (~{r.ch4_import_ships_per_load} extra ships)"]]
+           if getattr(r, "mode", "sabatier") == "oxygen_only" else [])), ""]
     if r.warnings:
         parts += ["## Findings"] + [f"- {w}" for w in r.warnings] + [""]
     return "\n".join(parts)

@@ -28,15 +28,21 @@ def test_power_loads(budget):
     assert budget.loads.connected_peak_kw == pytest.approx(505.0, abs=0.01)
     # simultaneous peak ~429 kW at diversity 0.85
     assert budget.loads.simultaneous_peak_kw == pytest.approx(429.25, abs=0.01)
+    # survival loads (thermal, comms, nav, compute, ECLSS testbed, controls)
+    assert budget.loads.critical_avg_kw == pytest.approx(50.5, abs=0.1)
     assert budget.loads.daily_energy_kwh == pytest.approx(354.15 * 24.6, rel=1e-6)
 
 
 def test_solar_option(budget):
-    # array ~11,800 m2; night battery ~29 t; dust-storm battery ~290 t (infeasible)
+    # array ~11,800 m2; night battery ~29 t; full-load storm battery ~290 t
+    # (workbook formula, kept as worst-case reference). Survival-load sizing
+    # (production pauses in storms; only critical loads ride through) needs
+    # ~41 t, so solar is no longer flagged infeasible outright.
     assert budget.solar.array_m2 == pytest.approx(11805.0, abs=1)
     assert budget.solar.night_battery_t == pytest.approx(29.04, abs=0.05)
     assert budget.solar.dust_storm_battery_t == pytest.approx(290.4, abs=0.5)
-    assert budget.solar.dust_storm_infeasible is True
+    assert budget.solar.dust_storm_battery_critical_t == pytest.approx(41.4, abs=0.5)
+    assert budget.solar.dust_storm_infeasible is False
 
 
 def test_fission_option(budget):
@@ -89,7 +95,7 @@ def test_solar_scenario_swaps_generation(catalog, manager, precursor):
     assert b.power_path == "solar"
     assert b.mass.generation_t == pytest.approx(b.solar.array_mass_t)
     assert b.mass.storage_t == pytest.approx(b.solar.night_battery_t)
-    assert any("dust-storm" in w.lower() for w in b.warnings)
+    assert any("pause" in w for w in b.warnings)  # storms pause production loads
 
 
 def test_explicit_power_hardware_overrides_autosize(catalog, baseline, precursor):
