@@ -63,10 +63,10 @@ Stoichiometry (water/CO₂/O₂ per kg CH₄) is computed from molar masses in
 
 **Gate change (2026-07-09):** `return_propellant_proven` now additionally
 requires `min_propellant_t: 1400` — cumulative tonnes actually produced by the
-campaign's ISRU state, not just hardware delivered. In the seeded 4-window
-campaign the gate retires at **2031-01** (2,954 t banked) instead of window 0,
-and the first crew launches with ~4,834 t produced. The planner also derates
-production when installed generation can't carry the delivered load.
+campaign's ISRU state, not just hardware delivered. In the program plan the
+gate retires one window after the fuel-factory delivery (2033-03, 2,686 t
+banked) and the first crew launches with ~10,200 t produced. The planner also
+derates production when installed generation can't carry the delivered load.
 
 **Validation checks the model now reproduces from first principles:** specific
 energy ≈ **7.65 kWh/kg propellant** → one 1,400 t load ≈ **10.7 GWh** →
@@ -108,7 +108,7 @@ chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
 | Input | Value | Tier | Source & validation |
 |---|---|---|---|
 | Synod cadence | ~26 months | **A** | Earth–Mars synodic period = 779.9 days ≈ 25.6 months. Orbital mechanics. |
-| Window 0 = 2026-11, 5 ships | — | **B (as a plan)** | Musk's stated 2025 plan: ~5 uncrewed ships in the late-2026 window, carrying Optimus robots; he rates it "50/50" (deep dive §4, [Space.com May 2025]). Independent consensus puts first *crew* in the 2030s–2040s, so the 2033 crewed window in our example campaign is aggressive — it's Musk-schedule, not consensus-schedule. |
+| Window 0 = 2031-01, 5 ships | — | **C (judgment from B sources)** | **Re-baselined 2026-07-09** from Musk's stated late-2026 plan: no 2026 flight is credible (Feb-2026 Moon-first pivot; orbital refueling undemonstrated and Starship grounded mid-2026, deep dive §1/§4). First robotic window 2031-01 matches the deep dive's "uncrewed plausible late 2020s–early 2030s"; first crew 2037-07 sits at the aggressive end of the 2030s–2040s independent consensus. Musk's original 2026/2033 dates survive only in the legacy fixture `campaign_4window.yaml`. |
 | `transit_days` | 210 | **A/B** | 6–9 month transit range for conjunction-class trajectories; 210 d is the fast end. |
 | `crewed_requires` gates | 6 flags | **B (as doctrine)** | Encodes NASA/industry consensus and the deep dive's core finding: no crew without demonstrated EDL, baseload power, return propellant, closed life support, habitat, radiation management (deep dive §2 & §6). The specific flag set is our taxonomy (HANDOFF §6); the *rule* is well-sourced doctrine. |
 | `capability_unlocks` rules | — | **D** | Tool extension (delivered-hardware proxies for "demonstrated capability"). Deliberately simplistic in v1: delivering a Sabatier plant is not the same as *proving* propellant production. Flagged for M6: add an explicit demonstration/commissioning delay (e.g. gate retires one window after delivery). |

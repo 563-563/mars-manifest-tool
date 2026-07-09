@@ -19,16 +19,16 @@ def plan_result(catalog, baseline, manager):
 
 def test_no_violations_and_crew_on_schedule(plan_result):
     assert not plan_result.violations
-    assert plan_result.first_crew_window == "2033-03"
+    assert plan_result.first_crew_window == "2037-07"
 
 
 def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     w = {r.window_id: r for r in plan_result.windows}
     # redundant precursor (2x chain) banks ~537 t; matched buy closes the gate
-    assert w["2026-11"].propellant_cumulative_t == pytest.approx(537, abs=5)
-    assert "return_propellant_proven" in w["2028-12"].new_capabilities
+    assert w["2031-01"].propellant_cumulative_t == pytest.approx(537, abs=5)
+    assert "return_propellant_proven" in w["2033-03"].new_capabilities
     # crew arrives with several full return loads banked
-    assert w["2033-03"].propellant_cumulative_t > 5 * 1400
+    assert w["2037-07"].propellant_cumulative_t > 5 * 1400
 
 
 def test_every_window_fits_its_fleet(plan_result, baseline):

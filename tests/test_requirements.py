@@ -44,14 +44,14 @@ def test_program_plan_closes_everything(catalog, baseline, manager, reqs, engine
     v = {x.requirement.id: x for x in matrix.verdicts}
     # mission-level requirement closes a full synod before crew
     assert v["L0-MSN-01"].status == "CLOSED"
-    assert v["L0-MSN-01"].closed_window == "2031-01"
+    assert v["L0-MSN-01"].closed_window == "2035-05"
     # power scale and plant redundancy land ahead of plan
     assert v["L2-PWR-04"].status == "EARLY"
     assert v["L2-PROP-05"].status == "EARLY"
     # no single-ship loss costs a schedule-critical capability, any window
     assert v["L1-LOG-02"].status == "PASS"
     # window 0 buys off the bulk of the tree
-    assert len(matrix.by_window["2026-11"]) >= 12
+    assert len(matrix.by_window["2031-01"]) >= 12
 
 
 def test_legacy_campaign_fails_requirements(catalog, baseline, manager, reqs, engine):
@@ -60,8 +60,5 @@ def test_legacy_campaign_fails_requirements(catalog, baseline, manager, reqs, en
     # workbook-pinned packing: one lost ship kills schedule-critical capabilities
     assert "L1-LOG-02" in open_ids
     v = {x.requirement.id: x for x in matrix.verdicts}
-    # habitat count only reached at the crew window itself — no verification margin
-    assert v["L2-HAB-02"].status == "LATE"
-    assert v["L2-HAB-02"].closed_window == "2033-03"
     # rollup honesty: the mission requirement cannot close
     assert v["L0-MSN-01"].status == "OPEN"

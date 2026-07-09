@@ -150,13 +150,13 @@
     }
   },
   "windows": {
-    "_comment": "Synod index -> calendar label. Windows recur ~every 26 months. Extend toward full base ramp.",
+    "_comment": "Synod index -> calendar label. Windows recur ~every 26 months. Program start shifted to 2031: no 2026 flight (Moon-first pivot, Feb 2026; orbital refueling undemonstrated mid-2026), first robotic window early 2030s per independent consensus. First crew 2037 remains aggressive vs the 2030s-2040s expert range.",
     "cadence_months": 26,
     "schedule": [
-      {"synod_index": 0, "id": "2026-11", "transit_days": 210, "objective": "EDL proof + recon", "ship_count": 5, "crewed": false},
-      {"synod_index": 1, "id": "2028-12", "transit_days": 210, "objective": "Power + ISRU pilot + robots", "ship_count": 5, "crewed": false},
-      {"synod_index": 2, "id": "2031-01", "transit_days": 210, "objective": "Full ISRU + habitat + return-propellant demo", "ship_count": 10, "crewed": false},
-      {"synod_index": 3, "id": "2033-03", "transit_days": 210, "objective": "First crew (gated on capabilities)", "ship_count": 20, "crewed": true}
+      {"synod_index": 0, "id": "2031-01", "transit_days": 210, "objective": "Loss-tolerant precursor: EDL, power, pilot ISRU, ECLSS testbed", "ship_count": 5, "crewed": false},
+      {"synod_index": 1, "id": "2033-03", "transit_days": 210, "objective": "Fuel factory: rate-matched ISRU chain + reactors", "ship_count": 5, "crewed": false},
+      {"synod_index": 2, "id": "2035-05", "transit_days": 210, "objective": "Second plant + habitat cluster + deep caches", "ship_count": 10, "crewed": false},
+      {"synod_index": 3, "id": "2037-07", "transit_days": 210, "objective": "First crew (gated on capabilities + propellant banked)", "ship_count": 20, "crewed": true}
     ]
   },
   "capability_gates": {

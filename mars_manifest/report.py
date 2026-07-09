@@ -312,8 +312,8 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
     robots = inv.get("optimus_robot", 0)
     rovers = inv.get("rover_unpressurized", 0)
     if robots or rovers:
-        out.append(f"Robot workforce: {robots:,.0f} humanoids and {rovers:,.0f} rovers — "
-                   f"the only 'crew' until 2033.")
+        out.append(f"Robot workforce: {robots:,.0f} humanoids and {rovers:,.0f} rovers"
+                   + ("." if crewed else " — the only crew on the planet."))
 
     out.append(f"{w.surface_hardware_t:,.0f} t of hardware on the surface — "
                f"{w.surface_hardware_t / _ISS_MASS_T:,.1f}× the mass of the ISS, and "

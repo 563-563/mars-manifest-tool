@@ -97,10 +97,18 @@ class RequirementsEngine:
                                if self._check(req.verify, w, windows)), None)
                 if closed is None:
                     status = "OPEN"
-                elif req.planned_window is None or order[closed] == order.get(req.planned_window):
+                elif req.planned_window is None:
                     status = "CLOSED"
                 else:
-                    status = "EARLY" if order[closed] < order[req.planned_window] else "LATE"
+                    # window ids are date-shaped (YYYY-MM), so string order works
+                    # even when the planned window isn't in this campaign
+                    pi = order.get(req.planned_window)
+                    ci = order[closed]
+                    if pi is not None:
+                        status = "CLOSED" if ci == pi else ("EARLY" if ci < pi else "LATE")
+                    else:
+                        status = ("CLOSED" if closed == req.planned_window
+                                  else ("EARLY" if closed < req.planned_window else "LATE"))
                 verdicts[req.id] = Verdict(req, status, closed, ())
 
         # rollups (children must all be closed/pass); iterate until stable
