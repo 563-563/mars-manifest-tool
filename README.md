@@ -1,8 +1,9 @@
 # Mars Manifest Tool
 
 Catalog-driven flight-manifest and campaign planner for a SpaceX-style Mars
-program. See `HANDOFF.md` for the full specification and `CLAUDE.md` for the
-working agreement.
+program. See `HANDOFF.md` for the full specification, `CLAUDE.md` for the
+working agreement, and `PROVENANCE.md` for the source and confidence tier of
+every input the engines consume.
 
 ## Setup
 
