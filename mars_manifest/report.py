@@ -250,15 +250,23 @@ _CONSUMABLES_KG_PER_PERSON_DAY = 5.0
 _ISS_MASS_T = 420.0
 
 
-def window_enablements(w, catalog: Catalog, a: Assumptions) -> list[str]:
-    """Plain-English 'what this window buys us', derived from engine outputs."""
+def window_enablements(w, catalog: Catalog, a: Assumptions,
+                       next_label: Optional[str] = None) -> list[str]:
+    """Plain-English 'what this window buys us', derived from engine outputs.
+
+    Propellant figures are cumulative production by the time the NEXT window
+    arrives (production runs during the synod after this window's landings);
+    pass next_label so the text can say so explicitly.
+    """
     out: list[str] = []
     inv = {cid: qty for cid, qty, _ in w.surface_inventory}
     load_t = a.get("isru.return_propellant_t")
     avail = a.get("isru.plant_availability", 1.0)
     sol_h = a.get("power.sol_hours")
+    crewed = any(m.crewed and not m.blocked for m in w.missions)
+    by_next = f"by the {next_label} window" if next_label else "by the next window's arrival"
 
-    if any(m.crewed and not m.blocked for m in w.missions):
+    if crewed:
         out.append("First crew lands at a base that is already powered, provisioned, "
                    "and holds their return propellant.")
 
@@ -267,6 +275,11 @@ def window_enablements(w, catalog: Catalog, a: Assumptions) -> list[str]:
         out.append(f"{kwe:,.0f} kWe of storm-proof power — roughly "
                    f"{kwe / _HOME_KW:,.0f} homes' worth, with "
                    f"{kwe - w.surface_avg_load_kw:,.0f} kW of headroom over the installed load.")
+    if w.installed_storage_kwh > 0 and w.surface_avg_load_kw > 0:
+        hours = w.installed_storage_kwh / w.surface_avg_load_kw
+        out.append(f"Batteries hold {w.installed_storage_kwh / 1000:,.1f} MWh — "
+                   f"{hours:,.0f} hours of full-base power with zero generation "
+                   f"(dust storms are a non-event on fission).")
 
     kg_day = w.isru_rate_kg_hr * sol_h * avail
     if kg_day > 0:
@@ -277,8 +290,12 @@ def window_enablements(w, catalog: Catalog, a: Assumptions) -> list[str]:
             pace = f"a full Starship return load every {days_per_load / 30.4:,.0f} months"
         out.append(f"Fuel plant produces ~{kg_day / 1000:,.1f} t of methalox per day — {pace}.")
     if w.propellant_cumulative_t > 0:
-        out.append(f"{w.propellant_cumulative_t:,.0f} t of propellant banked — "
-                   f"{w.propellant_cumulative_t / load_t:,.1f} Starship return flights' worth.")
+        loads = w.propellant_cumulative_t / load_t
+        line = (f"{w.propellant_cumulative_t:,.0f} t of propellant banked {by_next} — "
+                f"{loads:,.1f} Starship return flights' worth.")
+        if crewed:
+            line += f" The crew's ride home could be filled {loads:,.1f} times over."
+        out.append(line)
 
     hab_qty = inv.get("habitat_module", 0)
     if hab_qty:
@@ -299,7 +316,9 @@ def window_enablements(w, catalog: Catalog, a: Assumptions) -> list[str]:
                    f"the only 'crew' until 2033.")
 
     out.append(f"{w.surface_hardware_t:,.0f} t of hardware on the surface — "
-               f"{w.surface_hardware_t / _ISS_MASS_T:,.1f}× the mass of the ISS.")
+               f"{w.surface_hardware_t / _ISS_MASS_T:,.1f}× the mass of the ISS, and "
+               f"{w.surface_hardware_t / 1_000_000 * 100:.2f}% of the ~1,000,000 t "
+               f"Musk estimates for a self-sufficient city.")
     return out
 
 
@@ -318,7 +337,8 @@ def campaign_markdown(result: CampaignResult, catalog: Optional[Catalog] = None,
                      ", ".join(w.new_capabilities) or "-"])
     parts += [_md_table(
         ["Window", "Objective", "Ships", "Launches", "Mass (t)", "Power (kWe)",
-         "Propellant (t, cum)", "Launch cost", "Status", "New capabilities"], rows), ""]
+         "Propellant banked by next window (t)", "Launch cost", "Status",
+         "New capabilities"], rows), ""]
 
     c = result.cumulative
     parts += ["## Cumulative", _md_table(
@@ -332,9 +352,10 @@ def campaign_markdown(result: CampaignResult, catalog: Optional[Catalog] = None,
 
     if catalog is not None and assumptions is not None:
         parts += ["## What each window enables"]
-        for w in result.windows:
+        for i, w in enumerate(result.windows):
+            nxt = result.windows[i + 1].window_id if i + 1 < len(result.windows) else None
             parts.append(f"### {w.window_id}")
-            parts += [f"- {line}" for line in window_enablements(w, catalog, assumptions)]
+            parts += [f"- {line}" for line in window_enablements(w, catalog, assumptions, nxt)]
         parts.append("")
 
     if result.violations:

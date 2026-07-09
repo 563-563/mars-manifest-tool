@@ -69,6 +69,7 @@ class WindowResult:
     surface_by_group: dict[str, float] = field(default_factory=dict)
     surface_inventory: tuple[tuple[str, float, float], ...] = ()  # (id, qty, mass_t)
     surface_avg_load_kw: float = 0.0
+    installed_storage_kwh: float = 0.0
     warnings: tuple[str, ...] = ()
 
 
@@ -206,6 +207,7 @@ class CampaignPlanner:
                 surface_by_group=by_group,
                 surface_inventory=tuple(inventory),
                 surface_avg_load_kw=load_kw,
+                installed_storage_kwh=state.installed_storage_kwh,
                 warnings=tuple(warnings),
             ))
 
