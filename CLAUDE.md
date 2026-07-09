@@ -1,29 +1,76 @@
-# CLAUDE.md — Mars Manifest Tool
+# CLAUDE.md — Mars Manifest Tool (working agreement)
 
-Working agreement for building this project in Claude Code. Read `HANDOFF.md` first — it is the full specification. This file is the quick operating guide.
+*Rewritten 2026-07-09. The original kickoff agreement pointed at `HANDOFF.md`
+as the source of truth; the project has outgrown it. This file defines what
+governs NOW.*
 
-## What we're building
-A Python core + CLI tool that plans a SpaceX-style Mars campaign: compute budgets (mass / power+storage / volume / cost), pack payloads into ships and derive tanker launches, sequence missions across launch windows toward a self-sustaining base, and compare scenarios. Catalog-driven; seed data in `data/`.
+## Hierarchy of truth (highest wins)
 
-## Ground rules
-- **Read the spec before coding.** `HANDOFF.md` §5 has the exact formulas; §7 has regression targets that MUST pass. Do not silently change a formula — the numbers trace back to validated models.
-- **Assumptions are injected, never hard-coded.** Every engine reads from an `Assumptions` object loaded from `data/assumptions_seed.json`.
-- **Catalog is the source of truth** for component attributes (`data/component_catalog_seed.csv`). Missions reference components by `id`.
-- **Engines are pure and tested; reports only render.** No computation in the report layer.
-- **Preserve provenance and uncertainty.** Seed numbers are notional; keep low/high ranges and notes intact.
+1. **Verified external data.** The data policy is absolute: the baseline
+   carries the best-verified number — never keep a known-stale value and
+   downgrade its confidence tier. `PROVENANCE.md` records every input's source,
+   tier, and the verification log. When a source drifts (it has: payload
+   volume, solar density), the seed changes and consequences propagate.
+2. **Seed data** (`data/*.csv`, `data/*.json`) — the catalog is the source of
+   truth for component attributes; assumptions are injected, never hard-coded.
+3. **Engines** (`mars_manifest/`) — pure, deterministic, tested. Reports only
+   render; no computation in the report layer.
+4. **Generated documents** (`docs/REQUIREMENTS.md`, the console and walkthrough
+   artifacts, xlsx reports) — regenerate, never hand-edit.
 
-## Suggested build order (milestones in HANDOFF.md §9)
-1. M1 catalog + budgets → pass `tests/test_budgets.py` against §7 targets.
-2. M2 packing + launch math. 3. M3 campaign planner + capability gating. 4. M4 scenarios + diff. 5. M5 reporting (xlsx/md + charts). 6. M6 full base ramp.
+## The baseline
 
-## First task for the agent
-Scaffold the package per `HANDOFF.md` §3, load the seed catalog + assumptions, implement `budgets.py`/`power.py`, and write `tests/test_budgets.py` asserting the §7 regression numbers (fixed hardware ~98.5 t, avg load ~354 kW, fission 9 units/~54 t, grand total ~236 t, etc.). Get that green before anything else.
+- **`examples/program_plan.yaml` is the program.** 2031-01 start (Moon-first
+  pivot; no 2026 flight) → fuel factory 2033-03 → second plant + habitats
+  2035-05 (11 ships; volume-bound at the real 614 m³ bay) → first crew 2037-07.
+- Crew gating is strict by design: propellant *banked* (≥1,400 t), 1,000-sol
+  ECLSS demonstration, prospect-before-commit (`water_confirmed`), and no
+  single-ship loss may cost a schedule-critical capability.
+- `data/requirements_seed.yaml` + `mars requirements` is the buy-off contract;
+  `docs/COMPARATIVES.md` records how we differ from Handmer / New Space 2022 /
+  NASA DRA 5.0 and what we adopted from them.
 
-## Definition of done for v1
-CLI can run `mars budget`, `mars pack`, `mars plan`, `mars compare`, and `mars report` on the seeded precursor and a 4-window campaign, reproduce the regression numbers, and emit an xlsx equivalent to the ones in the parent folder.
+## Historical documents — do NOT re-anchor to these
 
-## Companion files (parent folder)
-- `../SpaceX-to-Mars-Deep-Dive.md` — research grounding
-- `../Mars-Robotic-Precursor-Flight-Manifest.md` — manifest narrative (catalog derived from this)
-- `../Mars-First-Batch-Cost-Model.xlsx` — cost formulas
-- `../Mars-Precursor-Engineering-Budget.xlsx` — budget formulas + regression source
+- **`HANDOFF.md`** — the kickoff spec. Its §5 formulas are ported and tested;
+  its §7 numbers survive as a *formula-port fixture* (see below). Its dates
+  (2026 start), fleet volume (1,000 m³), example campaign, and open questions
+  are superseded. Read it for intent and provenance, not for current values.
+- **`../Mars-Precursor-Engineering-Budget.xlsx`, `../Mars-First-Batch-Cost-Model.xlsx`**
+  — the spreadsheets the tool replaced. Do not update them or reconcile new
+  results against them; the tool's xlsx reports supersede both.
+- **`examples/precursor_2026*.yaml`, `examples/campaign_4window.yaml`** —
+  regression fixtures only, pinned to historical inputs. Never present them as
+  the plan.
+
+## The regression contract, precisely
+
+`tests/` (59 green) pins two different things — don't confuse them:
+- **Formula ports** (HANDOFF §7 via the pinned 2026 fixtures): 98.5 t fixed
+  hardware, 354.15 kW, 9×40 kWe fission, 236.4 t, 55–85 launches. These verify
+  the workbook math was ported correctly. They are input-frozen on purpose.
+- **Current-model behavior** (program plan, ISRU chain, gates, loss tolerance,
+  requirements): these assert the live baseline and MUST move when verified
+  data moves. Changing a §5 formula still requires tracing to a source; changing
+  a *data value* requires a verified source and a PROVENANCE entry.
+
+## Operating routine
+
+```bash
+.venv/Scripts/python.exe -m pytest tests/ -q      # must be green before commit
+mars plan examples/program_plan.yaml --format md   # the program at a glance
+mars requirements examples/program_plan.yaml --out docs/REQUIREMENTS.md  # regen after plan edits
+mars lifecycle examples/program_plan.yaml          # risk buy-down + idle-mass audit
+```
+
+Artifacts (console + surface walkthrough) regenerate from the session
+scratchpad export script (`export_dashboard_data.py` → embed JSON →
+republish); see auto-memory for URLs. Re-run the PROVENANCE §8 source
+verification whenever a real launch window passes or before any major
+decision — both prior failures were silent source drift.
+
+## Invariants that still hold from the original agreement
+
+Engines pure and tested; assumptions injected; catalog is component truth;
+reports render only; preserve provenance and uncertainty (low/high ranges,
+notes) in all seed data.

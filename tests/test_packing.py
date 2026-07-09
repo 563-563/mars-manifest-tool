@@ -27,7 +27,7 @@ def test_per_ship_rollup_matches_workbook(packed):
     assert ships[1].mass_t == pytest.approx(3.0, abs=0.01)
     assert ships[2].mass_t == pytest.approx(11.0, abs=0.01)
     assert ships[4].mass_t == pytest.approx(27.0, abs=0.01)
-    # everything under 100 t / 1,000 m3
+    # everything under 100 t / 614 m3 (verified bay volume)
     for s in packed.ships:
         assert s.mass_t <= 100
         assert s.volume_m3 <= 614

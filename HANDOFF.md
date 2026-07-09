@@ -1,5 +1,14 @@
 # Mars Manifest Tool — Handoff Specification
 
+> **STATUS (2026-07-09): HISTORICAL.** This is the kickoff spec, preserved as
+> the record of intent and formula provenance. It is **superseded for current
+> values** by `CLAUDE.md` (working agreement and hierarchy of truth),
+> `PROVENANCE.md` (verified inputs), and `examples/program_plan.yaml` (the
+> baseline campaign — 2031 start, not 2026). The §7 numbers live on only as a
+> formula-port regression fixture on pinned historical inputs. Do not
+> re-anchor new work to the dates, fleet volume (1,000 m³ → now 614 m³
+> verified), or example campaign below.
+
 *Prepared as a handoff from an exploratory research-and-modeling conversation into a Claude Code build. This document is the source of truth for intent, domain grounding, data model, formulas, and roadmap. Read it fully before writing code.*
 
 ---
