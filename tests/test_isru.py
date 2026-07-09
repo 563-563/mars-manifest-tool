@@ -72,3 +72,38 @@ def test_scaling_the_bottleneck(catalog, baseline, precursor):
     # 5x electrolysis pushes the bottleneck to the next-slowest step (sabatier)
     assert r.bottleneck == "sabatier"
     assert r.propellant_rate_kg_hr > 50
+
+
+def test_chain_design_one_load_per_synod(catalog, baseline):
+    engine = IsruEngine(catalog, baseline)
+    d = engine.size_chain()  # default: one return load per synod
+    # target nameplate rate grossed up by availability
+    assert d.target_rate_kg_hr == pytest.approx(111.6, abs=0.5)
+    units = {s.key: s.units_required for s in d.steps}
+    utils = {s.key: s.utilization for s in d.steps}
+    assert units["electrolysis"] == 6
+    assert units["co2_capture"] == 2
+    assert units["sabatier"] == 3
+    assert units["liquefaction"] == 2
+    assert units["water_processing"] == 1
+    # matched: big-ticket steps land at high utilization
+    assert utils["electrolysis"] == pytest.approx(0.87, abs=0.02)
+    assert utils["co2_capture"] == pytest.approx(0.97, abs=0.02)
+    # granularity slack flagged where ceil() forces it
+    assert any("sabatier" in n or "liquefaction" in n or "water_processing" in n
+               for n in d.notes)
+    # rollup: ~61 t of chain drags ~1 MW of power -> the domain constant again
+    assert d.chain_mass_t == pytest.approx(61.0, abs=1.0)
+    assert d.chain_avg_kw == pytest.approx(1050, abs=15)
+    assert d.fission_units == 27
+    assert d.total_mass_t == pytest.approx(265, abs=5)
+
+
+def test_chain_design_custom_target(catalog, baseline):
+    engine = IsruEngine(catalog, baseline)
+    d = engine.size_chain(target_tonnes_per_synod=280)
+    # ~pilot-scale target: one of each suffices except nothing extra
+    assert all(s.units_required >= 1 for s in d.steps)
+    assert d.steps[0].units_required >= 1
+    small = {s.key: s.units_required for s in d.steps}
+    assert small["electrolysis"] == 2  # 23.3 kg/hr needs 2 electrolyzers

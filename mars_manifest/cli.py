@@ -112,6 +112,9 @@ def main(argv: list[str] | None = None) -> int:
     p_isru = sub.add_parser("isru", help="ISRU chain rates, energy budget, bottleneck")
     p_isru.add_argument("mission")
     p_isru.add_argument("--scenario", default="baseline")
+    p_isru.add_argument("--design", nargs="?", const=-1.0, type=float, metavar="TONNES",
+                        help="Also print a rate-matched chain design for a target of "
+                             "TONNES per synod (default: one return load)")
 
     p_plan = sub.add_parser("plan", help="Plan a campaign across windows")
     p_plan.add_argument("campaign")
@@ -187,7 +190,11 @@ def main(argv: list[str] | None = None) -> int:
         from .isru import IsruEngine
         a = manager.resolve(args.scenario)
         mission = load_mission(args.mission, catalog)
-        print(rpt.isru_markdown(IsruEngine(catalog, a).assess(mission)))
+        engine = IsruEngine(catalog, a)
+        print(rpt.isru_markdown(engine.assess(mission)))
+        if args.design is not None:
+            target = None if args.design < 0 else args.design
+            print(rpt.chain_design_markdown(engine.size_chain(target_tonnes_per_synod=target)))
         return 0
 
     if args.command in ("plan", "report"):

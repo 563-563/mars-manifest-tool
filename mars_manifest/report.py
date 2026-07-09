@@ -132,6 +132,25 @@ def packing_markdown(packing: PackingResult) -> str:
     return "\n".join(parts)
 
 
+def chain_design_markdown(d) -> str:
+    parts = ["# Rate-matched chain design",
+             f"Target: {d.target_rate_kg_hr:,.1f} kg/hr nameplate "
+             f"(~{d.target_tonnes_per_synod:,.0f} t per synod at plant availability)", ""]
+    rows = [[s.key, s.component_id, f"{s.unit_rate_kg_hr:,.1f}", s.units_required,
+             f"{s.utilization:.0%}", s.mass_t, s.avg_kw] for s in d.steps]
+    parts += [_md_table(["Step", "Component", "Unit rate (kg/hr)", "Units", "Utilization",
+                         "Mass (t)", "Avg kW"], rows), ""]
+    parts += [_md_table(["Rollup", "Value"], [
+        ["Chain hardware", f"{d.chain_mass_t:,.1f} t / {d.chain_avg_kw:,.0f} kW avg"],
+        ["Fission required", f"{d.fission_units} units / {d.fission_mass_t:,.0f} t"],
+        ["Buffer battery", f"{d.buffer_battery_t:,.1f} t"],
+        ["**Total plant**", f"{d.total_mass_t:,.1f} t"],
+        ["Hardware cost", f"${d.cost_low_musd:,.0f}M-${d.cost_high_musd:,.0f}M"]]), ""]
+    if d.notes:
+        parts += ["## Granularity slack"] + [f"- {n}" for n in d.notes] + [""]
+    return "\n".join(parts)
+
+
 def loss_markdown(lt) -> str:
     if lt.tolerant:
         return ("## Loss tolerance\n"

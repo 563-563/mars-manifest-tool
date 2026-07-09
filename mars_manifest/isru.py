@@ -65,6 +65,41 @@ class IsruResult:
     warnings: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class DesignStep:
+    key: str
+    component_id: str
+    unit_rate_kg_hr: float     # propellant-equivalent capacity of ONE unit
+    units_required: int
+    utilization: float         # target / installed capacity
+    mass_t: float
+    avg_kw: float
+    cost_low_musd: float
+    cost_high_musd: float
+
+
+@dataclass(frozen=True)
+class ChainDesign:
+    """A rate-matched equipment buy for a target propellant production rate.
+
+    Answers 'what would we bring to bring the step rates into parallel?':
+    units per step are the minimum that meet the target, so utilization is
+    driven to 1.0 except where unit granularity (ceil) forces slack.
+    """
+    target_rate_kg_hr: float          # nameplate chain rate to hit
+    target_tonnes_per_synod: float    # expected output at plant availability
+    steps: tuple[DesignStep, ...]
+    chain_mass_t: float
+    chain_avg_kw: float
+    fission_units: int
+    fission_mass_t: float
+    buffer_battery_t: float
+    total_mass_t: float               # chain + power + storage
+    cost_low_musd: float
+    cost_high_musd: float
+    notes: tuple[str, ...]
+
+
 class IsruEngine:
     def __init__(self, catalog: Catalog, assumptions: Assumptions):
         self.catalog = catalog
@@ -75,6 +110,86 @@ class IsruEngine:
         for item in mission.manifest:
             qty[item.component_id] = qty.get(item.component_id, 0.0) + item.qty
         return self.assess_quantities(qty)
+
+    def size_chain(self, target_tonnes_per_synod: Optional[float] = None,
+                   target_rate_kg_hr: Optional[float] = None) -> ChainDesign:
+        """Rate-match the chain: minimum units per step to hit a target.
+
+        Default target: one return load per synod. Rates are nameplate; the
+        tonnes target is grossed up by plant availability.
+        """
+        import math
+
+        a = self.a
+        sol_hours = a.get("power.sol_hours")
+        window_sols = a.get("isru.production_sols_per_synod")
+        availability = a.get("isru.plant_availability", 1.0)
+        if target_rate_kg_hr is None:
+            tonnes = target_tonnes_per_synod or a.get("isru.return_propellant_t")
+            target_rate_kg_hr = tonnes * 1000.0 / (window_sols * sol_hours * availability)
+        expected_t = target_rate_kg_hr * sol_hours * availability * window_sols / 1000.0
+
+        # per-unit propellant-equivalent rates from a one-of-each assessment
+        one_each = {cid: 1.0 for cid in a.get("isru.chain_components").values()}
+        base = self.assess_quantities(one_each)
+
+        steps: list[DesignStep] = []
+        notes: list[str] = []
+        chain_mass = chain_kw = cost_lo = cost_hi = 0.0
+        for s in base.steps:
+            comp = self.catalog.get(s.component_id)
+            units = max(1, math.ceil(target_rate_kg_hr / s.propellant_rate_kg_hr))
+            util = target_rate_kg_hr / (units * s.propellant_rate_kg_hr)
+            steps.append(DesignStep(
+                key=s.key, component_id=s.component_id,
+                unit_rate_kg_hr=s.propellant_rate_kg_hr,
+                units_required=units, utilization=util,
+                mass_t=units * comp.unit_mass_t,
+                avg_kw=units * comp.peak_power_kw * comp.duty_cycle,
+                cost_low_musd=units * comp.unit_cost_musd_low,
+                cost_high_musd=units * comp.unit_cost_musd_high,
+            ))
+            chain_mass += steps[-1].mass_t
+            chain_kw += steps[-1].avg_kw
+            cost_lo += steps[-1].cost_low_musd
+            cost_hi += steps[-1].cost_high_musd
+            if util < 0.7:
+                notes.append(
+                    f"{s.key}: unit granularity leaves {1 - util:.0%} slack "
+                    f"({units}x units for {target_rate_kg_hr / s.propellant_rate_kg_hr:.2f}x demand)"
+                )
+
+        # control unit rides along (one per plant)
+        ctrl = self.catalog.get("isru_control") if "isru_control" in self.catalog else None
+        if ctrl:
+            chain_mass += ctrl.unit_mass_t
+            chain_kw += ctrl.peak_power_kw * ctrl.duty_cycle
+            cost_lo += ctrl.unit_cost_musd_low
+            cost_hi += ctrl.unit_cost_musd_high
+
+        fission_kwe = a.get("power.fission_unit_kwe")
+        fission_units = math.ceil(chain_kw / fission_kwe)
+        fission_mass = fission_units * a.get("power.fission_unit_mass_t")
+        buffer_t = chain_kw * a.get("power.fission_buffer_hours") / a.get("power.battery_wh_per_kg")
+        fission_comp_id = a.get("power.fission_component")
+        fission_comp = self.catalog.get(fission_comp_id)
+        cost_lo += fission_units * fission_comp.unit_cost_musd_low
+        cost_hi += fission_units * fission_comp.unit_cost_musd_high
+
+        return ChainDesign(
+            target_rate_kg_hr=target_rate_kg_hr,
+            target_tonnes_per_synod=expected_t,
+            steps=tuple(steps),
+            chain_mass_t=chain_mass,
+            chain_avg_kw=chain_kw,
+            fission_units=fission_units,
+            fission_mass_t=fission_mass,
+            buffer_battery_t=buffer_t,
+            total_mass_t=chain_mass + fission_mass + buffer_t,
+            cost_low_musd=cost_lo,
+            cost_high_musd=cost_hi,
+            notes=tuple(notes),
+        )
 
     def assess_quantities(self, quantities: dict[str, float]) -> IsruResult:
         a = self.a
