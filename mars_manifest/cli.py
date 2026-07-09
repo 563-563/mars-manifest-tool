@@ -105,6 +105,13 @@ def main(argv: list[str] | None = None) -> int:
     p_pack.add_argument("--launch-cost", dest="launch_cost",
                         choices=["aspirational", "operational", "near_term"])
     p_pack.add_argument("--scenario", default="baseline")
+    p_pack.add_argument("--policy", choices=["explicit", "balanced"])
+    p_pack.add_argument("--spares", action="store_true",
+                        help="Pack the spares overhead as explicit per-group cargo")
+
+    p_isru = sub.add_parser("isru", help="ISRU chain rates, energy budget, bottleneck")
+    p_isru.add_argument("mission")
+    p_isru.add_argument("--scenario", default="baseline")
 
     p_plan = sub.add_parser("plan", help="Plan a campaign across windows")
     p_plan.add_argument("campaign")
@@ -164,12 +171,20 @@ def main(argv: list[str] | None = None) -> int:
         mission = load_mission(args.mission, catalog)
         budget = BudgetEngine(catalog, a).compute(mission)
         packing = PackingEngine(catalog, a).pack(
-            mission, budget, tankers_per_ship=args.tankers, launch_cost_tier=args.launch_cost)
+            mission, budget, tankers_per_ship=args.tankers, launch_cost_tier=args.launch_cost,
+            policy=args.policy, include_spares=args.spares or None)
         print(rpt.packing_markdown(packing))
         if packing.warnings:
             print("\nWarnings:")
             for w in packing.warnings:
                 print(f"- {w}")
+        return 0
+
+    if args.command == "isru":
+        from .isru import IsruEngine
+        a = manager.resolve(args.scenario)
+        mission = load_mission(args.mission, catalog)
+        print(rpt.isru_markdown(IsruEngine(catalog, a).assess(mission)))
         return 0
 
     if args.command in ("plan", "report"):

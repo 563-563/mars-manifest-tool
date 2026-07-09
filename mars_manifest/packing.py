@@ -78,6 +78,10 @@ class PackingResult:
     ship_count: int
     launch: LaunchMath
     warnings: tuple[str, ...]
+    policy: str = "explicit"
+    # gate-bearing components carried on exactly one ship: losing that one
+    # ship on EDL loses the capability (component_id, readiness_gate)
+    single_points: tuple[tuple[str, str], ...] = ()
 
 
 class PackingEngine:
@@ -91,19 +95,67 @@ class PackingEngine:
         budget: Optional[BudgetResult] = None,
         tankers_per_ship: Optional[int] = None,
         launch_cost_tier: Optional[str] = None,
+        policy: Optional[str] = None,
+        include_spares: Optional[bool] = None,
     ) -> PackingResult:
         a = self.a
         mass_cap = a.get("fleet.payload_mass_per_ship_t")
         vol_cap = a.get("fleet.payload_volume_per_ship_m3")
+        policy = policy or mission.packing_policy
+        if policy not in ("explicit", "balanced"):
+            raise ValueError(f"Unknown packing policy '{policy}'")
+        include_spares = mission.pack_spares if include_spares is None else include_spares
         warnings: list[str] = []
 
-        items = self._expand_items(mission, budget)
+        items = self._expand_items(mission, budget, split_storage=(policy == "balanced"))
+        if include_spares:
+            if budget is None:
+                warnings.append("pack_spares requested but no budget supplied — spares not packed")
+            else:
+                items += self._spares_items(budget)
+
+        if policy == "balanced":
+            ships = self._pack_balanced(items, mission, mass_cap, vol_cap, warnings)
+        else:
+            ships = self._pack_explicit(items, mission, mass_cap, vol_cap, warnings)
+
+        reports = []
+        for idx in sorted(ships):
+            ship = ships[idx]
+            mass_util = ship.mass_t / mass_cap
+            vol_util = ship.volume_m3 / vol_cap
+            rollup = self._rollup(ship.items)
+            reports.append(ShipReport(
+                index=idx,
+                mass_t=ship.mass_t,
+                volume_m3=ship.volume_m3,
+                mass_utilisation=mass_util,
+                volume_utilisation=vol_util,
+                binding_constraint="mass" if mass_util >= vol_util else "volume",
+                items=tuple((cid, v[0]) for cid, v in sorted(rollup.items())),
+                manifest_detail=tuple((cid, v[0], v[1], v[2]) for cid, v in sorted(rollup.items())),
+            ))
+
+        ship_count = len(ships)
+        launch = self.launch_math(ship_count, tankers_per_ship, launch_cost_tier)
+        return PackingResult(
+            mission_id=mission.id,
+            ships=tuple(reports),
+            ship_count=ship_count,
+            launch=launch,
+            warnings=tuple(warnings),
+            policy=policy,
+            single_points=self._single_points(ships),
+        )
+
+    # -- packing strategies ------------------------------------------------
+
+    def _pack_explicit(self, items, mission, mass_cap, vol_cap, warnings):
+        """Honor ship pins; first-fit-decreasing for the rest."""
         ships: dict[int, PackedShip] = {}
         if mission.ships:
             for i in range(1, mission.ships + 1):
                 ships[i] = PackedShip(i)
-
-        # Pre-place explicit assignments, then first-fit-decreasing the rest.
         auto: list[PackItem] = []
         for item in items:
             if item.ship is not None:
@@ -135,33 +187,71 @@ class PackingEngine:
                 ships[new_idx] = PackedShip(new_idx, [item])
                 if mission.ships and new_idx > mission.ships:
                     warnings.append(f"Batch grew beyond declared {mission.ships} ships (ship {new_idx})")
+        return ships
 
-        reports = []
-        for idx in sorted(ships):
-            ship = ships[idx]
-            mass_util = ship.mass_t / mass_cap
-            vol_util = ship.volume_m3 / vol_cap
-            rollup = self._rollup(ship.items)
-            reports.append(ShipReport(
-                index=idx,
-                mass_t=ship.mass_t,
-                volume_m3=ship.volume_m3,
-                mass_utilisation=mass_util,
-                volume_utilisation=vol_util,
-                binding_constraint="mass" if mass_util >= vol_util else "volume",
-                items=tuple((cid, v[0]) for cid, v in sorted(rollup.items())),
-                manifest_detail=tuple((cid, v[0], v[1], v[2]) for cid, v in sorted(rollup.items())),
-            ))
+    def _pack_balanced(self, items, mission, mass_cap, vol_cap, warnings):
+        """Load-balance across the declared fleet with redundancy anti-affinity:
+        units of the same component prefer ships that don't already carry one,
+        so no single EDL loss takes out a whole capability class. Ship pins are
+        ignored under this policy."""
+        n = mission.ships or max(1, math.ceil(
+            sum(i.mass_t for i in items) / mass_cap))
+        ships = {i: PackedShip(i) for i in range(1, n + 1)}
+        ordered = sorted(items, key=lambda i: max(i.mass_t / mass_cap, i.volume_m3 / vol_cap),
+                         reverse=True)
 
-        ship_count = len(ships)
-        launch = self.launch_math(ship_count, tankers_per_ship, launch_cost_tier)
-        return PackingResult(
-            mission_id=mission.id,
-            ships=tuple(reports),
-            ship_count=ship_count,
-            launch=launch,
-            warnings=tuple(warnings),
-        )
+        def load_after(s: PackedShip, item: PackItem) -> float:
+            return max((s.mass_t + item.mass_t) / mass_cap,
+                       (s.volume_m3 + item.volume_m3) / vol_cap)
+
+        for item in ordered:
+            fits = [s for s in ships.values()
+                    if s.mass_t + item.mass_t <= mass_cap and s.volume_m3 + item.volume_m3 <= vol_cap]
+            if not fits:
+                if item.mass_t > mass_cap or item.volume_m3 > vol_cap:
+                    warnings.append(
+                        f"{item.component_id}: single unit exceeds ship capacity; placed on its own ship")
+                idx = max(ships) + 1
+                ships[idx] = PackedShip(idx, [item])
+                warnings.append(f"Batch grew beyond declared {n} ships (ship {idx})")
+                continue
+            fresh = [s for s in fits
+                     if not any(it.component_id == item.component_id for it in s.items)]
+            pool = fresh or fits
+            min(pool, key=lambda s: load_after(s, item)).items.append(item)
+        return ships
+
+    def _spares_items(self, budget: BudgetResult) -> list[PackItem]:
+        """Turn the spares overhead into explicit, packable per-group cargo,
+        chunked so the packer can spread it across ships."""
+        out: list[PackItem] = []
+        spares = budget.mass.spares_by_group
+        total = sum(spares.values()) or 1.0
+        chunk_t = 5.0
+        for group, mass in sorted(spares.items()):
+            if mass <= 0:
+                continue
+            vol = budget.volume.spares_m3 * (mass / total)
+            n_chunks = max(1, math.ceil(mass / chunk_t))
+            for _ in range(n_chunks):
+                out.append(PackItem(f"spares:{group}", f"Spares — {group}",
+                                    1, mass / n_chunks, vol / n_chunks))
+        return out
+
+    def _single_points(self, ships: dict[int, PackedShip]) -> tuple[tuple[str, str], ...]:
+        carriers: dict[str, set[int]] = {}
+        for idx, ship in ships.items():
+            for item in ship.items:
+                carriers.setdefault(item.component_id, set()).add(idx)
+        out = []
+        for cid, on_ships in sorted(carriers.items()):
+            if cid.startswith("spares:") or len(on_ships) != 1:
+                continue
+            if cid in self.catalog:
+                gate = self.catalog.get(cid).readiness_gate
+                if gate:
+                    out.append((cid, gate))
+        return tuple(out)
 
     def launch_math(
         self,
@@ -195,8 +285,12 @@ class PackingEngine:
 
     # ------------------------------------------------------------------
 
-    def _expand_items(self, mission: Mission, budget: Optional[BudgetResult]) -> list[PackItem]:
-        """Expand the manifest into unit-level pack items (+ auto power hardware)."""
+    def _expand_items(self, mission: Mission, budget: Optional[BudgetResult],
+                      split_storage: bool = False) -> list[PackItem]:
+        """Expand the manifest into unit-level pack items (+ auto power hardware).
+
+        split_storage breaks the aggregate battery block into module-sized
+        items so a balanced pack can spread storage across ships."""
         items: list[PackItem] = []
         for entry in mission.manifest:
             comp = self.catalog.get(entry.component_id)
@@ -218,8 +312,14 @@ class PackingEngine:
                                       gen.unit_volume_m3 * q, mission.power_ship))
             if hw.storage_t > 0:
                 sto = self.catalog.get(hw.storage_component_id)
-                items.append(PackItem(sto.id, sto.name, hw.storage_units, hw.storage_t,
-                                      hw.storage_m3, mission.power_ship))
+                if split_storage and hw.storage_units > 1:
+                    n = int(math.ceil(hw.storage_units))
+                    for _ in range(n):
+                        items.append(PackItem(sto.id, sto.name, hw.storage_units / n,
+                                              hw.storage_t / n, hw.storage_m3 / n))
+                else:
+                    items.append(PackItem(sto.id, sto.name, hw.storage_units, hw.storage_t,
+                                          hw.storage_m3, mission.power_ship))
         return items
 
     @staticmethod

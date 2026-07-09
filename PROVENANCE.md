@@ -43,6 +43,30 @@ the research grounding is `../SpaceX-to-Mars-Deep-Dive.md` (July 2026, cited).*
 | `fission_buffer_hours` | 6 | **D** | Engineering judgment (load-following/fault ride-through buffer). No source. Sets buffer battery at 14 t; ±2 h ⇒ ±4.7 t. |
 | `power_path` = fission | — | **B (as policy)** | The dust-storm math *is* the source: months-long global storms collapse solar ([deep dive §2, Problem 3](../SpaceX-to-Mars-Deep-Dive.md)); NASA's own Mars ISRU power planning assumes nuclear. The tool sizes both and surfaces the comparison, per spec. |
 
+## 2b. ISRU chain rates & energy (`isru.*`)
+
+Stoichiometry (water/CO₂/O₂ per kg CH₄) is computed from molar masses in
+`isru.py` — **Tier A**, not assumptions. The tunables:
+
+| Input | Value | Tier | Source & validation |
+|---|---|---|---|
+| `raptor_o_f_ratio` | 3.6 | **B** | Raptor mixture ratio, commonly cited ~3.6 ([Everyday Astronaut](https://everydayastronaut.com/raptor-engine/), [Wikipedia](https://en.wikipedia.org/wiki/SpaceX_Raptor)); some sources say ~3.8. Sensitivity flag: electrolysis co-produces 3.99 kg O₂ per kg CH₄, so above O/F ≈ 3.99 the chain needs supplemental O₂ (MOXIE-style CO₂ electrolysis) — the model warns when crossed. |
+| `electrolysis_kwh_per_kg_h2o` | 6.1 | **C** | = 55 kWh/kg H₂ ÷ 8.94 kg H₂O per kg H₂. System-level PEM runs ~55 kWh/kg H₂, alkaline ~50 ([CATF](https://cdn.catf.us/wp-content/uploads/2023/11/21103902/hydrogen-production-electrolysis.pdf), [EH2 whitepaper](https://eh2.com/wp-content/uploads/2025/01/Final_PEM_vs_Alkaline_December_2024_Whitepaper.pdf), [World Nuclear](https://world-nuclear.org/information-library/energy-and-the-environment/hydrogen-production-and-uses)); thermodynamic floor ~40. Terrestrial numbers — Mars packaging will be worse, not better. |
+| `co2_capture_kwh_per_kg_co2` | 0.7 | **D** | Cryo-freezing/adsorption of 6-mbar CO₂; literature spans ~0.3–2+ kWh/kg depending on method. Order-of-magnitude. |
+| `sabatier_support_kwh_per_kg_ch4` | 1.5 | **D** | Reaction is exothermic; this covers recycle compressors, controls, thermal management. Notional. |
+| `liquefaction_kwh_per_kg_propellant` | 0.8 | **C/D** | Cryocooler work for CH₄/O₂ + boil-off reliquefaction at Mars ambient; typical estimates ~0.5–1. |
+| `water_processing_kwh_per_kg_h2o` | 0.2 | **D** | Melt/filter/deionize energy per kg product water. Notional; excavation energy not yet modeled. |
+| `return_propellant_t` | 1,400 | **B** | Midpoint of the established 1,200–1,500 t per crewed return ship (HANDOFF §2, deep dive Problem 3). |
+| `production_sols_per_synod` | 600 | **D** | Usable production time between windows (~780-day synod minus commissioning/margin). |
+
+**Validation checks the model now reproduces from first principles:** specific
+energy ≈ **7.6 kWh/kg propellant** → one 1,400 t load ≈ **10.6 GWh** →
+**~720 kW continuous** chain power to fill one load per window — squarely the
+"~1 MW full-scale ISRU" domain constant (HANDOFF §2) once mining/thermal
+overheads are added. Net water ≈ **684 t per load** — the "hundreds of tonnes"
+grounding. Pilot chain (seeded quantities): **~21 kg/hr, electrolysis-limited**,
+~316 t per window = 23% of one load, ~7.5 years to a full load.
+
 ## 3. Overheads (`overheads.*`)
 
 | Input | Value | Tier | Source & validation |

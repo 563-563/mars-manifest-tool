@@ -30,6 +30,24 @@
       "spares_fraction_of_dry": 0.35,
       "contingency_fraction": 0.10
     },
+    "isru": {
+      "_comment": "Sabatier-chain rate & energy assumptions (see PROVENANCE.md). Stoichiometry is computed in isru.py from molar masses; these are efficiencies, timing, and the mixture ratio. Energies are system-level (include balance of plant).",
+      "raptor_o_f_ratio": 3.6,
+      "electrolysis_kwh_per_kg_h2o": 6.1,
+      "co2_capture_kwh_per_kg_co2": 0.7,
+      "sabatier_support_kwh_per_kg_ch4": 1.5,
+      "liquefaction_kwh_per_kg_propellant": 0.8,
+      "water_processing_kwh_per_kg_h2o": 0.2,
+      "return_propellant_t": 1400,
+      "production_sols_per_synod": 600,
+      "chain_components": {
+        "water_processing": "water_processing",
+        "electrolysis": "water_electrolysis",
+        "co2_capture": "co2_acquisition",
+        "sabatier": "sabatier_reactor",
+        "liquefaction": "cryo_liquefaction"
+      }
+    },
     "cost": {
       "per_launch_cost_musd": {
         "aspirational": 2,

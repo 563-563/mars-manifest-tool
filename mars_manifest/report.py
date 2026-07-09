@@ -113,7 +113,7 @@ def packing_markdown(packing: PackingResult) -> str:
              ", ".join(f"{cid} x{qty:g}" for cid, qty in s.items)]
             for s in packing.ships]
     lm = packing.launch
-    parts = ["## Ship packing", _md_table(
+    parts = [f"## Ship packing ({packing.policy})", _md_table(
         ["Ship", "Mass (t)", "Vol (m3)", "Mass util", "Vol util", "Binding", "Items"], rows), "",
         "## Launch math", _md_table(
             ["Metric", "Value"],
@@ -126,6 +126,34 @@ def packing_markdown(packing: PackingResult) -> str:
                if lm.split_rates else
                [[f"Rate @ {lm.launch_cost_tier}", f"${lm.per_launch_cost_musd:g}M/launch"]])
             + [["**Launch campaign cost**", f"${lm.launch_cost_musd:,.0f}M"]])]
+    if packing.single_points:
+        parts += ["", "## Single points of failure (one ship carries the whole capability)"]
+        parts += [f"- {cid} — sole carrier of gate `{gate}`" for cid, gate in packing.single_points]
+    return "\n".join(parts)
+
+
+def isru_markdown(r) -> str:
+    parts = ["# ISRU propellant chain", ""]
+    rows = [[("-> " if s.is_bottleneck else "") + s.key, s.component_id, f"{s.units:g}",
+             s.avg_kw, f"{s.throughput_kg_hr:,.1f} kg/hr {s.commodity}",
+             s.propellant_rate_kg_hr] for s in r.steps]
+    parts += [_md_table(["Step", "Component", "Units", "Avg kW", "Throughput",
+                         "Prop-equiv kg/hr"], rows), ""]
+    parts += ["## Production & energy", _md_table(
+        ["Metric", "Value"],
+        [["Chain rate (bottleneck: " + r.bottleneck + ")", f"{r.propellant_rate_kg_hr:,.1f} kg/hr"],
+         ["Propellant per sol", f"{r.propellant_kg_per_sol:,.0f} kg"],
+         ["Per production window", f"{r.tonnes_per_window:,.1f} t"],
+         ["One return load", f"{r.return_load_t:,.0f} t -> {r.fraction_of_return_load:.1%} per window"],
+         ["Time to one return load", f"{r.sols_to_return_load:,.0f} sols (~{r.years_to_return_load:,.1f} yr)"
+          if r.sols_to_return_load else "n/a"],
+         ["Net water demand", f"{r.net_water_kg_per_sol:,.0f} kg/sol; {r.water_for_return_load_t:,.0f} t per load"],
+         ["Specific energy", f"{r.spec_energy_kwh_per_kg:,.2f} kWh/kg propellant"],
+         ["Energy per return load", f"{r.energy_per_return_load_gwh:,.2f} GWh"],
+         ["Full-scale power (one load per window)", f"{r.full_scale_kw_required:,.0f} kW continuous"],
+         ["O2 balance", f"{r.o2_surplus_per_kg_ch4:+.2f} kg O2 per kg CH4 vs engine demand"]]), ""]
+    if r.warnings:
+        parts += ["## Findings"] + [f"- {w}" for w in r.warnings] + [""]
     return "\n".join(parts)
 
 

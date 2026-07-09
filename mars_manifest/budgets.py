@@ -51,6 +51,7 @@ class MassBudget:
     contingency_t: float
     grand_total_t: float
     by_group: dict[str, float] = field(default_factory=dict)
+    spares_by_group: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -159,15 +160,22 @@ class BudgetEngine:
         # group->fraction map; groups absent from the map fall back to the
         # flat fraction. Baseline keeps the flat §5.1 formula exactly.
         by_group_spares = a.get("overheads.spares_fraction_by_group", None)
-        if by_group_spares:
-            def gfrac(group: str) -> float:
-                return by_group_spares.get(group, spares_frac)
-            spares_t = sum(gfrac(c.group) * c.unit_mass_t * q
-                           for c, q in fixed_items if c.group != CONSUMABLES_GROUP)
-            spares_t += gfrac(self.catalog.get(hardware.generator_component_id).group) * gen_t
-            spares_t += gfrac(self.catalog.get(hardware.storage_component_id).group) * storage_t
-        else:
-            spares_t = spares_frac * spares_base_t
+
+        def gfrac(group: str) -> float:
+            return by_group_spares.get(group, spares_frac) if by_group_spares else spares_frac
+
+        spared_masses: dict[str, float] = {}
+        for c, q in fixed_items:
+            if c.group != CONSUMABLES_GROUP:
+                spared_masses[c.group] = spared_masses.get(c.group, 0.0) + c.unit_mass_t * q
+        if gen_t > 0:
+            g = self.catalog.get(hardware.generator_component_id).group
+            spared_masses[g] = spared_masses.get(g, 0.0) + gen_t
+        if storage_t > 0:
+            g = self.catalog.get(hardware.storage_component_id).group
+            spared_masses[g] = spared_masses.get(g, 0.0) + storage_t
+        spares_by_group = {g: gfrac(g) * m for g, m in spared_masses.items()}
+        spares_t = sum(spares_by_group.values())
         contingency_t = contingency_frac * (fixed_hw_t + gen_t + storage_t)
         by_group: dict[str, float] = {}
         for c, q in fixed_items:
@@ -181,6 +189,7 @@ class BudgetEngine:
             contingency_t=contingency_t,
             grand_total_t=fixed_hw_t + gen_t + storage_t + spares_t + contingency_t,
             by_group=by_group,
+            spares_by_group=spares_by_group,
         )
 
         # -- volume ---------------------------------------------------------

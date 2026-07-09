@@ -1,0 +1,44 @@
+# Same 26-component precursor batch as precursor_2026.yaml, but packed for
+# survivability instead of workbook fidelity:
+#   - packing_policy: balanced  -> load-balance across the fleet; units of the
+#     same component spread across different ships (anti-affinity), so one
+#     EDL loss doesn't take out a whole capability class
+#   - pack_spares: true         -> the spares overhead flies as explicit
+#     per-group cargo, distributed like everything else
+# Budgets are identical to the baseline mission (same manifest); only the
+# ship assignment changes. Compare: mars pack examples/precursor_2026.yaml
+id: precursor_2026_balanced
+window: "2026-11"
+objective: "Robotic precursor batch — balanced packing with distributed redundancy"
+crewed: false
+ships: 5
+packing_policy: balanced
+pack_spares: true
+
+manifest:
+  - {id: relay_ground_station}
+  - {id: landing_beacons}
+  - {id: recon_instruments}
+  - {id: optimus_robot}
+  - {id: rover_unpressurized}
+  - {id: cargo_crane}
+  - {id: robotic_maint_kit}
+  - {id: central_compute}
+  - {id: power_distribution}
+  - {id: thermal_control}
+  - {id: dust_mitigation}
+  - {id: logistics_kit}
+  - {id: co2_acquisition}
+  - {id: sabatier_reactor}
+  - {id: water_electrolysis}
+  - {id: cryo_liquefaction}
+  - {id: isru_control}
+  - {id: ice_prospecting}
+  - {id: excavator_rassor}
+  - {id: water_processing}
+  - {id: sintering_rig}
+  - {id: grading_tools}
+  - {id: habitat_module}
+  - {id: eclss_habitat}
+  - {id: radiation_shelter}
+  - {id: consumables_cache}

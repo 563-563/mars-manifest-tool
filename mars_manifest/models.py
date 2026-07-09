@@ -54,6 +54,8 @@ class Mission:
     ships: Optional[int] = None       # declared batch size (capacity checks / launch math)
     power_ship: Optional[int] = None  # ship that carries auto-sized generation + storage
     auto_power: bool = True           # auto-size power unless manifest places generators/storage
+    packing_policy: str = "explicit"  # "explicit" (honor ship pins) | "balanced" (spread + redundancy)
+    pack_spares: bool = False         # pack spares tonnage as explicit per-group cargo items
     manifest: list[ManifestItem] = field(default_factory=list)
 
     @classmethod
@@ -72,6 +74,8 @@ class Mission:
             ships=d.get("ships"),
             power_ship=d.get("power_ship"),
             auto_power=bool(d.get("auto_power", True)),
+            packing_policy=d.get("packing_policy", "explicit"),
+            pack_spares=bool(d.get("pack_spares", False)),
             manifest=items,
         )
 

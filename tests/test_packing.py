@@ -66,3 +66,43 @@ def test_auto_assignment_without_explicit_ships(catalog, baseline, precursor):
     for s in packed.ships:
         assert s.mass_t <= 100
         assert s.volume_m3 <= 1000
+
+
+def test_balanced_packing_spreads_redundancy(catalog, baseline):
+    from mars_manifest.cli import load_mission
+    from pathlib import Path
+    from mars_manifest.budgets import BudgetEngine
+    mission = load_mission(Path(__file__).resolve().parents[1] / "examples" / "precursor_2026_balanced.yaml", catalog)
+    budget = BudgetEngine(catalog, baseline).compute(mission)
+    packed = PackingEngine(catalog, baseline).pack(mission, budget)
+    assert packed.policy == "balanced"
+    assert packed.ship_count == 5
+    # fission units spread across at least 4 ships (anti-affinity)
+    fission_ships = [s.index for s in packed.ships
+                     if any(cid == "fission_unit" for cid, _ in s.items)]
+    assert len(fission_ships) >= 4
+    # loads actually balanced: no near-empty ship, no dominant ship
+    masses = [s.mass_t for s in packed.ships]
+    assert min(masses) > 25 and max(masses) < 60
+    # spares fly as explicit cargo: packed total = grand total - contingency
+    packed_mass = sum(masses)
+    expected = budget.mass.grand_total_t - budget.mass.contingency_t
+    assert packed_mass == pytest.approx(expected, abs=0.1)
+    for s in packed.ships:
+        assert s.mass_t <= 100 and s.volume_m3 <= 1000
+
+
+def test_single_point_of_failure_analysis(catalog, baseline, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    budget = BudgetEngine(catalog, baseline).compute(precursor)
+    packed = PackingEngine(catalog, baseline).pack(precursor, budget)
+    spof_ids = {cid for cid, _ in packed.single_points}
+    # one crane, one habitat, one ECLSS -> whole gates ride on one hull each
+    assert {"cargo_crane", "habitat_module", "eclss_habitat"} <= spof_ids
+    # multi-unit items spread by qty are not single points under balanced packing
+    from mars_manifest.cli import load_mission
+    from pathlib import Path
+    balanced = load_mission(Path(__file__).resolve().parents[1] / "examples" / "precursor_2026_balanced.yaml", catalog)
+    b2 = BudgetEngine(catalog, baseline).compute(balanced)
+    p2 = PackingEngine(catalog, baseline).pack(balanced, b2)
+    assert "fission_unit" not in {cid for cid, _ in p2.single_points}
