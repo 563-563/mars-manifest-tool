@@ -62,7 +62,12 @@ class WindowResult:
     propellant_produced_t: float       # this window's production
     propellant_cumulative_t: float
     power_derate: float                # 1.0 = installed generation covers the load
-    warnings: tuple[str, ...]
+    # what's physically on the surface after this window (cumulative)
+    surface_hardware_t: float                                  # catalog hardware only
+    surface_by_group: dict[str, float] = field(default_factory=dict)
+    surface_inventory: tuple[tuple[str, float, float], ...] = ()  # (id, qty, mass_t)
+    surface_avg_load_kw: float = 0.0
+    warnings: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -155,6 +160,20 @@ class CampaignPlanner:
             for mission in window.missions:
                 warnings.extend(self._advisories(mission, window, state))
 
+            # surface snapshot: what is physically on Mars after this window
+            inventory = []
+            by_group: dict[str, float] = {}
+            load_kw = 0.0
+            for cid, qty in sorted(state.delivered.items()):
+                if cid not in self.catalog:
+                    continue
+                comp = self.catalog.get(cid)
+                mass = comp.unit_mass_t * qty
+                inventory.append((cid, qty, mass))
+                by_group[comp.group] = by_group.get(comp.group, 0.0) + mass
+                if comp.power_role == "consumer":
+                    load_kw += comp.peak_power_kw * comp.duty_cycle * qty
+
             cumulative["mass_delivered_t"] += w_mass
             cumulative["ships"] += int(w_ships)
             cumulative["total_launches"] += int(w_launches)
@@ -181,6 +200,10 @@ class CampaignPlanner:
                 propellant_produced_t=produced_t,
                 propellant_cumulative_t=state.propellant_produced_t,
                 power_derate=derate,
+                surface_hardware_t=sum(m for _, _, m in inventory),
+                surface_by_group=by_group,
+                surface_inventory=tuple(inventory),
+                surface_avg_load_kw=load_kw,
                 warnings=tuple(warnings),
             ))
 

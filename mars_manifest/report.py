@@ -442,6 +442,21 @@ def campaign_xlsx(result: CampaignResult, path: str | Path) -> Path:
         rows.append([w.window_id, ", ".join(w.capabilities_after)])
     _sheet_rows(ws, rows)
 
+    ws = wb.create_sheet("Surface Inventory")
+    groups = sorted({g for w in result.windows for g in w.surface_by_group})
+    rows = [["Cumulative mass on surface (t)"] + [w.window_id for w in result.windows]]
+    for g in groups:
+        rows.append([g] + [w.surface_by_group.get(g, 0.0) for w in result.windows])
+    rows.append(["TOTAL hardware"] + [w.surface_hardware_t for w in result.windows])
+    rows.append(["Avg surface load (kW)"] + [w.surface_avg_load_kw for w in result.windows])
+    rows.append(["Installed generation (kWe)"] + [w.installed_generation_kwe for w in result.windows])
+    rows.append(["Propellant banked (t)"] + [w.propellant_cumulative_t for w in result.windows])
+    rows.append([""])
+    rows.append(["Final inventory", "Qty", "Mass (t)"])
+    for cid, qty, mass in result.windows[-1].surface_inventory:
+        rows.append([cid, qty, mass])
+    _sheet_rows(ws, rows)
+
     if result.violations:
         ws = wb.create_sheet("Violations")
         _sheet_rows(ws, [["Violation"]] + [[v] for v in result.violations])

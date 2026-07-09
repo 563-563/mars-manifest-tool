@@ -27,6 +27,18 @@ mars compare optimistic conservative --campaign examples/campaign_4window.yaml
 mars report examples/campaign_4window.yaml --format xlsx --out out/campaign.xlsx
 ```
 
+## Program structure
+
+**`examples/program_plan.yaml` is the working baseline campaign:**
+loss-tolerant redundant precursor (window 0) → rate-matched fuel factory
+(window 1, gate `return_propellant_proven` retires 2028-12) → second plant +
+habitat cluster (window 2) → first crew (window 3, arrives with ~10,000 t of
+propellant banked). All waves balanced-packed with spares as explicit cargo.
+
+Historic fixtures kept for regression: `precursor_2026.yaml` (workbook-pinned,
+guards the HANDOFF §7 contract), `precursor_2026_balanced.yaml` (packing-policy
+comparison), `campaign_4window.yaml` (gate-timing fixture).
+
 ## Layout
 
 - `mars_manifest/` — pure engines (`budgets`, `power`, `packing`, `campaign`,
