@@ -30,7 +30,7 @@ def test_per_ship_rollup_matches_workbook(packed):
     # everything under 100 t / 1,000 m3
     for s in packed.ships:
         assert s.mass_t <= 100
-        assert s.volume_m3 <= 1000
+        assert s.volume_m3 <= 614
 
 
 def test_launch_math_low_and_high(catalog, baseline, precursor):
@@ -65,7 +65,7 @@ def test_auto_assignment_without_explicit_ships(catalog, baseline, precursor):
     assert packed.ship_count <= 5
     for s in packed.ships:
         assert s.mass_t <= 100
-        assert s.volume_m3 <= 1000
+        assert s.volume_m3 <= 614
 
 
 def test_balanced_packing_spreads_redundancy(catalog, baseline):
@@ -81,9 +81,11 @@ def test_balanced_packing_spreads_redundancy(catalog, baseline):
     fission_ships = [s.index for s in packed.ships
                      if any(cid == "fission_unit" for cid, _ in s.items)]
     assert len(fission_ships) >= 4
-    # loads actually balanced: no near-empty ship, no dominant ship
+    # loads actually balanced: no near-empty ship, no dominant ship. At the
+    # verified 614 m3 bay, balance is max(mass, volume)-driven, so the
+    # habitat-carrying ship rightly runs lighter on mass.
     masses = [s.mass_t for s in packed.ships]
-    assert min(masses) > 25 and max(masses) < 60
+    assert min(masses) > 20 and max(masses) < 60
     # spares fly as explicit cargo: packed total = grand total - contingency
     packed_mass = sum(masses)
     expected = budget.mass.grand_total_t - budget.mass.contingency_t

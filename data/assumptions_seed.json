@@ -3,7 +3,7 @@
   "baseline": {
     "fleet": {
       "payload_mass_per_ship_t": 100,
-      "payload_volume_per_ship_m3": 1000,
+      "payload_volume_per_ship_m3": 614,
       "packing_efficiency": 0.65,
       "tankers_per_ship": 16
     },
@@ -13,7 +13,7 @@
       "dust_storm_autonomy_days": 5,
       "diversity_factor": 0.85,
       "solar_yield_w_per_m2": 30,
-      "solar_kg_per_m2": 1.5,
+      "solar_kg_per_m2": 4.0,
       "battery_wh_per_kg": 150,
       "battery_kwh_per_m3": 300,
       "fission_unit_kwe": 40,

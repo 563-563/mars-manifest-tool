@@ -95,7 +95,9 @@ windows:
       - id: buildout_2035
         objective: "Duplicate the fuel factory; stage the crewed-era base"
         crewed: false
-        ships: 10
+        # 11 ships: at the verified 614 m3 bay this window is volume-bound
+        # (habitat cluster + caches), not mass-bound
+        ships: 11
         packing_policy: balanced
         pack_spares: true
         manifest:
