@@ -157,7 +157,8 @@ class RequirementsEngine:
             return w.power_derate >= 1.0
         if kind == "fits_fleet":
             cap = self.a.get("fleet.payload_mass_per_ship_t")
-            return w.mass_delivered_t <= w.ships * cap
+            margin = verify.get("margin", 0.0)
+            return w.mass_delivered_t <= w.ships * cap * (1.0 - margin)
         if kind == "loss_tolerant":
             watched = set(verify.get("capabilities", []))
             idx = windows.index(w)

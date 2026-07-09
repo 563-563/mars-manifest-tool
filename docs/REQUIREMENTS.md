@@ -2,7 +2,7 @@
 
 Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: PASS / FAIL across all windows.
 
-**CLOSED 21 · EARLY 2 · PASS 3**
+**CLOSED 21 · EARLY 2 · PASS 4**
 
 ## Buy-off by flight window
 - **2026-11**: L1-EDL-01, L2-EDL-02, L1-NAV-01, L1-PWR-01, L2-PWR-02, L1-H2O-01, L2-PROP-02, L2-LS-02, L1-HAB-01, L1-COM-01, L1-AUT-01, L1-MOB-01, L1-INF-01
@@ -38,4 +38,5 @@ Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: 
 | &nbsp;&nbsp;L1-MOB-01 | Surface mobility for cargo and instruments shall be operational from the first window. | Demonstration | 2026-11 | 2026-11 | CLOSED |
 | &nbsp;&nbsp;L1-INF-01 | Cargo offload, power distribution, and site logistics shall be operational from the first window. | Demonstration | 2026-11 | 2026-11 | CLOSED |
 | &nbsp;&nbsp;L1-LOG-01 | Every flight window's manifest shall fit within its declared fleet's mass capacity. | Analysis | every window | — | PASS |
+| &nbsp;&nbsp;&nbsp;&nbsp;L2-LOG-03 | Every flight window shall retain at least 10% fleet mass margin for growth and late additions. | Analysis | every window | — | PASS |
 | &nbsp;&nbsp;L1-LOG-02 | No single cargo-ship loss in any window shall cost a schedule-critical capability (power, water, propellant chain, comms, autonomy, infrastructure, mobility, precision landing), accounting for hardware already on the surface. | Analysis | every window | — | PASS |
