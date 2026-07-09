@@ -31,11 +31,12 @@ mars report examples/campaign_4window.yaml --format xlsx --out out/campaign.xlsx
 
 ## Program structure
 
-**`examples/program_plan.yaml` is the working baseline campaign:**
-loss-tolerant redundant precursor (window 0) → rate-matched fuel factory
-(window 1, gate `return_propellant_proven` retires 2028-12) → second plant +
-habitat cluster (window 2) → first crew (window 3, arrives with ~10,000 t of
-propellant banked). All waves balanced-packed with spares as explicit cargo.
+**`examples/program_plan.yaml` is the working baseline campaign** (2031 start —
+no 2026 flight per the Moon-first pivot): loss-tolerant redundant precursor
+(2031-01) → rate-matched fuel factory (2033-03, where `return_propellant_proven`
+retires with 2,686 t banked) → second plant + habitat cluster (2035-05) →
+first crew (2037-07, arriving with ~10,200 t of propellant banked). All waves
+balanced-packed with spares as explicit cargo.
 
 Historic fixtures kept for regression: `precursor_2026.yaml` (workbook-pinned,
 guards the HANDOFF §7 contract), `precursor_2026_balanced.yaml` (packing-policy
