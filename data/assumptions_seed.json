@@ -68,6 +68,24 @@
         "power.power_path": "solar",
         "_note": "Forces solar; dust-storm battery sizing should surface as a hard feasibility flag."
       }
+    },
+    "spacex_internal": {
+      "inherits": "baseline",
+      "overrides": {
+        "cost.cargo_ship_launch_cost_musd": 30,
+        "cost.tanker_launch_cost_musd": 12,
+        "cost.active_launch_cost": "operational",
+        "_note": "Internal marginal-cost basis, not customer prices. Cargo ships are EXPENDED on Mars (~$27M ship build per Payload Research + booster amortization + ops ~= $30M); tankers are reused (~$12M/flight at ~10 reuses on a ~$50M build, per Payload Research 2024-25 estimates). See PROVENANCE.md section 4."
+      }
+    },
+    "fsp_2025": {
+      "inherits": "baseline",
+      "overrides": {
+        "power.fission_unit_kwe": 100,
+        "power.fission_unit_mass_t": 15.0,
+        "power.fission_unit_volume_m3": 45,
+        "_note": "NASA Aug-2025 FSP directive (Duffy): >=100 kWe closed-Brayton unit sized for a 15 t heavy-class lander, launch by Q1 FY2030. Mass = lander ceiling (conservative); stowed volume notional. Same 0.15 t/kWe slope as the old 40 kWe/6 t spec."
+      }
     }
   },
   "windows": {

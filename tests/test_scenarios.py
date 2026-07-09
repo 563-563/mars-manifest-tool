@@ -68,3 +68,33 @@ def test_reports_render(tmp_path, manager, catalog, precursor, campaign_4w):
     wb = load_workbook(tmp_path / "budget.xlsx")
     summary = {r[0]: r[1] for r in wb["Summary"].iter_rows(values_only=True) if r[0]}
     assert summary["GRAND TOTAL MASS"] == pytest.approx(budget.mass.grand_total_t)
+
+
+def test_spacex_internal_splits_cargo_and_tanker_rates(manager, catalog, precursor):
+    from mars_manifest.packing import PackingEngine
+    a = manager.resolve("spacex_internal")
+    packed = PackingEngine(catalog, a).pack(precursor)
+    lm = packed.launch
+    assert lm.split_rates
+    assert lm.cargo_ship_rate_musd == 30
+    assert lm.tanker_rate_musd == 12
+    # 5 expended cargo ships x $30M + 80 reused tanker flights x $12M
+    assert lm.launch_cost_musd == pytest.approx(5 * 30 + 80 * 12)
+
+
+def test_fsp_2025_directive_scenario(manager, catalog, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    a = manager.resolve("fsp_2025")
+    b = BudgetEngine(catalog, a).compute(precursor)
+    # 100 kWe units: ceil(354.15/100) = 4 units at the 15 t lander ceiling
+    assert b.fission.units == 4
+    assert b.fission.mass_t == pytest.approx(60.0)
+    # heavier gen than the 40 kWe path (54 t) -> grand total rises
+    assert b.mass.grand_total_t == pytest.approx(245.1, abs=0.2)
+
+
+def test_baseline_launch_math_unchanged_by_split_feature(catalog, baseline, precursor):
+    from mars_manifest.packing import PackingEngine
+    lm = PackingEngine(catalog, baseline).pack(precursor).launch
+    assert not lm.split_rates
+    assert lm.launch_cost_musd == pytest.approx(85 * 90.0)

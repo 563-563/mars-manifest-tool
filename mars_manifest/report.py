@@ -120,9 +120,12 @@ def packing_markdown(packing: PackingResult) -> str:
             [["Cargo ship launches", lm.cargo_ship_launches],
              ["Tankers per ship", lm.tankers_per_ship],
              ["Tanker launches", lm.tanker_launches],
-             ["**Total launches**", lm.total_launches],
-             [f"Launch cost @ {lm.launch_cost_tier} (${lm.per_launch_cost_musd:g}M/launch)",
-              f"${lm.launch_cost_musd:,.0f}M"]])]
+             ["**Total launches**", lm.total_launches]]
+            + ([["Cargo-ship rate (expended)", f"${lm.cargo_ship_rate_musd:g}M/launch"],
+                ["Tanker rate (reused)", f"${lm.tanker_rate_musd:g}M/launch"]]
+               if lm.split_rates else
+               [[f"Rate @ {lm.launch_cost_tier}", f"${lm.per_launch_cost_musd:g}M/launch"]])
+            + [["**Launch campaign cost**", f"${lm.launch_cost_musd:,.0f}M"]])]
     return "\n".join(parts)
 
 

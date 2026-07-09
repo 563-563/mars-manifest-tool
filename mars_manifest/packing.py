@@ -60,8 +60,14 @@ class LaunchMath:
     tanker_launches: int
     total_launches: int
     launch_cost_tier: str
-    per_launch_cost_musd: float
+    per_launch_cost_musd: float        # tier rate (used for both legs unless split)
+    cargo_ship_rate_musd: float        # cargo ships are expended on Mars
+    tanker_rate_musd: float            # tankers are recovered and reused
     launch_cost_musd: float
+
+    @property
+    def split_rates(self) -> bool:
+        return self.cargo_ship_rate_musd != self.tanker_rate_musd
 
 
 @dataclass(frozen=True)
@@ -164,6 +170,11 @@ class PackingEngine:
         tankers = tankers_per_ship if tankers_per_ship is not None else a.get("fleet.tankers_per_ship")
         tier = launch_cost_tier or a.get("cost.active_launch_cost")
         per_launch = a.per_launch_cost(tier)
+        # Internal-cost refinement: a Mars cargo ship is expended (it stays on
+        # the surface) while tankers are recovered and reused, so scenarios may
+        # price the two legs separately. Default: both at the tier rate.
+        cargo_rate = a.get("cost.cargo_ship_launch_cost_musd", per_launch)
+        tanker_rate = a.get("cost.tanker_launch_cost_musd", per_launch)
         cargo = ship_count
         tanker_launches = ship_count * tankers
         total = cargo + tanker_launches
@@ -174,7 +185,9 @@ class PackingEngine:
             total_launches=total,
             launch_cost_tier=tier,
             per_launch_cost_musd=per_launch,
-            launch_cost_musd=total * per_launch,
+            cargo_ship_rate_musd=cargo_rate,
+            tanker_rate_musd=tanker_rate,
+            launch_cost_musd=cargo * cargo_rate + tanker_launches * tanker_rate,
         )
 
     # ------------------------------------------------------------------
