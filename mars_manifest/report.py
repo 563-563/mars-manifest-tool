@@ -239,7 +239,72 @@ def isru_markdown(r) -> str:
     return "\n".join(parts)
 
 
-def campaign_markdown(result: CampaignResult) -> str:
+# Layman-conversion anchors (rendering only — never used in engine math).
+# Sources: US EIA average household ~1.2 kW continuous; NASA BVAD minimum
+# acceptable net habitable volume ~25 m3/person for long-duration; open-loop
+# consumables ~5 kg/person-day (food+water+O2 with partial recycling);
+# ISS assembled mass ~420 t.
+_HOME_KW = 1.2
+_HABITABLE_M3_PER_PERSON = 25.0
+_CONSUMABLES_KG_PER_PERSON_DAY = 5.0
+_ISS_MASS_T = 420.0
+
+
+def window_enablements(w, catalog: Catalog, a: Assumptions) -> list[str]:
+    """Plain-English 'what this window buys us', derived from engine outputs."""
+    out: list[str] = []
+    inv = {cid: qty for cid, qty, _ in w.surface_inventory}
+    load_t = a.get("isru.return_propellant_t")
+    avail = a.get("isru.plant_availability", 1.0)
+    sol_h = a.get("power.sol_hours")
+
+    if any(m.crewed and not m.blocked for m in w.missions):
+        out.append("First crew lands at a base that is already powered, provisioned, "
+                   "and holds their return propellant.")
+
+    kwe = w.installed_generation_kwe
+    if kwe > 0:
+        out.append(f"{kwe:,.0f} kWe of storm-proof power — roughly "
+                   f"{kwe / _HOME_KW:,.0f} homes' worth, with "
+                   f"{kwe - w.surface_avg_load_kw:,.0f} kW of headroom over the installed load.")
+
+    kg_day = w.isru_rate_kg_hr * sol_h * avail
+    if kg_day > 0:
+        days_per_load = load_t * 1000.0 / kg_day
+        if days_per_load > 1200:
+            pace = f"a full Starship return load every {days_per_load / 365.25:,.1f} years (pilot proof, not production)"
+        else:
+            pace = f"a full Starship return load every {days_per_load / 30.4:,.0f} months"
+        out.append(f"Fuel plant produces ~{kg_day / 1000:,.1f} t of methalox per day — {pace}.")
+    if w.propellant_cumulative_t > 0:
+        out.append(f"{w.propellant_cumulative_t:,.0f} t of propellant banked — "
+                   f"{w.propellant_cumulative_t / load_t:,.1f} Starship return flights' worth.")
+
+    hab_qty = inv.get("habitat_module", 0)
+    if hab_qty:
+        m3 = hab_qty * catalog.get("habitat_module").unit_volume_m3
+        out.append(f"{m3:,.0f} m³ of pressurized volume beyond the ships — long-duration "
+                   f"habitable space for ~{m3 / _HABITABLE_M3_PER_PERSON:,.0f} people.")
+    cache_qty = inv.get("consumables_cache", 0)
+    if cache_qty:
+        cache_t = cache_qty * catalog.get("consumables_cache").unit_mass_t
+        person_days = cache_t * 1000.0 / _CONSUMABLES_KG_PER_PERSON_DAY
+        out.append(f"{cache_t:,.0f} t of cached food/water/O2 — a crew of 12 could live on "
+                   f"it for {person_days / 12 / 30.4:,.0f} months with zero recycling.")
+
+    robots = inv.get("optimus_robot", 0)
+    rovers = inv.get("rover_unpressurized", 0)
+    if robots or rovers:
+        out.append(f"Robot workforce: {robots:,.0f} humanoids and {rovers:,.0f} rovers — "
+                   f"the only 'crew' until 2033.")
+
+    out.append(f"{w.surface_hardware_t:,.0f} t of hardware on the surface — "
+               f"{w.surface_hardware_t / _ISS_MASS_T:,.1f}× the mass of the ISS.")
+    return out
+
+
+def campaign_markdown(result: CampaignResult, catalog: Optional[Catalog] = None,
+                      assumptions: Optional[Assumptions] = None) -> str:
     parts = [f"# Campaign — {result.campaign_id}", ""]
     rows = []
     for w in result.windows:
@@ -264,6 +329,13 @@ def campaign_markdown(result: CampaignResult) -> str:
          ["Launch cost ($M)", c["launch_cost_musd"]],
          ["Cargo cost ($M)", f"{c['cargo_cost_low_musd']:,.0f}-{c['cargo_cost_high_musd']:,.0f}"],
          ["First crew window", result.first_crew_window or "not achieved"]]), ""]
+
+    if catalog is not None and assumptions is not None:
+        parts += ["## What each window enables"]
+        for w in result.windows:
+            parts.append(f"### {w.window_id}")
+            parts += [f"- {line}" for line in window_enablements(w, catalog, assumptions)]
+        parts.append("")
 
     if result.violations:
         parts += ["## Gating violations"] + [f"- {v}" for v in result.violations] + [""]

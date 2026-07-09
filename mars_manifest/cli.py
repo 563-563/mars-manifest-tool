@@ -216,7 +216,7 @@ def main(argv: list[str] | None = None) -> int:
             path = rpt.campaign_xlsx(result, out)
             print(f"Wrote {path}")
         else:
-            md = rpt.campaign_markdown(result)
+            md = rpt.campaign_markdown(result, catalog, a)
             if args.out:
                 Path(args.out).write_text(md, encoding="utf-8")
                 print(f"Wrote {args.out}")

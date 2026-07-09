@@ -120,3 +120,16 @@ def test_ship_manifest_detail_sums_match(catalog, baseline, precursor):
     for s in packed.ships:
         assert sum(d[2] for d in s.manifest_detail) == pytest.approx(s.mass_t)
         assert sum(d[3] for d in s.manifest_detail) == pytest.approx(s.volume_m3)
+
+
+def test_window_enablements_read_like_english(manager, catalog, campaign_4w):
+    from mars_manifest.campaign import CampaignPlanner
+    from mars_manifest.report import window_enablements
+    a = manager.resolve("baseline")
+    planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+    result = planner.run(campaign_4w)
+    lines = window_enablements(result.windows[0], catalog, a)
+    text = " ".join(lines)
+    assert "kWe" in text and "methalox" in text and "ISS" in text
+    crew_lines = window_enablements(result.windows[-1], catalog, a)
+    assert any("First crew" in ln for ln in crew_lines)
