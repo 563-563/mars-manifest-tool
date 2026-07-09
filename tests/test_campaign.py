@@ -24,8 +24,12 @@ def test_four_windows_in_order(result):
 def test_precursor_window_unlocks_core_capabilities(result):
     w0 = result.windows[0]
     for flag in ("edl_proven", "power_baseload", "comms_established", "precision_landing",
-                 "water_supply", "habitat_ready", "life_support_closed", "radiation_managed"):
+                 "water_supply", "habitat_ready", "radiation_managed"):
         assert flag in w0.capabilities_after, f"{flag} should unlock after window 0"
+    # life support is gated on the 1000-sol ECLSS demonstration clock: the
+    # window-0 testbed has only ~600 sols of runtime by the next window
+    assert "life_support_closed" not in w0.capabilities_after
+    assert "life_support_closed" in result.windows[1].capabilities_after
     # return propellant is now gated on tonnes in the tank (1,400 t), not
     # hardware delivered: pilot chain makes ~269 t/window, so the gate retires
     # only after the window-2 scale-up

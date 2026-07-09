@@ -51,6 +51,27 @@
         "liquefaction": "cryo_liquefaction"
       }
     },
+    "lifecycle": {
+      "_comment": "Systems-lifecycle analysis config. risk_weights: relative severity of each gate, normalized ~100, derived from the deep-dive's six hard problems (orbital refueling is Earth-side and outside the surface campaign). crew_era_components: hardware whose function is only exercised when crew arrives; flying it early is idle mass UNLESS it is a demonstration article (demo_exempt_units: first N units count as testbeds, e.g. the 1000-day ECLSS proof).",
+      "sols_per_synod": 760,
+      "risk_weights": {
+        "edl_proven": 20,
+        "return_propellant_proven": 25,
+        "power_baseload": 15,
+        "life_support_closed": 15,
+        "radiation_managed": 10,
+        "water_supply": 5,
+        "autonomy_proven": 3,
+        "comms_established": 2,
+        "precision_landing": 2,
+        "habitat_ready": 2,
+        "infrastructure_ready": 0.5,
+        "mobility": 0.5
+      },
+      "crew_era_components": ["habitat_module", "eclss_habitat", "radiation_shelter", "consumables_cache"],
+      "demo_exempt_units": {"habitat_module": 1, "eclss_habitat": 1},
+      "shelf_life_components": ["consumables_cache"]
+    },
     "cost": {
       "per_launch_cost_musd": {
         "aspirational": 2,
@@ -156,7 +177,7 @@
       "power_baseload": {"min_installed_kwe": 100},
       "water_supply": {"all_of": ["ice_prospecting", "excavator_rassor", "water_processing"]},
       "return_propellant_proven": {"all_of": ["co2_acquisition", "sabatier_reactor", "water_electrolysis", "cryo_liquefaction", "isru_control"], "min_propellant_t": 1400},
-      "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"]},
+      "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"], "min_sols_on_surface": {"eclss_habitat": 1000}},
       "habitat_ready": {"all_of": ["habitat_module"]},
       "radiation_managed": {"all_of": ["radiation_shelter"]},
       "autonomy_proven": {"all_of": ["central_compute", "robotic_maint_kit"]},

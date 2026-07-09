@@ -21,7 +21,8 @@ mars catalog list [--group "ISRU"]
 mars catalog show water_electrolysis
 mars budget examples/precursor_2026.yaml [--scenario baseline] [--power solar|fission] [--format table|md|xlsx]
 mars pack   examples/precursor_2026.yaml [--tankers 10] [--launch-cost near_term] [--policy balanced] [--spares]
-mars isru   examples/precursor_2026.yaml   # Sabatier-chain rates, energy budget, bottleneck
+mars isru   examples/precursor_2026.yaml [--design]   # chain rates, energy, rate-matched buy
+mars lifecycle examples/program_plan.yaml   # risk buy-down curve + idle-hardware review
 mars plan   examples/campaign_4window.yaml [--format md|xlsx]
 mars compare optimistic conservative --campaign examples/campaign_4window.yaml
 mars report examples/campaign_4window.yaml --format xlsx --out out/campaign.xlsx

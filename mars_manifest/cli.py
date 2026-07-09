@@ -120,6 +120,10 @@ def main(argv: list[str] | None = None) -> int:
     p_plan.add_argument("campaign")
     add_common(p_plan)
 
+    p_life = sub.add_parser("lifecycle", help="Risk buy-down + idle-hardware review of a campaign")
+    p_life.add_argument("campaign")
+    p_life.add_argument("--scenario", default="baseline")
+
     p_cmp = sub.add_parser("compare", help="Compare two scenarios")
     p_cmp.add_argument("scenario_a")
     p_cmp.add_argument("scenario_b")
@@ -214,6 +218,14 @@ def main(argv: list[str] | None = None) -> int:
             else:
                 print(md)
         return 1 if result.violations else 0
+
+    if args.command == "lifecycle":
+        from .lifecycle import analyze
+        a = manager.resolve(args.scenario)
+        campaign = load_campaign(args.campaign, catalog)
+        planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+        print(rpt.lifecycle_markdown(analyze(planner.run(campaign), catalog, a)))
+        return 0
 
     if args.command == "compare":
         campaign = load_campaign(args.campaign, catalog) if args.campaign else None

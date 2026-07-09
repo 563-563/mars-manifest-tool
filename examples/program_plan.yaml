@@ -17,9 +17,45 @@ windows:
   - id: "2026-11"
     synod_index: 0
     transit_days: 210
-    objective: "Loss-tolerant precursor: prove EDL, power, pilot ISRU, habitat"
+    objective: "Loss-tolerant precursor: prove EDL, power, pilot ISRU, ECLSS testbed"
     missions:
-      - file: precursor_2026_redundant.yaml
+      - id: precursor_2026_program
+        objective: >-
+          Redundant on schedule-critical capabilities (power, ISRU, water,
+          comms, autonomy, infrastructure). Crew-era hardware deferred per
+          lifecycle review EXCEPT one habitat+ECLSS set, flown early as the
+          1000-sol life-support demonstration article. Caches and shelters
+          wait for window 2 (shelf life; passive hardware needs no demo).
+        crewed: false
+        ships: 5
+        packing_policy: balanced
+        pack_spares: true
+        manifest:
+          - {id: relay_ground_station, qty: 2}
+          - {id: landing_beacons, qty: 2}
+          - {id: central_compute, qty: 2}
+          - {id: robotic_maint_kit, qty: 2}
+          - {id: recon_instruments, qty: 1}
+          - {id: optimus_robot, qty: 10}
+          - {id: rover_unpressurized, qty: 2}
+          - {id: cargo_crane, qty: 2}
+          - {id: power_distribution, qty: 2}
+          - {id: logistics_kit, qty: 2}
+          - {id: thermal_control, qty: 1}
+          - {id: dust_mitigation, qty: 1}
+          - {id: co2_acquisition, qty: 2}
+          - {id: sabatier_reactor, qty: 2}
+          - {id: water_electrolysis, qty: 2}
+          - {id: cryo_liquefaction, qty: 2}
+          - {id: isru_control, qty: 2}
+          - {id: ice_prospecting, qty: 2}
+          - {id: excavator_rassor, qty: 2}
+          - {id: water_processing, qty: 2}
+          - {id: sintering_rig, qty: 1}
+          - {id: grading_tools, qty: 1}
+          # demonstration articles (demo-exempt in the lifecycle review)
+          - {id: habitat_module, qty: 1}
+          - {id: eclss_habitat, qty: 1}
 
   - id: "2028-12"
     synod_index: 1

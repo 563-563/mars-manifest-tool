@@ -45,7 +45,8 @@ def test_surface_state_lays_flat(plan_result):
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
     # two matched chains + the redundant pilot pair
     assert inv["water_electrolysis"] == 14
-    assert inv["habitat_module"] == 10
+    # one demo habitat early (lifecycle review), the rest staged windows 2-3
+    assert inv["habitat_module"] == 9
     # power generation is the biggest thing on Mars, as the research predicted
     top_group = max(final.surface_by_group, key=final.surface_by_group.get)
     assert top_group == "Power generation"

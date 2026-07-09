@@ -151,6 +151,27 @@ def chain_design_markdown(d) -> str:
     return "\n".join(parts)
 
 
+def lifecycle_markdown(rep) -> str:
+    parts = ["# Lifecycle review — risk buy-down & idle hardware", ""]
+    rows = [[p.window_id, ", ".join(p.retired) or "-", f"{p.weight_retired:.0f}",
+             f"{p.cumulative_fraction:.0%}"] for p in rep.risk_curve]
+    parts += ["## Risk buy-down curve", _md_table(
+        ["Window", "Gates retired", "Weight", "Cumulative risk retired"], rows), ""]
+    if rep.idle_items:
+        rows = [[i.component_id, i.delivered_window, f"{i.qty:g}", i.mass_t,
+                 i.idle_synods, i.tonne_years,
+                 f"{i.demo_exempt_qty:g}" if i.demo_exempt_qty else "",
+                 "SHELF LIFE" if i.shelf_life_flag else ""] for i in rep.idle_items]
+        parts += ["## Crew-era hardware timing", _md_table(
+            ["Component", "Delivered", "Qty", "Mass (t)", "Idle synods",
+             "Idle t-years", "Demo exempt", "Flag"], rows), "",
+            f"Total idle: **{rep.idle_tonne_years:,.0f} tonne-years** beyond the "
+            f"one-window verification margin.", ""]
+    if rep.findings:
+        parts += ["## Findings"] + [f"- {f}" for f in rep.findings] + [""]
+    return "\n".join(parts)
+
+
 def loss_markdown(lt) -> str:
     if lt.tolerant:
         return ("## Loss tolerance\n"

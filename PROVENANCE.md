@@ -76,6 +76,14 @@ Net water ≈ **684 t per load** — the "hundreds of tonnes" grounding. Pilot
 chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
 ~269 t per window = 19% of one load, ~8.8 years to a full load.
 
+## 2c. Lifecycle config (`lifecycle.*`)
+
+| Input | Tier | Source & validation |
+|---|---|---|
+| `risk_weights` | **D (structure B)** | Relative gate severities summing ~100, derived from the deep dive's six hard problems: return propellant 25, EDL 20, power 15, life support 15, radiation 10, remainder small. The *ranking* is well-sourced (deep dive §2); the numeric weights are judgment. Orbital refueling (Problem 1) is Earth-side and outside the surface campaign's scope. |
+| `min_sols_on_surface` (ECLSS 1,000 sols) | **B (as doctrine)** | The ~1,000-day life-support proof requirement (deep dive Problem 5; NASA ECLSS reliability studies). Forces the demonstration article to fly no later than two windows before crew — the one legitimate reason to land crew-era hardware early. |
+| `crew_era_components` / `demo_exempt_units` / `shelf_life_components` | **D** | Our taxonomy: hardware exercised only by crew; first habitat+ECLSS set exempted as the testbed; consumables flagged for shelf life when landed >1 synod early. |
+
 ## 3. Overheads (`overheads.*`)
 
 | Input | Value | Tier | Source & validation |

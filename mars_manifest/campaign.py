@@ -26,9 +26,11 @@ class SurfaceState:
     landings: int = 0
     propellant_produced_t: float = 0.0
     capabilities: set[str] = field(default_factory=set)
+    first_delivery_synod: dict[str, int] = field(default_factory=dict)
 
-    def add_delivery(self, component_id: str, qty: float) -> None:
+    def add_delivery(self, component_id: str, qty: float, synod_index: int = 0) -> None:
         self.delivered[component_id] = self.delivered.get(component_id, 0.0) + qty
+        self.first_delivery_synod.setdefault(component_id, synod_index)
 
 
 @dataclass(frozen=True)
@@ -138,7 +140,7 @@ class CampaignPlanner:
                 w_launch_cost += packing.launch.launch_cost_musd
                 w_cargo_low += budget.cost.cargo_low_musd
                 w_cargo_high += budget.cost.cargo_high_musd
-                self._deliver(mission, budget, state)
+                self._deliver(mission, budget, state, window.synod_index)
                 state.landings += packing.ship_count
 
             # ISRU production over the synod following this window's landings,
@@ -153,7 +155,7 @@ class CampaignPlanner:
                     f"load — ISRU production derated accordingly"
                 )
 
-            new_caps = self._evaluate_unlocks(state)
+            new_caps = self._evaluate_unlocks(state, window.synod_index)
             state.capabilities.update(new_caps)
             # Advisories run against post-window state: everything in a window
             # lands together, so same-window deliveries/unlocks satisfy deps.
@@ -217,14 +219,15 @@ class CampaignPlanner:
 
     # ------------------------------------------------------------------
 
-    def _deliver(self, mission: Mission, budget: BudgetResult, state: SurfaceState) -> None:
+    def _deliver(self, mission: Mission, budget: BudgetResult, state: SurfaceState,
+                 synod_index: int = 0) -> None:
         for item in mission.manifest:
-            state.add_delivery(item.component_id, item.qty)
+            state.add_delivery(item.component_id, item.qty, synod_index)
         hw = budget.power_hardware
         if hw.generator_units > 0:
-            state.add_delivery(hw.generator_component_id, hw.generator_units)
+            state.add_delivery(hw.generator_component_id, hw.generator_units, synod_index)
         if hw.storage_units > 0:
-            state.add_delivery(hw.storage_component_id, hw.storage_units)
+            state.add_delivery(hw.storage_component_id, hw.storage_units, synod_index)
         state.installed_generation_kwe += hw.installed_kwe
         state.installed_storage_kwh += hw.installed_storage_kwh
 
@@ -264,10 +267,13 @@ class CampaignPlanner:
             return 1.0
         return min(1.0, state.installed_generation_kwe / load_kw)
 
-    def _evaluate_unlocks(self, state: SurfaceState) -> set[str]:
+    def _evaluate_unlocks(self, state: SurfaceState, synod_index: int = 0) -> set[str]:
         """Data-driven capability rules. Supported conditions (ANDed):
         all_of / any_of (component ids delivered), min_installed_kwe,
-        min_landings, min_propellant_t (cumulative ISRU production)."""
+        min_landings, min_propellant_t (cumulative ISRU production),
+        min_sols_on_surface (demonstration clock, e.g. the 1000-day ECLSS proof)."""
+        sols_per_synod = self.a.get("lifecycle.sols_per_synod", 760)
+        production_sols = self.a.get("isru.production_sols_per_synod", 600)
         unlocked: set[str] = set()
         for flag, rule in self.unlocks.items():
             if flag in state.capabilities:
@@ -283,6 +289,14 @@ class CampaignPlanner:
                 ok = ok and state.landings >= rule["min_landings"]
             if "min_propellant_t" in rule:
                 ok = ok and state.propellant_produced_t >= rule["min_propellant_t"]
+            if "min_sols_on_surface" in rule:
+                for cid, need_sols in rule["min_sols_on_surface"].items():
+                    if cid not in state.first_delivery_synod:
+                        ok = False
+                        break
+                    elapsed = ((synod_index - state.first_delivery_synod[cid]) * sols_per_synod
+                               + production_sols)
+                    ok = ok and elapsed >= need_sols
             if ok:
                 unlocked.add(flag)
         return unlocked
