@@ -1,0 +1,191 @@
+# Program requirements tree — decomposed, verifiable, bought off per flight window.
+#
+# Levels: L0 mission need -> L1 program requirements (map 1:1 to capability
+# gates) -> L2 decomposed requirements with quantitative, machine-checkable
+# verification criteria evaluated against the campaign run.
+#
+# verify.method uses the standard AIDT vocabulary:
+#   Analysis | Inspection | Demonstration | Test
+# verify.kind is the machine criterion (see requirements.py):
+#   capability | min_qty | min_installed_kwe | min_propellant_t | min_landings |
+#   isru_rate | power_covers_load (recurring) | fits_fleet (recurring) |
+#   loss_tolerant (recurring)
+# Requirements without a verify block close by rollup (all children closed).
+#
+# planned_window: where the program plan intends to buy the requirement off.
+# The evaluator reports CLOSED / EARLY / LATE / OPEN against it.
+
+requirements:
+  - id: L0-MSN-01
+    level: 0
+    statement: >-
+      The first crew shall arrive at a powered, provisioned, and fueled Mars
+      base with a demonstrated return path, and no single cargo-ship loss
+      shall defeat the campaign.
+    rationale: The program's definition of done for the pre-crew era.
+    source: HANDOFF.md section 0; SpaceX-to-Mars deep dive section 6
+
+  # ---- landing & navigation -------------------------------------------------
+  - id: L1-EDL-01
+    parent: L0-MSN-01
+    statement: The program shall demonstrate survivable EDL of a 100 t-class cargo ship on Mars.
+    rationale: Heaviest object ever landed is ~1 t; 20-100x beyond demonstrated.
+    source: Deep dive Problem 2 (Braun et al., NTRS 20170008725)
+    verify: {method: Demonstration, kind: capability, flag: edl_proven}
+    planned_window: "2026-11"
+  - id: L2-EDL-02
+    parent: L1-EDL-01
+    statement: At least 5 successful cargo landings shall be accumulated before crew commits.
+    rationale: Statistical confidence in EDL beyond a single success.
+    verify: {method: Demonstration, kind: min_landings, n: 5}
+    planned_window: "2026-11"
+  - id: L1-NAV-01
+    parent: L0-MSN-01
+    statement: Follow-on ships shall land within meters of the base (precision landing aids operating).
+    source: Manifest section G
+    verify: {method: Demonstration, kind: capability, flag: precision_landing}
+    planned_window: "2026-11"
+
+  # ---- power ------------------------------------------------------------------
+  - id: L1-PWR-01
+    parent: L0-MSN-01
+    statement: The base shall have continuous, dust-storm-tolerant baseload power.
+    rationale: Power is the tall pole; solar collapses in global storms.
+    source: Deep dive Problem 3; HANDOFF section 2
+    verify: {method: Demonstration, kind: capability, flag: power_baseload}
+    planned_window: "2026-11"
+  - id: L2-PWR-02
+    parent: L1-PWR-01
+    statement: Installed generation shall reach 500 kWe or more in the first window.
+    rationale: Pilot ISRU + margin; redundant fleet delivers ~640 kWe.
+    verify: {method: Test, kind: min_installed_kwe, kwe: 500}
+    planned_window: "2026-11"
+  - id: L2-PWR-03
+    parent: L1-PWR-01
+    statement: Installed generation shall cover the delivered average load at every window.
+    rationale: A power-starved plant silently derates ISRU production.
+    verify: {method: Analysis, kind: power_covers_load, recurring: true}
+  - id: L2-PWR-04
+    parent: L1-PWR-01
+    statement: Installed generation shall reach 1.5 MWe or more before crew arrival.
+    rationale: Full-scale ISRU (~850 kW chain) plus habitat and margin.
+    verify: {method: Test, kind: min_installed_kwe, kwe: 1500}
+    planned_window: "2031-01"
+
+  # ---- water & propellant -------------------------------------------------------
+  - id: L1-H2O-01
+    parent: L0-MSN-01
+    statement: The program shall confirm and exploit accessible water ice (prospect, excavate, process).
+    source: Deep dive Problem 3; Manifest section C
+    verify: {method: Demonstration, kind: capability, flag: water_supply}
+    planned_window: "2026-11"
+  - id: L1-PROP-01
+    parent: L0-MSN-01
+    statement: The program shall produce and store a full crewed-return propellant load (1,400 t methalox) before crew commits.
+    rationale: The single milestone that makes a crewed return credible; the deciding risk.
+    source: Deep dive Problem 3; MOXIE reality check
+    verify: {method: Demonstration, kind: capability, flag: return_propellant_proven}
+    planned_window: "2028-12"
+  - id: L2-PROP-02
+    parent: L1-PROP-01
+    statement: An integrated pilot chain shall run at 40 kg/hr propellant-equivalent or more in the first window.
+    rationale: Proves the full loop (capture-react-electrolyze-liquefy-store) at pilot scale.
+    verify: {method: Test, kind: isru_rate, kg_hr: 40}
+    planned_window: "2026-11"
+  - id: L2-PROP-03
+    parent: L1-PROP-01
+    statement: Chain nameplate rate shall reach one return load per synod (>= 112 kg/hr).
+    rationale: The rate-matched fuel-factory buy (size_chain design point).
+    verify: {method: Test, kind: isru_rate, kg_hr: 112}
+    planned_window: "2028-12"
+  - id: L2-PROP-04
+    parent: L1-PROP-01
+    statement: Cumulative propellant produced and stored shall reach 1,400 t before crew departure.
+    verify: {method: Test, kind: min_propellant_t, tonnes: 1400}
+    planned_window: "2028-12"
+  - id: L2-PROP-05
+    parent: L1-PROP-01
+    statement: At least two independent Sabatier chains shall exist on the surface before crew.
+    rationale: Plant-level redundancy; a chain fault must not strand the crew.
+    verify: {method: Inspection, kind: min_qty, component: sabatier_reactor, qty: 4}
+    planned_window: "2031-01"
+
+  # ---- life support, habitat, radiation ---------------------------------------
+  - id: L1-LS-01
+    parent: L0-MSN-01
+    statement: A near-closed life-support loop shall be demonstrated on Mars for 1,000 sols before crew.
+    rationale: ISS-class ECLSS without spares gives <1% mission reliability; demo runtime is the proof.
+    source: Deep dive Problem 5; NTRS ECLSS reliability studies
+    verify: {method: Demonstration, kind: capability, flag: life_support_closed}
+    planned_window: "2031-01"
+  - id: L2-LS-02
+    parent: L1-LS-01
+    statement: The ECLSS demonstration article shall be landed in the first window (demo clock).
+    rationale: 1,000 sols of runtime requires delivery no later than 2 windows before crew.
+    verify: {method: Inspection, kind: min_qty, component: eclss_habitat, qty: 1}
+    planned_window: "2026-11"
+  - id: L2-LS-03
+    parent: L1-LS-01
+    statement: Pre-landed consumable caches of 90 t or more shall be on the surface before crew.
+    rationale: Survival margin independent of ISRU and resupply.
+    verify: {method: Inspection, kind: min_qty, component: consumables_cache, qty: 6}
+    planned_window: "2031-01"
+  - id: L1-HAB-01
+    parent: L0-MSN-01
+    statement: Pressurized habitat volume beyond the landed ships shall be ready before crew.
+    verify: {method: Demonstration, kind: capability, flag: habitat_ready}
+    planned_window: "2026-11"
+  - id: L2-HAB-02
+    parent: L1-HAB-01
+    statement: At least 5 habitat modules shall be on the surface before crew arrival.
+    verify: {method: Inspection, kind: min_qty, component: habitat_module, qty: 5}
+    planned_window: "2031-01"
+  - id: L1-RAD-01
+    parent: L0-MSN-01
+    statement: A storm shelter and radiation protection shall be in place before crew.
+    source: Deep dive Problem 4 (RAD dose data)
+    verify: {method: Inspection, kind: capability, flag: radiation_managed}
+    planned_window: "2031-01"
+
+  # ---- operations backbone -----------------------------------------------------
+  - id: L1-COM-01
+    parent: L0-MSN-01
+    statement: A surface-to-Earth communications link shall operate from the first window.
+    verify: {method: Demonstration, kind: capability, flag: comms_established}
+    planned_window: "2026-11"
+  - id: L1-AUT-01
+    parent: L0-MSN-01
+    statement: The base shall operate autonomously under a 4-22 minute one-way light delay.
+    verify: {method: Demonstration, kind: capability, flag: autonomy_proven}
+    planned_window: "2026-11"
+  - id: L1-MOB-01
+    parent: L0-MSN-01
+    statement: Surface mobility for cargo and instruments shall be operational from the first window.
+    verify: {method: Demonstration, kind: capability, flag: mobility}
+    planned_window: "2026-11"
+  - id: L1-INF-01
+    parent: L0-MSN-01
+    statement: Cargo offload, power distribution, and site logistics shall be operational from the first window.
+    verify: {method: Demonstration, kind: capability, flag: infrastructure_ready}
+    planned_window: "2026-11"
+
+  # ---- fleet & logistics ---------------------------------------------------------
+  - id: L1-LOG-01
+    parent: L0-MSN-01
+    statement: Every flight window's manifest shall fit within its declared fleet's mass capacity.
+    verify: {method: Analysis, kind: fits_fleet, recurring: true}
+  - id: L1-LOG-02
+    parent: L0-MSN-01
+    statement: >-
+      No single cargo-ship loss in any window shall cost a schedule-critical
+      capability (power, water, propellant chain, comms, autonomy,
+      infrastructure, mobility, precision landing), accounting for hardware
+      already on the surface.
+    rationale: Crew-era capabilities may accept single-hull risk (re-flight margin); schedule-critical ones may not.
+    verify:
+      method: Analysis
+      kind: loss_tolerant
+      recurring: true
+      capabilities: [power_baseload, water_supply, return_propellant_proven,
+                     comms_established, autonomy_proven, infrastructure_ready,
+                     mobility, precision_landing]

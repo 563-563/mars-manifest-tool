@@ -245,7 +245,9 @@ class PackingEngine:
                                     1, mass / n_chunks, vol / n_chunks))
         return out
 
-    def loss_tolerance(self, packing: PackingResult, unlock_rules: dict) -> "LossTolerance":
+    def loss_tolerance(self, packing: PackingResult, unlock_rules: dict,
+                       base_quantities: Optional[dict] = None,
+                       base_landings: int = 0) -> "LossTolerance":
         """Which capabilities die if any single ship is lost on EDL?
 
         Evaluates the data-driven capability_unlocks rules against the fleet
@@ -253,9 +255,13 @@ class PackingEngine:
         opposed to the component-level single_points list. Time-accrued
         conditions (min_propellant_t) are hardware-independent here and are
         skipped; the all_of hardware behind them is still checked.
+
+        base_quantities/base_landings account for hardware already on the
+        surface from earlier windows: a lost singleton doesn't cost a
+        capability the base already has.
         """
         def quantities(exclude: Optional[int] = None) -> dict[str, float]:
-            out: dict[str, float] = {}
+            out: dict[str, float] = dict(base_quantities or {})
             for s in packing.ships:
                 if s.index == exclude:
                     continue
@@ -279,7 +285,7 @@ class PackingEngine:
             return ok
 
         full = quantities()
-        n = len(packing.ships)
+        n = len(packing.ships) + base_landings
         baseline_caps = {f for f, r in unlock_rules.items()
                          if satisfied(f, r, full, n)}
         per_ship = []

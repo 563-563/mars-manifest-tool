@@ -124,6 +124,11 @@ def main(argv: list[str] | None = None) -> int:
     p_life.add_argument("campaign")
     p_life.add_argument("--scenario", default="baseline")
 
+    p_req = sub.add_parser("requirements", help="Requirements buy-off matrix for a campaign")
+    p_req.add_argument("campaign")
+    p_req.add_argument("--scenario", default="baseline")
+    p_req.add_argument("--out", help="Write markdown to a file")
+
     p_cmp = sub.add_parser("compare", help="Compare two scenarios")
     p_cmp.add_argument("scenario_a")
     p_cmp.add_argument("scenario_b")
@@ -226,6 +231,23 @@ def main(argv: list[str] | None = None) -> int:
         planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
         print(rpt.lifecycle_markdown(analyze(planner.run(campaign), catalog, a)))
         return 0
+
+    if args.command == "requirements":
+        from .requirements import RequirementsEngine, load_requirements
+        a = manager.resolve(args.scenario)
+        campaign = load_campaign(args.campaign, catalog)
+        planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+        reqs = load_requirements(data_dir / "requirements_seed.yaml")
+        engine = RequirementsEngine(catalog, a, manager.capability_unlocks())
+        matrix = engine.evaluate(reqs, planner.run(campaign))
+        md = rpt.requirements_markdown(matrix, reqs, campaign.id)
+        if args.out:
+            Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.out).write_text(md, encoding="utf-8")
+            print(f"Wrote {args.out}")
+        else:
+            print(md)
+        return 1 if matrix.open_ids else 0
 
     if args.command == "compare":
         campaign = load_campaign(args.campaign, catalog) if args.campaign else None

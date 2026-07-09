@@ -151,6 +151,38 @@ def chain_design_markdown(d) -> str:
     return "\n".join(parts)
 
 
+def requirements_markdown(matrix, requirements, campaign_id: str) -> str:
+    parts = [f"# Requirements buy-off matrix — {campaign_id}", "",
+             "Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; "
+             "recurring requirements: PASS / FAIL across all windows.", ""]
+
+    counts = " · ".join(f"{k} {v}" for k, v in sorted(matrix.counts.items()))
+    parts += [f"**{counts}**", ""]
+
+    parts += ["## Buy-off by flight window"]
+    for wid, ids in matrix.by_window.items():
+        parts.append(f"- **{wid}**: {', '.join(ids) if ids else '—'}")
+    parts.append("")
+
+    by_id = {r.id: r for r in requirements}
+    rows = []
+    for v in matrix.verdicts:
+        r = v.requirement
+        indent = "&nbsp;&nbsp;" * r.level
+        rows.append([
+            f"{indent}{r.id}", r.statement, r.method,
+            r.planned_window or ("every window" if r.recurring else "rollup"),
+            v.closed_window or ("; ".join(v.failed_windows) if v.failed_windows else "—"),
+            v.status,
+        ])
+    parts += ["## Full matrix", _md_table(
+        ["Req", "Statement", "Verify", "Planned", "Actual", "Status"], rows), ""]
+
+    if matrix.open_ids:
+        parts += ["## Open items"] + [f"- {rid}: {by_id[rid].statement}" for rid in matrix.open_ids] + [""]
+    return "\n".join(parts)
+
+
 def lifecycle_markdown(rep) -> str:
     parts = ["# Lifecycle review — risk buy-down & idle hardware", ""]
     rows = [[p.window_id, ", ".join(p.retired) or "-", f"{p.weight_retired:.0f}",
