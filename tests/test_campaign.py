@@ -24,9 +24,23 @@ def test_four_windows_in_order(result):
 def test_precursor_window_unlocks_core_capabilities(result):
     w0 = result.windows[0]
     for flag in ("edl_proven", "power_baseload", "comms_established", "precision_landing",
-                 "water_supply", "return_propellant_proven", "habitat_ready",
-                 "life_support_closed", "radiation_managed"):
+                 "water_supply", "habitat_ready", "life_support_closed", "radiation_managed"):
         assert flag in w0.capabilities_after, f"{flag} should unlock after window 0"
+    # return propellant is now gated on tonnes in the tank (1,400 t), not
+    # hardware delivered: pilot chain makes ~269 t/window, so the gate retires
+    # only after the window-2 scale-up
+    assert "return_propellant_proven" not in w0.capabilities_after
+    assert "return_propellant_proven" not in result.windows[1].capabilities_after
+    assert "return_propellant_proven" in result.windows[2].capabilities_after
+
+
+def test_propellant_accrues_and_gates_crew(result):
+    cum = [w.propellant_cumulative_t for w in result.windows]
+    assert cum == sorted(cum)
+    assert cum[0] == pytest.approx(269, abs=3)      # 1x chain, one synod
+    assert cum[2] > 1400                            # full load banked before crew
+    assert all(w.power_derate == 1.0 for w in result.windows)  # generation keeps pace
+    assert result.windows[0].isru_bottleneck == "electrolysis"
 
 
 def test_first_crew_window_is_gated_and_allowed(result):

@@ -132,6 +132,16 @@ def packing_markdown(packing: PackingResult) -> str:
     return "\n".join(parts)
 
 
+def loss_markdown(lt) -> str:
+    if lt.tolerant:
+        return ("## Loss tolerance\n"
+                "TOLERANT — no single-ship EDL loss costs any capability.")
+    parts = ["## Loss tolerance", "NOT TOLERANT — single-ship losses that kill capabilities:"]
+    for ship, lost in lt.vulnerable_ships:
+        parts.append(f"- Ship {ship}: loses {', '.join(lost)}")
+    return "\n".join(parts)
+
+
 def isru_markdown(r) -> str:
     parts = ["# ISRU propellant chain", ""]
     rows = [[("-> " if s.is_bottleneck else "") + s.key, s.component_id, f"{s.units:g}",
@@ -166,11 +176,12 @@ def campaign_markdown(result: CampaignResult) -> str:
         status = "CREWED" if crew else ("BLOCKED" if blocked else "robotic")
         rows.append([w.window_id, w.objective, w.ships, w.total_launches,
                      w.mass_delivered_t, f"{w.installed_generation_kwe:,.0f}",
+                     f"{w.propellant_cumulative_t:,.0f}",
                      f"${w.launch_cost_musd:,.0f}M", status,
                      ", ".join(w.new_capabilities) or "-"])
     parts += [_md_table(
         ["Window", "Objective", "Ships", "Launches", "Mass (t)", "Power (kWe)",
-         "Launch cost", "Status", "New capabilities"], rows), ""]
+         "Propellant (t, cum)", "Launch cost", "Status", "New capabilities"], rows), ""]
 
     c = result.cumulative
     parts += ["## Cumulative", _md_table(

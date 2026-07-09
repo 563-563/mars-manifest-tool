@@ -56,16 +56,25 @@ Stoichiometry (water/CO₂/O₂ per kg CH₄) is computed from molar masses in
 | `sabatier_support_kwh_per_kg_ch4` | 1.5 | **D** | Reaction is exothermic; this covers recycle compressors, controls, thermal management. Notional. |
 | `liquefaction_kwh_per_kg_propellant` | 0.8 | **C/D** | Cryocooler work for CH₄/O₂ + boil-off reliquefaction at Mars ambient; typical estimates ~0.5–1. |
 | `water_processing_kwh_per_kg_h2o` | 0.2 | **D** | Melt/filter/deionize energy per kg product water. Notional; excavation energy not yet modeled. |
+| `excavation_kwh_per_kg_h2o` | 0.1 | **D** | Excavator energy per kg of net water mined (icy regolith digging + haul). Notional; RASSOR-class machines are designed for low-energy digging. Not the bottleneck at any seeded configuration. |
+| `plant_availability` | 0.85 | **D** | Fraction of nameplate hours the chain actually runs (maintenance, dust events, fault recovery under 4–22 min comms delay). No Mars precedent exists; terrestrial chemical plants run 0.9+, but this plant is unattended. Applied to production totals, not nameplate rates. |
 | `return_propellant_t` | 1,400 | **B** | Midpoint of the established 1,200–1,500 t per crewed return ship (HANDOFF §2, deep dive Problem 3). |
 | `production_sols_per_synod` | 600 | **D** | Usable production time between windows (~780-day synod minus commissioning/margin). |
 
+**Gate change (2026-07-09):** `return_propellant_proven` now additionally
+requires `min_propellant_t: 1400` — cumulative tonnes actually produced by the
+campaign's ISRU state, not just hardware delivered. In the seeded 4-window
+campaign the gate retires at **2031-01** (2,954 t banked) instead of window 0,
+and the first crew launches with ~4,834 t produced. The planner also derates
+production when installed generation can't carry the delivered load.
+
 **Validation checks the model now reproduces from first principles:** specific
-energy ≈ **7.6 kWh/kg propellant** → one 1,400 t load ≈ **10.6 GWh** →
-**~720 kW continuous** chain power to fill one load per window — squarely the
-"~1 MW full-scale ISRU" domain constant (HANDOFF §2) once mining/thermal
-overheads are added. Net water ≈ **684 t per load** — the "hundreds of tonnes"
-grounding. Pilot chain (seeded quantities): **~21 kg/hr, electrolysis-limited**,
-~316 t per window = 23% of one load, ~7.5 years to a full load.
+energy ≈ **7.65 kWh/kg propellant** → one 1,400 t load ≈ **10.7 GWh** →
+**~850 kW continuous** chain power (at 85% availability) to fill one load per
+window — squarely the "~1 MW full-scale ISRU" domain constant (HANDOFF §2).
+Net water ≈ **684 t per load** — the "hundreds of tonnes" grounding. Pilot
+chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
+~269 t per window = 19% of one load, ~8.8 years to a full load.
 
 ## 3. Overheads (`overheads.*`)
 

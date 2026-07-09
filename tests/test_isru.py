@@ -33,19 +33,24 @@ def test_electrolysis_is_the_bottleneck(result):
 
 
 def test_pilot_scale_vs_return_load(result):
-    # pilot chain: ~0.53 t/sol -> ~316 t per 600-sol window = ~23% of one load
-    assert result.propellant_kg_per_sol == pytest.approx(527, abs=5)
-    assert result.tonnes_per_window == pytest.approx(316, abs=3)
-    assert 0.20 < result.fraction_of_return_load < 0.25
-    assert result.years_to_return_load == pytest.approx(7.5, abs=0.2)
+    # pilot chain at 85% availability: ~0.45 t/sol -> ~269 t per 600-sol window
+    assert result.propellant_kg_per_sol == pytest.approx(448, abs=5)
+    assert result.tonnes_per_window == pytest.approx(269, abs=3)
+    assert 0.17 < result.fraction_of_return_load < 0.22
+    assert result.years_to_return_load == pytest.approx(8.8, abs=0.2)
 
 
 def test_full_scale_power_matches_domain_grounding(result):
-    # HANDOFF §2: full-scale ISRU ~1 MW continuous. Chain-only comes out ~720 kW;
-    # with mining/thermal overheads that is the right order.
-    assert result.full_scale_kw_required == pytest.approx(721, abs=10)
-    assert result.spec_energy_kwh_per_kg == pytest.approx(7.6, abs=0.1)
-    assert result.energy_per_return_load_gwh == pytest.approx(10.6, abs=0.2)
+    # HANDOFF §2: full-scale ISRU ~1 MW continuous. Chain at 85% availability
+    # comes out ~850 kW — squarely the right order.
+    assert result.full_scale_kw_required == pytest.approx(853, abs=15)
+    assert result.spec_energy_kwh_per_kg == pytest.approx(7.65, abs=0.1)
+    assert result.energy_per_return_load_gwh == pytest.approx(10.7, abs=0.2)
+
+
+def test_excavation_step_present_with_headroom(result):
+    exc = [s for s in result.steps if s.key == "excavation"]
+    assert exc and exc[0].propellant_rate_kg_hr > result.propellant_rate_kg_hr
 
 
 def test_water_demand_in_hundreds_of_tonnes(result):

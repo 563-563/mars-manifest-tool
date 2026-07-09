@@ -13,6 +13,7 @@ from typing import Optional
 
 from .budgets import BudgetEngine, BudgetResult
 from .catalog import Catalog
+from .isru import IsruEngine
 from .models import Assumptions, Campaign, Mission, Window
 from .packing import PackingEngine, PackingResult
 
@@ -23,6 +24,7 @@ class SurfaceState:
     installed_generation_kwe: float = 0.0
     installed_storage_kwh: float = 0.0
     landings: int = 0
+    propellant_produced_t: float = 0.0
     capabilities: set[str] = field(default_factory=set)
 
     def add_delivery(self, component_id: str, qty: float) -> None:
@@ -54,6 +56,12 @@ class WindowResult:
     new_capabilities: tuple[str, ...]
     capabilities_after: tuple[str, ...]
     installed_generation_kwe: float
+    # ISRU production during the synod following this window's deliveries
+    isru_rate_kg_hr: float
+    isru_bottleneck: str
+    propellant_produced_t: float       # this window's production
+    propellant_cumulative_t: float
+    power_derate: float                # 1.0 = installed generation covers the load
     warnings: tuple[str, ...]
 
 
@@ -80,6 +88,7 @@ class CampaignPlanner:
         self.crewed_requires = list(crewed_requires)
         self.budget_engine = BudgetEngine(catalog, assumptions)
         self.packing_engine = PackingEngine(catalog, assumptions)
+        self.isru_engine = IsruEngine(catalog, assumptions)
 
     def run(self, campaign: Campaign) -> CampaignResult:
         state = SurfaceState()
@@ -127,6 +136,18 @@ class CampaignPlanner:
                 self._deliver(mission, budget, state)
                 state.landings += packing.ship_count
 
+            # ISRU production over the synod following this window's landings,
+            # derated if installed generation can't carry the delivered load
+            isru = self.isru_engine.assess_quantities(state.delivered)
+            derate = self._power_derate(state)
+            produced_t = isru.tonnes_per_window * derate
+            state.propellant_produced_t += produced_t
+            if derate < 1.0 and produced_t > 0:
+                warnings.append(
+                    f"{window.id}: installed power covers {derate:.0%} of the delivered "
+                    f"load — ISRU production derated accordingly"
+                )
+
             new_caps = self._evaluate_unlocks(state)
             state.capabilities.update(new_caps)
             # Advisories run against post-window state: everything in a window
@@ -155,6 +176,11 @@ class CampaignPlanner:
                 new_capabilities=tuple(sorted(new_caps)),
                 capabilities_after=tuple(sorted(state.capabilities)),
                 installed_generation_kwe=state.installed_generation_kwe,
+                isru_rate_kg_hr=isru.propellant_rate_kg_hr,
+                isru_bottleneck=isru.bottleneck,
+                propellant_produced_t=produced_t,
+                propellant_cumulative_t=state.propellant_produced_t,
+                power_derate=derate,
                 warnings=tuple(warnings),
             ))
 
@@ -203,9 +229,22 @@ class CampaignPlanner:
                     )
         return notes
 
+    def _power_derate(self, state: SurfaceState) -> float:
+        """Fraction of the delivered average load the installed generation covers."""
+        load_kw = 0.0
+        for cid, qty in state.delivered.items():
+            if cid in self.catalog:
+                comp = self.catalog.get(cid)
+                if comp.power_role == "consumer":
+                    load_kw += comp.peak_power_kw * comp.duty_cycle * qty
+        if load_kw <= 0:
+            return 1.0
+        return min(1.0, state.installed_generation_kwe / load_kw)
+
     def _evaluate_unlocks(self, state: SurfaceState) -> set[str]:
         """Data-driven capability rules. Supported conditions (ANDed):
-        all_of / any_of (component ids delivered), min_installed_kwe, min_landings."""
+        all_of / any_of (component ids delivered), min_installed_kwe,
+        min_landings, min_propellant_t (cumulative ISRU production)."""
         unlocked: set[str] = set()
         for flag, rule in self.unlocks.items():
             if flag in state.capabilities:
@@ -219,6 +258,8 @@ class CampaignPlanner:
                 ok = ok and state.installed_generation_kwe >= rule["min_installed_kwe"]
             if "min_landings" in rule:
                 ok = ok and state.landings >= rule["min_landings"]
+            if "min_propellant_t" in rule:
+                ok = ok and state.propellant_produced_t >= rule["min_propellant_t"]
             if ok:
                 unlocked.add(flag)
         return unlocked

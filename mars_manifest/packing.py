@@ -72,6 +72,13 @@ class LaunchMath:
 
 
 @dataclass(frozen=True)
+class LossTolerance:
+    tolerant: bool  # no single ship loss kills any unlocked capability
+    vulnerable_ships: tuple[tuple[int, tuple[str, ...]], ...]  # (ship, capabilities lost)
+    capabilities_at_risk: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class PackingResult:
     mission_id: str
     ships: tuple[ShipReport, ...]
@@ -237,6 +244,56 @@ class PackingEngine:
                 out.append(PackItem(f"spares:{group}", f"Spares — {group}",
                                     1, mass / n_chunks, vol / n_chunks))
         return out
+
+    def loss_tolerance(self, packing: PackingResult, unlock_rules: dict) -> "LossTolerance":
+        """Which capabilities die if any single ship is lost on EDL?
+
+        Evaluates the data-driven capability_unlocks rules against the fleet
+        minus each ship in turn — the mission-level view of redundancy, as
+        opposed to the component-level single_points list. Time-accrued
+        conditions (min_propellant_t) are hardware-independent here and are
+        skipped; the all_of hardware behind them is still checked.
+        """
+        def quantities(exclude: Optional[int] = None) -> dict[str, float]:
+            out: dict[str, float] = {}
+            for s in packing.ships:
+                if s.index == exclude:
+                    continue
+                for cid, qty, _, _ in s.manifest_detail:
+                    out[cid] = out.get(cid, 0.0) + qty
+            return out
+
+        def satisfied(flag: str, rule: dict, q: dict[str, float], landings: int) -> bool:
+            ok = True
+            if "all_of" in rule:
+                ok = ok and all(q.get(cid, 0) >= 1 for cid in rule["all_of"])
+            if "any_of" in rule:
+                ok = ok and any(q.get(cid, 0) >= 1 for cid in rule["any_of"])
+            if "min_installed_kwe" in rule:
+                kwe = sum(self.catalog.get(cid).generation_kwe * qty
+                          for cid, qty in q.items()
+                          if cid in self.catalog and self.catalog.get(cid).power_role == "generator")
+                ok = ok and kwe >= rule["min_installed_kwe"]
+            if "min_landings" in rule:
+                ok = ok and landings >= rule["min_landings"]
+            return ok
+
+        full = quantities()
+        n = len(packing.ships)
+        baseline_caps = {f for f, r in unlock_rules.items()
+                         if satisfied(f, r, full, n)}
+        per_ship = []
+        for s in packing.ships:
+            q = quantities(exclude=s.index)
+            lost = tuple(sorted(f for f in baseline_caps
+                                if not satisfied(f, unlock_rules[f], q, n - 1)))
+            if lost:
+                per_ship.append((s.index, lost))
+        return LossTolerance(
+            tolerant=not per_ship,
+            vulnerable_ships=tuple(per_ship),
+            capabilities_at_risk=tuple(sorted({c for _, lost in per_ship for c in lost})),
+        )
 
     def _single_points(self, ships: dict[int, PackedShip]) -> tuple[tuple[str, str], ...]:
         carriers: dict[str, set[int]] = {}

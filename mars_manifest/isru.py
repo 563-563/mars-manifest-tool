@@ -85,6 +85,8 @@ class IsruEngine:
         e_sab = a.get("isru.sabatier_support_kwh_per_kg_ch4")
         e_liq = a.get("isru.liquefaction_kwh_per_kg_propellant")
         e_wat = a.get("isru.water_processing_kwh_per_kg_h2o")
+        e_exc = a.get("isru.excavation_kwh_per_kg_h2o", 0.0)
+        availability = a.get("isru.plant_availability", 1.0)
         chain = a.get("isru.chain_components")
         sol_hours = a.get("power.sol_hours")
         window_sols = a.get("isru.production_sols_per_synod")
@@ -104,6 +106,9 @@ class IsruEngine:
             steps.append(ChainStep(key, cid, n, kw, thr, commodity,
                                    thr * prop_per_kg, False))
 
+        if "excavation" in chain and e_exc > 0:
+            step("excavation", chain["excavation"], "H2O (net)", e_exc,
+                 prop_per_ch4 / H2O_NET_PER_CH4)
         step("water_processing", chain["water_processing"], "H2O (net)", e_wat,
              prop_per_ch4 / H2O_NET_PER_CH4)
         step("electrolysis", chain["electrolysis"], "H2O", e_h2o,
@@ -125,7 +130,7 @@ class IsruEngine:
         # energy per kg of propellant, all steps at stoichiometric balance
         ch4_frac = 1.0 / prop_per_ch4
         spec = (H2O_ELECTROLYZED_PER_CH4 * e_h2o + CO2_PER_CH4 * e_co2 + e_sab) * ch4_frac \
-            + e_liq + H2O_NET_PER_CH4 * e_wat * ch4_frac
+            + e_liq + H2O_NET_PER_CH4 * (e_wat + e_exc) * ch4_frac
 
         o2_surplus = O2_FROM_ELECTROLYSIS_PER_CH4 - of
         if o2_surplus < 0:
@@ -135,11 +140,13 @@ class IsruEngine:
                 f"(CO2 electrolysis, MOXIE-style) required."
             )
 
-        kg_per_sol = rate * sol_hours
+        # expected production applies plant availability (maintenance, dust,
+        # faults under a 4-22 min comms delay); rates above are nameplate
+        kg_per_sol = rate * sol_hours * availability
         t_per_window = kg_per_sol * window_sols / 1000.0
         sols_to_load = (load_t * 1000.0 / kg_per_sol) if kg_per_sol > 0 else None
         years_to_load = sols_to_load * sol_hours / 8766.0 if sols_to_load else None
-        full_scale_kw = load_t * 1000.0 * spec / (window_sols * sol_hours)
+        full_scale_kw = load_t * 1000.0 * spec / (window_sols * sol_hours * availability)
 
         if t_per_window < load_t and kg_per_sol > 0:
             warnings.append(

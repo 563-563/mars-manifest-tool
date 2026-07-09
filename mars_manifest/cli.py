@@ -174,6 +174,9 @@ def main(argv: list[str] | None = None) -> int:
             mission, budget, tankers_per_ship=args.tankers, launch_cost_tier=args.launch_cost,
             policy=args.policy, include_spares=args.spares or None)
         print(rpt.packing_markdown(packing))
+        print()
+        print(rpt.loss_markdown(
+            PackingEngine(catalog, a).loss_tolerance(packing, manager.capability_unlocks())))
         if packing.warnings:
             print("\nWarnings:")
             for w in packing.warnings:

@@ -106,3 +106,40 @@ def test_single_point_of_failure_analysis(catalog, baseline, precursor):
     b2 = BudgetEngine(catalog, baseline).compute(balanced)
     p2 = PackingEngine(catalog, baseline).pack(balanced, b2)
     assert "fission_unit" not in {cid for cid, _ in p2.single_points}
+
+
+def _load_example(catalog, name):
+    from mars_manifest.cli import load_mission
+    from pathlib import Path
+    return load_mission(Path(__file__).resolve().parents[1] / "examples" / name, catalog)
+
+
+def test_loss_tolerance_pinned_vs_balanced_vs_redundant(catalog, baseline, manager, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    rules = manager.capability_unlocks()
+    engine = PackingEngine(catalog, baseline)
+    be = BudgetEngine(catalog, baseline)
+
+    # workbook pinning: losing the power ship or habitat ship kills capabilities
+    pinned = engine.pack(precursor, be.compute(precursor))
+    lt_pinned = engine.loss_tolerance(pinned, rules)
+    assert not lt_pinned.tolerant
+    assert "power_baseload" in lt_pinned.capabilities_at_risk   # all fission on ship 3
+    assert "habitat_ready" in lt_pinned.capabilities_at_risk    # habitat on ship 5
+
+    # balanced spreads multi-unit classes: power survives any loss, qty-1 items don't
+    bal = _load_example(catalog, "precursor_2026_balanced.yaml")
+    lt_bal = engine.loss_tolerance(engine.pack(bal, be.compute(bal)), rules)
+    assert not lt_bal.tolerant
+    assert "power_baseload" not in lt_bal.capabilities_at_risk
+
+    # redundant manifest + balanced packing: no single loss costs anything
+    red = _load_example(catalog, "precursor_2026_redundant.yaml")
+    budget_red = be.compute(red)
+    packed_red = engine.pack(red, budget_red)
+    lt_red = engine.loss_tolerance(packed_red, rules)
+    assert lt_red.tolerant, f"at risk: {lt_red.capabilities_at_risk} on {lt_red.vulnerable_ships}"
+    # and it still fits the batch
+    assert budget_red.mass.grand_total_t < budget_red.capacity.mass_capacity_t
+    for s in packed_red.ships:
+        assert s.mass_t <= 100 and s.volume_m3 <= 1000
