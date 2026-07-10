@@ -52,3 +52,20 @@ def test_surface_state_lays_flat(plan_result):
     assert top_group == "Power generation"
     # installed generation stays ahead of the surface load
     assert final.installed_generation_kwe >= final.surface_avg_load_kw
+
+
+def test_population_is_first_class(plan_result):
+    # population is zero through the robotic era, then the first crew lands
+    pops = [w.population for w in plan_result.windows]
+    assert pops[:3] == [0, 0, 0]
+    assert pops[3] == 12
+    # blocked missions must not add settlers: covered by delivery gating
+    # (population increments live next to landings, after the blocked check)
+
+
+def test_population_appears_in_enablements(plan_result, catalog, baseline):
+    from mars_manifest.report import window_enablements
+    lines = window_enablements(plan_result.windows[-1], catalog, baseline)
+    assert any("Resident population: 12" in ln for ln in lines)
+    robotic = window_enablements(plan_result.windows[0], catalog, baseline)
+    assert not any("Resident population" in ln for ln in robotic)

@@ -141,6 +141,9 @@ windows:
       - id: first_crew_2037
         objective: "Crew + consumable depth + habitat growth"
         crewed: true
+        # first crew size: within the 10-20 range of the New Space 2022
+        # architecture and matching the DLR/Maiwald 12-crew consumables case
+        settlers: 12
         ships: 20
         packing_policy: balanced
         pack_spares: true

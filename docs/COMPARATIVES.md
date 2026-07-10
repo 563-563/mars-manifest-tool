@@ -66,3 +66,30 @@
 Quantified loss-tolerance per window, propellant-*banked* crew gating, idle-mass
 lifecycle discipline, and a machine-checked requirements buy-off matrix. The
 published architectures assert these principles; the tool enforces them.
+
+
+## Addendum (2026-07-10): Handmer, "What can we send to Mars on the first Starships?" (Feb 2025)
+
+Read in full including the comment thread. Written pre-Moon-pivot, so its
+October-2026 departure framing is superseded; the ideas are not. Disposition:
+
+- **Adopted → task A4**: kinetic penetrators ("rods from the gods" — ~8 km/s
+  steel/tungsten spears exposing the subsurface for orbital survey; JPL
+  tungsten-ballast impact precedent) and orbital prospecting assets
+  (Marslink-class radar/ultraspectral) as a *fast alternative path* to the
+  `water_confirmed` gate — his central claim, that water error bars are the
+  binding pre-factory uncertainty, is already our gate structure; this adds a
+  cheaper, faster, more loss-tolerant way to retire it.
+- **Adopted → task C6**: the LH2-import fallback from the comment thread
+  (~35 t LH2 → ~640 t methalox via Sabatier + electrolysis recycle + RWGS,
+  no water mining) as a third ISRU mode between `sabatier` and
+  `oxygen_only_isru`. LH2 bay volume (~493 m³/35 t ≈ 80% of the 614 m³ bay)
+  makes it visibly volume-bound — exactly what our packer now models.
+- **Adopted → task C1 scope**: "orbit, reuse, refill, chill" as Earth-side
+  transport-readiness requirements (L1-TRANS) — our tree currently has zero
+  Earth-side gates.
+- **Adopted → task C2 scope**: within-window arrival sequencing (early
+  arrivals as EDL test articles + relay deployment; valuable cargo late).
+- **Noted, not modeled**: Phobos/Deimos propellant depots (out of scope until
+  a crewed-return architecture module exists); DSN/optical bandwidth limits;
+  the SpaceX in-housing matrix (org question, not a mass/schedule one).

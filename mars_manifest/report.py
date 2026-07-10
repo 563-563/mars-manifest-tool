@@ -276,6 +276,9 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
     if crewed:
         out.append("First crew lands at a base that is already powered, provisioned, "
                    "and holds their return propellant.")
+    if w.population > 0:
+        out.append(f"Resident population: {w.population:,} — every per-capita clock "
+                   f"(power, food area, habitat volume, imports) now has a denominator.")
 
     kwe = w.installed_generation_kwe
     if kwe > 0:

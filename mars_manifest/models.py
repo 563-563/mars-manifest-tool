@@ -54,6 +54,8 @@ class Mission:
     objective: str = ""
     window_id: str = ""
     crewed: bool = False
+    settlers: int = 0                 # people this mission lands (population is tracked
+                                      # cumulatively in the campaign surface state)
     ships: Optional[int] = None       # declared batch size (capacity checks / launch math)
     power_ship: Optional[int] = None  # ship that carries auto-sized generation + storage
     auto_power: bool = True           # auto-size power unless manifest places generators/storage
@@ -75,6 +77,7 @@ class Mission:
             objective=d.get("objective", ""),
             window_id=str(d.get("window", d.get("window_id", ""))),
             crewed=bool(d.get("crewed", False)),
+            settlers=int(d.get("settlers", 0)),
             ships=d.get("ships"),
             power_ship=d.get("power_ship"),
             auto_power=bool(d.get("auto_power", True)),

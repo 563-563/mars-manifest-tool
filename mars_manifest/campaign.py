@@ -25,6 +25,7 @@ class SurfaceState:
     installed_storage_kwh: float = 0.0
     landings: int = 0
     propellant_produced_t: float = 0.0
+    population: int = 0
     capabilities: set[str] = field(default_factory=set)
     first_delivery_synod: dict[str, int] = field(default_factory=dict)
 
@@ -70,6 +71,7 @@ class WindowResult:
     surface_inventory: tuple[tuple[str, float, float], ...] = ()  # (id, qty, mass_t)
     surface_avg_load_kw: float = 0.0
     installed_storage_kwh: float = 0.0
+    population: int = 0                # residents on the surface after this window
     warnings: tuple[str, ...] = ()
 
 
@@ -144,6 +146,7 @@ class CampaignPlanner:
                 w_cargo_high += budget.cost.cargo_high_musd
                 self._deliver(mission, budget, state, window.synod_index)
                 state.landings += packing.ship_count
+                state.population += mission.settlers
 
             # ISRU production over the synod following this window's landings,
             # derated if installed generation can't carry the delivered load
@@ -209,6 +212,7 @@ class CampaignPlanner:
                 surface_inventory=tuple(inventory),
                 surface_avg_load_kw=load_kw,
                 installed_storage_kwh=state.installed_storage_kwh,
+                population=state.population,
                 warnings=tuple(warnings),
             ))
 
