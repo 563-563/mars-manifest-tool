@@ -85,9 +85,10 @@ October-2026 departure framing is superseded; the ideas are not. Disposition:
   no water mining) as a third ISRU mode between `sabatier` and
   `oxygen_only_isru`. LH2 bay volume (~493 m³/35 t ≈ 80% of the 614 m³ bay)
   makes it visibly volume-bound — exactly what our packer now models.
-- **Adopted → task C1 scope**: "orbit, reuse, refill, chill" as Earth-side
-  transport-readiness requirements (L1-TRANS) — our tree currently has zero
-  Earth-side gates.
+- **Adopted (C1, done)**: "orbit, reuse, refill, chill" are now L1-TRANS
+  requirements gated on per-scenario `transport_readiness` flags — baseline
+  closes all four; `conservative_feasibility` flips refill+chill FALSE so
+  they go OPEN, making the DLR/Maiwald TRL critique machine-visible.
 - **Adopted → task C2 scope**: within-window arrival sequencing (early
   arrivals as EDL test articles + relay deployment; valuable cargo late).
 - **Noted, not modeled**: Phobos/Deimos propellant depots (out of scope until

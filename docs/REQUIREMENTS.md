@@ -2,10 +2,10 @@
 
 Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: PASS / FAIL across all windows.
 
-**CLOSED 21 · EARLY 2 · PASS 4**
+**CLOSED 25 · EARLY 2 · PASS 4**
 
 ## Buy-off by flight window
-- **2031-01**: L1-EDL-01, L2-EDL-02, L1-NAV-01, L1-PWR-01, L2-PWR-02, L1-H2O-01, L2-PROP-02, L2-LS-02, L1-HAB-01, L1-COM-01, L1-AUT-01, L1-MOB-01, L1-INF-01
+- **2031-01**: L1-TRANS-01, L1-TRANS-02, L1-TRANS-03, L1-TRANS-04, L1-EDL-01, L2-EDL-02, L1-NAV-01, L1-PWR-01, L2-PWR-02, L1-H2O-01, L2-PROP-02, L2-LS-02, L1-HAB-01, L1-COM-01, L1-AUT-01, L1-MOB-01, L1-INF-01
 - **2033-03**: L2-PWR-04, L1-PROP-01, L2-PROP-03, L2-PROP-04, L2-PROP-05
 - **2035-05**: L1-LS-01, L2-LS-03, L2-HAB-02, L1-RAD-01
 - **2037-07**: —
@@ -17,6 +17,10 @@ Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: 
 | Req | Statement | Verify | Planned | Actual | Status |
 |---|---|---|---|---|---|
 | L0-MSN-01 | The first crew shall arrive at a powered, provisioned, and fueled Mars base with a demonstrated return path, and no single cargo-ship loss shall defeat the campaign. | Rollup | rollup | 2035-05 | CLOSED |
+| &nbsp;&nbsp;L1-TRANS-01 | Starship shall reach orbit and be recovered. | Demonstration | 2031-01 | 2031-01 | CLOSED |
+| &nbsp;&nbsp;L1-TRANS-02 | Both Starship stages shall be reused (routine refly). | Demonstration | 2031-01 | 2031-01 | CLOSED |
+| &nbsp;&nbsp;L1-TRANS-03 | Orbital propellant transfer (refill) shall be demonstrated. | Demonstration | 2031-01 | 2031-01 | CLOSED |
+| &nbsp;&nbsp;L1-TRANS-04 | Long-duration cryogenic propellant storage (active chill) shall be demonstrated. | Demonstration | 2031-01 | 2031-01 | CLOSED |
 | &nbsp;&nbsp;L1-EDL-01 | The program shall demonstrate survivable EDL of a 100 t-class cargo ship on Mars. | Demonstration | 2031-01 | 2031-01 | CLOSED |
 | &nbsp;&nbsp;&nbsp;&nbsp;L2-EDL-02 | At least 5 successful cargo landings shall be accumulated before crew commits. | Demonstration | 2031-01 | 2031-01 | CLOSED |
 | &nbsp;&nbsp;L1-NAV-01 | Follow-on ships shall land within meters of the base (precision landing aids operating). | Demonstration | 2031-01 | 2031-01 | CLOSED |

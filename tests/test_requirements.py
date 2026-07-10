@@ -20,10 +20,14 @@ def engine(catalog, baseline, manager):
     return RequirementsEngine(catalog, baseline, manager.capability_unlocks())
 
 
-def _run(catalog, baseline, manager, name):
+def _run(catalog, assumptions, manager, name):
+    from mars_manifest.city import city_rules, load_city_ramp
+    city = load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+    rules = {**manager.capability_unlocks(), **city_rules(city)}
+    growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
     campaign = load_campaign(ROOT / "examples" / name, catalog)
-    planner = CampaignPlanner(catalog, baseline, manager.capability_unlocks(),
-                              manager.crewed_requires())
+    planner = CampaignPlanner(catalog, assumptions, rules, manager.crewed_requires(),
+                              city=city, min_fleet_growth=growth)
     return planner.run(campaign)
 
 
@@ -62,3 +66,24 @@ def test_legacy_campaign_fails_requirements(catalog, baseline, manager, reqs, en
     v = {x.requirement.id: x for x in matrix.verdicts}
     # rollup honesty: the mission requirement cannot close
     assert v["L0-MSN-01"].status == "OPEN"
+
+
+def test_transport_readiness_gates(catalog, baseline, manager, reqs, engine):
+    # baseline: all four Earth-side preconditions close (matrix stays green)
+    matrix = engine.evaluate(reqs, _run(catalog, baseline, manager, "program_plan.yaml"))
+    v = {x.requirement.id: x for x in matrix.verdicts}
+    for rid in ("L1-TRANS-01", "L1-TRANS-02", "L1-TRANS-03", "L1-TRANS-04"):
+        assert v[rid].status == "CLOSED", rid
+
+
+def test_conservative_feasibility_opens_refill_and_chill(catalog, manager, reqs):
+    # the DLR/Maiwald skeptic scenario flips refill+chill false -> those gates OPEN
+    a = manager.resolve("conservative_feasibility")
+    eng = RequirementsEngine(catalog, a, manager.capability_unlocks())
+    result = _run(catalog, a, manager, "program_plan.yaml")
+    matrix = eng.evaluate(reqs, result)
+    v = {x.requirement.id: x for x in matrix.verdicts}
+    assert v["L1-TRANS-01"].status == "CLOSED"    # orbit demonstrated
+    assert v["L1-TRANS-03"].status == "OPEN"      # refill not
+    assert v["L1-TRANS-04"].status == "OPEN"      # chill not
+    assert "L1-TRANS-03" in matrix.open_ids

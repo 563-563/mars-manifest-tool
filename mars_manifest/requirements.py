@@ -147,6 +147,9 @@ class RequirementsEngine:
 
     def _check(self, verify: dict, w: WindowResult, windows: list[WindowResult]) -> bool:
         kind = verify["kind"]
+        if kind == "precondition":
+            # Earth-side readiness flag from the active scenario; window-agnostic
+            return bool(self.a.get(f"transport_readiness.{verify['flag']}", True))
         if kind == "capability":
             return verify["flag"] in w.capabilities_after
         if kind == "min_qty":
