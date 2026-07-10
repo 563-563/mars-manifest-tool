@@ -67,7 +67,7 @@ city-ramp model needs to represent, not smooth over.
 | Local raw-material manufacturing established | **~20 kg/person/year** — a **~500×** reduction | C (same source) | ibid. |
 | Make-vs-buy rule | Anything costing **<$100/kg** to produce locally should always be made locally — it beats even the most optimistic Earth-shipping cost | C | ibid. (his working shipping-cost baseline is $200/kg, and "results don't vary much" as that assumption moves) |
 | Steady-state per-capita material *usage* once industrial | **~10× Earth per-capita usage** | C (errored votes, session limit) | Handmer, [Progression of space industrialization](https://caseyhandmer.wordpress.com/2020/08/23/progression-of-space-industrialization/) |
-| NASA near-term consumables floor (no closure at all) | 0.800 kg food + 0.895 kg O₂ + 3.217 kg water = **~4.9 kg/person-day ≈ 1.8 t/person-year** | B (NASA primary; PDF unfetchable this session, figures internally consistent with known ECLSS literature — flagged for direct re-verification) | NASA BVAD, TP-2015-218570/REV2 |
+| NASA near-term consumables floor (no closure at all) | 0.800 kg food + 0.895 kg O₂ + 3.217 kg water = **~4.9 kg/person-day ≈ 1.8 t/person-year** | **B — verified verbatim 2026-07-10** (PDF text extracted directly: "Oxygen Consumed kg/CM-d 0.895", food "kg/CM-d 0.800", "Potable Water Content kg/CM-d 3.217") | NASA BVAD, TP-2015-218570/REV2 |
 
 **Read:** the ~10 t → ~20 kg curve is the single most useful number in this
 whole brief for a city-ramp module — it's a ~500× cliff, not a gradient, and
@@ -105,10 +105,10 @@ verification and should never be load-bearing anchors.**
 | Constant power demand, life-support-only | **~24-25 kWe/person**, roughly flat from 4 to 500 people (mild economies of scale) | Basic operations | C (unverified, session-limit errored; independently corroborated via secondary search) — [*Space: Sci & Tech* 2021](https://spj.science.org/doi/10.34133/2021/9820546) |
 | Total power, 100+ person colony (same paper, Table 1 stage 4) | **~4.4–7.7 MWe** (17 kWe/person generic load + 2,500 kWe base + 200 kWe ISRU) | Basic operations at scale | C, same source |
 | Industrial/productive city power intensity | **~100 kWe/person** | Full industrial (mining, manufacturing, not just life support) | C, same source (order-of-magnitude higher regime, not a typo) |
-| Net habitable volume, theoretical floor | **28-29 m³/person**, nearly flat with crew size | Long-duration transit/surface | **B** — independently re-confirmed via secondary search — NASA/NTRS 20200002973 |
-| Net habitable volume, realistic (built) | **~37 m³/person** (~27% over the floor — access paths, structure) | ibid. | C (session-limit errored, single source) |
-| Total pressurized volume (incl. systems/stowage) | **~76.5 m³/person** for a 4-crew case (147 m³ NHV + 104 m³ systems + 52 m³ stowage over 4 crew ≈ 306 m³ total ÷ 4) | ibid. | C |
-| Food-growing area | **46-65 m²/person** — Cannon & Britt 46 m² (2-1 confirmed); NASA BVAD 65 m² for full-diet-from-plants; Frontiers paper ~40-50 m² coupling food+O₂/CO₂. Converges on **~50 m²/person**. | | B/C blend |
+| Net habitable volume, theoretical floor | **28.96 m³/person** (4-crew) / 28.36 (6-crew) — nearly flat with crew size | Long-duration transit/surface | **B — verified verbatim 2026-07-10** in both BVAD Table 3-8 (115.83 / 170.14 m³ totals) and NASA/NTRS 20200002973 |
+| Net habitable volume, realistic (built) | **36.80 m³/person** (147.19 m³ / 4 crew; +27% over the floor — access paths, structure) | ibid. | **B — verified verbatim 2026-07-10** (NTRS 20200002973) |
+| Total pressurized volume (incl. systems/stowage) | **~76.5 m³/person** for a 4-crew case (306 m³ total pressurized ÷ 4; NHV 147.19 m³ within it) | ibid. | **B — verified verbatim 2026-07-10** (NTRS 20200002973: "pressurized volume of 306 m3") |
+| Food-growing area | **46-65 m²/person** — Cannon & Britt 46 m² (2-1 confirmed); NASA BVAD **verified verbatim**: 19.50 m²/CM salad-supplement diet, **65.29 m²/CM full-diet-from-plants** (Table 4-92 totals row); Frontiers ~40-50 m² coupling food+O₂/CO₂. Converges on **~50 m²/person** for substantial (not total) diet closure. | | **B** (BVAD bounds) / C (midpoint) |
 | Food self-sufficiency timeline | **20-40 years**, for a colony growing to 1M over 100 years | | C (2-1 confirmed) |
 
 **Read:** two regimes matter and must NOT be conflated — life-support power
@@ -129,7 +129,7 @@ answer:
 | Axis | Low end | High end | What it changes |
 |---|---|---|---|
 | **Self-sufficiency population target** | 1,000 (NSS formal settlement) | 1,000,000 (industrial autarky) | Everything downstream scales off this — pick the milestone, not just one number |
-| **Population growth mechanism** | Organic doubling per synod (Handmer's own proposal, ~10× per decade) | Import-driven (ships carry settlers directly, capped by fleet size) | Whether population or launch cadence is the binding constraint |
+| **Population growth mechanism / pace** | Handmer doubling per synod (~10×/decade → 1M in ~50 yr) | City NPC conservative import ramp (arxiv 2112.06155, verified 2026-07-10: 1,000 people by year 15; max 20 passenger Starships/synod × 100 pax ≈ 10,000 people/decade → **1M in ~125 yr**) | A 2.5× spread on time-to-autarky from published plans alone; also decides whether population or launch cadence binds |
 | **Power regime at each population stage** | ~25 kWe/person (subsistence) | ~100 kWe/person (industrial) | 4× swing in power-plant mass per resident |
 | **Feasibility of the whole architecture** | DLR/Maiwald 2024 (peer-reviewed): even a single crewed Starship mission is not feasible on the stated timeline — 1,200 t/trip ISRU propellant and 200 t EDL are unsolved at required TRL; realistic timeline is 10-20 years of *additional* development beyond what SpaceX has stated, at tens of billions of dollars | Optimistic (Handmer, Musk): city-scale achievable in decades | This is the field's single sharpest fault line — worth carrying as an explicit `conservative_feasibility` scenario that inflates TRL-gated timelines |
 | **Electronics/chip closure** | Accept permanent partial import (small, bounded annual mass) | Insist on full closure (Gen 5.0+, local lithography) | Whether late-stage import mass asymptotes or keeps growing — the paper is explicit that incomplete closure grows import mass **exponentially** |
@@ -163,6 +163,19 @@ answer:
    double per synod" (§4) instead.
 
 ## 8. Methodology, and what's still open
+
+**D1 verification pass (2026-07-10):** the five previously-unparseable PDFs
+were text-extracted directly (pypdf) and checked verbatim. Upgraded to Tier B:
+BVAD consumables (0.800/0.895/3.217 kg/CM-d), BVAD crop areas (19.50/65.29
+m²/CM), NHV floor (28.96/28.36 m³/CM), realistic NHV (36.80 m³/CM), total
+pressurized volume (306 m³/4 crew). CATF PEM electrolysis verified at 48.1
+kWh_AC/kg H₂ (2030 system estimate — our 55 kWh/kg baseline stays as the
+current-day conservative figure). New Tier-C anchor: the City NPC
+million-person plan's conservative import ramp (~125 yr to 1M, max 20
+passenger ships/synod). Two arxiv colony papers (2112.06145, 1904.01389)
+were graded qualitative/low-rigor on direct reading and are **excluded** as
+anchors. Still Tier C pending a working source: the ~25 kWe/person power
+figure (spj.science.org returns 403; corroborated only via secondary search).
 
 Two workflow runs (`wf_c79eb9b5-6ff`, `wf_d96e802f-f45`) both hit
 session-length limits mid-verification; neither reached the automated
