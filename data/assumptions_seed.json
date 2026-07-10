@@ -188,6 +188,29 @@
         "_note": "The peer-reviewed skeptic case (Maiwald/DLR, Sci Reports 2024): ISRU + orbital refill + cryo-chill are low-TRL and would need 10-20 yr more development than SpaceX plans. Combines Handmer's high ISRU energies, low plant availability/commissioning, heavy spares + AIAA-grade 25% contingency, near-term launch cost, and flips the refill/chill transport-readiness gates FALSE so the L1-TRANS requirements go OPEN. Not a prediction -- the honest lower bound. See docs/COMPARATIVES.md, CITY_RAMP_RESEARCH section 6."
       }
     },
+    "aiaa_contingency": {
+      "inherits": "baseline",
+      "overrides": {
+        "overheads.contingency_fraction_by_group": {
+          "ISRU": 0.30,
+          "Water mining": 0.30,
+          "Industry": 0.30,
+          "Agriculture": 0.25,
+          "Habitat & life support": 0.25,
+          "Power generation": 0.25,
+          "Site prep & construction": 0.25,
+          "Robotics": 0.20,
+          "Power storage": 0.20,
+          "Thermal & support": 0.20,
+          "Consumables & caches": 0.15,
+          "Comms nav & autonomy": 0.15,
+          "Power system": 0.15,
+          "Recon & science": 0.10,
+          "Orbital assets": 0.10
+        },
+        "_note": "AIAA S-120 mass-growth-allowance by subsystem maturity, replacing the flat 10%: new-technology (ISRU, mining, city industry) 25-30%; new development of an existing type (habitat, fission, site prep, agriculture) 25%; moderate-heritage (robotics, storage, thermal) 20%; mostly-known (comms, consumables, power distribution) 15%; off-the-shelf-ish (science instruments, orbital sats) 10%. The flat 10% baseline is low for TRL 3-4 hardware (flagged in PROVENANCE section 3); this scenario is the honest MGA. Kept a scenario pending review before any baseline promotion."
+      }
+    },
     "informed_spares": {
       "inherits": "baseline",
       "overrides": {

@@ -134,3 +134,15 @@ def test_window_enablements_read_like_english(manager, catalog, campaign_4w):
     assert "kWe" in text and "methalox" in text and "ISS" in text
     crew_lines = window_enablements(result.windows[-1], catalog, a)
     assert any("First crew" in ln for ln in crew_lines)
+
+
+def test_aiaa_contingency_per_group(manager, catalog, precursor):
+    from mars_manifest.budgets import BudgetEngine
+    base = BudgetEngine(catalog, manager.resolve("baseline")).compute(precursor)
+    aiaa = BudgetEngine(catalog, manager.resolve("aiaa_contingency")).compute(precursor)
+    # AIAA MGA (mostly 20-30%) is heavier than the flat 10% baseline
+    assert aiaa.mass.contingency_t > base.mass.contingency_t
+    assert aiaa.mass.grand_total_t > base.mass.grand_total_t
+    # baseline flat contingency must be exactly 10% of hardware (regression)
+    hw = base.mass.fixed_hardware_t + base.mass.generation_t + base.mass.storage_t
+    assert base.mass.contingency_t == pytest.approx(0.10 * hw, abs=0.01)

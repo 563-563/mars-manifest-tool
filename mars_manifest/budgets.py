@@ -189,7 +189,25 @@ class BudgetEngine:
             spared_masses[g] = spared_masses.get(g, 0.0) + storage_t
         spares_by_group = {g: gfrac(g) * m for g, m in spared_masses.items()}
         spares_t = sum(spares_by_group.values())
-        contingency_t = contingency_frac * (fixed_hw_t + gen_t + storage_t)
+
+        # contingency / mass-growth allowance: flat by default, or per-group
+        # (AIAA-S-120-style, keyed to subsystem maturity) when a scenario
+        # supplies a map. Applies to all hardware incl. consumables.
+        by_group_cont = a.get("overheads.contingency_fraction_by_group", None)
+
+        def cfrac(group: str) -> float:
+            return by_group_cont.get(group, contingency_frac) if by_group_cont else contingency_frac
+
+        cont_masses: dict[str, float] = {}
+        for c, q in fixed_items:
+            cont_masses[c.group] = cont_masses.get(c.group, 0.0) + c.unit_mass_t * q
+        if gen_t > 0:
+            g = self.catalog.get(hardware.generator_component_id).group
+            cont_masses[g] = cont_masses.get(g, 0.0) + gen_t
+        if storage_t > 0:
+            g = self.catalog.get(hardware.storage_component_id).group
+            cont_masses[g] = cont_masses.get(g, 0.0) + storage_t
+        contingency_t = sum(cfrac(g) * m for g, m in cont_masses.items())
         by_group: dict[str, float] = {}
         for c, q in fixed_items:
             by_group[c.group] = by_group.get(c.group, 0.0) + c.unit_mass_t * q
