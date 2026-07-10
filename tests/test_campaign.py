@@ -42,7 +42,8 @@ def test_precursor_window_unlocks_core_capabilities(result):
 def test_propellant_accrues_and_gates_crew(result):
     cum = [w.propellant_cumulative_t for w in result.windows]
     assert cum == sorted(cum)
-    assert cum[0] == pytest.approx(269, abs=3)      # 1x chain, one synod
+    # 1x chain ~269 t/synod nameplate, ramped at the 0.6 commissioning factor
+    assert cum[0] == pytest.approx(0.6 * 269, abs=3)
     assert cum[2] > 1400                            # full load banked before crew
     assert all(w.power_derate == 1.0 for w in result.windows)  # generation keeps pace
     assert result.windows[0].isru_bottleneck == "electrolysis"

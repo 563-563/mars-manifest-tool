@@ -131,6 +131,7 @@ class CampaignPlanner:
             w_consumables_t = 0.0
             pop_before = state.population
             caps_before = frozenset(state.capabilities)
+            delivered_before = dict(state.delivered)
 
             for mission in window.missions:
                 needed = list(mission.requires)
@@ -171,10 +172,21 @@ class CampaignPlanner:
                     if self.catalog.get(i.component_id).group == CONSUMABLES_GROUP)
 
             # ISRU production over the synod following this window's landings,
-            # derated if installed generation can't carry the delivered load
+            # derated if installed generation can't carry the delivered load.
+            # Commissioning ramp (C3): capacity added THIS window spends its
+            # first synod ramping up, so only newly-delivered throughput is
+            # discounted; hardware from earlier windows runs at nameplate.
             isru = self.isru_engine.assess_quantities(state.delivered)
             derate = self._power_derate(state)
-            produced_t = isru.tonnes_per_window * derate
+            commission = self.a.get("isru.commissioning_factor", 1.0)
+            if commission < 1.0 and delivered_before:
+                prev_isru = self.isru_engine.assess_quantities(delivered_before)
+                new_capacity = max(0.0, isru.tonnes_per_window - prev_isru.tonnes_per_window)
+                effective_t = prev_isru.tonnes_per_window + commission * new_capacity
+            else:
+                # no prior plant (first synod of production) ramps in full
+                effective_t = commission * isru.tonnes_per_window
+            produced_t = effective_t * derate
             state.propellant_produced_t += produced_t
             if derate < 1.0 and produced_t > 0:
                 warnings.append(

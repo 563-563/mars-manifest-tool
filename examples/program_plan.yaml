@@ -74,6 +74,14 @@ windows:
         # water actually confirmed by window-0 prospecting (~18-month margin
         # between data return and this fleet's ship date)
         requires: [water_confirmed]
+        # C4 loss-tolerance review: the program's critical-path window already
+        # MEETS the single-fault standard without hardening -- (1) capability:
+        # return_propellant_proven/water_supply are backstopped by window-0's
+        # pre-deployed pilot chain (L1-LOG-02 PASSES here); (2) production:
+        # ~1,826 t banked vs the 1,400 t gate is 30% margin, and one lost ship
+        # removes only ~20% (-> ~1,525 t, still clears). A 6th ship was
+        # considered and rejected as gold-plating (docs/CONSIDERED.md). The
+        # residual TWO-ship-loss cliff (-> ~1,224 t) is C2's target.
         ships: 5
         packing_policy: balanced
         pack_spares: true

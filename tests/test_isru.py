@@ -129,3 +129,22 @@ def test_high_energy_scenario_matches_handmer_anchor(manager, catalog, precursor
     assert r.spec_energy_kwh_per_kg == pytest.approx(15.3, abs=0.2)
     assert r.full_scale_kw_required == pytest.approx(1706, abs=25)
     assert r.bottleneck == "electrolysis"
+
+
+def test_commissioning_ramp_discounts_new_capacity(catalog, manager, precursor):
+    # C3: a plant's first synod produces at commissioning_factor of nameplate;
+    # the campaign planner blends prev-window nameplate with ramped new capacity
+    from mars_manifest.campaign import CampaignPlanner
+    from mars_manifest.models import Campaign, Window
+    import copy
+    a = manager.resolve("baseline")
+    factor = a.get("isru.commissioning_factor")
+    assert factor < 1.0
+    nameplate = IsruEngine(catalog, a).assess(precursor).tonnes_per_window
+    # single-window campaign: no prior plant, so full nameplate is ramped once
+    planner = CampaignPlanner(catalog, a, manager.capability_unlocks(),
+                              manager.crewed_requires())
+    w = Window(id="2031-01", synod_index=0, missions=[copy.deepcopy(precursor)])
+    result = planner.run(Campaign(id="one", windows=[w]))
+    assert result.windows[0].propellant_produced_t == pytest.approx(
+        factor * nameplate, rel=0.01)

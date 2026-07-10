@@ -28,9 +28,12 @@ def test_no_violations_and_crew_on_schedule(plan_result):
 
 def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     w = {r.window_id: r for r in plan_result.windows}
-    # redundant precursor (2x chain) banks ~537 t; matched buy closes the gate
-    assert w["2031-01"].propellant_cumulative_t == pytest.approx(537, abs=5)
+    # pilot chain ramps in over its first synod (commissioning factor 0.6),
+    # so window 0 banks ~322 t rather than the ~537 t nameplate
+    assert w["2031-01"].propellant_cumulative_t == pytest.approx(322, abs=5)
+    # matched buy still closes the 1,400 t gate at 2033 (~1,826 t, ~30% margin)
     assert "return_propellant_proven" in w["2033-03"].new_capabilities
+    assert w["2033-03"].propellant_cumulative_t > 1400
     # crew arrives with several full return loads banked
     assert w["2037-07"].propellant_cumulative_t > 5 * 1400
 
