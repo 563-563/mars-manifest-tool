@@ -1,0 +1,425 @@
+{
+  "run1_stats": {
+    "angles": 5,
+    "sources": 22,
+    "claims": 106,
+    "verified": 25,
+    "confirmed": 8,
+    "killed": 0,
+    "unverified": 17,
+    "afterSynthesis": 0
+  },
+  "run2_stats": {
+    "angles": 6,
+    "sources": 20,
+    "claims": 60,
+    "verified": 25,
+    "confirmed": 5,
+    "killed": 5,
+    "unverified": 15,
+    "afterSynthesis": 0
+  },
+  "confirmed": [
+    {
+      "claim": "Salotti calculates that the minimum number of settlers required for survival on Mars is 110 individuals, based on an engineering (working-time) constraint model rather than genetics.",
+      "source": "https://www.nature.com/articles/s41598-020-66740-0",
+      "quote": "The minimum number of settlers has been calculated and the result is 110 individuals.",
+      "vote": "3-0"
+    },
+    {
+      "claim": "The 110-person threshold assumes near-total local production with negligible ongoing imports: the initial equipment sent from Earth is assumed limited and immaterial to survival, so the settlement must produce oxygen, water, food, metals, glass, photovoltaics, and even spacesuits from local resources.",
+      "source": "https://www.nature.com/articles/s41598-020-66740-0",
+      "quote": "It is assumed here that the initial amount of resources and tools sent from Earth will be rather limited and as a consequence will not have much impact on survival.",
+      "vote": "3-0"
+    },
+    {
+      "claim": "Industrial closure proceeds in a specific order \u2014 gases, water, crude alloys, ceramics, and solar cells close first (Gen 1.0); plastics, rubbers, and chemicals next (Gen 2.5); fabrics/polymers then PC cards and chassis (Gen 3.0); electronics and computer chips close last, with modeled local-production targets of 90%, 95%, 99%, and 100% of electronics at Generations 3.0, 4.0, 5.0, and 6.0 respectively, and chips only made locally starting Gen 5.0 once lithography machines are built in situ.",
+      "source": "https://arxiv.org/abs/1612.03238",
+      "quote": "The quantity of electronics fabricated on the Moon also evolves with the generations. For Gen. 3.0, 4.0, 5.0 and 6.0, the targets are to make 90%, 95%, 99%, and 100% of the electronics on the Moon, respectively. ... Nearly full closure is vastly easier to achieve than full closure (Freitas and Gilbreath 1980), because the manufacture of electronics and computer chips requires heavy, high-tech equipment that would be expensive to launch from Earth.",
+      "vote": "3-0"
+    },
+    {
+      "claim": "If full closure is not achieved (electronics and/or computer chips remain imported), the required Earth-import mass grows exponentially alongside the industry, making incomplete closure economically untenable within a few decades \u2014 a direct constraint on any import-mass-decay curve for a growing settlement.",
+      "source": "https://arxiv.org/abs/1612.03238",
+      "quote": "However, incomplete closure results in very high launch masses later as the industry grows exponentially, as we show below. ... Figure 4 also shows how much mass would be needed from Earth year-by-year if full closure is not achieved: no electronics and/or no computer chips manufactured on the Moon. Those masses grow exponentially, and this demonstrates the need to achieve full closure.",
+      "vote": "2-1"
+    },
+    {
+      "claim": "NSS sets a quantitative completion threshold for a self-sustaining Martian settlement at a minimum of 1,000 adults, plus a multi-generational viability test (a Mars-born generation that has itself had viable children) \u2014 a population anchor roughly three orders of magnitude below Musk's 1M-person figure.",
+      "source": "https://nss.org/space-settlement-roadmap-25-martian-settlement/",
+      "quote": "This milestone can be considered achieved when a growing settlement of at least 1000 adults has been there long enough for one generation to be born on Mars who in turn have had viable children.",
+      "vote": "3-0"
+    },
+    {
+      "claim": "NSS defines the minimum industrial-closure set for 'reasonable self-sufficiency' as three capabilities: life support, stable local food production, and construction of additional pressurized habitation from local materials \u2014 implying structures/food close early in the make-vs-buy sequence while everything else may remain imported.",
+      "source": "https://nss.org/space-settlement-roadmap-25-martian-settlement/",
+      "quote": "Reasonable self-sufficiency having been demonstrated, including basic life support, stable food production, ability to construct additional habitation spaces from local materials with on-site equipment",
+      "vote": "2-1"
+    },
+    {
+      "claim": "The recommended Starship fleet ramp is for the total number of vehicles landed on Mars to at least double every 26-month synodic window, giving a concrete published ships-per-synod growth constraint (2x per window) that is far slower than Musk's 5\u219220\u2192100\u2192500 rhetoric.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9527650/",
+      "quote": "An optimal plan is for the total number of landed vehicles to double at a minimum with each consecutive opportunity",
+      "vote": "3-0"
+    },
+    {
+      "claim": "The peer-reviewed architecture defines 'sustained presence' only as a four-stage functional progression (uncrewed landings; small 10\u201320 person crews; infrastructure development; transition to self-sufficiency) and deliberately provides no quantitative threshold \u2014 no minimum population, duration, or independence metric \u2014 for 'self-sustaining'.",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9527650/",
+      "quote": "\"Sustained presence\" is defined functionally as progression through four stages: (1) uncrewed landings, (2) small crews (10\u201320), (3) infrastructure development, (4) \"transitioning to a self-sufficient state on Mars\"",
+      "vote": "2-0"
+    },
+    {
+      "claim": "Salotti's model calculates the minimum number of settlers required for long-term survival on Mars (self-sufficiency) as 110 individuals.",
+      "source": "https://www.nature.com/articles/s41598-020-66740-0",
+      "quote": "the minimum number of settlers has been calculated and the result is 110 individuals",
+      "vote": "3-0"
+    },
+    {
+      "claim": "The model is based on comparing the time required to perform all necessary human activities for survival against the available productive time of the settlers, using a 'sharing factor' s(ai,n) = n^\u03b1i that captures productivity/resource-sharing gains as population grows.",
+      "source": "https://www.nature.com/articles/s41598-020-66740-0",
+      "quote": "A critical parameter called the \"sharing factor\" accounts for resource pooling and productivity gains as population increases, expressed as s(ai,n) = n^\u03b1i, where \u03b1 values range between 0 and 1.",
+      "vote": "3-0"
+    },
+    {
+      "claim": "Cannon & Britt's model finds food self-sufficiency on Mars achievable in 20-40 years depending on resource allocation, for a colony growing to 1 million people over 100 years.",
+      "source": "https://www.universetoday.com/articles/what-will-it-take-to-feed-a-million-people-on-mars",
+      "quote": "Self-sufficiency achievable in 20-40 years depending on resource allocation",
+      "vote": "2-1"
+    },
+    {
+      "claim": "Required agricultural growing area is 46 square meters per person, implying 46 square kilometers of growing space for 1 million people, requiring ~14,500 km of 4m-diameter tunnels (53 years to bore with a single machine).",
+      "source": "https://www.universetoday.com/articles/what-will-it-take-to-feed-a-million-people-on-mars",
+      "quote": "46 square meters per person",
+      "vote": "2-1"
+    },
+    {
+      "claim": "Musk's definition of self-sufficiency requires Mars to develop all the ingredients of civilization, explicitly including food production and microchip/electronics manufacturing -- not just propellant/ISRU.",
+      "source": "https://www.teslarati.com/elon-musk-self-sustaining-mars-city-plausible-25-30-years/",
+      "quote": "all the ingredients of civilization",
+      "vote": "3-0"
+    }
+  ],
+  "refuted": [
+    {
+      "claim": "Under a zero-local-food-production scenario, ~200,000 supply ships would be needed to feed the colony (vs. ~50,000 with local production, or as few as 209 deliveries in the maximum self-sufficiency scenario) over the 100-year growth period.",
+      "vote": "1-2",
+      "source": "https://www.universetoday.com/articles/what-will-it-take-to-feed-a-million-people-on-mars"
+    },
+    {
+      "claim": "Musk states self-sufficiency for Mars could be achieved in 25-30 years, contingent on exponential increases in tonnage delivered per transfer window.",
+      "vote": "1-2",
+      "source": "https://www.teslarati.com/elon-musk-self-sustaining-mars-city-plausible-25-30-years/"
+    },
+    {
+      "claim": "Musk estimates roughly 10-15 Mars transfer windows (each ~2 years apart) are needed to reach self-sufficiency, implying a ~20-30 year window given transfer windows occur every 2 years.",
+      "vote": "0-3",
+      "source": "https://www.teslarati.com/elon-musk-self-sustaining-mars-city-plausible-25-30-years/"
+    },
+    {
+      "claim": "SpaceX's projected Mars ship launch cadence ramps from 5 uncrewed Starships in 2026, to 20 in 2028 (at least one crewed), to 100 in 2031, to 500 in 2033, with an eventual target of 1,000-2,000 ships per Mars rendezvous window.",
+      "vote": "0-3",
+      "source": "https://aerospaceamerica.aiaa.org/aiaa-spacex/"
+    },
+    {
+      "claim": "Producing Mars propellant via ISRU at SpaceX's operational scale is estimated to require roughly 600 kW of power for oxygen production, versus NASA's much smaller DRA-5 baseline estimate of about 25 kW, implying a power-scaling gap of over 20x between a precursor demo and a production-scale ISRU plant.",
+      "vote": "0-3",
+      "source": "https://aerospaceamerica.aiaa.org/aiaa-spacex/"
+    }
+  ],
+  "unverified": [
+    {
+      "claim": "A stability-based feasibility analysis shows that offloading discrete payloads of approximately 30 tonnes from a Starship-class lander on the lunar and Martian surfaces is feasible.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://arc.aiaa.org/doi/10.2514/6.2024-4837"
+    },
+    {
+      "claim": "The same stability analysis casts doubt on the feasibility of offloading single 100-tonne payloads from Starship on lunar or Martian surfaces, implying a per-item offload mass limit well below Starship's ~100 t surface delivery capacity.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://arc.aiaa.org/doi/10.2514/6.2024-4837"
+    },
+    {
+      "claim": "For long-duration missions, NASA's minimum net habitable volume (the volume crew live and work in, excluding systems/storage/voids) is ~28-29 m3 per crew member, reaching an asymptote at 180 days beyond which no additional volume is needed: 28.96 m3/CM for a 4-person crew and 28.36 m3/CM for a 6-person crew. This provides a defensible pressurized-volume-per-person floor for a Mars settlement module.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20210024855/downloads/BVAD_2.15.22-final.pdf"
+    },
+    {
+      "claim": "Per-crew-member daily metabolic consumables are: 0.800 kg/CM-d of dry food solids (without packaging), 0.895 kg/CM-d of oxygen consumed, and 3.217 kg/CM-d of potable water. These are the baseline import-mass-per-capita rates that a Mars colony must supply locally or ship until food/water/O2 industrial closure is achieved.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20210024855/downloads/BVAD_2.15.22-final.pdf"
+    },
+    {
+      "claim": "A crop-growing area of about 65 m2 per crew member is required to supply a full diet from plants (specifically 65.29 m2/CM for a diet using all ELS crops), versus ~19.5 m2/CM for a salad-plus-carbohydrate diet. This sets the agricultural-area-per-person scaling factor for a food-self-sufficient settlement.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20210024855/downloads/BVAD_2.15.22-final.pdf"
+    },
+    {
+      "claim": "Roughly 40-50 m2 of crops grown under high light intensity is needed to supply the full dietary caloric requirement of one person, giving a concrete crop-area-per-capita scaling anchor for Mars agriculture.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2021.734343/full"
+    },
+    {
+      "claim": "A crop planting of the same ~40-50 m2 scale needed to feed one person would also supply all of that person's oxygen production and carbon dioxide removal, coupling food area to life-support closure.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.frontiersin.org/journals/astronomy-and-space-sciences/articles/10.3389/fspas.2021.734343/full"
+    },
+    {
+      "claim": "NASA's first comprehensive bottom-up study of Mars transit habitat volume finds the minimum required Net Habitable Volume is approximately 28-29 m3 per crew member, nearly independent of crew size (115.83 m3 total for 4 crew = 28.96 m3/person; 170.14 m3 for 6 crew = 28.36 m3/person).",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20200002973/downloads/20200002973.pdf"
+    },
+    {
+      "claim": "When the minimum functional volumes are packaged into a real cylindrical habitat design, the realistic net habitable volume rises to about 37 m3 per crew member \u2014 roughly 27% above the theoretical floor \u2014 due to access passageways, utilization space, and packaging inefficiency.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20200002973/downloads/20200002973.pdf"
+    },
+    {
+      "claim": "Net habitable volume is only about half of total pressurized volume: the 4-crew Mars Transit Habitat case study requires 306 m3 pressurized volume (~76.5 m3/person), broken down as 147 m3 NHV, 104 m3 systems volume, 52 m3 storage volume, and 3 m3 voids \u2014 a key multiplier for converting per-person habitable volume into deliverable pressurized-structure requirements.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://ntrs.nasa.gov/api/citations/20200002973/downloads/20200002973.pdf"
+    },
+    {
+      "claim": "Expected constant power demand on Mars is roughly 24-25 kWe per person, staying fairly flat across mission sizes from 4 to 500 people (with the paper's own table showing mild economies of scale, declining from 25 kWe/person at 6 people to 17 kWe/person at 100+ people).",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://spj.science.org/doi/10.34133/2021/9820546"
+    },
+    {
+      "claim": "A 100+ person colony requires a total constant-equivalent power demand of about 4.4-7.7 MWe (Table 1: stage 4, 100+ population, 17 kWe/person, 2,500 kWe generic load plus 200 kWe ISRU, total 4,400-7,700 kWe), served by an installed hybrid capacity of 8-13 MW generation (4-7 MW PV plus 4-6 MW nuclear/geothermal) plus 2.6-3.1 MW of storage (Table 3).",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://spj.science.org/doi/10.34133/2021/9820546"
+    },
+    {
+      "claim": "A peer-reviewed DLR-authored analysis (Maiwald et al., Scientific Reports 2024) concludes that no feasible crewed Mars mission using Starship as publicly specified could be constructed, even under best-case assumptions \u2014 directly contradicting the SpaceX baseline architecture the campaign tool encodes and anchoring the skeptical end of any scenario axis.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.nature.com/articles/s41598-024-54012-0"
+    },
+    {
+      "claim": "ISRU propellant production for return flights requires roughly 2,400 t of propellant (940 t LOX + 260 t methane per return trip, two trips), a production rate of ~5,107 kg/day, and an ISRU system of ~191.5 t drawing ~2.55 MW nominal (253 t and 3.37 MW with margin) \u2014 i.e., 2.5-3.4 MW for a plant sized well below the tool's ~10,000 t banked-propellant target, implying the tool's ~1 MW-class propellant factory assumption sits at the optimistic end of published estimates.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.nature.com/articles/s41598-024-54012-0"
+    },
+    {
+      "claim": "Supporting a single crewed Starship with 12 astronauts for a 500-day surface stay plus return flight requires resupply of ~1,263 t of consumables (retrieved text prints '1,263,158 MT' but the figure is dimensionally kg, consistent with the paper's own 26-ship requirement) and 26 cargo Starships at 100 t payload each \u2014 an import-mass anchor of roughly 50-100 t per person per year for an early outpost, far above Handmer-style ~30 t/person/year mature-city figures.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.nature.com/articles/s41598-024-54012-0"
+    },
+    {
+      "claim": "A George Mason University agent-based modeling study (Arguello, Carter, Grieg, Hammer, Prather, Petri, Berea; preprint 'An Exploration of Mars Colonization with Agent-Based Modeling') found that 22 colonists is the minimum population required to sustain a Mars colony's viability over an extended period \u2014 far below prior 100+ estimates.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.technology.org/2023/08/18/how-many-people-would-it-take-to-start-a-self-sufficient-mars-colony/"
+    },
+    {
+      "claim": "Jean-Marc Salotti's 2020 paper estimated a self-sustaining Mars colony would need around 110 individuals (note: the article incorrectly says it was published in Nature; it was actually Scientific Reports, a Nature Portfolio journal).",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://www.technology.org/2023/08/18/how-many-people-would-it-take-to-start-a-self-sufficient-mars-colony/"
+    },
+    {
+      "claim": "Each Starship requires roughly 1,200 metric tons of propellant for Mars transit -- approximately 933 t of liquid oxygen and 267 t of liquid methane -- which must be delivered via orbital tanker launches.",
+      "erroredVotes": 2,
+      "validVotes": 1,
+      "source": "https://aerospaceamerica.aiaa.org/aiaa-spacex/"
+    },
+    {
+      "claim": "Handmer estimates that a Mars settlement needs on the order of one million people to sustain a full industrial economy, by analogy to the 10-100 million people Earth's economies typically require for full industrial diversity.",
+      "erroredVotes": 2,
+      "validVotes": 1,
+      "source": "https://caseyhandmer.wordpress.com/2017/05/13/a-roadmap-to-an-industrially-self-sufficient-mars-base-in-the-minimum-time/"
+    },
+    {
+      "claim": "The roadmap targets reaching this population via a population doubling every launch window (roughly every 2 years), amounting to a 10x increase per decade, over about 50 years / ~20 launch windows.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2017/05/13/a-roadmap-to-an-industrially-self-sufficient-mars-base-in-the-minimum-time/"
+    },
+    {
+      "claim": "Handmer's model shows Mars population reaching 1 million people when cumulative imported/launched mass hits 620,000 tonnes, in the 2050 launch window (~23 years after a 2027 initial landing).",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2017/09/18/estimating-mars-settlement-rates/"
+    },
+    {
+      "claim": "Handmer frames the self-sufficiency threshold as requiring roughly a million people for 'sufficient industrial diversity' to achieve economic independence, though he notes tech improvements could push this down to the tens of thousands.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2017/09/18/estimating-mars-settlement-rates/"
+    },
+    {
+      "claim": "Without local production of basic commodities, per-capita annual material imports to a Mars base would be around 10 tonnes at a cost of $2M per person per year.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2022/03/29/understanding-the-make-buy-question-in-a-growing-mars-city/"
+    },
+    {
+      "claim": "Once local raw-material manufacturing is established, per-capita material imports fall from 10 T to roughly 20 kg per year \u2014 a ~500x reduction.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2022/03/29/understanding-the-make-buy-question-in-a-growing-mars-city/"
+    },
+    {
+      "claim": "Handmer's make-buy rule: commodities with local production cost under $100/kg should always be made locally rather than imported, since that undercuts any plausible import cost.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2022/03/29/understanding-the-make-buy-question-in-a-growing-mars-city/"
+    },
+    {
+      "claim": "Handmer estimates Mars could reach industrial autarky (self-sufficiency) with on the order of a million people, after 50-100 years of transport and local industrial buildup.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2018/09/03/how-to-industrialize-mars/"
+    },
+    {
+      "claim": "He identifies 1,000 to 100,000 people as the most dangerous population range for a Mars settlement -- too large to evacuate in an emergency but too small to be self-sufficient.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2018/09/03/how-to-industrialize-mars/"
+    },
+    {
+      "claim": "Handmer proposes a specific industrial closure sequence: oxygen production first, then water and fuel, then plastics and some food, then masonry/structural metals, then alloys, then electronics/advanced chemistry, and computer processors last -- prioritized by mass-produced divided by difficulty of manufacture.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2018/09/03/how-to-industrialize-mars/"
+    },
+    {
+      "claim": "Handmer estimates Mars per-capita material/goods usage would be roughly 10x higher than on Earth, driven by the population working largely in industrial/factory roles to build and maintain artificial environments.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2020/08/23/progression-of-space-industrialization/"
+    },
+    {
+      "claim": "Handmer's make-buy framework predicts bulk, low-value-per-kg commodities (metals, gases, water, most food, plastics, other bulk materials) get localized first, while low-volume/high-complexity goods (pharmaceuticals, precision mechanical components like actuators and bearings) remain economically imported even at maturity.",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://caseyhandmer.wordpress.com/2020/08/23/progression-of-space-industrialization/"
+    },
+    {
+      "claim": "A minimum population of 500-1,000 people is needed for short-term Mars colony survival with limited genetic risk",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://newspaceeconomy.ca/2024/12/29/preconditions-for-a-self-sustainable-mars-colony/"
+    },
+    {
+      "claim": "5,000-10,000 people would be needed to ensure long-term sustainability of a Mars colony",
+      "erroredVotes": 3,
+      "validVotes": 0,
+      "source": "https://newspaceeconomy.ca/2024/12/29/preconditions-for-a-self-sustainable-mars-colony/"
+    }
+  ],
+  "sources_run2": [
+    {
+      "url": "https://caseyhandmer.wordpress.com/2017/05/13/a-roadmap-to-an-industrially-self-sufficient-mars-base-in-the-minimum-time/",
+      "quality": "blog",
+      "claimCount": 5
+    },
+    {
+      "url": "https://caseyhandmer.wordpress.com/2017/09/18/estimating-mars-settlement-rates/",
+      "quality": "blog",
+      "claimCount": 5
+    },
+    {
+      "url": "https://www.sciencetimes.com/articles/26117/20200618/110-humans-sufficient-mars-colony-french-expert-whos-up.htm",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://www.universetoday.com/articles/what-will-it-take-to-feed-a-million-people-on-mars",
+      "quality": "secondary",
+      "claimCount": 5
+    },
+    {
+      "url": "https://www.space.com/space-exploration/private-spaceflight/humanity-could-settle-mars-by-2055-elon-musk-says",
+      "quality": "secondary",
+      "claimCount": 2
+    },
+    {
+      "url": "https://www.teslarati.com/elon-musk-self-sustaining-mars-city-plausible-25-30-years/",
+      "quality": "secondary",
+      "claimCount": 4
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-020-66740-0",
+      "quality": "primary",
+      "claimCount": 5
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0273117705000578",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://caseyhandmer.wordpress.com/2022/03/29/understanding-the-make-buy-question-in-a-growing-mars-city/",
+      "quality": "blog",
+      "claimCount": 5
+    },
+    {
+      "url": "https://caseyhandmer.wordpress.com/2018/09/03/how-to-industrialize-mars/",
+      "quality": "blog",
+      "claimCount": 5
+    },
+    {
+      "url": "https://caseyhandmer.wordpress.com/2020/08/23/progression-of-space-industrialization/",
+      "quality": "blog",
+      "claimCount": 4
+    },
+    {
+      "url": "https://marspedia.org/ISRU_timeline",
+      "quality": "blog",
+      "claimCount": 2
+    },
+    {
+      "url": "https://newspaceeconomy.ca/2024/12/30/a-hypothetical-economic-growth-timeline-for-a-mars-colony/",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://www.nextbigfuture.com/2022/05/industrialmars.html",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://aerospaceamerica.aiaa.org/aiaa-spacex/",
+      "quality": "secondary",
+      "claimCount": 5
+    },
+    {
+      "url": "https://newspaceeconomy.ca/2024/12/29/preconditions-for-a-self-sustainable-mars-colony/",
+      "quality": "blog",
+      "claimCount": 3
+    },
+    {
+      "url": "https://www.space.com/how-feed-one-million-mars-colonists.html",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://nss.org/wp-content/uploads/NSS-JOURNAL-Critique-of-A-City-on-Mars.pdf",
+      "quality": "blog",
+      "claimCount": 5
+    },
+    {
+      "url": "https://undark.org/2023/11/10/review-city-on-mars/",
+      "quality": "unreliable",
+      "claimCount": 0
+    },
+    {
+      "url": "https://caseyhandmer.wordpress.com/2020/01/20/what-would-it-be-like-to-work-on-mars/comment-page-1/",
+      "quality": "blog",
+      "claimCount": 5
+    }
+  ]
+}
