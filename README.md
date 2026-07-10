@@ -100,6 +100,7 @@ mars report examples/program_plan.yaml --format xlsx --out out/program.xlsx
 
 | File | What it is |
 |---|---|
+| `docs/NARRATIVE.md` | **Start here for the story** — the whole program walked through in plain language, window by window, with the reasoning behind each call |
 | `CONTRIBUTING.md` | The rules that keep the repo honest — read before changing any number |
 | `PROVENANCE.md` | Every input: value, source, tier, sensitivity, verification log |
 | `CLAUDE.md` | The working agreement: hierarchy of truth, baseline, regression contract |
