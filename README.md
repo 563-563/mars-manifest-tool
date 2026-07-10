@@ -41,15 +41,16 @@ quietly used.
 
 | Window | Fleet | What it buys |
 |---|---|---|
-| **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, ECLSS demonstration article. Retires ~50% of weighted program risk on first landing. |
-| **2033-03** | 5 ships | The fuel factory: rate-matched ISRU chain + the reactors it drags (1,800 kWe). `return_propellant_proven` retires with 2,686 t banked — gated on window-0 prospecting confirming site water first. |
-| **2035-05** | 11 ships | Second plant (2× production) + habitat cluster + deep caches. Volume-bound at the real 614 m³ bay — hence 11 ships, not 10. |
-| **2037-07** | 20 ships | First crew lands at a powered, provisioned base with ~10,200 t of propellant banked (≈7 return loads). All 27 requirements closed at least one window earlier. |
+| **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, ECLSS demonstration article, prospect-before-commit water survey. Retires ~50% of weighted program risk on first landing. |
+| **2033-03** | 5 ships | The fuel factory: rate-matched ISRU chain + the reactors it drags (1,760 kWe). `return_propellant_proven` retires with ~1,826 t banked (chain ramps at 60% its first synod) — gated on 2031 confirming site water first. |
+| **2035-05** | 11 ships | Second plant (2× production) + habitat cluster + deep caches. `life_support_closed` + `radiation_managed`; all schedule-critical risk retired. Volume-bound at the real 614 m³ bay — hence 11 ships, not 10. |
+| **2037-07** | 21 ships | First crew (12) lands at a powered, provisioned base with ~8,700 t of propellant banked, ~93% demonstrated EDL reliability, and every requirement closed at least one synod earlier. |
+| **2039 → 2044** | 42 → 200 ships | City ramp: past the 110-person survival floor (2039), Gen-3 industrial closure (2041), the NSS 1,000-adult settlement milestone (2044, ~1,112 people). Recurring imports walk the ~500× decay curve as local industry closes. |
 
 The 2031 start reflects the verified public record (no 2026 flight;
 Moon-first pivot), and 2037 crew sits at the aggressive end of the
-independent expert consensus. The forward roadmap — from first crew toward a
-self-sustaining city — is researched and tiered in
+independent expert consensus. **`docs/NARRATIVE.md` walks the whole arc
+through in plain language;** the city-ramp research is tiered in
 `docs/CITY_RAMP_RESEARCH.md`.
 
 ## How it stays honest
