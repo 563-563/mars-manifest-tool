@@ -219,6 +219,8 @@ def isru_markdown(r) -> str:
     title = "# ISRU propellant chain"
     if getattr(r, "mode", "sabatier") == "oxygen_only":
         title += " — OXYGEN-ONLY FALLBACK (CH4 from Earth)"
+    elif getattr(r, "mode", "sabatier") == "h2_import":
+        title += " — H2-IMPORT MODE (LH2 from Earth, no water mining)"
     parts = [title, ""]
     rows = [[("-> " if s.is_bottleneck else "") + s.key, s.component_id, f"{s.units:g}",
              s.avg_kw, f"{s.throughput_kg_hr:,.1f} kg/hr {s.commodity}",
@@ -240,7 +242,11 @@ def isru_markdown(r) -> str:
          ["O2 balance", f"{r.o2_surplus_per_kg_ch4:+.2f} kg O2 per kg CH4 vs engine demand"]]
         + ([["CH4 imported from Earth",
              f"{r.ch4_import_t_per_load:,.0f} t per load (~{r.ch4_import_ships_per_load} extra ships)"]]
-           if getattr(r, "mode", "sabatier") == "oxygen_only" else [])), ""]
+           if getattr(r, "mode", "sabatier") == "oxygen_only" else [])
+        + ([["LH2 imported from Earth",
+             f"{r.h2_import_t_per_load:,.0f} t per load (~{r.h2_import_ships_per_load} ships, volume-bound)"],
+            ["Water mined", "none (recycled from Sabatier product)"]]
+           if getattr(r, "mode", "sabatier") == "h2_import" else [])), ""]
     if r.warnings:
         parts += ["## Findings"] + [f"- {w}" for w in r.warnings] + [""]
     return "\n".join(parts)

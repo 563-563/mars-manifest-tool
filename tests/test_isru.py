@@ -148,3 +148,20 @@ def test_commissioning_ramp_discounts_new_capacity(catalog, manager, precursor):
     result = planner.run(Campaign(id="one", windows=[w]))
     assert result.windows[0].propellant_produced_t == pytest.approx(
         factor * nameplate, rel=0.01)
+
+
+def test_h2_import_mode(manager, catalog, precursor):
+    # C6: import LH2, source O2 from CO2, recycle Sabatier water -> no mining.
+    # ~76 t LH2 per 1,400 t load; volume-bound, not mass-bound.
+    a = manager.resolve("h2_import_isru")
+    r = IsruEngine(catalog, a).assess(precursor)
+    assert r.mode == "h2_import"
+    assert r.water_for_return_load_t == 0.0          # no water mining
+    assert r.net_water_kg_per_sol == 0.0
+    assert r.h2_import_t_per_load == pytest.approx(76.5, abs=1.5)
+    # LH2 is volume-bound: >=2 ships even though 76 t is <1 ship by mass
+    assert r.h2_import_ships_per_load >= 2
+    assert any("cryocooling" in w for w in r.warnings)
+    # spec energy is a touch lower than full sabatier (no mining energy)
+    sab = IsruEngine(catalog, manager.resolve("baseline")).assess(precursor)
+    assert r.spec_energy_kwh_per_kg < sab.spec_energy_kwh_per_kg

@@ -139,6 +139,13 @@
         "_note": "DRA-5.0-style descope: ISRU makes only LOX from atmospheric CO2 (solid-oxide electrolysis, MOXIE-heritage); methane ships from Earth (~304 t/return load = 3-4 extra cargo ships). Buys out the entire water-mining risk. See docs/COMPARATIVES.md."
       }
     },
+    "h2_import_isru": {
+      "inherits": "baseline",
+      "overrides": {
+        "isru.mode": "h2_import",
+        "_note": "Handmer comment-thread fallback: import LH2, make CH4 via Sabatier from local CO2, recycle Sabatier product water for H2, source O2 from CO2 -- no water mining. ~76 t LH2 per 1,400 t return load; volume-bound (~2 ships of LH2) not mass-bound. Trades water-mining risk for surface LH2 cryocooling risk. See docs/CONSIDERED.md, docs/COMPARATIVES.md."
+      }
+    },
     "isru_high_energy": {
       "inherits": "baseline",
       "overrides": {

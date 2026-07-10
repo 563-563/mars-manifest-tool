@@ -35,6 +35,12 @@ CO2_PER_CH4 = _M_CO2 / _M_CH4                        # 2.7432
 O2_PER_KG_H2O = _M_O2 / (2 * _M_H2O)                 # 0.8881
 O2_FROM_ELECTROLYSIS_PER_CH4 = H2O_ELECTROLYZED_PER_CH4 * O2_PER_KG_H2O  # 3.989
 
+# h2_import mode: bring H2 from Earth, source O2 from CO2 locally, no water
+# mining. Net imported H2 = the H bound into the CH4 (Sabatier product water
+# is electrolyzed to recycle the rest), i.e. the H mass fraction of CH4.
+H2_IMPORT_PER_CH4 = (4 * 1.008) / _M_CH4             # 0.2513 (H mass fraction of CH4)
+LH2_KG_PER_M3 = 70.8                                 # liquid hydrogen density
+
 
 @dataclass(frozen=True)
 class ChainStep:
@@ -69,6 +75,8 @@ class IsruResult:
     mode: str = "sabatier"
     ch4_import_t_per_load: float = 0.0   # oxygen_only: Earth-supplied methane
     ch4_import_ships_per_load: int = 0
+    h2_import_t_per_load: float = 0.0    # h2_import: Earth-supplied hydrogen
+    h2_import_ships_per_load: int = 0    # binding of mass vs LH2 volume
 
 
 @dataclass(frozen=True)
@@ -219,6 +227,11 @@ class IsruEngine:
             return self._assess_oxygen_only(quantities, a, chain, sol_hours,
                                             window_sols, load_t, of, availability)
 
+        # h2_import shares the sabatier chain rate math (same electrolysis /
+        # Sabatier / liquefaction equipment); it differs only in feedstock —
+        # H2 imported, water recycled not mined — handled at the return below.
+        h2_import = mode == "h2_import"
+
         def avg_kw(component_id: str) -> tuple[float, float]:
             comp = self.catalog.get(component_id)
             n = quantities.get(component_id, 0.0)
@@ -253,10 +266,12 @@ class IsruEngine:
                            s.commodity, s.propellant_rate_kg_hr, s.key == bottleneck)
                  for s in steps]
 
-        # energy per kg of propellant, all steps at stoichiometric balance
+        # energy per kg of propellant, all steps at stoichiometric balance.
+        # h2_import mines no water, so the mining/processing energy drops out.
         ch4_frac = 1.0 / prop_per_ch4
+        mining_e = 0.0 if h2_import else H2O_NET_PER_CH4 * (e_wat + e_exc) * ch4_frac
         spec = (H2O_ELECTROLYZED_PER_CH4 * e_h2o + CO2_PER_CH4 * e_co2 + e_sab) * ch4_frac \
-            + e_liq + H2O_NET_PER_CH4 * (e_wat + e_exc) * ch4_frac
+            + e_liq + mining_e
 
         o2_surplus = O2_FROM_ELECTROLYSIS_PER_CH4 - of
         if o2_surplus < 0:
@@ -281,6 +296,27 @@ class IsruEngine:
                 f"return-propellant capability."
             )
 
+        # h2_import: feedstock is Earth hydrogen; water is recycled, not mined
+        h2_import_t = h2_import_ships = 0
+        net_water_kg_per_sol = kg_per_sol / prop_per_ch4 * H2O_NET_PER_CH4
+        water_for_load_t = load_t / prop_per_ch4 * H2O_NET_PER_CH4
+        if h2_import:
+            ch4_per_load = load_t / prop_per_ch4
+            h2_import_t = ch4_per_load * H2_IMPORT_PER_CH4
+            payload_t = a.get("fleet.payload_mass_per_ship_t")
+            bay_m3 = a.get("fleet.payload_volume_per_ship_m3")
+            by_mass = h2_import_t / payload_t
+            by_volume = (h2_import_t * 1000.0 / LH2_KG_PER_M3) / bay_m3
+            h2_import_ships = int(-(-max(by_mass, by_volume) // 1))  # ceil, volume usually binds
+            net_water_kg_per_sol = 0.0
+            water_for_load_t = 0.0
+            warnings.append(
+                f"h2_import mode: {h2_import_t:,.0f} t of LH2 per return load ships from "
+                f"Earth (volume-bound: ~{h2_import_ships} ships at {bay_m3:g} m3/bay); "
+                f"O2 sourced from CO2 locally, no water mining. LH2 surface cryocooling "
+                f"is the weak point (D-tier, unmodeled)."
+            )
+
         return IsruResult(
             steps=tuple(steps),
             bottleneck=bottleneck,
@@ -291,13 +327,16 @@ class IsruEngine:
             fraction_of_return_load=t_per_window / load_t if load_t else 0.0,
             sols_to_return_load=sols_to_load,
             years_to_return_load=years_to_load,
-            net_water_kg_per_sol=kg_per_sol / prop_per_ch4 * H2O_NET_PER_CH4,
-            water_for_return_load_t=load_t / prop_per_ch4 * H2O_NET_PER_CH4,
+            net_water_kg_per_sol=net_water_kg_per_sol,
+            water_for_return_load_t=water_for_load_t,
             spec_energy_kwh_per_kg=spec,
             energy_per_return_load_gwh=load_t * 1000.0 * spec / 1e6,
             full_scale_kw_required=full_scale_kw,
             o2_surplus_per_kg_ch4=o2_surplus,
             warnings=tuple(warnings),
+            mode=mode,
+            h2_import_t_per_load=h2_import_t,
+            h2_import_ships_per_load=h2_import_ships,
         )
 
     def _assess_oxygen_only(self, quantities, a, chain, sol_hours, window_sols,
