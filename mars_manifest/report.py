@@ -282,6 +282,9 @@ _HOME_KW = 1.2
 _HABITABLE_M3_PER_PERSON = 25.0
 _CONSUMABLES_KG_PER_PERSON_DAY = 5.0
 _ISS_MASS_T = 420.0
+_WATER_KG_PER_PERSON_DAY = 3.217          # NASA BVAD potable-water metabolic rate
+_ECLSS_WATER_RECOVERY = 0.90              # ISS-class near-closed water loop
+_WATER_FRAC_OF_CACHE = 0.655              # 3.217/4.912 of the metabolic split
 
 
 def window_enablements(w, catalog: Catalog, a: Assumptions,
@@ -364,6 +367,22 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
     if robots or rovers:
         out.append(f"Robot workforce: {robots:,.0f} humanoids and {rovers:,.0f} rovers"
                    + ("." if crewed else " — the only crew on the planet."))
+
+    # EDL confidence (C5/C2): what the accumulated landings actually demonstrate
+    if getattr(w, "demonstrated_reliability", 0) > 0:
+        out.append(f"EDL track record: landings so far demonstrate "
+                   f"~{w.demonstrated_reliability:.0%} reliability (rule-of-three floor); "
+                   f"this window's ships each land with ~{w.edl_success_prob:.0%} odds.")
+
+    # Water independence (C5): if mining stopped, does the crew still drink?
+    cache_qty = inv.get("consumables_cache", 0)
+    if w.population > 0 and cache_qty:
+        cached_water_t = cache_qty * catalog.get("consumables_cache").unit_mass_t * _WATER_FRAC_OF_CACHE
+        makeup_kg_day = w.population * _WATER_KG_PER_PERSON_DAY * (1 - _ECLSS_WATER_RECOVERY)
+        days = cached_water_t * 1000.0 / makeup_kg_day if makeup_kg_day else 0
+        out.append(f"Water independence: if mining stopped, ECLSS recycles ~90% and "
+                   f"cached water covers the makeup for ~{days / 30.4:,.0f} months "
+                   f"({w.population:,} residents) — propellant production halts, the crew does not.")
 
     out.append(f"{w.surface_hardware_t:,.0f} t of hardware on the surface — "
                f"{w.surface_hardware_t / _ISS_MASS_T:,.1f}× the mass of the ISS, and "

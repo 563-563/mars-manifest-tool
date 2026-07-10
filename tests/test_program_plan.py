@@ -98,3 +98,16 @@ def test_city_ramp_milestones_and_ledger(plan_result):
     all_warnings = " ".join(x for r in plan_result.windows for x in r.warnings)
     assert "below the" not in all_warnings and "deficit" not in all_warnings
     assert "over capacity" not in all_warnings
+
+
+def test_edl_and_water_metrics_in_enablements(plan_result, catalog, baseline):
+    from mars_manifest.report import window_enablements
+    # crew window has both new C5 metrics
+    crew = window_enablements(plan_result.windows[3], catalog, baseline)
+    text = " ".join(crew)
+    assert "EDL track record" in text
+    assert "Water independence" in text and "months" in text
+    # robotic window 0 has EDL confidence but no water-independence (no crew)
+    w0 = window_enablements(plan_result.windows[0], catalog, baseline)
+    assert any("EDL track record" in ln for ln in w0)
+    assert not any("Water independence" in ln for ln in w0)

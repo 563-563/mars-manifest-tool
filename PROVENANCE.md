@@ -82,6 +82,16 @@ Net water ≈ **684 t per load** — the "hundreds of tonnes" grounding. Pilot
 chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
 ~269 t per window = 19% of one load, ~8.8 years to a full load.
 
+## 2b-edl. EDL risk (`edl.*`)
+
+| Input | Value | Tier | Source & validation |
+|---|---|---|---|
+| `edl.success_prob_base` | 0.5 | **D** | Musk rated the first uncrewed Mars attempt "50/50" (deep dive §4). Nothing heavier than ~1 t has landed on Mars, so window-0 uncertainty is genuine. A scenario axis, not a claim. |
+| `edl.success_prob_improvement_per_synod` | 0.12 | **D** | Judgment: each synod's landings + telemetry buy down EDL risk. Ramps 0.5 → 0.95 over ~4 windows. |
+| `edl.max_prob` | 0.95 | **D** | Mature-EDL ceiling; even routine Falcon 9 landing success sits in the high-90s and Mars EDL is harder. |
+| demonstrated-reliability metric | rule of three | **A (statistics)** | 0 failures in N landings ⇒ failure rate ≤ ~3/N at 95% confidence, so demonstrated reliability ≈ 1 − 3/N. Standard reliability statistics; assumes independent trials. |
+| water-independence constants | 3.217 kg/person-day; 90% recovery; 65.5% cache water | **B / C** | Water rate is the verified BVAD metabolic value; 90% ECLSS recovery is ISS-class (NTRS ECLSS literature, C); cache water fraction = 3.217/4.912 of the BVAD metabolic split (C). |
+
 ## 2c. Lifecycle config (`lifecycle.*`)
 
 | Input | Tier | Source & validation |
