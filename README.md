@@ -58,7 +58,7 @@ through in plain language;** the city-ramp research is tiered in
 Three browser views are generated from the same engine outputs (regenerate
 via the session export + build scripts):
 
-- **[The Manifest — scrollytelling essay](https://claude.ai/code/artifact/b0b7a7f8-525e-499b-9512-7501ead32fd3)** — the program told window by window, with a sticky panel that watches the base accrete. *Start here.*
+- **[The Manifest — scrollytelling essay](https://claude.ai/code/artifact/b0b7a7f8-525e-499b-9512-7501ead32fd3)** — the program told window by window, with a sticky panel that watches the base accrete, and an **Adjust the model** drawer that recomputes every figure live from curated knobs (anchored to the engine baseline; see [`viz/`](viz/README.md)). *Start here.*
 - **[Manifest console](https://claude.ai/code/artifact/1fa983e5-510f-401f-9820-bac33444ca7c)** — the analyst's instrument: budgets, packing, requirements buy-off, risk, ISRU, surface build-up.
 - **[Surface walkthrough](https://claude.ai/code/artifact/3182378f-acac-47a3-b381-7ce2a6d36a18)** — a visual site plan of the base after each window.
 
