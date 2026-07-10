@@ -271,6 +271,8 @@ class PackingEngine:
             return out
 
         def satisfied(flag: str, rule: dict, q: dict[str, float], landings: int) -> bool:
+            if "any_path" in rule:  # hardware check on each alternative path
+                return any(satisfied(flag, path, q, landings) for path in rule["any_path"])
             ok = True
             if "all_of" in rule:
                 ok = ok and all(q.get(cid, 0) >= 1 for cid in rule["all_of"])

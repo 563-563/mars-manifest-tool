@@ -11,9 +11,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def plan_result(catalog, baseline, manager):
+    from mars_manifest.city import city_rules, load_city_ramp
+    city = load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+    rules = {**manager.capability_unlocks(), **city_rules(city)}
+    growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
     campaign = load_campaign(ROOT / "examples" / "program_plan.yaml", catalog)
-    planner = CampaignPlanner(catalog, baseline, manager.capability_unlocks(),
-                              manager.crewed_requires())
+    planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(),
+                              city=city, min_fleet_growth=growth)
     return planner.run(campaign)
 
 
@@ -43,29 +47,51 @@ def test_surface_state_lays_flat(plan_result):
     assert hw == sorted(hw)  # hardware only accumulates
     final = plan_result.windows[-1]
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
-    # two matched chains + the redundant pilot pair
-    assert inv["water_electrolysis"] == 14
-    # one demo habitat early (lifecycle review), the rest staged windows 2-3
-    assert inv["habitat_module"] == 9
-    # power generation is the biggest thing on Mars, as the research predicted
+    # pre-crew chains (14) + city-era growth (4+6+8)
+    assert inv["water_electrolysis"] == 32
+    assert inv["habitat_module"] == 9          # pre-city (deployed-volume fixture component)
+    assert inv["habitat_inflatable"] == 275   # city era, honest stowed volume
+    # power and habitat dominate the city-era surface, per the research
     top_group = max(final.surface_by_group, key=final.surface_by_group.get)
-    assert top_group == "Power generation"
+    assert top_group in ("Power generation", "Habitat & life support")
     # installed generation stays ahead of the surface load
     assert final.installed_generation_kwe >= final.surface_avg_load_kw
 
 
 def test_population_is_first_class(plan_result):
-    # population is zero through the robotic era, then the first crew lands
+    # zero through the robotic era; first crew 2037; village/town/settlement ramp
     pops = [w.population for w in plan_result.windows]
-    assert pops[:3] == [0, 0, 0]
-    assert pops[3] == 12
+    assert pops == [0, 0, 0, 12, 112, 512, 1112]
     # blocked missions must not add settlers: covered by delivery gating
     # (population increments live next to landings, after the blocked check)
 
 
 def test_population_appears_in_enablements(plan_result, catalog, baseline):
     from mars_manifest.report import window_enablements
-    lines = window_enablements(plan_result.windows[-1], catalog, baseline)
+    lines = window_enablements(plan_result.windows[3], catalog, baseline)
     assert any("Resident population: 12" in ln for ln in lines)
     robotic = window_enablements(plan_result.windows[0], catalog, baseline)
     assert not any("Resident population" in ln for ln in robotic)
+
+
+def test_city_ramp_milestones_and_ledger(plan_result):
+    w = {r.window_id: r for r in plan_result.windows}
+    # prospecting fast path retires water_confirmed in window 0 (30 sols)
+    assert "water_confirmed" in w["2031-01"].capabilities_after
+    # milestones fire on the researched thresholds
+    assert "survival_floor" in w["2039-09"].new_capabilities
+    assert "settlement_established" in w["2044-01"].new_capabilities
+    assert "industrial_autarky" not in w["2044-01"].capabilities_after
+    # closure ladder progresses and the import rate walks the decay curve
+    assert w["2039-09"].closure_stage == "none"          # rate keyed to window START
+    assert w["2041-11"].closure_stage == "closure_gen_2"
+    assert w["2044-01"].closure_stage == "closure_gen_3"
+    assert w["2044-01"].import_rate_t_py == 0.8
+    # every populated window covers its recurring-import requirement
+    for r in plan_result.windows:
+        if r.population and r.import_required_t:
+            assert r.import_delivered_t >= r.import_required_t, r.window_id
+    # no growth-rule or deficit warnings anywhere
+    all_warnings = " ".join(x for r in plan_result.windows for x in r.warnings)
+    assert "below the" not in all_warnings and "deficit" not in all_warnings
+    assert "over capacity" not in all_warnings

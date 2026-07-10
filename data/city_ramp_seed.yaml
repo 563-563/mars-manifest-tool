@@ -143,7 +143,33 @@ growth:
       source: "arxiv 2112.06155 (verified from PDF text 2026-07-10): self-described conservative import ramp"
 
 # ---------------------------------------------------------------------------
-# Industrial-closure ladder (data here; engine consumption is task A3)
+# Closure-stage unlock rules (task A3). Presence + population thresholds;
+# ratio-based closure (plant count scaling with population) is a logged
+# simplification — see docs/CONSIDERED.md. Population gates are D-tier
+# judgment informed by Salotti's labor model and the closure ladder.
+# ---------------------------------------------------------------------------
+closure_unlocks:
+  closure_gen_1: {all_of: [regolith_refinery], min_population: 50}
+  closure_gen_2: {all_of: [regolith_refinery, polymer_chemical_plant], min_population: 110}
+  closure_gen_3: {all_of: [polymer_chemical_plant, agri_module, sintering_rig], min_population: 500}
+  closure_gen_4: {all_of: [electronics_fab], min_population: 5000}
+  closure_gen_5: {all_of: [chip_fab], min_population: 100000}
+
+# Recurring import mass per resident, keyed to the highest closure stage
+# reached. Endpoints are Handmer's verified figures (10 t/yr with nothing
+# local; ~20 kg/yr with raw materials closed = closure complete); the
+# intermediate steps are D-tier interpolation constrained by the BVAD
+# consumables floor (~1.8 t/person/yr until food closes at gen 3).
+import_decay_t_per_person_year:
+  none: 10.0
+  closure_gen_1: 4.0
+  closure_gen_2: 2.0
+  closure_gen_3: 0.8
+  closure_gen_4: 0.2
+  closure_gen_5: 0.02
+
+# ---------------------------------------------------------------------------
+# Industrial-closure ladder (research data; the rules above operationalize it)
 # ---------------------------------------------------------------------------
 closure_sequence:
   tier: B

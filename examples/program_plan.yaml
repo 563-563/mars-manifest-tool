@@ -56,6 +56,11 @@ windows:
           # demonstration articles (demo-exempt in the lifecycle review)
           - {id: habitat_module, qty: 1}
           - {id: eclss_habitat, qty: 1}
+          # prospecting-first (Handmer): penetrators released on approach +
+          # orbital radar/relay constellation -> fast alternative path to
+          # water_confirmed (~30 sols vs 200 for surface drilling alone)
+          - {id: kinetic_penetrator_set, qty: 1}
+          - {id: orbital_radar_set, qty: 1}
 
   - id: "2033-03"
     synod_index: 1
@@ -144,7 +149,7 @@ windows:
         # first crew size: within the 10-20 range of the New Space 2022
         # architecture and matching the DLR/Maiwald 12-crew consumables case
         settlers: 12
-        ships: 20
+        ships: 21
         packing_policy: balanced
         pack_spares: true
         manifest:
@@ -163,3 +168,117 @@ windows:
           - {id: central_compute, qty: 1}
           - {id: power_distribution, qty: 2}
           - {id: logistics_kit, qty: 2}
+
+  # ------------------------------------------------------------------
+  # City ramp (tasks B1-B3): fleet at least doubles per synod (the one
+  # verified ramp anchor, New Space 2022); population milestones and
+  # industrial-closure stages gate per data/city_ramp_seed.yaml; recurring
+  # imports sized to the closure-keyed decay curve.
+  # ------------------------------------------------------------------
+  - id: "2039-09"
+    synod_index: 4
+    transit_days: 210
+    objective: "Village: past the 110-person survival floor; Gen-1/2 industry starts"
+    missions:
+      - id: village_2039
+        objective: "100 settlers; first refinery + polymer plant; agriculture online"
+        crewed: true
+        settlers: 100
+        ships: 42
+        packing_policy: balanced
+        pack_spares: true
+        manifest:
+          - {id: habitat_inflatable, qty: 25}
+          - {id: eclss_habitat, qty: 25}
+          - {id: agri_module, qty: 30}
+          - {id: consumables_cache, qty: 20}
+          - {id: regolith_refinery, qty: 2}
+          - {id: polymer_chemical_plant, qty: 1}
+          - {id: water_electrolysis, qty: 4}
+          - {id: excavator_rassor, qty: 4}
+          - {id: water_processing, qty: 2}
+          - {id: sintering_rig, qty: 4}
+          - {id: radiation_shelter, qty: 4}
+          - {id: optimus_robot, qty: 60}
+          - {id: rover_unpressurized, qty: 8}
+          - {id: robotic_maint_kit, qty: 8}
+          - {id: cargo_crane, qty: 2}
+          - {id: thermal_control, qty: 8}
+          - {id: dust_mitigation, qty: 4}
+          - {id: power_distribution, qty: 4}
+          - {id: logistics_kit, qty: 4}
+          - {id: relay_ground_station, qty: 1}
+          - {id: central_compute, qty: 2}
+
+  - id: "2041-11"
+    synod_index: 5
+    transit_days: 210
+    objective: "Town: 500+ people; Gen-3 closure (food, polymers, structures)"
+    missions:
+      - id: town_2041
+        objective: "400 settlers; agriculture and habitat scale with population"
+        crewed: true
+        settlers: 400
+        ships: 110
+        packing_policy: balanced
+        pack_spares: true
+        manifest:
+          - {id: habitat_inflatable, qty: 100}
+          - {id: eclss_habitat, qty: 100}
+          - {id: agri_module, qty: 100}
+          - {id: consumables_cache, qty: 70}
+          - {id: regolith_refinery, qty: 2}
+          - {id: polymer_chemical_plant, qty: 2}
+          - {id: electronics_fab, qty: 1}
+          - {id: water_electrolysis, qty: 6}
+          - {id: excavator_rassor, qty: 6}
+          - {id: water_processing, qty: 3}
+          - {id: sintering_rig, qty: 6}
+          - {id: radiation_shelter, qty: 8}
+          - {id: optimus_robot, qty: 100}
+          - {id: rover_unpressurized, qty: 10}
+          - {id: robotic_maint_kit, qty: 12}
+          - {id: cargo_crane, qty: 4}
+          - {id: thermal_control, qty: 12}
+          - {id: dust_mitigation, qty: 6}
+          - {id: power_distribution, qty: 6}
+          - {id: logistics_kit, qty: 6}
+          - {id: relay_ground_station, qty: 2}
+          - {id: central_compute, qty: 2}
+          - {id: landing_beacons, qty: 2}
+
+  - id: "2044-01"
+    synod_index: 6
+    transit_days: 210
+    objective: "Settlement established: 1,000+ adults (NSS milestone)"
+    missions:
+      - id: settlement_2044
+        objective: "600 settlers; the 1,000-adult formal-settlement milestone"
+        crewed: true
+        settlers: 600
+        ships: 200
+        packing_policy: balanced
+        pack_spares: true
+        manifest:
+          - {id: habitat_inflatable, qty: 150}
+          - {id: eclss_habitat, qty: 150}
+          - {id: agri_module, qty: 160}
+          - {id: consumables_cache, qty: 60}
+          - {id: regolith_refinery, qty: 4}
+          - {id: polymer_chemical_plant, qty: 2}
+          - {id: electronics_fab, qty: 2}
+          - {id: water_electrolysis, qty: 8}
+          - {id: excavator_rassor, qty: 8}
+          - {id: water_processing, qty: 4}
+          - {id: sintering_rig, qty: 8}
+          - {id: radiation_shelter, qty: 12}
+          - {id: optimus_robot, qty: 150}
+          - {id: rover_unpressurized, qty: 16}
+          - {id: robotic_maint_kit, qty: 16}
+          - {id: cargo_crane, qty: 6}
+          - {id: thermal_control, qty: 16}
+          - {id: dust_mitigation, qty: 8}
+          - {id: power_distribution, qty: 8}
+          - {id: logistics_kit, qty: 8}
+          - {id: relay_ground_station, qty: 2}
+          - {id: central_compute, qty: 4}

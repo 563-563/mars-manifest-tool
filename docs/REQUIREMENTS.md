@@ -9,6 +9,9 @@ Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: 
 - **2033-03**: L2-PWR-04, L1-PROP-01, L2-PROP-03, L2-PROP-04, L2-PROP-05
 - **2035-05**: L1-LS-01, L2-LS-03, L2-HAB-02, L1-RAD-01
 - **2037-07**: —
+- **2039-09**: —
+- **2041-11**: —
+- **2044-01**: —
 
 ## Full matrix
 | Req | Statement | Verify | Planned | Actual | Status |

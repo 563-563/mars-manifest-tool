@@ -279,6 +279,17 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
     if w.population > 0:
         out.append(f"Resident population: {w.population:,} — every per-capita clock "
                    f"(power, food area, habitat volume, imports) now has a denominator.")
+    agri = inv.get("agri_module", 0)
+    if agri and w.population > 0:
+        fed = agri * 4  # 200 m2/module at the 50 m2/person planning value
+        out.append(f"Agriculture: {agri:,.0f} modules can feed ~{fed:,.0f} people "
+                   f"({'surplus' if fed >= w.population else 'DEFICIT'} vs "
+                   f"{w.population:,} residents).")
+    if w.import_required_t > 0:
+        out.append(f"Recurring imports: residents need {w.import_required_t:,.0f} t this "
+                   f"synod at {w.import_rate_t_py:g} t/person/yr (closure stage: "
+                   f"{w.closure_stage.replace('_', ' ')}); manifests deliver "
+                   f"{w.import_delivered_t:,.0f} t.")
 
     kwe = w.installed_generation_kwe
     if kwe > 0:
@@ -307,9 +318,11 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
             line += f" The crew's ride home could be filled {loads:,.1f} times over."
         out.append(line)
 
-    hab_qty = inv.get("habitat_module", 0)
+    # habitat_module carries deployed volume in the catalog; the inflatable
+    # deploys ~300 m3 from its 75 m3 stowed figure
+    hab_qty = inv.get("habitat_module", 0) + inv.get("habitat_inflatable", 0)
     if hab_qty:
-        m3 = hab_qty * catalog.get("habitat_module").unit_volume_m3
+        m3 = hab_qty * 300.0
         out.append(f"{m3:,.0f} m³ of pressurized volume beyond the ships — long-duration "
                    f"habitable space for ~{m3 / _HABITABLE_M3_PER_PERSON:,.0f} people.")
     cache_qty = inv.get("consumables_cache", 0)

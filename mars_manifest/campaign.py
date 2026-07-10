@@ -12,7 +12,8 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .budgets import BudgetEngine, BudgetResult
-from .catalog import Catalog
+from .catalog import CONSUMABLES_GROUP, Catalog
+from .city import YEARS_PER_SYNOD, closure_stage, import_rate_t_per_person_year
 from .isru import IsruEngine
 from .models import Assumptions, Campaign, Mission, Window
 from .packing import PackingEngine, PackingResult
@@ -72,6 +73,13 @@ class WindowResult:
     surface_avg_load_kw: float = 0.0
     installed_storage_kwh: float = 0.0
     population: int = 0                # residents on the surface after this window
+    # import ledger (B1): recurring per-resident imports vs what this window
+    # actually delivered as consumables; rate keyed to closure stage at the
+    # window's START (imports are planned against known industrial state)
+    closure_stage: str = "none"
+    import_rate_t_py: float = 0.0
+    import_required_t: float = 0.0
+    import_delivered_t: float = 0.0
     warnings: tuple[str, ...] = ()
 
 
@@ -91,6 +99,8 @@ class CampaignPlanner:
         assumptions: Assumptions,
         capability_unlocks: dict,
         crewed_requires: list[str],
+        city: Optional[dict] = None,
+        min_fleet_growth: Optional[float] = None,
     ):
         self.catalog = catalog
         self.a = assumptions
@@ -99,6 +109,8 @@ class CampaignPlanner:
         self.budget_engine = BudgetEngine(catalog, assumptions)
         self.packing_engine = PackingEngine(catalog, assumptions)
         self.isru_engine = IsruEngine(catalog, assumptions)
+        self.city = city
+        self.min_fleet_growth = min_fleet_growth
 
     def run(self, campaign: Campaign) -> CampaignResult:
         state = SurfaceState()
@@ -110,11 +122,15 @@ class CampaignPlanner:
             "launch_cost_musd": 0.0, "cargo_cost_low_musd": 0.0, "cargo_cost_high_musd": 0.0,
         }
 
+        prev_ships = 0
         for window in sorted(campaign.windows, key=lambda w: w.synod_index):
             warnings: list[str] = []
             outcomes: list[MissionOutcome] = []
             w_mass = w_ships = w_launches = 0.0
             w_launch_cost = w_cargo_low = w_cargo_high = 0.0
+            w_consumables_t = 0.0
+            pop_before = state.population
+            caps_before = frozenset(state.capabilities)
 
             for mission in window.missions:
                 needed = list(mission.requires)
@@ -149,6 +165,10 @@ class CampaignPlanner:
                 self._deliver(mission, budget, state, window.synod_index)
                 state.landings += packing.ship_count
                 state.population += mission.settlers
+                w_consumables_t += sum(
+                    self.catalog.get(i.component_id).unit_mass_t * i.qty
+                    for i in mission.manifest
+                    if self.catalog.get(i.component_id).group == CONSUMABLES_GROUP)
 
             # ISRU production over the synod following this window's landings,
             # derated if installed generation can't carry the delivered load
@@ -168,6 +188,32 @@ class CampaignPlanner:
             # lands together, so same-window deliveries/unlocks satisfy deps.
             for mission in window.missions:
                 warnings.extend(self._advisories(mission, window, state))
+
+            # import ledger (B1) — rate keyed to closure state entering the window
+            stage = closure_stage(caps_before)
+            rate = (import_rate_t_per_person_year(self.city, caps_before)
+                    if self.city else 0.0)
+            import_required = pop_before * rate * YEARS_PER_SYNOD
+            if self.city and pop_before > 0 and w_consumables_t < import_required:
+                warnings.append(
+                    f"{window.id}: recurring-import deficit — {pop_before:,} residents at "
+                    f"{rate:g} t/person/yr ({stage}) need {import_required:,.0f} t this synod; "
+                    f"manifests deliver {w_consumables_t:,.0f} t of consumables"
+                )
+
+            # fleet growth rule (B2): the TOTAL landed fleet should at least
+            # double each synod (New Space 2022, verbatim: "total number of
+            # landed vehicles to double at a minimum with each consecutive
+            # opportunity" — cumulative, not per-window)
+            cum_after = cumulative["ships"] + int(w_ships)
+            if (self.min_fleet_growth and prev_ships > 0
+                    and cum_after < prev_ships * self.min_fleet_growth):
+                warnings.append(
+                    f"{window.id}: cumulative landed fleet below the "
+                    f">={self.min_fleet_growth:g}x/synod recommendation "
+                    f"({cum_after} total after {prev_ships})"
+                )
+            prev_ships = cum_after
 
             # surface snapshot: what is physically on Mars after this window
             inventory = []
@@ -215,6 +261,10 @@ class CampaignPlanner:
                 surface_avg_load_kw=load_kw,
                 installed_storage_kwh=state.installed_storage_kwh,
                 population=state.population,
+                closure_stage=stage,
+                import_rate_t_py=rate,
+                import_required_t=import_required,
+                import_delivered_t=w_consumables_t,
                 warnings=tuple(warnings),
             ))
 
@@ -283,10 +333,10 @@ class CampaignPlanner:
         min_sols_on_surface (demonstration clock, e.g. the 1000-day ECLSS proof)."""
         sols_per_synod = self.a.get("lifecycle.sols_per_synod", 760)
         production_sols = self.a.get("isru.production_sols_per_synod", 600)
-        unlocked: set[str] = set()
-        for flag, rule in self.unlocks.items():
-            if flag in state.capabilities:
-                continue
+
+        def conditions_met(rule: dict) -> bool:
+            if "any_path" in rule:  # alternative condition sets, OR'd
+                return any(conditions_met(path) for path in rule["any_path"])
             ok = True
             if "all_of" in rule:
                 ok = ok and all(state.delivered.get(cid, 0) >= 1 for cid in rule["all_of"])
@@ -303,11 +353,14 @@ class CampaignPlanner:
             if "min_sols_on_surface" in rule:
                 for cid, need_sols in rule["min_sols_on_surface"].items():
                     if cid not in state.first_delivery_synod:
-                        ok = False
-                        break
+                        return False
                     elapsed = ((synod_index - state.first_delivery_synod[cid]) * sols_per_synod
                                + production_sols)
                     ok = ok and elapsed >= need_sols
-            if ok:
+            return ok
+
+        unlocked: set[str] = set()
+        for flag, rule in self.unlocks.items():
+            if flag not in state.capabilities and conditions_met(rule):
                 unlocked.add(flag)
         return unlocked

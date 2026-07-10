@@ -197,7 +197,10 @@
       "comms_established": {"all_of": ["relay_ground_station"]},
       "power_baseload": {"min_installed_kwe": 100},
       "water_supply": {"all_of": ["ice_prospecting", "excavator_rassor", "water_processing"]},
-      "water_confirmed": {"all_of": ["ice_prospecting"], "min_sols_on_surface": {"ice_prospecting": 200}},
+      "water_confirmed": {"any_path": [
+        {"all_of": ["ice_prospecting"], "min_sols_on_surface": {"ice_prospecting": 200}},
+        {"all_of": ["kinetic_penetrator_set", "orbital_radar_set"], "min_sols_on_surface": {"kinetic_penetrator_set": 30}}
+      ]},
       "return_propellant_proven": {"all_of": ["co2_acquisition", "sabatier_reactor", "water_electrolysis", "cryo_liquefaction", "isru_control"], "min_propellant_t": 1400},
       "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"], "min_sols_on_surface": {"eclss_habitat": 1000}},
       "habitat_ready": {"all_of": ["habitat_module"]},

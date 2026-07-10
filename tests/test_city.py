@@ -76,13 +76,17 @@ def test_population_milestones_gate_in_the_planner(catalog, baseline, manager, c
     assert [w.population for w in result.windows] == [60, 120, 1020]
 
 
-def test_program_plan_reaches_no_milestone_yet(catalog, baseline, manager, city):
-    # honesty check: 12 settlers in 2037 is far below even the survival floor
+def test_program_plan_reaches_settlement_not_autarky(catalog, baseline, manager, city):
+    # the extended plan reaches the NSS settlement milestone by 2044 but is
+    # honestly nowhere near industrial autarky (1M people)
     from mars_manifest.cli import load_campaign
-    rules = {**manager.capability_unlocks(), **milestone_rules(city)}
-    planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires())
+    from mars_manifest.city import city_rules
+    rules = {**manager.capability_unlocks(), **city_rules(city)}
+    planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(), city=city)
     result = planner.run(load_campaign(ROOT / "examples" / "program_plan.yaml", catalog))
-    assert "survival_floor" not in result.windows[-1].capabilities_after
+    caps = result.windows[-1].capabilities_after
+    assert "settlement_established" in caps
+    assert "industrial_autarky" not in caps
     assert not result.violations
 
 

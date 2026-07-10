@@ -107,6 +107,7 @@ mars report examples/program_plan.yaml --format xlsx --out out/program.xlsx
 | `docs/REQUIREMENTS.md` | Generated buy-off matrix for the baseline program (never hand-edit) |
 | `docs/COMPARATIVES.md` | How this plan differs from Handmer / *New Space* 2022 / NASA DRA 5.0, and what was adopted |
 | `docs/CITY_RAMP_RESEARCH.md` | Verified research brief for the city-scale extension (population thresholds, import-mass decay, fleet-growth rules) |
+| `docs/CONSIDERED.md` | Ideas weighed and set aside — deferred, out-of-scope, rejected, or simplified — so omissions read as decisions |
 
 ## Layout
 

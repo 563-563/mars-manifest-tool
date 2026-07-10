@@ -32,3 +32,33 @@ def milestone_rules(city: dict) -> dict:
     """Population milestones as capability-unlock rules (min_population)."""
     return {m["flag"]: {"min_population": int(m["population"])}
             for m in city.get("population_milestones", [])}
+
+
+def closure_rules(city: dict) -> dict:
+    """Industrial-closure stages as capability-unlock rules."""
+    return dict(city.get("closure_unlocks", {}))
+
+
+def city_rules(city: dict) -> dict:
+    """All city-ramp capability rules (milestones + closure stages)."""
+    return {**milestone_rules(city), **closure_rules(city)}
+
+
+# recurring imports are per-year; a synod is ~26 months
+YEARS_PER_SYNOD = 26 / 12.0
+
+CLOSURE_ORDER = ["closure_gen_5", "closure_gen_4", "closure_gen_3",
+                 "closure_gen_2", "closure_gen_1"]
+
+
+def closure_stage(capabilities) -> str:
+    """Highest closure stage reached, or 'none'."""
+    for stage in CLOSURE_ORDER:
+        if stage in capabilities:
+            return stage
+    return "none"
+
+
+def import_rate_t_per_person_year(city: dict, capabilities) -> float:
+    decay = city.get("import_decay_t_per_person_year", {})
+    return float(decay.get(closure_stage(capabilities), decay.get("none", 10.0)))
