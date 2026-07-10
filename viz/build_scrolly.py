@@ -22,33 +22,33 @@ P = data["params"]
 # short lines, vivid framing, no em-dashes, opinions stated flat out.
 NARR = {
  "2031-01": ("The Precursor",
-   "Find out whether any of this actually works before you bet a fuel factory on it. And turn the water question from a hopeful guess into a number.",
-   "EDL, dust-proof power, water confirmed, autonomy, comms. Half the program’s weighted risk, gone on the first day anything lands.",
+   "The whole program is jammed behind questions you cannot answer from Earth. Can you land 100 tonnes in one piece when nothing heavier than a tonne ever has? Does a fission reactor really keep a base alive through a months-long dust storm? And the one that decides everything downstream: is there water where you want to land, or is it a hundred kilometres away under rock? You can’t design a mining rig against error bars that wide. So the first window exists to turn those unknowns into measurements, cheaply, before anything expensive depends on the answers.",
+   "One landing lights up ten capabilities at once: EDL, 640 kWe of storm-proof baseload (about 530 homes’ worth), precision landing, comms, autonomy, mobility, a habitat, and confirmed site water. That is half the program’s entire weighted risk retired on the first day anything touches down. The pilot plant even makes its first ~0.9 t of methalox a day and banks 322 t by 2033: not production, but hard proof the chemistry runs on Mars.",
    "Drop steel darts from orbit and read the craters instead of drilling for 200 sols. Water confirmed in about 30, for pennies. Cheapest smart move on the whole manifest."),
  "2033-03": ("The Fuel Factory",
-   "Build the one thing that turns “maybe they come home” into “they come home”: propellant, brewed from Martian air and dirty ice.",
-   "return_propellant_proven. A full tank home banked before the next window opens, with room to spare over the 1,400 t a crewed ship burns.",
+   "A crewed mission you can’t bring home isn’t a mission, it’s a one-way trip nobody agreed to. The single thing that makes a return credible is propellant you didn’t haul from Earth: methane and oxygen pulled out of the Martian atmosphere and ice. Everything about sending people waits on this running at rate, which is exactly why it goes second, the moment 2031 confirms the water is really there to feed it.",
+   "return_propellant_proven, the single heaviest risk on the board (a quarter of the program’s weighted risk). The rate-matched chain, and the 1,760 kWe of reactors it drags behind it, push the plant to ~3.6 t of methalox a day, a full Starship return load every 13 months. By the 2035 window 1,826 t are in the tanks: 30% over the 1,400 t one crewed ship burns getting home, with enough margin that losing a ship on landing still clears the bar.",
    "Gated on 2031 actually finding the water. We don’t fly a factory at a hunch. No spare ship either: the pilot plant already down there is the backup, and a 30% margin swallows any single hull we lose."),
  "2035-05": ("The Base",
-   "Double the fuel, and land everything a crew needs to stay alive. Before a single crew member leaves Earth.",
-   "life_support_closed (that ECLSS testbed has now run its full 1,000 sols) and radiation_managed. Every risk that could blow the schedule is dead a window early.",
+   "Before you commit human beings, everything they need to stay alive has to be on the ground and proven, not in transit and hoped-for. This window duplicates the fuel plant (plant-level redundancy and double the rate) and lands the habitat cluster, the radiation shelters, and deep consumable caches. It also closes the one clock you cannot rush: a life-support loop has to actually run for 1,000 sols to be believed, and that demonstration article has been ticking since 2031.",
+   "life_support_closed and radiation_managed, which retires the last schedule-critical risk a full window before any crew. Power reaches 3,040 kWe; the plant now makes a return load every 7 months and 4,941 t are banked, 3.5 return flights over. There is 1,500 m³ of pressurized volume for roughly 60 people and 90 t of cached food, water and oxygen, enough for a crew of 12 to live four years on the shelf with zero recycling.",
    "Eleven ships, not ten. At the real 614 m³ bay this load is bulk-limited, not weight-limited: habitats are big and mostly empty, and the honest bay number makes you buy the honest ship count."),
  "2037-07": ("First Crew",
-   "Now, and only now, do people go. To a base that is already lit, stocked, and fueled.",
-   "Twelve humans land on top of thousands of tonnes of banked propellant and a landing record that started at a coin toss and now clears 90%.",
+   "This is the payoff of every rule that came before it. People go only after the base is lit, stocked, fuelled, and every requirement has been signed off, and not one synod sooner. Twelve is a real crew, inside the peer-reviewed 10 to 20 band for a first landing and matched to the consumables case, not a number picked for a headline.",
+   "The crew lands on top of 8,701 t of banked propellant, their ride home fillable more than six times over, and an EDL record that began at a coin toss in 2031 and now demonstrates about 93% reliability from the successes since. Every capability they lean on is spread across multiple hulls, so no single bad landing can strand them. The whole base draws 3,240 kWe and has been running itself, unwatched, for years.",
    "The strict gate is the entire point: the ride home exists before anyone climbs in. Every requirement was signed off a synod early. Nobody flies on a promise."),
  "2039-09": ("The Village",
-   "Push past the line where, if the ships stopped coming, the place wouldn’t just quietly die.",
-   "112 residents, over Salotti’s 110-person survival floor. First real industry and farming come online (Gen-1/2 closure).",
-   "The fleet at least doubles every synod. It’s the one growth rule that survived a fact-check. Every Musk cadence number failed it, so they’re quoted as ambition and nothing more."),
+   "Up to here the job was proving capabilities. From now on it’s growing people and closing the loop so the settlement leans on Earth a little less every synod. The first target is the line where, if the ships simply stopped coming, the place wouldn’t just quietly die.",
+   "112 residents, over Salotti’s 110-person survival floor. The first real industry lights up, a regolith refinery and a polymer plant (Gen-1/2 closure), alongside 30 agriculture modules that can feed about 120, a surplus over the 112 actually living there. Power more than doubles to 7,080 kWe to carry all of it.",
+   "The fleet at least doubles every synod. It’s the one growth rule that survived a fact-check; every Musk cadence number failed it, so they’re quoted here as ambition and nothing more."),
  "2041-11": ("The Town",
-   "Start making the stuff the settlement burns through fastest on Mars, instead of shipping it 200 million km.",
-   "512 residents. Gen-3 closure: food, plastics, and structures now come out of local dirt. The import bill per head falls off a ~500× cliff.",
-   "Farming is the power hog. Grow-lights alone drag the fleet to 110 ships and shove the base past 17 MWe. On Mars, food is electricity wearing a costume."),
+   "Scale the population roughly fivefold and start making the things the settlement burns through fastest on Mars, instead of shipping them 200 million kilometres. This is where imported mass is supposed to fall off a cliff, and where you find out what that costs in power.",
+   "512 residents and Gen-3 closure: food, plastics and structures now come out of local dirt. The import bill per head has already dropped from 10 to 2 tonnes per person per year and keeps sliding down a ~500× curve. But it isn’t free. Agriculture is the power monster, and grow-lighting alone drags the fleet to 110 ships and shoves the base past 17,880 kWe. On Mars, food is electricity wearing a costume.",
+   "Every populated window is checked to deliver enough consumables to cover its residents; none runs a deficit. That check is machine-enforced, not a footnote."),
  "2044-01": ("The Settlement",
-   "Hit the first milestone that means a settlement with a future, not an outpost with good PR.",
-   "1,112 adults, the NSS settlement mark. About 18,500 t on the ground, 44× the mass of the ISS.",
-   "Here’s the honest part: this is a settlement, not independence. Self-sufficiency is ~1,000,000 people. We’re at 1.85%. We’d rather say that out loud than pretend the city is around the corner."),
+   "Reach the first formal milestone that means a settlement with a future rather than an outpost with good PR, and be straight about how far that still is from standing on its own.",
+   "1,112 adults, crossing the NSS 1,000-adult settlement mark. About 18,500 t of hardware is on the ground now, 44× the mass of the ISS, drawing 34,640 kWe, with 290 agriculture modules feeding roughly 1,160 and the import bill down to 0.8 t per person per year.",
+   "Here’s the honest part: this is a settlement, not independence. Self-sufficiency is on the order of 1,000,000 people. We’re at 1.85%. We’d rather say that out loud than pretend the city is around the corner."),
 }
 
 CAPTION = {
@@ -370,7 +370,7 @@ footer a{color:var(--muted)}
       When a source moves, we move. We’ve eaten that twice (the ship bay is 614 m&sup3;, not the
       1,000 we started with; solar turned out a lot heavier than we’d hoped). And the famous
       cadence numbers that don’t survive a fact-check? Logged as failing, not quietly folded in.
-      If you can’t FUD your own plan, you’ve got no business flying it.</li>
+      If we won’t try to break our own plan, nobody should trust it enough to fly on it.</li>
       <li><b>No single ship loss costs a schedule-critical capability.</b> A coin-flip first
       landing is not something you stake a program on. So the things the future depends on (power,
       water, the propellant chain, comms, autonomy) ride spread across hulls and land a window
