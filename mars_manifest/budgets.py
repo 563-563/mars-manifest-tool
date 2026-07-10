@@ -187,7 +187,13 @@ class BudgetEngine:
         if storage_t > 0:
             g = self.catalog.get(hardware.storage_component_id).group
             spared_masses[g] = spared_masses.get(g, 0.0) + storage_t
-        spares_by_group = {g: gfrac(g) * m for g, m in spared_masses.items()}
+
+        if a.get("overheads.spares_mode", "fraction") == "poisson":
+            # D4: size spares per component from a Poisson demand model
+            # (failure_rate_by_group = expected failures per unit per synod).
+            spares_by_group = self._poisson_spares_by_group(fixed_items, hardware, gen_t, storage_t)
+        else:
+            spares_by_group = {g: gfrac(g) * m for g, m in spared_masses.items()}
         spares_t = sum(spares_by_group.values())
 
         # contingency / mass-growth allowance: flat by default, or per-group
@@ -293,6 +299,34 @@ class BudgetEngine:
         )
 
     # ------------------------------------------------------------------
+
+    def _poisson_spares_by_group(self, fixed_items, hardware, gen_t, storage_t) -> dict:
+        """Per-group spares mass from a Poisson demand model (D4). Each unit
+        is expected to fail `lam` times per resupply interval (per group);
+        carry enough spares to meet a target reliability, priced at unit mass.
+        Failure rates are D-tier (ISS-heritage-anchored where possible)."""
+        from .spares import spares_for_reliability
+        a = self.a
+        rates = a.get("overheads.failure_rate_by_group", {})
+        default_rate = a.get("overheads.failure_rate_default", 0.3)
+        target = a.get("overheads.spares_target_reliability", 0.95)
+        out: dict[str, float] = {}
+        # (component, unit_mass, count) tuples across fixed + power hardware
+        units = [(c.group, c.unit_mass_t, q) for c, q in fixed_items
+                 if c.group != CONSUMABLES_GROUP]
+        if gen_t > 0:
+            gc = self.catalog.get(hardware.generator_component_id)
+            units.append((gc.group, gc.unit_mass_t, hardware.generator_units))
+        if storage_t > 0:
+            sc = self.catalog.get(hardware.storage_component_id)
+            units.append((sc.group, sc.unit_mass_t, hardware.storage_units))
+        for group, unit_mass, qty in units:
+            if qty <= 0:
+                continue
+            lam = rates.get(group, default_rate) * qty          # fleet-level expected failures
+            k = spares_for_reliability(lam, target)
+            out[group] = out.get(group, 0.0) + k * unit_mass
+        return out
 
     def _power_hardware(
         self,

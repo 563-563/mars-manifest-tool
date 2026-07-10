@@ -184,7 +184,7 @@ Every load-bearing citation re-fetched and checked against the claim it supports
 
 ## 8b. Validation backlog (replace first, in order)
 
-1. ~~Real sparing analysis to replace the flat 35%~~ **Partially done 2026-07-09**: `informed_spares` scenario carries literature-based per-group fractions (ECLSS band is solid; non-ECLSS fractions remain constructed). Full buy-down needs a component-level semi-Markov sparing model (Owens & de Weck method).
+1. ~~Real sparing analysis to replace the flat 35%~~ **Partially done 2026-07-09**: `informed_spares` scenario carries literature-based per-group fractions (ECLSS band is solid; non-ECLSS fractions remain constructed). Full buy-down needs real per-component Mars MTBFs. **D4 (2026-07-10)**: the Poisson sparing *method* is implemented (`spares.py`, `poisson_spares` scenario) — mathematically rigorous, but its failure rates are D-tier (no real Mars MTBFs exist), so `informed_spares` remains the defensible baseline. Method now awaits data, not engineering.
 2. ~~ISRU pilot-plant mass from NASA literature~~ **Done 2026-07-10 (D2)**: NASA MAV ISRU study cross-checks our chain aggregate to within 7% (see §6); numbers validated, not replaced. Component-level splits remain the refinement target.
 3. Starship cargo-variant actual payload capacity as flights accumulate (watch: does 100 t survive contact with reality?).
 4. ~~FSP program updates~~ **Done 2026-07-09**: `fsp_2025` scenario encodes the Aug-2025 100 kWe directive.

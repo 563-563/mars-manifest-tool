@@ -211,6 +211,32 @@
         "_note": "AIAA S-120 mass-growth-allowance by subsystem maturity, replacing the flat 10%: new-technology (ISRU, mining, city industry) 25-30%; new development of an existing type (habitat, fission, site prep, agriculture) 25%; moderate-heritage (robotics, storage, thermal) 20%; mostly-known (comms, consumables, power distribution) 15%; off-the-shelf-ish (science instruments, orbital sats) 10%. The flat 10% baseline is low for TRL 3-4 hardware (flagged in PROVENANCE section 3); this scenario is the honest MGA. Kept a scenario pending review before any baseline promotion."
       }
     },
+    "poisson_spares": {
+      "inherits": "baseline",
+      "overrides": {
+        "overheads.spares_mode": "poisson",
+        "overheads.spares_target_reliability": 0.95,
+        "overheads.failure_rate_default": 0.3,
+        "overheads.failure_rate_by_group": {
+          "Habitat & life support": 0.5,
+          "ISRU": 0.5,
+          "Water mining": 0.5,
+          "Industry": 0.5,
+          "Agriculture": 0.4,
+          "Robotics": 0.4,
+          "Thermal & support": 0.3,
+          "Comms nav & autonomy": 0.2,
+          "Power generation": 0.1,
+          "Power storage": 0.15,
+          "Power system": 0.1,
+          "Site prep & construction": 0.3,
+          "Recon & science": 0.1,
+          "Orbital assets": 0.05,
+          "Consumables & caches": 0.0
+        },
+        "_note": "D4 METHOD DEMONSTRATION, NOT A VALIDATED RESULT. Sizes spares from a Poisson demand model (Owens & de Weck / NASA ICES supportability line): failure_rate = expected failures per unit per synod-length resupply interval; carry the smallest spare count meeting spares_target_reliability. The MATH is rigorous; the failure RATES are D-tier -- anchored loosely to ISS ECLSS heritage (life-support high, fission/passives near-zero) but NOT real Mars MTBFs, which do not exist. Replace the rates when real reliability data arrives; until then informed_spares (per-group fractions from the 34-41% ECLSS band) is the defensible baseline. See docs/CONSIDERED.md."
+      }
+    },
     "informed_spares": {
       "inherits": "baseline",
       "overrides": {
