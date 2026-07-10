@@ -53,6 +53,15 @@ independent expert consensus. **`docs/NARRATIVE.md` walks the whole arc
 through in plain language;** the city-ramp research is tiered in
 `docs/CITY_RAMP_RESEARCH.md`.
 
+## Interactive views
+
+Three browser views are generated from the same engine outputs (regenerate
+via the session export + build scripts):
+
+- **[The Manifest — scrollytelling essay](https://claude.ai/code/artifact/b0b7a7f8-525e-499b-9512-7501ead32fd3)** — the program told window by window, with a sticky panel that watches the base accrete. *Start here.*
+- **[Manifest console](https://claude.ai/code/artifact/1fa983e5-510f-401f-9820-bac33444ca7c)** — the analyst's instrument: budgets, packing, requirements buy-off, risk, ISRU, surface build-up.
+- **[Surface walkthrough](https://claude.ai/code/artifact/3182378f-acac-47a3-b381-7ce2a6d36a18)** — a visual site plan of the base after each window.
+
 ## How it stays honest
 
 - **Provenance tiers.** Every input carries a tier in `PROVENANCE.md`:
