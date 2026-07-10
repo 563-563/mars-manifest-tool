@@ -1,8 +1,8 @@
 """Power & storage sizing — solar vs fission (HANDOFF.md §5.1).
 
 Formulas are ported verbatim from Mars-Precursor-Engineering-Budget.xlsx
-('Power & Storage' sheet). Do not change them without updating the §7
-regression tests.
+('Power & Storage' sheet). Do not change them without updating the
+workbook-port regression tests (tests/test_budgets.py).
 """
 from __future__ import annotations
 

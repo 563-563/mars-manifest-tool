@@ -33,8 +33,9 @@ it honest.
 
 `tests/` pins two different things — don't confuse them:
 
-- **Formula-port fixtures** (`examples/precursor_2026*.yaml`,
-  `campaign_4window.yaml`, the HANDOFF §7 numbers): deliberately frozen
+- **Workbook-port fixtures** (`examples/precursor_2026*.yaml`,
+  `campaign_4window.yaml`; target numbers originally recorded in HANDOFF.md
+  §7): deliberately frozen
   historical inputs that verify the original workbook math was ported
   correctly. Do not "update" these to current data — that's the point of them.
 - **Live-baseline tests** (program plan, ISRU chain, gates, loss tolerance,

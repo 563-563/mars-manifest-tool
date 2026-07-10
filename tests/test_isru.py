@@ -1,6 +1,6 @@
 """ISRU chain model: rates, energy, bottleneck (isru.py).
 
-Cross-checks against the domain grounding in HANDOFF.md §2:
+Cross-checks against the domain grounding recorded in HANDOFF.md §2:
 full-scale ISRU should come out ~1 MW continuous, water demand in the
 hundreds of tonnes, and the pilot chain far short of one return load.
 """
@@ -41,7 +41,7 @@ def test_pilot_scale_vs_return_load(result):
 
 
 def test_full_scale_power_matches_domain_grounding(result):
-    # HANDOFF §2: full-scale ISRU ~1 MW continuous. Chain at 85% availability
+    # HANDOFF.md §2: full-scale ISRU ~1 MW continuous. Chain at 85% availability
     # comes out ~850 kW — squarely the right order.
     assert result.full_scale_kw_required == pytest.approx(853, abs=15)
     assert result.spec_energy_kwh_per_kg == pytest.approx(7.65, abs=0.1)
@@ -54,7 +54,7 @@ def test_excavation_step_present_with_headroom(result):
 
 
 def test_water_demand_in_hundreds_of_tonnes(result):
-    # HANDOFF §2: "water needed ~hundreds of t" per return load
+    # HANDOFF.md §2: "water needed ~hundreds of t" per return load
     assert 500 < result.water_for_return_load_t < 800
 
 

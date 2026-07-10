@@ -1,4 +1,5 @@
-"""ScenarioManager: named assumption variants + structured diffing (§5.4).
+"""ScenarioManager: named assumption variants + structured diffing
+(spec origin: HANDOFF.md §5.4).
 
 A scenario = base assumptions + dotted-path overrides, defined in
 data/assumptions_seed.json. `compare` runs a campaign (or single mission)

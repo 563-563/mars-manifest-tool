@@ -33,7 +33,7 @@ governs NOW.*
 ## Historical documents — do NOT re-anchor to these
 
 - **`HANDOFF.md`** — the kickoff spec. Its §5 formulas are ported and tested;
-  its §7 numbers survive as a *formula-port fixture* (see below). Its dates
+  its §7 numbers survive as the *workbook-port regression fixture* (see below). Its dates
   (2026 start), fleet volume (1,000 m³), example campaign, and open questions
   are superseded. Read it for intent and provenance, not for current values.
 - **`../Mars-Precursor-Engineering-Budget.xlsx`, `../Mars-First-Batch-Cost-Model.xlsx`**
@@ -46,12 +46,13 @@ governs NOW.*
 ## The regression contract, precisely
 
 `tests/` (59 green) pins two different things — don't confuse them:
-- **Formula ports** (HANDOFF §7 via the pinned 2026 fixtures): 98.5 t fixed
+- **Workbook-port fixtures** (origin: HANDOFF.md §7, via the pinned 2026
+  example files): 98.5 t fixed
   hardware, 354.15 kW, 9×40 kWe fission, 236.4 t, 55–85 launches. These verify
   the workbook math was ported correctly. They are input-frozen on purpose.
 - **Current-model behavior** (program plan, ISRU chain, gates, loss tolerance,
   requirements): these assert the live baseline and MUST move when verified
-  data moves. Changing a §5 formula still requires tracing to a source; changing
+  data moves. Changing a ported formula still requires tracing to a source; changing
   a *data value* requires a verified source and a PROVENANCE entry.
 
 ## Operating routine

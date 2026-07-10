@@ -1,8 +1,8 @@
 """BudgetEngine: mass / power+storage / volume / cost budgets (HANDOFF.md §5.1).
 
 Formulas are ported from Mars-Precursor-Engineering-Budget.xlsx and
-Mars-First-Batch-Cost-Model.xlsx. The seed case must reproduce the §7
-regression targets (tests/test_budgets.py).
+Mars-First-Batch-Cost-Model.xlsx. The frozen seed case must reproduce the
+workbook-port regression targets (tests/test_budgets.py).
 """
 from __future__ import annotations
 
@@ -171,7 +171,7 @@ class BudgetEngine:
         spares_base_t = fixed_hw_t - consumables_t + gen_t + storage_t
         # Per-group sparing (literature-informed) when a scenario provides a
         # group->fraction map; groups absent from the map fall back to the
-        # flat fraction. Baseline keeps the flat §5.1 formula exactly.
+        # flat fraction. Baseline keeps the flat HANDOFF.md §5.1 formula exactly.
         by_group_spares = a.get("overheads.spares_fraction_by_group", None)
 
         def gfrac(group: str) -> float:
@@ -286,7 +286,7 @@ class BudgetEngine:
     ) -> PowerHardware:
         """Express generation/storage as catalog components.
 
-        Auto-sizing follows §5.1; if the mission manifest explicitly places
+        Auto-sizing follows HANDOFF.md §5.1; if the mission manifest explicitly places
         generator/storage components, those quantities win instead (the
         catalog supports both modes per HANDOFF.md §4.1).
         """

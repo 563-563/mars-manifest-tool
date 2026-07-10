@@ -1,4 +1,6 @@
-"""Packing + launch math regressions (HANDOFF.md §5.2 and §7)."""
+"""Packing + launch math: formula spec from HANDOFF.md §5.2; per-ship and
+launch-count targets are workbook-port regression values (HANDOFF.md §7,
+frozen on purpose — see tests/test_budgets.py header)."""
 import pytest
 
 from mars_manifest.budgets import BudgetEngine
@@ -18,7 +20,7 @@ def test_five_ship_batch(packed):
 
 def test_per_ship_rollup_matches_workbook(packed):
     ships = {s.index: s for s in packed.ships}
-    # §7: Ship3/power ~81 t / 330 m3; Ship5/habitat ~45 t / 425 m3
+    # workbook targets: Ship3/power ~81 t / 330 m3; Ship5/habitat ~45 t / 425 m3
     assert ships[3].mass_t == pytest.approx(80.67, abs=0.05)
     assert ships[3].volume_m3 == pytest.approx(330.08, abs=0.1)
     assert ships[5].mass_t == pytest.approx(45.0, abs=0.01)
@@ -38,7 +40,7 @@ def test_launch_math_low_and_high(catalog, baseline, precursor):
     budget = BudgetEngine(catalog, baseline).compute(precursor)
     low = engine.pack(precursor, budget, tankers_per_ship=10, launch_cost_tier="near_term")
     high = engine.pack(precursor, budget, tankers_per_ship=16, launch_cost_tier="near_term")
-    # §7: 55 launches (10 tankers) to 85 (16); near-term campaign $4.95B–$7.65B
+    # workbook targets: 55 launches (10 tankers) to 85 (16); near-term campaign $4.95B–$7.65B
     assert low.launch.total_launches == 55
     assert high.launch.total_launches == 85
     assert low.launch.launch_cost_musd == pytest.approx(4950.0)

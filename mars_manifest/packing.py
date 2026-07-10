@@ -1,4 +1,5 @@
-"""PackingEngine: bin-pack components into ships + tanker/launch math (§5.2).
+"""PackingEngine: bin-pack components into ships + tanker/launch math
+(spec origin: HANDOFF.md §5.2).
 
 Greedy first-fit-decreasing over both mass and volume; explicit ship
 assignments in the manifest are respected. The packer is deliberately a

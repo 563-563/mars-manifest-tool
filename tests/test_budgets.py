@@ -1,8 +1,10 @@
-"""Regression tests: HANDOFF.md §7 seed-case targets.
+"""Workbook-port regression: the frozen seed-case targets.
 
-These numbers are the contract with the validated spreadsheets
-(../Mars-Precursor-Engineering-Budget.xlsx). Do not loosen tolerances or
-change expected values without tracing the change back to the source models.
+These numbers verify that the math from the original hand-built
+spreadsheets (Mars-Precursor-Engineering-Budget.xlsx; targets recorded in
+HANDOFF.md section 7, historical) was ported correctly. The inputs are
+deliberately frozen: do not update them to current data — that is the point
+of them. Live-baseline behavior is asserted in the other test files.
 """
 import pytest
 
@@ -75,7 +77,7 @@ def test_volume_budget(budget):
 
 
 def test_cargo_hardware_cost(budget):
-    # Catalog-driven cargo cost per §5.1 (fixed hardware + auto-sized power).
+    # Catalog-driven cargo cost per HANDOFF.md §5.1 (fixed hardware + auto-sized power).
     # Note: the cost-model workbook's system-level table (~$1.9B–$8.2B) is a
     # coarser scope (e.g. includes relay sats, excludes sized fission fleet);
     # the catalog decomposition is the tool's source of truth.

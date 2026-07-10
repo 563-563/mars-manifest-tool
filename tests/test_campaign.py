@@ -1,4 +1,5 @@
-"""Campaign planner: surface-state carry-forward + capability gating (§5.3)."""
+"""Campaign planner: surface-state carry-forward + capability gating
+(spec origin: HANDOFF.md §5.3)."""
 import copy
 
 import pytest

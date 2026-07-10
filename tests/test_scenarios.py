@@ -1,4 +1,5 @@
-"""Scenario resolution + diffing (§5.4), and report smoke tests (M5)."""
+"""Scenario resolution + diffing (spec origin: HANDOFF.md §5.4), and report
+smoke tests."""
 import pytest
 
 from mars_manifest import report as rpt

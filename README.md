@@ -2,16 +2,75 @@
 
 ![tests](https://github.com/563-563/mars-manifest-tool/actions/workflows/tests.yml/badge.svg)
 
-Catalog-driven flight-manifest and campaign planner for a SpaceX-style Mars
-program: mass/power/volume/cost budgets, redundancy-aware ship packing,
-capability-gated campaign sequencing, ISRU propellant-chain rates, lifecycle
-risk analysis, and a machine-checked requirements buy-off matrix — with every
-input traced to a source and confidence tier.
+**A campaign planner for settling Mars, where every number has a receipt.**
 
-**Every number has a receipt**: `PROVENANCE.md` records the source, tier, and
-verification log for each input. `CONTRIBUTING.md` has the rules that keep it
-that way. `HANDOFF.md` is the original spec (historical); `CLAUDE.md` is the
-working agreement.
+This is a Python engine + CLI that plans a multi-decade, Starship-class Mars
+program as a sequence of launch-window manifests: what flies on each ship,
+what it costs in mass/power/volume/launches/dollars, which capabilities each
+window unlocks, what breaks if a ship is lost, and when a crew can defensibly
+fly. It started as a faithful port of two hand-built engineering and cost
+spreadsheets for a first robotic batch, and grew into a verified planning
+stack: every input in the seed data is traced to a public source with a
+confidence tier, and claims that fail verification — including most of
+SpaceX's aspirational cadence figures — are documented as failing rather than
+quietly used.
+
+## What it answers
+
+- **Does the manifest fit?** Mass, volume, power, and storage budgets per
+  ship and per fleet, with tanker-multiplied launch counts and cost on both
+  customer-price and internal-cost bases.
+- **What does each window buy us?** Capability gates (power, water,
+  propellant, life support…) retire on *demonstrated* state — tonnes of
+  propellant actually banked, sols of ECLSS runtime — not on hardware
+  delivery. Plain-English "what this enables" summaries translate each
+  window into human terms (return flights banked, homes' worth of power,
+  crew-months of caches).
+- **What survives a bad day?** Redundancy-aware packing (anti-affinity
+  spreads critical units across hulls) and a loss-tolerance analysis showing
+  exactly which capabilities die if any single ship fails entry.
+- **Is the plan honest about risk and waste?** A lifecycle review scores
+  risk retired per window against gate severity, and flags crew-era hardware
+  landed years before anyone can use it.
+- **Are we meeting our own requirements?** A decomposed requirements tree
+  (L0 mission → L2 quantitative criteria, standard A/I/D/T verification
+  methods) is machine-checked against every campaign run; CI fails if any
+  requirement goes open.
+
+## The baseline program (`examples/program_plan.yaml`)
+
+| Window | Fleet | What it buys |
+|---|---|---|
+| **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, ECLSS demonstration article. Retires ~50% of weighted program risk on first landing. |
+| **2033-03** | 5 ships | The fuel factory: rate-matched ISRU chain + the reactors it drags (1,800 kWe). `return_propellant_proven` retires with 2,686 t banked — gated on window-0 prospecting confirming site water first. |
+| **2035-05** | 11 ships | Second plant (2× production) + habitat cluster + deep caches. Volume-bound at the real 614 m³ bay — hence 11 ships, not 10. |
+| **2037-07** | 20 ships | First crew lands at a powered, provisioned base with ~10,200 t of propellant banked (≈7 return loads). All 27 requirements closed at least one window earlier. |
+
+The 2031 start reflects the verified public record (no 2026 flight;
+Moon-first pivot), and 2037 crew sits at the aggressive end of the
+independent expert consensus. The forward roadmap — from first crew toward a
+self-sustaining city — is researched and tiered in
+`docs/CITY_RAMP_RESEARCH.md`.
+
+## How it stays honest
+
+- **Provenance tiers.** Every input carries a tier in `PROVENANCE.md`:
+  **A** physical constant · **B** published spec/measurement · **C** stated
+  derivation · **D** notional estimate. A verification log records each
+  source re-checked against the exact claim it supports, including two cases
+  where our own numbers failed re-verification and the baseline was
+  re-anchored to the verified value (Starship bay volume 1,000 → 614 m³;
+  solar areal density 1.5 → 4.0 kg/m²). The policy is absolute: the baseline
+  carries the best-verified number — never a stale one with a downgraded tier.
+- **Two-part regression contract.** The *workbook-port fixtures*
+  (`examples/precursor_2026*.yaml` and the targets in
+  `tests/test_budgets.py`) are deliberately frozen on historical inputs —
+  they prove the original spreadsheet math was ported correctly and must
+  never be "updated." Everything else asserts the live baseline and must
+  move when verified data moves. `CONTRIBUTING.md` has the full rules.
+- **CI on every push/PR**: the full pytest suite on Linux + Windows ×
+  Python 3.10/3.12, plus a gate that runs the requirements buy-off matrix on
+  the baseline program and fails if anything is open.
 
 ## Setup
 
@@ -19,7 +78,7 @@ working agreement.
 python -m venv .venv
 # Windows: .venv\Scripts\activate     POSIX: source .venv/bin/activate
 pip install -e ".[dev]"
-pytest -q                     # full regression + behavior suite must be green
+pytest -q
 ```
 
 ## CLI
@@ -30,31 +89,36 @@ mars catalog show water_electrolysis
 mars budget examples/precursor_2026.yaml [--scenario baseline] [--power solar|fission] [--format table|md|xlsx]
 mars pack   examples/precursor_2026.yaml [--tankers 10] [--launch-cost near_term] [--policy balanced] [--spares]
 mars isru   examples/precursor_2026.yaml [--design]   # chain rates, energy, rate-matched buy
-mars lifecycle examples/program_plan.yaml   # risk buy-down curve + idle-hardware review
-mars requirements examples/program_plan.yaml [--out docs/REQUIREMENTS.md]   # buy-off matrix
-mars plan   examples/campaign_4window.yaml [--format md|xlsx]
-mars compare optimistic conservative --campaign examples/campaign_4window.yaml
-mars report examples/campaign_4window.yaml --format xlsx --out out/campaign.xlsx
+mars plan   examples/program_plan.yaml [--format md|xlsx]
+mars lifecycle examples/program_plan.yaml             # risk buy-down + idle-hardware review
+mars requirements examples/program_plan.yaml [--out docs/REQUIREMENTS.md]
+mars compare optimistic conservative --campaign examples/program_plan.yaml
+mars report examples/program_plan.yaml --format xlsx --out out/program.xlsx
 ```
 
-## Program structure
+## Document map
 
-**`examples/program_plan.yaml` is the working baseline campaign** (2031 start —
-no 2026 flight per the Moon-first pivot): loss-tolerant redundant precursor
-(2031-01) → rate-matched fuel factory (2033-03, where `return_propellant_proven`
-retires with 2,686 t banked) → second plant + habitat cluster (2035-05) →
-first crew (2037-07, arriving with ~10,200 t of propellant banked). All waves
-balanced-packed with spares as explicit cargo.
-
-Historic fixtures kept for regression: `precursor_2026.yaml` (workbook-pinned,
-guards the HANDOFF §7 contract), `precursor_2026_balanced.yaml` (packing-policy
-comparison), `campaign_4window.yaml` (gate-timing fixture).
+| File | What it is |
+|---|---|
+| `CONTRIBUTING.md` | The rules that keep the repo honest — read before changing any number |
+| `PROVENANCE.md` | Every input: value, source, tier, sensitivity, verification log |
+| `CLAUDE.md` | The working agreement: hierarchy of truth, baseline, regression contract |
+| `HANDOFF.md` | The original kickoff spec — **historical**; read for intent, not values |
+| `docs/REQUIREMENTS.md` | Generated buy-off matrix for the baseline program (never hand-edit) |
+| `docs/COMPARATIVES.md` | How this plan differs from Handmer / *New Space* 2022 / NASA DRA 5.0, and what was adopted |
+| `docs/CITY_RAMP_RESEARCH.md` | Verified research brief for the city-scale extension (population thresholds, import-mass decay, fleet-growth rules) |
 
 ## Layout
 
-- `mars_manifest/` — pure engines (`budgets`, `power`, `packing`, `campaign`,
-  `scenarios`) + rendering (`report`) + `cli`
-- `data/` — seed component catalog and assumptions (source of truth; all
-  numbers notional order-of-magnitude estimates with provenance notes)
-- `examples/` — the validated 2026 precursor batch and a 4-window campaign
-- `tests/` — regression suite asserting the HANDOFF.md §7 targets
+- `mars_manifest/` — pure engines (`budgets`, `power`, `packing`, `isru`,
+  `campaign`, `lifecycle`, `requirements`, `scenarios`) + rendering
+  (`report`) + `cli`
+- `data/` — seed catalog, assumptions, and requirements (source of truth;
+  every value tier-labeled)
+- `examples/` — the baseline `program_plan.yaml` plus frozen regression
+  fixtures (the `*_2026*` files are fixtures, not the plan)
+- `tests/` — the regression + behavior suite CI enforces
+
+## License
+
+MIT — see `LICENSE`.
