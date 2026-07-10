@@ -118,7 +118,9 @@ class CampaignPlanner:
 
             for mission in window.missions:
                 needed = list(mission.requires)
-                if mission.crewed:
+                # anyone aboard means crew gates apply — settlers can't sneak
+                # past the gating by leaving crewed: false
+                if mission.crewed or mission.settlers > 0:
                     needed += [c for c in self.crewed_requires if c not in needed]
                 missing = tuple(c for c in needed if c not in state.capabilities)
                 blocked = bool(missing)
@@ -296,6 +298,8 @@ class CampaignPlanner:
                 ok = ok and state.landings >= rule["min_landings"]
             if "min_propellant_t" in rule:
                 ok = ok and state.propellant_produced_t >= rule["min_propellant_t"]
+            if "min_population" in rule:
+                ok = ok and state.population >= rule["min_population"]
             if "min_sols_on_surface" in rule:
                 for cid, need_sols in rule["min_sols_on_surface"].items():
                     if cid not in state.first_delivery_synod:

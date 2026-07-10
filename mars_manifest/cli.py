@@ -147,6 +147,14 @@ def main(argv: list[str] | None = None) -> int:
     catalog = Catalog.load(data_dir / "component_catalog_seed.csv")
     manager = ScenarioManager.load(data_dir / "assumptions_seed.json")
 
+    def unlock_rules() -> dict:
+        rules = manager.capability_unlocks()
+        city_seed = data_dir / "city_ramp_seed.yaml"
+        if city_seed.exists():
+            from .city import load_city_ramp, milestone_rules
+            rules = {**rules, **milestone_rules(load_city_ramp(city_seed))}
+        return rules
+
     if args.command == "catalog":
         if args.cat_command == "list":
             comps = catalog.by_group(args.group)
@@ -188,7 +196,7 @@ def main(argv: list[str] | None = None) -> int:
         print(rpt.packing_markdown(packing))
         print()
         print(rpt.loss_markdown(
-            PackingEngine(catalog, a).loss_tolerance(packing, manager.capability_unlocks())))
+            PackingEngine(catalog, a).loss_tolerance(packing, unlock_rules())))
         if packing.warnings:
             print("\nWarnings:")
             for w in packing.warnings:
@@ -209,7 +217,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command in ("plan", "report"):
         a = manager.resolve(args.scenario)
         campaign = load_campaign(args.campaign, catalog)
-        planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+        planner = CampaignPlanner(catalog, a, unlock_rules(), manager.crewed_requires())
         result = planner.run(campaign)
         if args.format == "xlsx":
             out = args.out or f"{campaign.id}_campaign.xlsx"
@@ -228,7 +236,7 @@ def main(argv: list[str] | None = None) -> int:
         from .lifecycle import analyze
         a = manager.resolve(args.scenario)
         campaign = load_campaign(args.campaign, catalog)
-        planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+        planner = CampaignPlanner(catalog, a, unlock_rules(), manager.crewed_requires())
         print(rpt.lifecycle_markdown(analyze(planner.run(campaign), catalog, a)))
         return 0
 
@@ -236,9 +244,9 @@ def main(argv: list[str] | None = None) -> int:
         from .requirements import RequirementsEngine, load_requirements
         a = manager.resolve(args.scenario)
         campaign = load_campaign(args.campaign, catalog)
-        planner = CampaignPlanner(catalog, a, manager.capability_unlocks(), manager.crewed_requires())
+        planner = CampaignPlanner(catalog, a, unlock_rules(), manager.crewed_requires())
         reqs = load_requirements(data_dir / "requirements_seed.yaml")
-        engine = RequirementsEngine(catalog, a, manager.capability_unlocks())
+        engine = RequirementsEngine(catalog, a, unlock_rules())
         matrix = engine.evaluate(reqs, planner.run(campaign))
         md = rpt.requirements_markdown(matrix, reqs, campaign.id)
         if args.out:
