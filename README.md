@@ -1,17 +1,25 @@
 # Mars Manifest Tool
 
+![tests](https://github.com/563-563/mars-manifest-tool/actions/workflows/tests.yml/badge.svg)
+
 Catalog-driven flight-manifest and campaign planner for a SpaceX-style Mars
-program. See `HANDOFF.md` for the full specification, `CLAUDE.md` for the
-working agreement, and `PROVENANCE.md` for the source and confidence tier of
-every input the engines consume.
+program: mass/power/volume/cost budgets, redundancy-aware ship packing,
+capability-gated campaign sequencing, ISRU propellant-chain rates, lifecycle
+risk analysis, and a machine-checked requirements buy-off matrix — with every
+input traced to a source and confidence tier.
+
+**Every number has a receipt**: `PROVENANCE.md` records the source, tier, and
+verification log for each input. `CONTRIBUTING.md` has the rules that keep it
+that way. `HANDOFF.md` is the original spec (historical); `CLAUDE.md` is the
+working agreement.
 
 ## Setup
 
 ```bash
 python -m venv .venv
-.venv/Scripts/activate        # Windows
+# Windows: .venv\Scripts\activate     POSIX: source .venv/bin/activate
 pip install -e ".[dev]"
-pytest                        # §7 regression suite must be green
+pytest -q                     # full regression + behavior suite must be green
 ```
 
 ## CLI
