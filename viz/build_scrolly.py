@@ -262,10 +262,21 @@ canvas#site{width:100%;height:200px;display:block;margin:8px 0 4px}
 .dhead .close{font-family:var(--mono);font-size:18px;background:none;border:0;color:var(--muted);cursor:pointer;line-height:1}
 .dhead p{font-size:12.5px;color:var(--muted);margin:8px 0 0;max-width:none;line-height:1.45}
 .dbody{overflow-y:auto;padding:6px 22px 20px;flex:1}
-.dstate{font-family:var(--mono);font-size:11px;padding:10px 12px;border-radius:4px;margin:14px 0 6px;
-  border:1px solid var(--good);color:var(--good);background:color-mix(in srgb,var(--good) 8%,transparent)}
-.dstate.off{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
-.dstate b{font-weight:600}
+.dstatus{font-family:var(--mono);font-size:11px;letter-spacing:.03em;margin:12px 0 2px;
+  display:flex;align-items:center;gap:7px;color:var(--good)}
+.dstatus::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good)}
+.dstatus.off{color:var(--accent)}
+.dstatus.off::before{background:var(--accent)}
+.liveout{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px}
+.lo{border:1px solid var(--rule);border-radius:4px;padding:8px 10px;background:var(--panel)}
+.lo .v{font-family:var(--mono);font-size:16px;font-variant-numeric:tabular-nums;color:var(--ink);line-height:1.1}
+.lo .k{font-family:var(--mono);font-size:8.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-top:3px;line-height:1.25}
+.lo .d{font-family:var(--mono);font-size:10px;margin-top:3px;color:var(--accent);min-height:12px}
+.lo .d.zero{color:var(--faint)}
+@media(prefers-reduced-motion:no-preference){
+  .lo{transition:background .55s ease}
+  .lo.flash{background:color-mix(in srgb,var(--accent) 24%,var(--panel));transition:background 0s}
+}
 .preset{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
 .preset button{font-family:var(--mono);font-size:11px;padding:5px 10px;border-radius:99px;
   border:1px solid var(--rule);background:none;color:var(--muted);cursor:pointer}
@@ -426,10 +437,11 @@ footer a{color:var(--muted)}
 <div id="drawer" role="dialog" aria-label="Adjust the model" aria-modal="true">
   <div class="dhead">
     <div class="row"><h3>&#9881; Adjust the model</h3><button class="close" id="drawerClose" aria-label="Close">&times;</button></div>
-    <p>Every knob recomputes the engine's own closed-form math in your browser. At the
-    baseline they reproduce the Python engine <em>exactly</em> &mdash; the source of truth.
-    Move one and the whole page becomes a live estimate until you reset.</p>
-    <div class="dstate" id="dstate"></div>
+    <p>Turn a knob and the whole page recomputes the engine's own math. At the baseline it
+    <em>is</em> the engine; move one and it's a live estimate until you reset. Every knob moves
+    at least one of these:</p>
+    <div class="dstatus" id="dstatus"></div>
+    <div class="liveout" id="liveout"></div>
     <div class="preset" id="presetRow"></div>
   </div>
   <div class="dbody" id="dbody"></div>
@@ -569,28 +581,51 @@ function refreshTotals(){
   set("t-mw", (MODEL.fullKw/1000).toFixed(2));
   document.getElementById("t-note").textContent = off ? "— live estimate; reset for the engine baseline." : "";
 }
-function refreshDrawerState(){
+// the always-visible live outputs in the drawer — every knob moves >=1 of these
+const OUT=[
+  {k:"launch", label:"Program launches", get:M=>M.cumLaunch, fmt:v=>fmt(Math.round(v))},
+  {k:"costsel", label:"Launch $ · selected basis", get:M=>M.cumCost,
+   fmt:v=>"$"+fmt(Math.round(v/1000))+"B",
+   dnum:(v,b)=>Math.round((v-b)/1000), dfmt:x=>(x>0?"+":"−")+"$"+fmt(Math.abs(x))+"B"},
+  {k:"prop", label:"Propellant banked @ first crew", get:M=>M.windows[3].prop, fmt:v=>fmt(Math.round(v))+" t"},
+  {k:"mw", label:"ISRU full-scale power", get:M=>M.fullKw/1000, fmt:v=>v.toFixed(2)+" MW",
+   dnum:(v,b)=>+(v-b).toFixed(2), dfmt:x=>(x>0?"+":"−")+Math.abs(x).toFixed(2)+" MW"},
+  {k:"res", label:"Residents @ 2044", get:M=>M.windows[6].pop, fmt:v=>fmt(v)},
+  {k:"imp", label:"Imports due @ 2044", get:M=>M.windows[6].importReq, fmt:v=>fmt(Math.round(v))+" t"},
+];
+function offCount(){ const d=defaults(); let n=0;
+  ["tankers","basis","commissioning","returnLoad","importMult","spec"].forEach(k=>{ if(K[k]!==d[k]) n++; });
+  K.ships.forEach((v,i)=>{ if(v!==d.ships[i]) n++; });
+  K.settlers.forEach((v,i)=>{ if(v!==d.settlers[i]) n++; });
+  return n; }
+let prevOut={};
+function renderLive(){
   const off=!baseline();
-  const ds=document.getElementById("dstate");
-  ds.className="dstate"+(off?" off":"");
-  const dCost=MODEL.cumCost, based=compute(defaults());
-  if(off){
-    const dc=Math.round((dCost-based.cumCost)/1000);
-    const sign=dc>=0?"+":"−";
-    ds.innerHTML = `<b>Live estimate.</b> Program launch (selected basis): $${fmt(Math.round(dCost/1000))}B `
-      + `(${sign}$${fmt(Math.abs(dc))}B vs engine). Fleet ${fmt(MODEL.cumShips)} ships, `
-      + `full-scale ISRU ${(MODEL.fullKw/1000).toFixed(2)} MW.`;
-  } else {
-    ds.innerHTML = `<b>Source of truth.</b> Every figure is the Python engine's exact output for `
-      + `examples/program_plan.yaml.`;
-  }
+  const st=document.getElementById("dstatus");
+  st.className="dstatus"+(off?" off":"");
+  const n=offCount();
+  st.textContent = off ? `Live estimate — ${n} input${n>1?"s":""} off baseline`
+                       : "Source of truth — the engine baseline";
+  const base=compute(defaults());
+  const lo=document.getElementById("liveout");
+  lo.innerHTML = OUT.map(o=>{
+    const v=o.get(MODEL), b=o.get(base);
+    const dv = o.dnum ? o.dnum(v,b) : Math.round(v-b);
+    const zero = Math.abs(dv)<1e-9;
+    const dtxt = zero ? "at baseline" : (o.dfmt ? o.dfmt(dv) : (dv>0?"+":"−")+fmt(Math.abs(dv)));
+    return `<div class="lo" data-k="${o.k}"><div class="v">${o.fmt(v)}</div>`
+      + `<div class="k">${o.label}</div><div class="d ${zero?"zero":""}">${dtxt}</div></div>`;
+  }).join("");
+  lo.querySelectorAll(".lo").forEach(el=>{
+    const k=el.dataset.k, cur=el.querySelector(".v").textContent;
+    if(prevOut[k]!==undefined && prevOut[k]!==cur){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+    prevOut[k]=cur;
+  });
   document.getElementById("modelBtn").classList.toggle("dirty", off);
   document.getElementById("resetBtn").disabled = !off;
-  // preset selection highlight
   document.querySelectorAll("#presetRow button").forEach(btn=>{
     btn.classList.toggle("sel", btn.dataset.name===currentPreset());
   });
-  // per-window row dirty state
   document.querySelectorAll(".wtab tr[data-i]").forEach(tr=>{
     const i=+tr.dataset.i;
     tr.classList.toggle("dirty", K.ships[i]!==W[i].shipsBase || K.settlers[i]!==W[i].settlers);
@@ -606,7 +641,7 @@ function currentPreset(){
   }
   return null;
 }
-function recompute(){ MODEL=compute(K); render(active); refreshTotals(); refreshDrawerState(); syncControls(); }
+function recompute(){ MODEL=compute(K); render(active); refreshTotals(); syncControls(); renderLive(); }
 
 // ---- canvas: the base footprint accreting ----------------------------------
 const cv = document.getElementById("site"), cx = cv.getContext("2d");
@@ -785,7 +820,7 @@ matchMedia("(prefers-color-scheme:dark)").addEventListener?.("change",()=>drawSi
 
 // boot
 buildDrawer();
-render(0); refreshTotals(); refreshDrawerState(); syncControls();
+render(0); refreshTotals(); syncControls(); renderLive();
 window.addEventListener("resize", ()=>drawSite(active));
 </script>
 """
