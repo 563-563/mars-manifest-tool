@@ -54,6 +54,12 @@
         "liquefaction": "cryo_liquefaction"
       }
     },
+    "edl": {
+      "_comment": "Per-ship Entry/Descent/Landing success probability, improving as EDL matures. Musk rated the first uncrewed attempt '50/50'; nothing heavier than ~1 t has ever landed on Mars, so window 0 is genuinely uncertain. success_prob = min(max_prob, base + improvement*synod_index). Tier D judgment; carried as a scenario axis, not a claim.",
+      "success_prob_base": 0.5,
+      "success_prob_improvement_per_synod": 0.12,
+      "max_prob": 0.95
+    },
     "transport_readiness": {
       "_comment": "Earth-side prerequisites the whole program assumes are demonstrated before window 0 (Handmer's 'orbit, reuse, refill, chill'). All true in the baseline premise; the conservative_feasibility scenario flips the two undemonstrated-as-of-2026 ones (refill, chill) false to make the DLR/Maiwald critique machine-visible via the L1-TRANS requirements.",
       "orbit": true,

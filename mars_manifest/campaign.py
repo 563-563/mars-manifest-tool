@@ -14,6 +14,7 @@ from typing import Optional
 from .budgets import BudgetEngine, BudgetResult
 from .catalog import CONSUMABLES_GROUP, Catalog
 from .city import YEARS_PER_SYNOD, closure_stage, import_rate_t_per_person_year
+from .edl import demonstrated_reliability, success_prob
 from .isru import IsruEngine
 from .models import Assumptions, Campaign, Mission, Window
 from .packing import PackingEngine, PackingResult
@@ -73,6 +74,11 @@ class WindowResult:
     surface_avg_load_kw: float = 0.0
     installed_storage_kwh: float = 0.0
     population: int = 0                # residents on the surface after this window
+    # EDL risk (C2): per-ship landing probability this window and the
+    # statistical reliability the cumulative successful landings demonstrate
+    edl_success_prob: float = 1.0
+    expected_ships_landed: float = 0.0
+    demonstrated_reliability: float = 0.0
     # import ledger (B1): recurring per-resident imports vs what this window
     # actually delivered as consumables; rate keyed to closure stage at the
     # window's START (imports are planned against known industrial state)
@@ -194,6 +200,12 @@ class CampaignPlanner:
                     f"load — ISRU production derated accordingly"
                 )
 
+            # EDL risk (C2): per-ship success this window; expected landings;
+            # and the reliability the cumulative successes so far demonstrate
+            edl_p = success_prob(self.a, window.synod_index)
+            w_edl_expected = w_ships * edl_p
+            demo_rel = demonstrated_reliability(cumulative["ships"] + int(w_ships))
+
             new_caps = self._evaluate_unlocks(state, window.synod_index)
             state.capabilities.update(new_caps)
             # Advisories run against post-window state: everything in a window
@@ -273,6 +285,9 @@ class CampaignPlanner:
                 surface_avg_load_kw=load_kw,
                 installed_storage_kwh=state.installed_storage_kwh,
                 population=state.population,
+                edl_success_prob=edl_p,
+                expected_ships_landed=w_edl_expected,
+                demonstrated_reliability=demo_rel,
                 closure_stage=stage,
                 import_rate_t_py=rate,
                 import_required_t=import_required,

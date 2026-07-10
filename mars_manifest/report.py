@@ -184,6 +184,27 @@ def requirements_markdown(matrix, requirements, campaign_id: str) -> str:
     return "\n".join(parts)
 
 
+def edl_markdown(result) -> str:
+    parts = ["# EDL risk — landing probability & demonstrated reliability", "",
+             "Per-ship success improves as EDL matures; reliability is the "
+             "rule-of-three floor (0 failures in N landings → failure rate "
+             "≤ ~3/N at 95% confidence). Assumes independent ship losses.", ""]
+    rows = [[w.window_id, w.ships, f"{w.edl_success_prob:.0%}",
+             f"{w.expected_ships_landed:,.1f}",
+             f"{w.demonstrated_reliability:.1%}"] for w in result.windows]
+    parts += [_md_table(
+        ["Window", "Ships", "Per-ship P(land)", "Expected landed",
+         "Demonstrated reliability"], rows), ""]
+    # first window with population that also clears a useful reliability bar
+    crewed = [w for w in result.windows if any(m.crewed and not m.blocked for m in w.missions)]
+    if crewed:
+        c = crewed[0]
+        parts += [f"First crew ({c.window_id}) commits at "
+                  f"{c.demonstrated_reliability:.0%} demonstrated EDL reliability "
+                  f"after the prior windows' landings.", ""]
+    return "\n".join(parts)
+
+
 def lifecycle_markdown(rep) -> str:
     parts = ["# Lifecycle review — risk buy-down & idle hardware", ""]
     rows = [[p.window_id, ", ".join(p.retired) or "-", f"{p.weight_retired:.0f}",

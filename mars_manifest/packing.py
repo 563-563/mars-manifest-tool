@@ -248,8 +248,12 @@ class PackingEngine:
 
     def loss_tolerance(self, packing: PackingResult, unlock_rules: dict,
                        base_quantities: Optional[dict] = None,
-                       base_landings: int = 0) -> "LossTolerance":
-        """Which capabilities die if any single ship is lost on EDL?
+                       base_landings: int = 0, n_lost: int = 1) -> "LossTolerance":
+        """Which capabilities die if any `n_lost` ships are lost on EDL?
+
+        n_lost=1 is the standard single-fault check; n_lost=2 tests every pair
+        (the probabilistic complement lives in edl.py). `vulnerable_ships`
+        reports the lost ships as a tuple per failing combination.
 
         Evaluates the data-driven capability_unlocks rules against the fleet
         minus each ship in turn — the mission-level view of redundancy, as
@@ -261,10 +265,10 @@ class PackingEngine:
         surface from earlier windows: a lost singleton doesn't cost a
         capability the base already has.
         """
-        def quantities(exclude: Optional[int] = None) -> dict[str, float]:
+        def quantities(exclude: tuple = ()) -> dict[str, float]:
             out: dict[str, float] = dict(base_quantities or {})
             for s in packing.ships:
-                if s.index == exclude:
+                if s.index in exclude:
                     continue
                 for cid, qty, _, _ in s.manifest_detail:
                     out[cid] = out.get(cid, 0.0) + qty
@@ -287,17 +291,19 @@ class PackingEngine:
                 ok = ok and landings >= rule["min_landings"]
             return ok
 
+        import itertools
         full = quantities()
         n = len(packing.ships) + base_landings
         baseline_caps = {f for f, r in unlock_rules.items()
                          if satisfied(f, r, full, n)}
         per_ship = []
-        for s in packing.ships:
-            q = quantities(exclude=s.index)
+        for combo in itertools.combinations([s.index for s in packing.ships], n_lost):
+            q = quantities(exclude=combo)
             lost = tuple(sorted(f for f in baseline_caps
-                                if not satisfied(f, unlock_rules[f], q, n - 1)))
+                                if not satisfied(f, unlock_rules[f], q, n - n_lost)))
             if lost:
-                per_ship.append((s.index, lost))
+                key = combo[0] if n_lost == 1 else combo
+                per_ship.append((key, lost))
         return LossTolerance(
             tolerant=not per_ship,
             vulnerable_ships=tuple(per_ship),

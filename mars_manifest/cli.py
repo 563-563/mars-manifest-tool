@@ -129,6 +129,10 @@ def main(argv: list[str] | None = None) -> int:
     p_req.add_argument("--scenario", default="baseline")
     p_req.add_argument("--out", help="Write markdown to a file")
 
+    p_edl = sub.add_parser("edl", help="EDL landing-probability & reliability review")
+    p_edl.add_argument("campaign")
+    p_edl.add_argument("--scenario", default="baseline")
+
     p_cmp = sub.add_parser("compare", help="Compare two scenarios")
     p_cmp.add_argument("scenario_a")
     p_cmp.add_argument("scenario_b")
@@ -251,6 +255,12 @@ def main(argv: list[str] | None = None) -> int:
         campaign = load_campaign(args.campaign, catalog)
         planner = make_planner(a)
         print(rpt.lifecycle_markdown(analyze(planner.run(campaign), catalog, a)))
+        return 0
+
+    if args.command == "edl":
+        a = manager.resolve(args.scenario)
+        campaign = load_campaign(args.campaign, catalog)
+        print(rpt.edl_markdown(make_planner(a).run(campaign)))
         return 0
 
     if args.command == "requirements":
