@@ -36,5 +36,23 @@ but with a stated shortcut).*
 | 6th ship on the 2033 fuel-factory window for redundancy | task C4 | **rejected (gold-plating)** | The window already meets the single-fault standard: capability is backstopped by window-0's pre-deployed pilot chain (L1-LOG-02 passes), and the ~30% propellant-gate margin absorbs one lost ship's ~20% (1,826→1,525 t > 1,400). Adding a ship carries mass we don't need to meet our stated single-fault bar. The two-ship-loss cliff (~1,224 t) is beyond that bar; it's C2's probabilistic-loss target. |
 | Production-margin loss requirement (gate must clear under one fuel-factory ship loss) | task C4 | **deferred → task C2** | Formalizing "propellant gate survives a ship loss" as a machine-checked requirement needs the campaign re-run with a ship dropped — the same simulation C2's probabilistic-EDL pass builds. Verified by hand for now (holds); requirement to follow. |
 
+## From the deep-research sweep (city-ramp)
+
+Findings surfaced by the two deep-research runs (`docs/_city_ramp_raw_findings.json`,
+verdicts in `docs/CITY_RAMP_RESEARCH.md`) that we weighed but did not model,
+chose against, or simplified — recorded so their omission is visible.
+
+| Idea | Source / verdict | Status | Why / where |
+|---|---|---|---|
+| Per-item surface offload limit: ~30 t feasible, single 100 t payloads doubtful | AIAA stability analysis (unverified, votes errored) | **not modeled** | We assume a 100 t ship payload offloads fine; a real per-item offload cap would force cargo to be sub-divided and could change ship counts. A genuine unmodeled physical constraint — flagged for a future packing refinement, not yet acted on. |
+| "Danger zone": 1,000–100,000 people is the worst range — too big to evacuate, too small to be self-sufficient | Handmer (unverified, session-limit errored) | **not modeled** | A strategic risk concept, not a mass/schedule quantity. Our milestones (110 / 1,000 / 1M) bracket it but we don't score evacuation-vs-autarky exposure. Worth a lifecycle metric someday. |
+| GMU agent-based minimum of 22 settlers | technology.org / GMU preprint (Tier C, single source) | **rejected as the floor anchor** | We use Salotti's peer-reviewed 110 (3-0 verified) for `survival_floor`, not GMU's 22 — different framing (accident/resource survival vs labor-closure) and weaker sourcing. Noted as an alternate, lower bound. |
+| NSS "reasonable self-sufficiency" = 3 capabilities (life support, local food, local habitat construction) | NSS roadmap (2-1 verified) | **simplified** | Our `settlement_established` gates on population ≥1,000 plus the closure ladder; we do not separately score NSS's 3-capability functional test. The closure stages approximate it. |
+| Per-capita material *usage* ~10× Earth on Mars | Handmer (unverified, errored) | **baked in, not explicit** | Reflected implicitly in the high no-closure import figure (10 t/person/yr); we don't carry a separate Earth-vs-Mars usage multiplier. |
+| Agriculture crop area (~40–50 m²/person) also closes the O₂/CO₂ loop | Frontiers (unverified, errored) | **simplified** | `agri_module` models grow-lighting power and food coverage but not its life-support (O₂/CO₂) co-benefit, which would offset some ECLSS load. Conservative (understates agriculture's value). |
+| Mass→population coupling: ~620,000 t cumulative import ≈ 1M people; population doubles per window | Handmer (unverified, errored) | **not modeled** | Our city windows are hand-authored with explicit settler counts and fleet sizes; population is not derived from cumulative delivered mass. A mass-driven population model is the natural M7 step. |
+| Maiwald specifics: ~191.5 t ISRU system, ~2.5 MW draw, ~1,263 t consumables for 12 crew/500 d | DLR/Maiwald 2024 (unverified, errored) | **used qualitatively (C1)** | The `conservative_feasibility` scenario carries the DLR *posture* (high ISRU energy, low availability, refill/chill not demonstrated) rather than these exact figures as hard anchors; they informed the direction, not specific seed values. |
+| Cannon & Britt food self-sufficiency in 20–40 years | Universe Today (2-1 verified) | **not modeled as a clock** | We gate closure on hardware + population, not on a food-closure calendar. The 20–40 yr figure is consistent with our ~2039–2044 Gen-3 (food) closure but isn't an input. |
+
 Add to this file whenever something is weighed and set aside — an entry here
 is cheaper than a collaborator re-litigating it from scratch.
