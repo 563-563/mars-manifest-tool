@@ -22,4 +22,4 @@ jobs:
       - name: Run regression + behavior suite
         run: pytest -q
       - name: Requirements buy-off must close (program plan)
-        run: mars requirements examples/program_plan.yaml
+        run: mars requirements inputs/program.json
