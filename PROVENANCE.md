@@ -1,7 +1,7 @@
 # Input Provenance & Validation Audit
 
 *Every number the engines consume, traced to its source. Compiled 2026-07-09.
-Companion to `data/assumptions_seed.json` and `data/component_catalog_seed.csv`.
+Companion to `inputs/assumptions.json` and `inputs/catalog.csv`.
 Sources below were re-verified against the public record on the compile date;
 the research grounding is `../SpaceX-to-Mars-Deep-Dive.md` (July 2026, cited).*
 
@@ -129,7 +129,7 @@ chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
 | `crewed_requires` gates | 6 flags | **B (as doctrine)** | Encodes NASA/industry consensus and the deep dive's core finding: no crew without demonstrated EDL, baseload power, return propellant, closed life support, habitat, radiation management (deep dive §2 & §6). The specific flag set is our taxonomy (HANDOFF §6); the *rule* is well-sourced doctrine. |
 | `capability_unlocks` rules | — | **D** | Tool extension (delivered-hardware proxies for "demonstrated capability"). Deliberately simplistic in v1: delivering a Sabatier plant is not the same as *proving* propellant production. Flagged for M6: add an explicit demonstration/commissioning delay (e.g. gate retires one window after delivery). |
 
-## 6. Component catalog (`component_catalog_seed.csv`)
+## 6. Component catalog (`catalog.csv`)
 
 Masses, volumes, powers and duty cycles are **Tier D throughout** — notional order-of-magnitude engineering estimates derived from the manifest narrative (`../Mars-Robotic-Precursor-Flight-Manifest.md`), scaled to be internally consistent. Anchors where they exist:
 

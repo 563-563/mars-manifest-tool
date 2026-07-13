@@ -3,8 +3,8 @@
 *A plain-language walkthrough of what this campaign actually does, window by
 window — the motivation, the ordering, what rides on each fleet, what problem
 it solves, and why the calls were made the way they were. Every number here
-is produced by the tool from `examples/program_plan.yaml`; nothing is
-hand-typed. Run `mars plan examples/program_plan.yaml --format md` to
+is produced by the tool from `inputs/program.json`; nothing is
+hand-typed. Run `mars plan inputs/program.json --format md` to
 regenerate the spine of it.*
 
 ---

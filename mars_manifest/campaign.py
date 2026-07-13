@@ -4,7 +4,7 @@ capabilities (HANDOFF.md §5.3).
 Crewed missions are checked against the capability flags unlocked by
 *previous* windows — the crew must launch toward a site that is already
 powered, habitable, and able to make return propellant. The rule set is
-data-driven (capability_gates in data/assumptions_seed.json), not hard-coded.
+data-driven (capability_gates in inputs/assumptions.json), not hard-coded.
 """
 from __future__ import annotations
 

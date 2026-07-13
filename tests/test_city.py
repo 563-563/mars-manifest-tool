@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="module")
 def city():
-    return load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+    return load_city_ramp(ROOT / "inputs" / "city.json")
 
 
 def test_every_anchor_has_tier_and_source(city):
@@ -83,7 +83,7 @@ def test_program_plan_reaches_settlement_not_autarky(catalog, baseline, manager,
     from mars_manifest.city import city_rules
     rules = {**manager.capability_unlocks(), **city_rules(city)}
     planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(), city=city)
-    result = planner.run(load_campaign(ROOT / "examples" / "program_plan.yaml", catalog))
+    result = planner.run(load_campaign(ROOT / "inputs" / "program.json", catalog))
     caps = result.windows[-1].capabilities_after
     assert "settlement_established" in caps
     assert "industrial_autarky" not in caps

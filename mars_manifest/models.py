@@ -13,7 +13,7 @@ _RAISE = object()
 
 @dataclass(frozen=True)
 class Component:
-    """One catalog record. Attributes mirror data/component_catalog_seed.csv."""
+    """One catalog record. Attributes mirror inputs/catalog.csv."""
 
     id: str
     name: str

@@ -1,6 +1,6 @@
 """City-ramp seed data: loader and integration helpers.
 
-`data/city_ramp_seed.yaml` carries the tier-labeled anchors for extending the
+`inputs/city.json` carries the tier-labeled anchors for extending the
 program past first crew (population milestones, per-capita scaling factors,
 import-mass decay, growth rules, the industrial-closure ladder). Research
 basis and verification trail: docs/CITY_RAMP_RESEARCH.md.

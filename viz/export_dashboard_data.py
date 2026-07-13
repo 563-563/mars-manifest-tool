@@ -16,15 +16,15 @@ from mars_manifest.cli import load_campaign, load_mission
 from mars_manifest.packing import PackingEngine
 from mars_manifest.scenarios import ScenarioManager
 
-catalog = Catalog.load(ROOT / "data" / "component_catalog_seed.csv")
-manager = ScenarioManager.load(ROOT / "data" / "assumptions_seed.json")
+catalog = Catalog.load(ROOT / "inputs" / "catalog.csv")
+manager = ScenarioManager.load(ROOT / "inputs" / "assumptions.json")
 mission = load_mission(ROOT / "examples" / "precursor_2026.yaml", catalog)
 mission_bal = load_mission(ROOT / "examples" / "precursor_2026_balanced.yaml", catalog)
-campaign = load_campaign(ROOT / "examples" / "program_plan.yaml", catalog)
+campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
 # the program baseline = the lifecycle-trimmed redundant fleet flying window 0
 mission_red = campaign.windows[0].missions[0]
 from mars_manifest.city import city_rules, load_city_ramp
-CITY = load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+CITY = load_city_ramp(ROOT / "inputs" / "city.json")
 GROWTH = CITY["growth"]["fleet_min_growth_per_synod"]["value"]
 RULES = {**manager.capability_unlocks(), **city_rules(CITY)}
 
@@ -159,7 +159,7 @@ planner = CampaignPlanner(catalog, a, RULES, manager.crewed_requires(), city=CIT
 r = planner.run(campaign)
 
 from mars_manifest.requirements import RequirementsEngine, load_requirements
-reqs = load_requirements(ROOT / "data" / "requirements_seed.yaml")
+reqs = load_requirements(ROOT / "inputs" / "requirements.json")
 matrix = RequirementsEngine(catalog, a, RULES).evaluate(reqs, r)
 req_by_id = {x.id: x for x in reqs}
 out["requirements"] = {

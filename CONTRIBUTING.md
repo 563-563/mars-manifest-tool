@@ -10,8 +10,10 @@ it honest.
 1. **Verified external data.** The baseline always carries the best-verified
    number. Never keep a known-stale value and downgrade its confidence tier —
    when a source drifts, change the seed and let consequences propagate.
-2. **Seed data** (`data/`) — the catalog is the source of truth for component
-   attributes; assumptions are injected, never hard-coded in engines.
+2. **Input data** (`inputs/` — split into program / assumptions / city /
+   requirements / catalog; see `inputs/README.md`) — the catalog is the source
+   of truth for component attributes; assumptions are injected, never
+   hard-coded in engines.
 3. **Engines** (`mars_manifest/`) — pure, deterministic, tested. Reports only
    render; no computation in the report layer.
 4. **Generated documents** (`docs/REQUIREMENTS.md`, xlsx reports) —
@@ -43,7 +45,7 @@ it honest.
   data moves.
 
 `pytest -q` must be green before any commit. If you change the program plan,
-regenerate `docs/REQUIREMENTS.md` (`mars requirements examples/program_plan.yaml
+regenerate `docs/REQUIREMENTS.md` (`mars requirements inputs/program.json
 --out docs/REQUIREMENTS.md`) in the same PR.
 
 ## Setup

@@ -37,7 +37,7 @@ quietly used.
   methods) is machine-checked against every campaign run; CI fails if any
   requirement goes open.
 
-## The baseline program (`examples/program_plan.yaml`)
+## The baseline program (`inputs/program.json`)
 
 | Window | Fleet | What it buys |
 |---|---|---|
@@ -99,17 +99,18 @@ mars catalog show water_electrolysis
 mars budget examples/precursor_2026.yaml [--scenario baseline] [--power solar|fission] [--format table|md|xlsx]
 mars pack   examples/precursor_2026.yaml [--tankers 10] [--launch-cost near_term] [--policy balanced] [--spares]
 mars isru   examples/precursor_2026.yaml [--design]   # chain rates, energy, rate-matched buy
-mars plan   examples/program_plan.yaml [--format md|xlsx]
-mars lifecycle examples/program_plan.yaml             # risk buy-down + idle-hardware review
-mars requirements examples/program_plan.yaml [--out docs/REQUIREMENTS.md]
-mars compare optimistic conservative --campaign examples/program_plan.yaml
-mars report examples/program_plan.yaml --format xlsx --out out/program.xlsx
+mars plan   inputs/program.json [--format md|xlsx]
+mars lifecycle inputs/program.json             # risk buy-down + idle-hardware review
+mars requirements inputs/program.json [--out docs/REQUIREMENTS.md]
+mars compare optimistic conservative --campaign inputs/program.json
+mars report inputs/program.json --format xlsx --out out/program.xlsx
 ```
 
 ## Document map
 
 | File | What it is |
 |---|---|
+| `inputs/README.md` | **Start here to change anything** — the five input files, their fields, the tiers, and the edit → run → regenerate workflow |
 | `docs/NARRATIVE.md` | **Start here for the story** — the whole program walked through in plain language, window by window, with the reasoning behind each call |
 | `CONTRIBUTING.md` | The rules that keep the repo honest — read before changing any number |
 | `PROVENANCE.md` | Every input: value, source, tier, sensitivity, verification log |
@@ -125,10 +126,13 @@ mars report examples/program_plan.yaml --format xlsx --out out/program.xlsx
 - `mars_manifest/` — pure engines (`budgets`, `power`, `packing`, `isru`,
   `campaign`, `lifecycle`, `requirements`, `scenarios`) + rendering
   (`report`) + `cli`
-- `data/` — seed catalog, assumptions, and requirements (source of truth;
-  every value tier-labeled)
-- `examples/` — the baseline `program_plan.yaml` plus frozen regression
-  fixtures (the `*_2026*` files are fixtures, not the plan)
+- `inputs/` — **the entire editable input surface**, split by concern
+  (`program.json`, `assumptions.json`, `city.json`, `requirements.json`,
+  `catalog.csv`); see [`inputs/README.md`](inputs/README.md). This is the one
+  place to change the model.
+- `examples/` — frozen regression fixtures only (the `*_2026*` and
+  `campaign_4window` files); pinned to historical values, never the live plan
+- `viz/` — the browser-view build pipeline (reads `inputs/` via the engine)
 - `tests/` — the regression + behavior suite CI enforces
 
 ## License

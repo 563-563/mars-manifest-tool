@@ -12,10 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 @pytest.fixture(scope="module")
 def plan_result(catalog, baseline, manager):
     from mars_manifest.city import city_rules, load_city_ramp
-    city = load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+    city = load_city_ramp(ROOT / "inputs" / "city.json")
     rules = {**manager.capability_unlocks(), **city_rules(city)}
     growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
-    campaign = load_campaign(ROOT / "examples" / "program_plan.yaml", catalog)
+    campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
     planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(),
                               city=city, min_fleet_growth=growth)
     return planner.run(campaign)

@@ -25,12 +25,12 @@ from .packing import PackingEngine
 from .scenarios import ScenarioManager, compare
 
 
-def _find_data_dir(start: Path) -> Path:
+def _find_inputs_dir(start: Path) -> Path:
     for candidate in [start, *start.parents]:
-        if (candidate / "data" / "component_catalog_seed.csv").exists():
-            return candidate / "data"
+        if (candidate / "inputs" / "catalog.csv").exists():
+            return candidate / "inputs"
     # fall back to the repo the package was installed from (editable install)
-    return Path(__file__).resolve().parents[1] / "data"
+    return Path(__file__).resolve().parents[1] / "inputs"
 
 
 def load_mission(path: str | Path, catalog: Catalog) -> Mission:
@@ -79,7 +79,7 @@ def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):  # Windows consoles default to cp1252
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser(prog="mars", description="Mars Manifest Tool")
-    parser.add_argument("--data-dir", help="Directory containing seed catalog + assumptions")
+    parser.add_argument("--inputs-dir", help="Directory containing the inputs/ files (catalog.csv, assumptions.json, ...)")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_cat = sub.add_parser("catalog", help="Query the component catalog")
@@ -147,15 +147,15 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
 
-    data_dir = Path(args.data_dir) if args.data_dir else _find_data_dir(Path.cwd())
-    catalog = Catalog.load(data_dir / "component_catalog_seed.csv")
-    manager = ScenarioManager.load(data_dir / "assumptions_seed.json")
+    inputs_dir = Path(args.inputs_dir) if args.inputs_dir else _find_inputs_dir(Path.cwd())
+    catalog = Catalog.load(inputs_dir / "catalog.csv")
+    manager = ScenarioManager.load(inputs_dir / "assumptions.json")
 
     city_data = None
-    city_seed = data_dir / "city_ramp_seed.yaml"
-    if city_seed.exists():
+    city_path = inputs_dir / "city.json"
+    if city_path.exists():
         from .city import load_city_ramp
-        city_data = load_city_ramp(city_seed)
+        city_data = load_city_ramp(city_path)
 
     def unlock_rules() -> dict:
         rules = manager.capability_unlocks()
@@ -268,7 +268,7 @@ def main(argv: list[str] | None = None) -> int:
         a = manager.resolve(args.scenario)
         campaign = load_campaign(args.campaign, catalog)
         planner = make_planner(a)
-        reqs = load_requirements(data_dir / "requirements_seed.yaml")
+        reqs = load_requirements(inputs_dir / "requirements.json")
         engine = RequirementsEngine(catalog, a, unlock_rules())
         matrix = engine.evaluate(reqs, planner.run(campaign))
         md = rpt.requirements_markdown(matrix, reqs, campaign.id)

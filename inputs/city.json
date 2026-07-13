@@ -1,0 +1,212 @@
+{
+  "population_milestones": [
+    {
+      "flag": "survival_floor",
+      "population": 110,
+      "tier": "B",
+      "statement": "Minimum settlers for long-term survival if Earth resupply stops: time-budget model (labor available vs labor required) with a cooperation sharing factor. \"Can it not die.\"",
+      "source": "Salotti, Scientific Reports 2020 (nature.com/articles/s41598-020-66740-0), 3-0 verified twice"
+    },
+    {
+      "flag": "settlement_established",
+      "population": 1000,
+      "tier": "B",
+      "statement": "NSS formal settlement milestone: 1,000+ adults. The full NSS criterion also requires a Mars-born generation that has itself had viable children; modeled here as population-only until demographics exist (see docs/CITY_RAMP_RESEARCH.md section 1).",
+      "source": "NSS Space Settlement Roadmap milestone 25, 3-0 verified"
+    },
+    {
+      "flag": "industrial_autarky",
+      "population": 1000000,
+      "tier": "C",
+      "statement": "Order-of-magnitude population for full industrial closure — needs nothing from Earth ever again. Handmer's analogy: Earth's full industrial stacks each rest on 10-100M people; Mars needs less diversity but still ~1M. Musk quotes the same number without a shown derivation.",
+      "source": "Handmer 2017 roadmap (verified by direct fetch); field survey spans 1e5-1e9"
+    }
+  ],
+  "per_capita": {
+    "power_subsistence_kwe": {
+      "value": 25,
+      "at_100_plus": 17,
+      "tier": "B",
+      "source": "Vazquez Pombo, Space: Science & Technology 2021, verified verbatim from the DTU repository PDF: \"24 or 25 kW/person for missions ranging from 4 to 500 people\"; Table 1: 25/25/23/20/17 kWe/person at stages 0-4. Note: literature-carried figure endorsed in a peer-reviewed venue; its 30-200 kWe \"ISRU\" is life-support-scale, NOT a propellant factory."
+    },
+    "power_industrial_kwe": {
+      "value": 100,
+      "tier": "C",
+      "source": "Same source's industrial-city regime — order-of-magnitude above subsistence. Do not conflate the two regimes."
+    },
+    "food_area_m2": {
+      "salad_supplement": 19.5,
+      "full_diet": 65.29,
+      "planning_value": 50,
+      "tier": "B (bounds) / C (planning midpoint)",
+      "source": "NASA BVAD TP-2015-218570/REV2 Table 4-92 totals row, verified verbatim (19.50 / 65.29 m2 per crew member); Cannon & Britt 46 m2 (2-1 verified); Frontiers ~40-50 m2 couples food to O2/CO2 closure."
+    },
+    "habitable_volume_m3": {
+      "floor": 28.96,
+      "realistic": 36.8,
+      "tier": "B",
+      "source": "NASA/NTRS 20200002973 verified verbatim: minimum NHV 115.83 m3 / 4 crew (28.96) and 170.14 / 6 (28.36 — flat with crew size); realistic cylindrical design 147.19 / 4 = 36.80 (+27% for access/structure)."
+    },
+    "pressurized_volume_m3": {
+      "value": 76.5,
+      "tier": "B",
+      "source": "Same study: 306 m3 total pressurized for 4 crew (NHV + systems + stowage). Habitat catalog components should be checked against this, not against NHV alone."
+    },
+    "consumables_kg_per_day": {
+      "food_dry": 0.8,
+      "oxygen": 0.895,
+      "potable_water": 3.217,
+      "total": 4.912,
+      "tier": "B",
+      "source": "NASA BVAD verified verbatim (\"Oxygen Consumed kg/CM-d 0.895\", food \"kg/CM-d 0.800\", \"Potable Water Content kg/CM-d 3.217\"). This is the zero-closure import floor: ~1.8 t/person/year before any recycling."
+    }
+  },
+  "import_mass": {
+    "no_local_production_t_per_person_year": {
+      "value": 10,
+      "tier": "C",
+      "source": "Handmer make-buy analysis (verified by direct fetch): ~10 t at ~$2M per person-year"
+    },
+    "raw_materials_closed_kg_per_person_year": {
+      "value": 20,
+      "tier": "C",
+      "source": "Same source: 'perhaps 20 kg' once basic-commodity production is onshored (~500x cliff)"
+    },
+    "make_local_below_usd_per_kg": {
+      "value": 100,
+      "tier": "C",
+      "source": "Handmer's rule: <$100/kg local production cost always beats importing"
+    },
+    "electronics_closure_warning": "Tier B (arxiv 1612.03238, 3-0 verified): incomplete closure of electronics/chips makes import mass grow EXPONENTIALLY with the industry — the decay curve has a floor until Gen 5.0-6.0 closure."
+  },
+  "growth": {
+    "fleet_min_growth_per_synod": {
+      "value": 2.0,
+      "tier": "B",
+      "source": "New Space 2022 (PMC9527650), 3-0 verified: \"total number of landed vehicles to double at a minimum with each consecutive opportunity.\" The ONLY ships-per-synod rule that survived adversarial verification; every Musk cadence figure was refuted or superseded."
+    },
+    "population_ramp_scenarios": {
+      "handmer_doubling": {
+        "doubling_per_synod": true,
+        "years_to_1M": 50,
+        "tier": "C",
+        "source": "Handmer 2017: double per window, ~10x per decade (his own label: ambitious)"
+      },
+      "city_npc_conservative": {
+        "max_passenger_ships_per_synod": 20,
+        "passengers_per_ship": 100,
+        "people_per_decade": 10000,
+        "years_to_1M": 125,
+        "tier": "C",
+        "source": "arxiv 2112.06155 (verified from PDF text 2026-07-10): self-described conservative import ramp"
+      }
+    }
+  },
+  "closure_unlocks": {
+    "closure_gen_1": {
+      "all_of": [
+        "regolith_refinery"
+      ],
+      "min_population": 50
+    },
+    "closure_gen_2": {
+      "all_of": [
+        "regolith_refinery",
+        "polymer_chemical_plant"
+      ],
+      "min_population": 110
+    },
+    "closure_gen_3": {
+      "all_of": [
+        "polymer_chemical_plant",
+        "agri_module",
+        "sintering_rig"
+      ],
+      "min_population": 500
+    },
+    "closure_gen_4": {
+      "all_of": [
+        "electronics_fab"
+      ],
+      "min_population": 5000
+    },
+    "closure_gen_5": {
+      "all_of": [
+        "chip_fab"
+      ],
+      "min_population": 100000
+    }
+  },
+  "import_decay_t_per_person_year": {
+    "none": 10.0,
+    "closure_gen_1": 4.0,
+    "closure_gen_2": 2.0,
+    "closure_gen_3": 0.8,
+    "closure_gen_4": 0.2,
+    "closure_gen_5": 0.02
+  },
+  "closure_sequence": {
+    "tier": "B",
+    "source": "arxiv 1612.03238 (Freitas/Gilbreath lineage, 3-0 verified); consistent with Handmer's oxygen->water/fuel->plastics->metals->electronics->chips ordering and NSS's minimum set (life support, food, local construction).",
+    "stages": [
+      {
+        "gen": 1.0,
+        "closes": [
+          "gases",
+          "water",
+          "crude_alloys",
+          "ceramics",
+          "solar_cells"
+        ],
+        "catalog_groups": [
+          "ISRU",
+          "Water mining",
+          "Power generation"
+        ]
+      },
+      {
+        "gen": 2.5,
+        "closes": [
+          "plastics",
+          "rubbers",
+          "chemicals"
+        ],
+        "catalog_groups": [
+          "Consumables & caches"
+        ]
+      },
+      {
+        "gen": 3.0,
+        "closes": [
+          "fabrics_polymers",
+          "pc_cards_chassis"
+        ],
+        "catalog_groups": [
+          "Habitat & life support",
+          "Site prep & construction"
+        ]
+      },
+      {
+        "gen": 4.0,
+        "closes": [
+          "electronics_90_to_99pct"
+        ],
+        "catalog_groups": [
+          "Thermal & support",
+          "Power storage"
+        ]
+      },
+      {
+        "gen": 5.0,
+        "closes": [
+          "computer_chips_local_lithography"
+        ],
+        "catalog_groups": [
+          "Comms nav & autonomy",
+          "Robotics",
+          "Recon & science"
+        ]
+      }
+    ]
+  }
+}

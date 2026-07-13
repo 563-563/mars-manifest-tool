@@ -96,7 +96,7 @@ def test_water_confirmed_gates_the_fuel_factory(catalog, baseline, manager):
     # a mission that requires water_confirmed is blocked
     from pathlib import Path
     from mars_manifest.cli import load_campaign
-    plan = load_campaign(Path(__file__).resolve().parents[1] / "examples" / "program_plan.yaml", catalog)
+    plan = load_campaign(Path(__file__).resolve().parents[1] / "inputs" / "program.json", catalog)
     planner = CampaignPlanner(catalog, baseline, manager.capability_unlocks(),
                               manager.crewed_requires())
     # full plan: prospecting lands window 0, factory flies window 1 -> no violations

@@ -11,8 +11,10 @@ governs NOW.*
    downgrade its confidence tier. `PROVENANCE.md` records every input's source,
    tier, and the verification log. When a source drifts (it has: payload
    volume, solar density), the seed changes and consequences propagate.
-2. **Seed data** (`data/*.csv`, `data/*.json`) — the catalog is the source of
-   truth for component attributes; assumptions are injected, never hard-coded.
+2. **Input data** (`inputs/*.json`, `inputs/catalog.csv`) — the single editable
+   input surface, split by concern (program / assumptions / city / requirements
+   / catalog). The catalog is the source of truth for component attributes;
+   assumptions are injected, never hard-coded. See `inputs/README.md`.
 3. **Engines** (`mars_manifest/`) — pure, deterministic, tested. Reports only
    render; no computation in the report layer.
 4. **Generated documents** (`docs/REQUIREMENTS.md`, the console and walkthrough
@@ -20,13 +22,13 @@ governs NOW.*
 
 ## The baseline
 
-- **`examples/program_plan.yaml` is the program.** 2031-01 start (Moon-first
+- **`inputs/program.json` is the program.** 2031-01 start (Moon-first
   pivot; no 2026 flight) → fuel factory 2033-03 → second plant + habitats
   2035-05 (11 ships; volume-bound at the real 614 m³ bay) → first crew 2037-07.
 - Crew gating is strict by design: propellant *banked* (≥1,400 t), 1,000-sol
   ECLSS demonstration, prospect-before-commit (`water_confirmed`), and no
   single-ship loss may cost a schedule-critical capability.
-- `data/requirements_seed.yaml` + `mars requirements` is the buy-off contract;
+- `inputs/requirements.json` + `mars requirements` is the buy-off contract;
   `docs/COMPARATIVES.md` records how we differ from Handmer / New Space 2022 /
   NASA DRA 5.0 and what we adopted from them.
 
@@ -59,9 +61,9 @@ governs NOW.*
 
 ```bash
 .venv/Scripts/python.exe -m pytest tests/ -q      # must be green before commit
-mars plan examples/program_plan.yaml --format md   # the program at a glance
-mars requirements examples/program_plan.yaml --out docs/REQUIREMENTS.md  # regen after plan edits
-mars lifecycle examples/program_plan.yaml          # risk buy-down + idle-mass audit
+mars plan inputs/program.json --format md   # the program at a glance
+mars requirements inputs/program.json --out docs/REQUIREMENTS.md  # regen after plan edits
+mars lifecycle inputs/program.json          # risk buy-down + idle-mass audit
 ```
 
 Artifacts (console + surface walkthrough) regenerate from the session

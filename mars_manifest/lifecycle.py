@@ -1,5 +1,5 @@
 """Systems-lifecycle analysis over a campaign: risk buy-down timing and
-idle-hardware accounting (config: `lifecycle` in data/assumptions_seed.json).
+idle-hardware accounting (config: `lifecycle` in inputs/assumptions.json).
 
 Two questions, asked of every flight manifest:
   1. Are we retiring the most program risk as early as possible? Each

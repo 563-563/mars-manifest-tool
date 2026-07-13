@@ -11,12 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture(scope="session")
 def catalog() -> Catalog:
-    return Catalog.load(ROOT / "data" / "component_catalog_seed.csv")
+    return Catalog.load(ROOT / "inputs" / "catalog.csv")
 
 
 @pytest.fixture(scope="session")
 def manager() -> ScenarioManager:
-    return ScenarioManager.load(ROOT / "data" / "assumptions_seed.json")
+    return ScenarioManager.load(ROOT / "inputs" / "assumptions.json")
 
 
 @pytest.fixture(scope="session")

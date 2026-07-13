@@ -342,7 +342,7 @@ footer a{color:var(--muted)}
 <main>
   <div class="lede" data-win="0">
     <h2 class="title">A settlement, earned<br>one proof at a time</h2>
-    <p class="authors mono">Generated from examples/program_plan.yaml &middot; every figure traced to a source &middot; turn the knobs and watch it move</p>
+    <p class="authors mono">Generated from inputs/program.json &middot; every figure traced to a source &middot; turn the knobs and watch it move</p>
     <p>Everybody who dreams up a Mars city starts by drawing the city. That’s the tell. You
     don’t <em>ship</em> a city. You ship a fight against the six different ways Mars quietly kills
     everyone, fought in the exact order that lets you win: reach orbit and refuel there; land 100

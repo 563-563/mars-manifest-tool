@@ -7,7 +7,7 @@ Methodology). Raw combined claim set: `docs/_city_ramp_raw_findings.json`.*
 
 ## Why this exists
 
-The program plan (`examples/program_plan.yaml`) ends at first crew (2037-07,
+The program plan (`inputs/program.json`) ends at first crew (2037-07,
 ~1,487 t of hardware, ~3,240 kWe installed, ~10,205 t propellant banked). The
 user asked what it would take to go from there to a **self-sustaining city**,
 and what that implies for an ongoing, multi-decade manifest. This brief
@@ -123,7 +123,7 @@ starts tracking actual settlers, not robots.
 
 ## 6. Where the serious people disagree — scenario axes
 
-Frame these as `assumptions_seed.json`-style named scenarios, not a single
+Frame these as `assumptions.json`-style named scenarios, not a single
 answer:
 
 | Axis | Low end | High end | What it changes |
@@ -140,8 +140,8 @@ answer:
    `settlers: int` (or similar) field distinct from `crewed: bool`; surface
    state needs a running `population` counter, analogous to
    `propellant_produced_t`. Nothing in §3-§5 can be applied without this.
-2. **New seed file** `data/city_ramp_seed.yaml`, sibling to
-   `requirements_seed.yaml`: population milestones (110 / 1,000 / 1,000,000)
+2. **New seed file** `inputs/city.json`, sibling to
+   `requirements.json`: population milestones (110 / 1,000 / 1,000,000)
    as named thresholds with their own capability flags
    (`survival_floor`, `settlement_established`, `industrial_autarky`);
    import-mass-per-capita as a decay curve keyed to industrial-closure state,

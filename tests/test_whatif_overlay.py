@@ -38,12 +38,12 @@ SCENARIOS = ["baseline", "optimistic", "conservative_feasibility"]
 
 @pytest.fixture(scope="module")
 def city():
-    return load_city_ramp(ROOT / "data" / "city_ramp_seed.yaml")
+    return load_city_ramp(ROOT / "inputs" / "city.json")
 
 
 @pytest.fixture(scope="module")
 def program(catalog):
-    return load_campaign(ROOT / "examples" / "program_plan.yaml", catalog)
+    return load_campaign(ROOT / "inputs" / "program.json", catalog)
 
 
 def _run(catalog, manager, city, scenario):

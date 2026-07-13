@@ -2,7 +2,7 @@
 (spec origin: HANDOFF.md §5.4).
 
 A scenario = base assumptions + dotted-path overrides, defined in
-data/assumptions_seed.json. `compare` runs a campaign (or single mission)
+inputs/assumptions.json. `compare` runs a campaign (or single mission)
 under two scenarios and diffs the key outputs.
 """
 from __future__ import annotations

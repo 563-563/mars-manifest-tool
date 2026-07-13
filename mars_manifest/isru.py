@@ -3,7 +3,7 @@ for the Sabatier propellant path (water -> electrolysis -> Sabatier -> cryo).
 
 Stoichiometry is physics and lives here as constants (Tier A in
 PROVENANCE.md). Process energies, the mixture ratio, and campaign timing are
-assumptions (`isru.*` in data/assumptions_seed.json, Tier C).
+assumptions (`isru.*` in inputs/assumptions.json, Tier C).
 
 Chain, per kg of CH4 produced:
     CO2 + 4 H2 -> CH4 + 2 H2O           (Sabatier, exothermic)

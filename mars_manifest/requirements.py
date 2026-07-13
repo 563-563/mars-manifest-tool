@@ -1,5 +1,5 @@
 """Requirements engine: load the decomposed requirements tree and evaluate
-buy-off against a campaign run (data/requirements_seed.yaml).
+buy-off against a campaign run (inputs/requirements.json).
 
 Every leaf requirement carries a machine-checkable verification criterion
 evaluated per window; parents close by rollup. The output is a verification
