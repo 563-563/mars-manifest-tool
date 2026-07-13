@@ -102,6 +102,7 @@ mars isru   examples/precursor_2026.yaml [--design]   # chain rates, energy, rat
 mars plan   inputs/program.json [--format md|xlsx]
 mars lifecycle inputs/program.json             # risk buy-down + idle-hardware review
 mars requirements inputs/program.json [--out docs/REQUIREMENTS.md]
+mars manifests inputs/program.json             # ship-by-ship snapshot -> docs/manifests/
 mars compare optimistic conservative --campaign inputs/program.json
 mars report inputs/program.json --format xlsx --out out/program.xlsx
 ```
@@ -117,6 +118,7 @@ mars report inputs/program.json --format xlsx --out out/program.xlsx
 | `CLAUDE.md` | The working agreement: hierarchy of truth, baseline, regression contract |
 | `HANDOFF.md` | The original kickoff spec — **historical**; read for intent, not values |
 | `docs/REQUIREMENTS.md` | Generated buy-off matrix for the baseline program (never hand-edit) |
+| `docs/manifests/` | **Generated ship-by-ship manifests** (JSON + CSV) — what flies on which hull at what mass/volume/power, and which requirements each window closes (never hand-edit; `mars manifests` regenerates) |
 | `docs/COMPARATIVES.md` | How this plan differs from Handmer / *New Space* 2022 / NASA DRA 5.0, and what was adopted |
 | `docs/CITY_RAMP_RESEARCH.md` | Verified research brief for the city-scale extension (population thresholds, import-mass decay, fleet-growth rules) |
 | `docs/CONSIDERED.md` | Ideas weighed and set aside — deferred, out-of-scope, rejected, or simplified — so omissions read as decisions |

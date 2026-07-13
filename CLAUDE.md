@@ -64,6 +64,7 @@ governs NOW.*
 .venv/Scripts/python.exe -m pytest tests/ -q      # must be green before commit
 mars plan inputs/program.json --format md   # the program at a glance
 mars requirements inputs/program.json --out docs/REQUIREMENTS.md  # regen after plan edits
+mars manifests inputs/program.json          # regen docs/manifests/ after plan edits (test-enforced fresh)
 mars lifecycle inputs/program.json          # risk buy-down + idle-mass audit
 ```
 

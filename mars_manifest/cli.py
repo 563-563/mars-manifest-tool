@@ -133,6 +133,13 @@ def main(argv: list[str] | None = None) -> int:
     p_edl.add_argument("campaign")
     p_edl.add_argument("--scenario", default="baseline")
 
+    p_man = sub.add_parser("manifests",
+                           help="Per-window, per-ship manifest snapshot (JSON + CSV)")
+    p_man.add_argument("campaign")
+    p_man.add_argument("--scenario", default="baseline")
+    p_man.add_argument("--out-dir", default="docs/manifests",
+                       help="Directory for manifests.json + manifests.csv")
+
     p_cmp = sub.add_parser("compare", help="Compare two scenarios")
     p_cmp.add_argument("scenario_a")
     p_cmp.add_argument("scenario_b")
@@ -279,6 +286,28 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(md)
         return 1 if matrix.open_ids else 0
+
+    if args.command == "manifests":
+        import csv
+        import json as _json
+        from .requirements import RequirementsEngine, load_requirements
+        a = manager.resolve(args.scenario)
+        campaign = load_campaign(args.campaign, catalog)
+        result = make_planner(a).run(campaign)
+        reqs = load_requirements(inputs_dir / "requirements.json")
+        matrix = RequirementsEngine(catalog, a, unlock_rules()).evaluate(reqs, result)
+        snap = rpt.manifest_snapshot(result, matrix, catalog, a, str(args.campaign))
+        out_dir = Path(args.out_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+        jpath = out_dir / "manifests.json"
+        jpath.write_text(_json.dumps(snap, indent=1, ensure_ascii=False) + "\n",
+                         encoding="utf-8")
+        cpath = out_dir / "manifests.csv"
+        with cpath.open("w", newline="", encoding="utf-8") as fh:
+            csv.writer(fh).writerows(rpt.manifest_csv_rows(snap))
+        print(f"Wrote {jpath}")
+        print(f"Wrote {cpath}")
+        return 0
 
     if args.command == "compare":
         campaign = load_campaign(args.campaign, catalog) if args.campaign else None

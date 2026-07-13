@@ -35,6 +35,7 @@ spreadsheet). Everything else is JSON.
 mars plan inputs/program.json --format md
 mars requirements inputs/program.json --out docs/REQUIREMENTS.md
 mars lifecycle inputs/program.json
+mars manifests inputs/program.json     # regen docs/manifests/ (CI checks freshness)
 
 # 4. regenerate the browser views (optional)
 python viz/export_dashboard_data.py    # inputs/ -> viz/dashboard_data.json

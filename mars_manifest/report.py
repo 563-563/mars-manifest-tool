@@ -680,3 +680,97 @@ def campaign_xlsx(result: CampaignResult, path: str | Path) -> Path:
     out.parent.mkdir(parents=True, exist_ok=True)
     wb.save(out)
     return out
+
+
+# ---------------------------------------------------------------------------
+# Baseline manifest snapshot (JSON + CSV): the canonical "what exactly flies,
+# on which hull, at what mass/volume/power, and which requirements it buys
+# off" reference. Rendering only — every number comes from the campaign run.
+
+
+def manifest_snapshot(result: CampaignResult, matrix, catalog: Catalog,
+                      a: Assumptions, source: str) -> dict:
+    """Structured per-window, per-ship manifest dump for the committed
+    baseline snapshot (docs/manifests/). `matrix` is the evaluated
+    requirements matrix so each window carries the requirements it closes."""
+    req_by_window = {k: sorted(v) for k, v in matrix.by_window.items()}
+    stmts = {v.requirement.id: v.requirement.statement for v in matrix.verdicts}
+
+    def item_row(cid: str, qty: float, mass: float, vol: float) -> dict:
+        row = {"id": cid, "qty": round(qty, 3), "mass_t": round(mass, 3),
+               "volume_m3": round(vol, 3)}
+        if cid in catalog:
+            c = catalog.get(cid)
+            row["name"] = c.name
+            row["group"] = c.group
+            row["avg_load_kw"] = round(c.peak_power_kw * c.duty_cycle * qty, 2) \
+                if c.power_role == "consumer" else 0.0
+            row["generation_kwe"] = round(c.generation_kwe * qty, 1)
+            row["readiness_gate"] = c.readiness_gate or ""
+        else:  # spares:<group> pseudo-items
+            row["name"] = "Spares — " + cid.split(":", 1)[1]
+            row["group"] = "Spares"
+            row["avg_load_kw"] = 0.0
+            row["generation_kwe"] = 0.0
+            row["readiness_gate"] = ""
+        return row
+
+    windows = []
+    for w in result.windows:
+        ships = []
+        for outcome in w.missions:
+            if outcome.blocked:
+                continue
+            for s in outcome.packing.ships:
+                ships.append({
+                    "ship": s.index,
+                    "mass_t": round(s.mass_t, 2),
+                    "volume_m3": round(s.volume_m3, 1),
+                    "mass_utilisation": round(s.mass_utilisation, 3),
+                    "volume_utilisation": round(s.volume_utilisation, 3),
+                    "binding_constraint": s.binding_constraint,
+                    "items": [item_row(*d) for d in s.manifest_detail],
+                })
+        windows.append({
+            "id": w.window_id,
+            "objective": w.objective,
+            "ships": w.ships,
+            "total_launches": w.total_launches,
+            "mass_delivered_t": round(w.mass_delivered_t, 1),
+            "installed_generation_kwe": round(w.installed_generation_kwe),
+            "surface_avg_load_kw": round(w.surface_avg_load_kw),
+            "propellant_banked_t": round(w.propellant_cumulative_t),
+            "population": w.population,
+            "new_capabilities": list(w.new_capabilities),
+            "requirements_closed": [
+                {"id": rid, "statement": stmts.get(rid, "")}
+                for rid in req_by_window.get(w.window_id, [])],
+            "ships_detail": ships,
+        })
+    return {
+        "_comment": ("GENERATED baseline manifest snapshot — regenerate with "
+                     "`mars manifests`, never hand-edit. To change the plan, "
+                     "edit inputs/ and regenerate; see docs/manifests/README.md."),
+        "generated_from": source,
+        "scenario": "baseline",
+        "per_ship_capacity": {
+            "mass_t": a.get("fleet.payload_mass_per_ship_t"),
+            "volume_m3": a.get("fleet.payload_volume_per_ship_m3")},
+        "cumulative": {k: round(v, 1) for k, v in result.cumulative.items()},
+        "windows": windows,
+    }
+
+
+def manifest_csv_rows(snapshot: dict) -> list[list]:
+    """Flatten the snapshot to one row per (window, ship, item) for the CSV."""
+    rows = [["window", "ship", "component_id", "name", "group", "qty",
+             "mass_t", "volume_m3", "avg_load_kw", "generation_kwe",
+             "readiness_gate"]]
+    for w in snapshot["windows"]:
+        for s in w["ships_detail"]:
+            for it in s["items"]:
+                rows.append([w["id"], s["ship"], it["id"], it["name"],
+                             it["group"], it["qty"], it["mass_t"],
+                             it["volume_m3"], it["avg_load_kw"],
+                             it["generation_kwe"], it["readiness_gate"]])
+    return rows
