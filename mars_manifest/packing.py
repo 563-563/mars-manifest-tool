@@ -200,34 +200,67 @@ class PackingEngine:
     def _pack_balanced(self, items, mission, mass_cap, vol_cap, warnings):
         """Load-balance across the declared fleet with redundancy anti-affinity:
         units of the same component prefer ships that don't already carry one,
-        so no single EDL loss takes out a whole capability class. Ship pins are
+        so no single EDL loss takes out a whole capability class. Complementary
+        items (fleet.affinity_sets, e.g. a habitat and the ECLSS loop that runs
+        inside it) are bundled 1:1 onto the same hull — a surviving ship must
+        land a *working* set, not a shell without a loop — while anti-affinity
+        still spreads the bundles themselves across hulls. Ship pins are
         ignored under this policy."""
         n = mission.ships or max(1, math.ceil(
             sum(i.mass_t for i in items) / mass_cap))
         ships = {i: PackedShip(i) for i in range(1, n + 1)}
-        ordered = sorted(items, key=lambda i: max(i.mass_t / mass_cap, i.volume_m3 / vol_cap),
+        groups = self._affinity_groups(items)
+
+        def g_mass(g):
+            return sum(i.mass_t for i in g)
+
+        def g_vol(g):
+            return sum(i.volume_m3 for i in g)
+
+        ordered = sorted(groups, key=lambda g: max(g_mass(g) / mass_cap, g_vol(g) / vol_cap),
                          reverse=True)
 
-        def load_after(s: PackedShip, item: PackItem) -> float:
-            return max((s.mass_t + item.mass_t) / mass_cap,
-                       (s.volume_m3 + item.volume_m3) / vol_cap)
+        def load_after(s: PackedShip, g: list) -> float:
+            return max((s.mass_t + g_mass(g)) / mass_cap,
+                       (s.volume_m3 + g_vol(g)) / vol_cap)
 
-        for item in ordered:
+        for group in ordered:
+            gm, gv = g_mass(group), g_vol(group)
             fits = [s for s in ships.values()
-                    if s.mass_t + item.mass_t <= mass_cap and s.volume_m3 + item.volume_m3 <= vol_cap]
+                    if s.mass_t + gm <= mass_cap and s.volume_m3 + gv <= vol_cap]
             if not fits:
-                if item.mass_t > mass_cap or item.volume_m3 > vol_cap:
+                if gm > mass_cap or gv > vol_cap:
+                    label = "+".join(sorted({i.component_id for i in group}))
                     warnings.append(
-                        f"{item.component_id}: single unit exceeds ship capacity; placed on its own ship")
+                        f"{label}: unit exceeds ship capacity; placed on its own ship")
                 idx = max(ships) + 1
-                ships[idx] = PackedShip(idx, [item])
+                ships[idx] = PackedShip(idx, list(group))
                 warnings.append(f"Batch grew beyond declared {n} ships (ship {idx})")
                 continue
+            gids = {i.component_id for i in group}
             fresh = [s for s in fits
-                     if not any(it.component_id == item.component_id for it in s.items)]
+                     if not any(it.component_id in gids for it in s.items)]
             pool = fresh or fits
-            min(pool, key=lambda s: load_after(s, item)).items.append(item)
+            min(pool, key=lambda s: load_after(s, group)).items.extend(group)
         return ships
+
+    def _affinity_groups(self, items: list[PackItem]) -> list[list[PackItem]]:
+        """Bundle whole units of complementary components (fleet.affinity_sets)
+        1:1 into groups the balanced packer places on a single hull. Unmatched
+        units and everything else stay as singleton groups."""
+        sets = self.a.get("fleet.affinity_sets", []) or []
+        remaining = list(items)
+        groups: list[list[PackItem]] = []
+        for aset in sets:
+            queues = {cid: [i for i in remaining
+                            if i.component_id == cid and i.qty == 1] for cid in aset}
+            while all(queues[cid] for cid in aset):
+                bundle = [queues[cid].pop(0) for cid in aset]
+                groups.append(bundle)
+                for it in bundle:
+                    remaining.remove(it)
+        groups.extend([i] for i in remaining)
+        return groups
 
     def _spares_items(self, budget: BudgetResult) -> list[PackItem]:
         """Turn the spares overhead into explicit, packable per-group cargo,

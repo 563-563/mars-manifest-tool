@@ -256,6 +256,24 @@
       "planned_window": "2035-05"
     },
     {
+      "id": "L2-LS-04",
+      "level": 2,
+      "parent": "L1-LS-01",
+      "statement": "The life-support demonstration shall run as an integrated article: the ECLSS loop operating inside a landed, pressurized habitat, both on the surface for the full 1,000-sol clock.",
+      "rationale": "A closed loop can only be demonstrated against a sealed volume, and the integrated failure modes (interface leaks, condensation on the bladder wall, dust in heat exchangers) are the ones that matter. The habitat itself also needs long-duration demonstration.",
+      "source": "Test-as-you-fly precedent: NASA LMLSTP 91-day chamber demo (JSC, 1997); ISS ECLSS chamber testing (MSFC); MELiSSA pilot plant; Lunar Palace 1; BEAM (2016) for inflatable endurance",
+      "verify": {
+        "method": "Inspection",
+        "kind": "min_qty",
+        "component": [
+          "habitat_inflatable",
+          "habitat_module"
+        ],
+        "qty": 1
+      },
+      "planned_window": "2031-01"
+    },
+    {
       "id": "L1-HAB-01",
       "parent": "L0-MSN-01",
       "statement": "Pressurized habitat volume beyond the landed ships shall be ready before crew.",

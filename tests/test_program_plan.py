@@ -121,3 +121,41 @@ def test_edl_and_water_metrics_in_enablements(plan_result, catalog, baseline):
     w0 = window_enablements(plan_result.windows[0], catalog, baseline)
     assert any("EDL track record" in ln for ln in w0)
     assert not any("Water independence" in ln for ln in w0)
+
+
+def test_habitat_and_eclss_ride_the_same_hull(catalog, baseline, manager):
+    """The demo set is complementary, not redundant: an ECLSS without a sealed
+    volume demonstrates nothing (LMLSTP/BEAM precedent), so the balanced packer
+    bundles each habitat with an ECLSS unit on one hull, in every window."""
+    from mars_manifest.budgets import BudgetEngine
+    from mars_manifest.packing import PackingEngine
+    campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
+    be, pe = BudgetEngine(catalog, baseline), PackingEngine(catalog, baseline)
+    for window in campaign.windows:
+        for mission in window.missions:
+            packing = pe.pack(mission, be.compute(mission))
+            for ship in packing.ships:
+                inv = {cid: q for cid, q in ship.items}
+                habs = inv.get("habitat_inflatable", 0) + inv.get("habitat_module", 0)
+                assert habs == inv.get("eclss_habitat", 0), (
+                    f"{window.id} ship {ship.index}: {habs} habitats vs "
+                    f"{inv.get('eclss_habitat', 0)} ECLSS units")
+
+
+def test_life_support_demo_requires_the_habitat(catalog, baseline, manager):
+    """Dropping the window-0 habitat must delay life_support_closed (the loop
+    has no sealed volume to run in until 2035's habitats land) and block crew."""
+    import copy
+    from mars_manifest.city import city_rules, load_city_ramp
+    city = load_city_ramp(ROOT / "inputs" / "city.json")
+    rules = {**manager.capability_unlocks(), **city_rules(city)}
+    campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
+    crippled = copy.deepcopy(campaign)
+    m0 = crippled.windows[0].missions[0]
+    m0.manifest = [it for it in m0.manifest if it.component_id != "habitat_inflatable"]
+    planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(), city=city)
+    result = planner.run(crippled)
+    w = {r.window_id: r for r in result.windows}
+    assert "life_support_closed" not in w["2035-05"].capabilities_after
+    assert any("first_crew" in v or "blocked" in v for v in result.violations)
+    assert result.first_crew_window != "2037-07"

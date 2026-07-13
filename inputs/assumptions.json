@@ -5,7 +5,18 @@
       "payload_mass_per_ship_t": 100,
       "payload_volume_per_ship_m3": 614,
       "packing_efficiency": 0.65,
-      "tankers_per_ship": 16
+      "tankers_per_ship": 16,
+      "affinity_sets": [
+        [
+          "habitat_inflatable",
+          "eclss_habitat"
+        ],
+        [
+          "habitat_module",
+          "eclss_habitat"
+        ]
+      ],
+      "_affinity_comment": "Complementary items bundled 1:1 onto the same hull by the balanced packer: a habitat without its ECLSS (or vice versa) does nothing, so splitting the pair doubles EDL exposure. Test-as-you-fly precedent: every closed-loop life-support demo in history ran inside a sealed volume (NASA LMLSTP chamber demos; ISS ECLSS; MELiSSA; Lunar Palace 1), and inflatables need their own long-duration demo (BEAM 2016). Anti-affinity still spreads the PAIRS across different hulls."
     },
     "power": {
       "sol_hours": 24.6,
@@ -374,13 +385,30 @@
         "min_propellant_t": 1400
       },
       "life_support_closed": {
-        "all_of": [
-          "eclss_habitat",
-          "consumables_cache"
-        ],
-        "min_sols_on_surface": {
-          "eclss_habitat": 1000
-        }
+        "any_path": [
+          {
+            "all_of": [
+              "eclss_habitat",
+              "consumables_cache",
+              "habitat_inflatable"
+            ],
+            "min_sols_on_surface": {
+              "eclss_habitat": 1000,
+              "habitat_inflatable": 1000
+            }
+          },
+          {
+            "all_of": [
+              "eclss_habitat",
+              "consumables_cache",
+              "habitat_module"
+            ],
+            "min_sols_on_surface": {
+              "eclss_habitat": 1000,
+              "habitat_module": 1000
+            }
+          }
+        ]
       },
       "habitat_ready": {
         "any_of": [

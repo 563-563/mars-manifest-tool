@@ -77,7 +77,7 @@ landing, and shrink the water error bars before committing a fuel factory.
 
 **What flies:** a loss-tolerant robotic batch — 16 fission reactors (640 kWe),
 a pilot ISRU chain in duplicate, water prospecting, comms, humanoid + rover
-robots, one habitat + one ECLSS unit as a **1,000-sol life-support testbed**,
+robots, one habitat + one ECLSS unit flown together on a single hull as the integrated **1,000-sol life-support testbed** (the loop needs the sealed volume; the inflatable needs the endurance run),
 and — the cheapest idea on the manifest — **kinetic penetrators plus an
 orbital radar constellation** that read the subsurface from orbit.
 

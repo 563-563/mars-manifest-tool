@@ -380,16 +380,22 @@
    "ships_balanced": [
     {
      "i": 1,
-     "mass": 21.743909090909092,
-     "vol": 330.62195454545457,
-     "mu": 0.21743909090909092,
-     "vu": 0.5384722386733788,
+     "mass": 28.743909090909092,
+     "vol": 355.62195454545457,
+     "mu": 0.2874390909090909,
+     "vu": 0.579188851051229,
      "items": [
       [
        "battery_module_100kwh",
        0.966,
        0.644,
        0.32
+      ],
+      [
+       "eclss_habitat",
+       1.0,
+       7.0,
+       25.0
       ],
       [
        "fission_unit",
@@ -413,16 +419,16 @@
     },
     {
      "i": 2,
-     "mass": 49.60095454545454,
-     "vol": 203.55984629742636,
-     "mu": 0.4960095454545454,
-     "vu": 0.33153069429548265,
+     "mass": 47.802645454545456,
+     "vol": 203.11280109223262,
+     "mu": 0.47802645454545456,
+     "vu": 0.33080260764207264,
      "items": [
       [
        "battery_module_100kwh",
-       5.795,
-       3.863,
-       1.93
+       4.829,
+       3.22,
+       1.61
       ],
       [
        "consumables_cache",
@@ -443,253 +449,10 @@
        30.0
       ],
       [
-       "ice_prospecting",
-       1.0,
-       1.0,
-       6.0
-      ],
-      [
-       "isru_control",
-       1.0,
-       0.5,
-       3.0
-      ],
-      [
-       "optimus_robot",
-       1.0,
-       0.1,
-       0.3
-      ],
-      [
-       "rover_unpressurized",
-       1.0,
-       1.5,
-       6.0
-      ],
-      [
-       "sabatier_reactor",
-       1.0,
-       3.0,
-       15.0
-      ],
-      [
-       "spares:ISRU",
-       1.0,
-       3.237,
-       14.84
-      ],
-      [
-       "spares:Power generation",
-       1.0,
-       4.725,
-       21.65
-      ],
-      [
-       "spares:Robotics",
-       1.0,
-       3.675,
-       16.84
-      ],
-      [
-       "thermal_control",
-       1.0,
-       5.0,
-       20.0
-      ]
-     ]
-    },
-    {
-     "i": 3,
-     "mass": 49.41514545454545,
-     "vol": 234.35036982879853,
-     "mu": 0.4941514545454545,
-     "vu": 0.38167812675700086,
-     "items": [
-      [
-       "battery_module_100kwh",
-       4.829,
-       3.22,
-       1.61
-      ],
-      [
-       "central_compute",
-       1.0,
-       0.5,
-       2.0
-      ],
-      [
-       "cryo_liquefaction",
-       1.0,
-       9.0,
-       60.0
-      ],
-      [
-       "dust_mitigation",
-       1.0,
-       1.5,
-       6.0
-      ],
-      [
-       "excavator_rassor",
-       1.0,
-       2.0,
-       8.0
-      ],
-      [
-       "fission_unit",
-       2.0,
-       12.0,
-       60.0
-      ],
-      [
-       "optimus_robot",
-       3.0,
-       0.3,
-       0.9
-      ],
-      [
-       "radiation_shelter",
-       1.0,
-       1.0,
-       5.0
-      ],
-      [
-       "spares:ISRU",
-       1.0,
-       3.237,
-       14.84
-      ],
-      [
-       "spares:Power generation",
-       1.0,
-       4.725,
-       21.65
-      ],
-      [
-       "spares:Power storage",
-       1.0,
-       4.958,
-       22.72
-      ],
-      [
-       "spares:Water mining",
-       1.0,
-       2.975,
-       13.63
-      ],
-      [
-       "water_electrolysis",
-       1.0,
-       4.0,
-       18.0
-      ]
-     ]
-    },
-    {
-     "i": 4,
-     "mass": 49.51345454545455,
-     "vol": 221.22805736648604,
-     "mu": 0.4951345454545455,
-     "vu": 0.36030628235584045,
-     "items": [
-      [
-       "battery_module_100kwh",
-       5.795,
-       3.863,
-       1.93
-      ],
-      [
-       "cargo_crane",
-       1.0,
-       5.0,
-       25.0
-      ],
-      [
-       "co2_acquisition",
-       1.0,
-       2.0,
-       12.0
-      ],
-      [
-       "eclss_habitat",
-       1.0,
-       7.0,
-       25.0
-      ],
-      [
-       "fission_unit",
-       2.0,
-       12.0,
-       60.0
-      ],
-      [
        "grading_tools",
        1.0,
        1.0,
        5.0
-      ],
-      [
-       "logistics_kit",
-       1.0,
-       3.0,
-       15.0
-      ],
-      [
-       "optimus_robot",
-       4.0,
-       0.4,
-       1.2
-      ],
-      [
-       "relay_ground_station",
-       1.0,
-       1.5,
-       8.0
-      ],
-      [
-       "robotic_maint_kit",
-       1.0,
-       1.5,
-       8.0
-      ],
-      [
-       "spares:Habitat & life support",
-       1.0,
-       4.025,
-       18.44
-      ],
-      [
-       "spares:Power generation",
-       1.0,
-       4.725,
-       21.65
-      ],
-      [
-       "water_processing",
-       1.0,
-       3.5,
-       20.0
-      ]
-     ]
-    },
-    {
-     "i": 5,
-     "mass": 49.47563636363637,
-     "vol": 225.57277196183483,
-     "mu": 0.49475636363636366,
-     "vu": 0.36738236475868863,
-     "items": [
-      [
-       "battery_module_100kwh",
-       3.863,
-       2.576,
-       1.29
-      ],
-      [
-       "fission_unit",
-       3.0,
-       18.0,
-       90.0
       ],
       [
        "landing_beacons",
@@ -716,6 +479,180 @@
        6.0
       ],
       [
+       "spares:Power generation",
+       1.0,
+       4.725,
+       21.65
+      ],
+      [
+       "spares:Power storage",
+       1.0,
+       4.958,
+       22.72
+      ],
+      [
+       "spares:Recon & science",
+       1.0,
+       0.35,
+       1.6
+      ],
+      [
+       "spares:Site prep & construction",
+       1.0,
+       2.45,
+       11.23
+      ],
+      [
+       "water_processing",
+       1.0,
+       3.5,
+       20.0
+      ]
+     ]
+    },
+    {
+     "i": 3,
+     "mass": 47.757045454545455,
+     "vol": 231.21495582697878,
+     "mu": 0.47757045454545455,
+     "vu": 0.3765715892947537,
+     "items": [
+      [
+       "battery_module_100kwh",
+       4.829,
+       3.22,
+       1.61
+      ],
+      [
+       "central_compute",
+       1.0,
+       0.5,
+       2.0
+      ],
+      [
+       "cryo_liquefaction",
+       1.0,
+       9.0,
+       60.0
+      ],
+      [
+       "fission_unit",
+       2.0,
+       12.0,
+       60.0
+      ],
+      [
+       "optimus_robot",
+       4.0,
+       0.4,
+       1.2
+      ],
+      [
+       "radiation_shelter",
+       1.0,
+       1.0,
+       5.0
+      ],
+      [
+       "relay_ground_station",
+       1.0,
+       1.5,
+       8.0
+      ],
+      [
+       "robotic_maint_kit",
+       1.0,
+       1.5,
+       8.0
+      ],
+      [
+       "spares:Habitat & life support",
+       1.0,
+       4.025,
+       18.44
+      ],
+      [
+       "spares:ISRU",
+       1.0,
+       3.237,
+       14.84
+      ],
+      [
+       "spares:Power generation",
+       1.0,
+       4.725,
+       21.65
+      ],
+      [
+       "spares:Robotics",
+       1.0,
+       3.675,
+       16.84
+      ],
+      [
+       "spares:Water mining",
+       1.0,
+       2.975,
+       13.63
+      ]
+     ]
+    },
+    {
+     "i": 4,
+     "mass": 47.68204545454545,
+     "vol": 217.85137796509804,
+     "mu": 0.4768204545454545,
+     "vu": 0.354806804503417,
+     "items": [
+      [
+       "battery_module_100kwh",
+       4.829,
+       3.22,
+       1.61
+      ],
+      [
+       "cargo_crane",
+       1.0,
+       5.0,
+       25.0
+      ],
+      [
+       "co2_acquisition",
+       1.0,
+       2.0,
+       12.0
+      ],
+      [
+       "dust_mitigation",
+       1.0,
+       1.5,
+       6.0
+      ],
+      [
+       "fission_unit",
+       2.0,
+       12.0,
+       60.0
+      ],
+      [
+       "isru_control",
+       1.0,
+       0.5,
+       3.0
+      ],
+      [
+       "logistics_kit",
+       1.0,
+       3.0,
+       15.0
+      ],
+      [
+       "optimus_robot",
+       1.0,
+       0.1,
+       0.3
+      ],
+      [
        "rover_unpressurized",
        1.0,
        1.5,
@@ -740,6 +677,69 @@
        18.44
       ],
       [
+       "spares:ISRU",
+       1.0,
+       3.237,
+       14.84
+      ],
+      [
+       "spares:Power generation",
+       1.0,
+       4.725,
+       21.65
+      ]
+     ]
+    },
+    {
+     "i": 5,
+     "mass": 47.76345454545455,
+     "vol": 207.5319105702364,
+     "mu": 0.4776345454545455,
+     "vu": 0.3379998543489192,
+     "items": [
+      [
+       "battery_module_100kwh",
+       5.795,
+       3.863,
+       1.93
+      ],
+      [
+       "excavator_rassor",
+       1.0,
+       2.0,
+       8.0
+      ],
+      [
+       "fission_unit",
+       3.0,
+       18.0,
+       90.0
+      ],
+      [
+       "ice_prospecting",
+       1.0,
+       1.0,
+       6.0
+      ],
+      [
+       "optimus_robot",
+       3.0,
+       0.3,
+       0.9
+      ],
+      [
+       "rover_unpressurized",
+       1.0,
+       1.5,
+       6.0
+      ],
+      [
+       "sabatier_reactor",
+       1.0,
+       3.0,
+       15.0
+      ],
+      [
        "spares:Power generation",
        1.0,
        4.725,
@@ -752,22 +752,22 @@
        4.81
       ],
       [
-       "spares:Recon & science",
-       1.0,
-       0.35,
-       1.6
-      ],
-      [
-       "spares:Site prep & construction",
-       1.0,
-       2.45,
-       11.23
-      ],
-      [
        "spares:Thermal & support",
        1.0,
        3.325,
        15.24
+      ],
+      [
+       "thermal_control",
+       1.0,
+       5.0,
+       20.0
+      ],
+      [
+       "water_electrolysis",
+       1.0,
+       4.0,
+       18.0
       ]
      ]
     }
@@ -775,10 +775,10 @@
    "ships_redundant": [
     {
      "i": 1,
-     "mass": 67.76653846153845,
-     "vol": 281.1090979178793,
-     "mu": 0.6776653846153845,
-     "vu": 0.4578324070323767,
+     "mass": 67.83653846153844,
+     "vol": 271.2844463846256,
+     "mu": 0.6783653846153844,
+     "vu": 0.44183134590329903,
      "items": [
       [
        "battery_module_100kwh",
@@ -787,28 +787,34 @@
        2.3
       ],
       [
+       "cargo_crane",
+       1.0,
+       5.0,
+       25.0
+      ],
+      [
+       "central_compute",
+       1.0,
+       0.5,
+       2.0
+      ],
+      [
        "co2_acquisition",
        1.0,
        2.0,
        12.0
       ],
       [
-       "dust_mitigation",
+       "eclss_habitat",
        1.0,
-       1.5,
-       6.0
+       7.0,
+       25.0
       ],
       [
        "fission_unit",
-       3.0,
-       18.0,
-       90.0
-      ],
-      [
-       "grading_tools",
        1.0,
-       1.0,
-       5.0
+       6.0,
+       30.0
       ],
       [
        "habitat_inflatable",
@@ -817,10 +823,10 @@
        75.0
       ],
       [
-       "isru_control",
+       "ice_prospecting",
        1.0,
-       0.5,
-       3.0
+       1.0,
+       6.0
       ],
       [
        "landing_beacons",
@@ -847,6 +853,105 @@
        8.0
       ],
       [
+       "rover_unpressurized",
+       1.0,
+       1.5,
+       6.0
+      ],
+      [
+       "spares:ISRU",
+       1.0,
+       4.317,
+       10.81
+      ],
+      [
+       "spares:Power generation",
+       1.0,
+       4.8,
+       12.02
+      ],
+      [
+       "spares:Robotics",
+       1.0,
+       2.975,
+       7.45
+      ],
+      [
+       "spares:Water mining",
+       1.0,
+       4.55,
+       11.4
+      ],
+      [
+       "water_processing",
+       1.0,
+       3.5,
+       20.0
+      ]
+     ]
+    },
+    {
+     "i": 2,
+     "mass": 67.72935897435893,
+     "vol": 276.309673845337,
+     "mu": 0.6772935897435893,
+     "vu": 0.4500157554484316,
+     "items": [
+      [
+       "battery_module_100kwh",
+       8.862,
+       5.908,
+       2.95
+      ],
+      [
+       "co2_acquisition",
+       1.0,
+       2.0,
+       12.0
+      ],
+      [
+       "cryo_liquefaction",
+       1.0,
+       9.0,
+       60.0
+      ],
+      [
+       "dust_mitigation",
+       1.0,
+       1.5,
+       6.0
+      ],
+      [
+       "fission_unit",
+       4.0,
+       24.0,
+       120.0
+      ],
+      [
+       "logistics_kit",
+       1.0,
+       3.0,
+       15.0
+      ],
+      [
+       "optimus_robot",
+       4.0,
+       0.4,
+       1.2
+      ],
+      [
+       "relay_ground_station",
+       1.0,
+       1.5,
+       8.0
+      ],
+      [
+       "spares:Habitat & life support",
+       1.0,
+       3.85,
+       9.64
+      ],
+      [
        "spares:ISRU",
        1.0,
        4.317,
@@ -869,120 +974,15 @@
        1.0,
        2.975,
        7.45
-      ],
-      [
-       "water_processing",
-       1.0,
-       3.5,
-       20.0
-      ]
-     ]
-    },
-    {
-     "i": 2,
-     "mass": 67.79294871794868,
-     "vol": 279.4830617079721,
-     "mu": 0.6779294871794868,
-     "vu": 0.45518413958953113,
-     "items": [
-      [
-       "battery_module_100kwh",
-       7.877,
-       5.251,
-       2.63
-      ],
-      [
-       "cargo_crane",
-       1.0,
-       5.0,
-       25.0
-      ],
-      [
-       "central_compute",
-       1.0,
-       0.5,
-       2.0
-      ],
-      [
-       "co2_acquisition",
-       1.0,
-       2.0,
-       12.0
-      ],
-      [
-       "cryo_liquefaction",
-       1.0,
-       9.0,
-       60.0
-      ],
-      [
-       "fission_unit",
-       3.0,
-       18.0,
-       90.0
-      ],
-      [
-       "ice_prospecting",
-       1.0,
-       1.0,
-       6.0
-      ],
-      [
-       "logistics_kit",
-       1.0,
-       3.0,
-       15.0
-      ],
-      [
-       "optimus_robot",
-       3.0,
-       0.3,
-       0.9
-      ],
-      [
-       "relay_ground_station",
-       1.0,
-       1.5,
-       8.0
-      ],
-      [
-       "rover_unpressurized",
-       1.0,
-       1.5,
-       6.0
-      ],
-      [
-       "spares:Habitat & life support",
-       1.0,
-       3.85,
-       9.64
-      ],
-      [
-       "spares:ISRU",
-       1.0,
-       4.317,
-       10.81
-      ],
-      [
-       "spares:Power generation",
-       2.0,
-       9.6,
-       24.05
-      ],
-      [
-       "spares:Robotics",
-       1.0,
-       2.975,
-       7.45
       ]
      ]
     },
     {
      "i": 3,
-     "mass": 67.81794871794868,
-     "vol": 259.7486730182071,
-     "mu": 0.6781794871794868,
-     "vu": 0.4230434413977315,
+     "mass": 67.66794871794868,
+     "vol": 258.6749175423011,
+     "mu": 0.6766794871794868,
+     "vu": 0.4212946539776891,
      "items": [
       [
        "battery_module_100kwh",
@@ -995,12 +995,6 @@
        1.0,
        5.0,
        25.0
-      ],
-      [
-       "central_compute",
-       1.0,
-       0.5,
-       2.0
       ],
       [
        "cryo_liquefaction",
@@ -1028,9 +1022,9 @@
       ],
       [
        "optimus_robot",
-       2.0,
-       0.2,
-       0.6
+       3.0,
+       0.3,
+       0.9
       ],
       [
        "power_distribution",
@@ -1064,30 +1058,24 @@
       ],
       [
        "spares:Power generation",
-       1.0,
-       4.8,
-       12.02
+       2.0,
+       9.6,
+       24.05
       ],
       [
        "spares:Power system",
        1.0,
        2.1,
        5.26
-      ],
-      [
-       "spares:Water mining",
-       1.0,
-       4.55,
-       11.4
       ]
      ]
     },
     {
      "i": 4,
-     "mass": 67.82628205128202,
-     "vol": 255.70013325981068,
-     "mu": 0.6782628205128202,
-     "vu": 0.4164497284361737,
+     "mass": 67.87628205128203,
+     "vol": 271.55298073093775,
+     "mu": 0.6787628205128203,
+     "vu": 0.4422686982588563,
      "items": [
       [
        "battery_module_100kwh",
@@ -1096,10 +1084,10 @@
        2.63
       ],
       [
-       "eclss_habitat",
+       "central_compute",
        1.0,
-       7.0,
-       25.0
+       0.5,
+       2.0
       ],
       [
        "excavator_rassor",
@@ -1144,16 +1132,16 @@
        15.0
       ],
       [
-       "spares:Orbital assets",
+       "sintering_rig",
        1.0,
-       2.1,
-       5.26
+       6.0,
+       30.0
       ],
       [
        "spares:Power generation",
-       2.0,
-       9.6,
-       24.05
+       1.0,
+       4.8,
+       12.02
       ],
       [
        "spares:Recon & science",
@@ -1162,10 +1150,22 @@
        3.51
       ],
       [
+       "spares:Site prep & construction",
+       1.0,
+       2.45,
+       6.14
+      ],
+      [
        "spares:Thermal & support",
        1.0,
        4.375,
        10.96
+      ],
+      [
+       "thermal_control",
+       1.0,
+       5.0,
+       20.0
       ],
       [
        "water_electrolysis",
@@ -1177,16 +1177,16 @@
     },
     {
      "i": 5,
-     "mass": 67.78128205128202,
-     "vol": 265.90903409613094,
-     "mu": 0.6778128205128202,
-     "vu": 0.43307660276242826,
+     "mass": 67.87487179487177,
+     "vol": 264.1279814967987,
+     "mu": 0.6787487179487176,
+     "vu": 0.43017586562996535,
      "items": [
       [
        "battery_module_100kwh",
-       7.877,
-       5.251,
-       2.63
+       6.892,
+       4.595,
+       2.3
       ],
       [
        "excavator_rassor",
@@ -1196,9 +1196,21 @@
       ],
       [
        "fission_unit",
-       3.0,
-       18.0,
-       90.0
+       4.0,
+       24.0,
+       120.0
+      ],
+      [
+       "grading_tools",
+       1.0,
+       1.0,
+       5.0
+      ],
+      [
+       "isru_control",
+       1.0,
+       0.5,
+       3.0
       ],
       [
        "landing_beacons",
@@ -1208,9 +1220,9 @@
       ],
       [
        "optimus_robot",
-       3.0,
-       0.3,
-       0.9
+       1.0,
+       0.1,
+       0.3
       ],
       [
        "orbital_radar_set",
@@ -1237,34 +1249,22 @@
        15.0
       ],
       [
-       "sintering_rig",
+       "spares:Orbital assets",
        1.0,
-       6.0,
-       30.0
+       2.1,
+       5.26
       ],
       [
        "spares:Power generation",
-       1.0,
-       4.8,
-       12.02
+       2.0,
+       9.6,
+       24.05
       ],
       [
        "spares:Power storage",
        1.0,
        4.48,
        11.22
-      ],
-      [
-       "spares:Site prep & construction",
-       1.0,
-       2.45,
-       6.14
-      ],
-      [
-       "thermal_control",
-       1.0,
-       5.0,
-       20.0
       ],
       [
        "water_electrolysis",
@@ -1346,15 +1346,16 @@
       [
        1,
        [
-        "habitat_ready"
+        "habitat_ready",
+        "life_support_closed"
        ]
       ],
       [
        2,
        [
+        "infrastructure_ready",
         "life_support_closed",
-        "return_propellant_proven",
-        "water_confirmed",
+        "precision_landing",
         "water_supply"
        ]
       ],
@@ -1362,6 +1363,7 @@
        3,
        [
         "autonomy_proven",
+        "comms_established",
         "radiation_managed",
         "return_propellant_proven"
        ]
@@ -1369,19 +1371,16 @@
       [
        4,
        [
-        "autonomy_proven",
-        "comms_established",
         "infrastructure_ready",
-        "life_support_closed",
-        "return_propellant_proven",
-        "water_supply"
+        "return_propellant_proven"
        ]
       ],
       [
        5,
        [
-        "infrastructure_ready",
-        "precision_landing"
+        "return_propellant_proven",
+        "water_confirmed",
+        "water_supply"
        ]
       ]
      ],
@@ -3160,7 +3159,7 @@
  },
  "requirements": {
   "counts": {
-   "CLOSED": 25,
+   "CLOSED": 26,
    "PASS": 4,
    "EARLY": 2
   },
@@ -3178,6 +3177,7 @@
     "L1-H2O-01",
     "L2-PROP-02",
     "L2-LS-02",
+    "L2-LS-04",
     "L1-HAB-01",
     "L1-COM-01",
     "L1-AUT-01",
@@ -3433,6 +3433,17 @@
     "rationale": "Survival margin independent of ISRU and resupply.",
     "planned": "2035-05",
     "actual": "2035-05",
+    "status": "CLOSED"
+   },
+   {
+    "id": "L2-LS-04",
+    "lvl": 2,
+    "parent": "L1-LS-01",
+    "stmt": "The life-support demonstration shall run as an integrated article: the ECLSS loop operating inside a landed, pressurized habitat, both on the surface for the full 1,000-sol clock.",
+    "method": "Inspection",
+    "rationale": "A closed loop can only be demonstrated against a sealed volume, and the integrated failure modes (interface leaks, condensation on the bladder wall, dust in heat exchangers) are the ones that matter. The habitat itself also needs long-duration demonstration.",
+    "planned": "2031-01",
+    "actual": "2031-01",
     "status": "CLOSED"
    },
    {
