@@ -434,7 +434,7 @@
             },
             {
               "id": "polymer_chemical_plant",
-              "qty": 1
+              "qty": 2
             },
             {
               "id": "water_electrolysis",
@@ -537,11 +537,11 @@
             },
             {
               "id": "polymer_chemical_plant",
-              "qty": 2
+              "qty": 1
             },
             {
               "id": "electronics_fab",
-              "qty": 1
+              "qty": 2
             },
             {
               "id": "water_electrolysis",
@@ -652,7 +652,7 @@
             },
             {
               "id": "electronics_fab",
-              "qty": 2
+              "qty": 1
             },
             {
               "id": "water_electrolysis",

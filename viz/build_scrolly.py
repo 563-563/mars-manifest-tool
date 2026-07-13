@@ -39,7 +39,7 @@ NARR = {
    "The strict gate is the entire point: the ride home exists before anyone climbs in. Every requirement was signed off a synod early. Nobody flies on a promise."),
  "2039-09": ("The Village",
    "Up to here the job was proving capabilities. From now on it’s growing people and closing the loop so the settlement leans on Earth a little less every synod. The first target is the line where, if the ships simply stopped coming, the place wouldn’t just quietly die.",
-   "112 residents, over Salotti’s 110-person survival floor. The first real industry lights up, a regolith refinery and a polymer plant (Gen-1/2 closure), alongside 30 agriculture modules that can feed about 120, a surplus over the 112 actually living there. Power more than doubles to 7,080 kWe to carry all of it.",
+   "112 residents, over Salotti’s 110-person survival floor. The first real industry lights up, regolith refineries and polymer plants flown in pairs on separate hulls (Gen-1/2 closure), alongside 30 agriculture modules that can feed about 120, a surplus over the 112 actually living there. Power more than doubles to 7,160 kWe to carry all of it.",
    "The fleet at least doubles every synod. It’s the one growth rule that survived a fact-check; every Musk cadence number failed it, so they’re quoted here as ambition and nothing more."),
  "2041-11": ("The Town",
    "Scale the population roughly fivefold and start making the things the settlement burns through fastest on Mars, instead of shipping them 200 million kilometres. This is where imported mass is supposed to fall off a cliff, and where you find out what that costs in power.",
@@ -47,7 +47,7 @@ NARR = {
    "Every populated window is checked to deliver enough consumables to cover its residents; none runs a deficit. That check is machine-enforced, not a footnote."),
  "2044-01": ("The Settlement",
    "Reach the first formal milestone that means a settlement with a future rather than an outpost with good PR, and be straight about how far that still is from standing on its own.",
-   "1,112 adults, crossing the NSS 1,000-adult settlement mark. About 18,500 t of hardware is on the ground now, 44× the mass of the ISS, drawing 34,640 kWe, with 290 agriculture modules feeding roughly 1,160 and the import bill down to 0.8 t per person per year.",
+   "1,112 adults, crossing the NSS 1,000-adult settlement mark. About 18,500 t of hardware is on the ground now, 44× the mass of the ISS, drawing 34,600 kWe, with 290 agriculture modules feeding roughly 1,160 and the import bill down to 0.8 t per person per year.",
    "Here’s the honest part: this is a settlement, not independence. Self-sufficiency is on the order of 1,000,000 people. We’re at 1.85%. We’d rather say that out loud than pretend the city is around the corner."),
 }
 

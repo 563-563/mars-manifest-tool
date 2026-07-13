@@ -2272,8 +2272,8 @@
     "isru_nameplate_t": 4155.235,
     "derate": 1.0,
     "launches": 714,
-    "mass": 2740.5263999999997,
-    "kwe": 7080.0,
+    "mass": 2774.3984,
+    "kwe": 7160.0,
     "launch_cost": 64260.0,
     "prop": 12698,
     "prop_produced": 3997.05,
@@ -2286,15 +2286,15 @@
     "closure": "none",
     "imp_req": 260,
     "imp_del": 300,
-    "hardware_t": 3459.1,
-    "load_kw": 7004,
+    "hardware_t": 3482.4,
+    "load_kw": 7088,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 112 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 30 modules can feed ~120 people (surplus vs 112 residents).",
      "Recurring imports: residents need 260 t this synod at 10 t/person/yr (closure stage: none); manifests deliver 300 t.",
-     "7,080 kWe of storm-proof power \u2014 roughly 5,900 homes' worth, with 76 kW of headroom over the installed load.",
-     "Batteries hold 42.0 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "7,160 kWe of storm-proof power \u2014 roughly 5,967 homes' worth, with 72 kW of headroom over the installed load.",
+     "Batteries hold 42.5 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
      "Fuel plant produces ~6.9 t of methalox per day \u2014 a full Starship return load every 7 months.",
      "12,698 t of propellant banked by the 2041-11 window \u2014 9.1 Starship return flights' worth. The crew's ride home could be filled 9.1 times over.",
      "10,200 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~408 people.",
@@ -2302,7 +2302,7 @@
      "Robot workforce: 130 humanoids and 20 rovers.",
      "EDL track record: landings so far demonstrate ~96% reliability (rule-of-three floor); this window's ships each land with ~95% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~341 months (112 residents) \u2014 propellant production halts, the crew does not.",
-     "3,459 t of hardware on the surface \u2014 8.2\u00d7 the mass of the ISS, and 0.35% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "3,482 t of hardware on the surface \u2014 8.3\u00d7 the mass of the ISS, and 0.35% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 180.0,
@@ -2310,10 +2310,10 @@
      "Consumables & caches": 570.0,
      "Habitat & life support": 756.0,
      "ISRU": 158.0,
-     "Industry": 32.0,
+     "Industry": 40.0,
      "Orbital assets": 6.0,
-     "Power generation": 1062.0,
-     "Power storage": 281.6,
+     "Power generation": 1074.0,
+     "Power storage": 284.9,
      "Power system": 36.0,
      "Recon & science": 4.0,
      "Robotics": 121.0,
@@ -2329,8 +2329,8 @@
      ],
      [
       "battery_module_100kwh",
-      420.2,
-      281.6
+      425.3,
+      284.9
      ],
      [
       "cargo_crane",
@@ -2374,8 +2374,8 @@
      ],
      [
       "fission_unit",
-      177.0,
-      1062.0
+      179.0,
+      1074.0
      ],
      [
       "grading_tools",
@@ -2424,8 +2424,8 @@
      ],
      [
       "polymer_chemical_plant",
-      1.0,
-      8.0
+      2.0,
+      16.0
      ],
      [
       "power_distribution",
@@ -2499,7 +2499,7 @@
     "isru_nameplate_t": 4155.235,
     "derate": 1.0,
     "launches": 1870,
-    "mass": 8642.8986,
+    "mass": 8625.6146,
     "kwe": 17880.0,
     "launch_cost": 168300.0,
     "prop": 16854,
@@ -2511,15 +2511,15 @@
     "closure": "closure_gen_2",
     "imp_req": 485,
     "imp_del": 1050,
-    "hardware_t": 9675.3,
-    "load_kw": 17768,
+    "hardware_t": 9686.7,
+    "load_kw": 17804,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 512 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 130 modules can feed ~520 people (surplus vs 512 residents).",
      "Recurring imports: residents need 485 t this synod at 2 t/person/yr (closure stage: closure gen 2); manifests deliver 1,050 t.",
-     "17,880 kWe of storm-proof power \u2014 roughly 14,900 homes' worth, with 112 kW of headroom over the installed load.",
-     "Batteries hold 106.6 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "17,880 kWe of storm-proof power \u2014 roughly 14,900 homes' worth, with 76 kW of headroom over the installed load.",
+     "Batteries hold 106.8 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
      "Fuel plant produces ~6.9 t of methalox per day \u2014 a full Starship return load every 7 months.",
      "16,854 t of propellant banked by the 2044-01 window \u2014 12.0 Starship return flights' worth. The crew's ride home could be filled 12.0 times over.",
      "40,200 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~1,608 people.",
@@ -2527,7 +2527,7 @@
      "Robot workforce: 230 humanoids and 30 rovers.",
      "EDL track record: landings so far demonstrate ~98% reliability (rule-of-three floor); this window's ships each land with ~95% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~212 months (512 residents) \u2014 propellant production halts, the crew does not.",
-     "9,675 t of hardware on the surface \u2014 23.0\u00d7 the mass of the ISS, and 0.97% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "9,687 t of hardware on the surface \u2014 23.1\u00d7 the mass of the ISS, and 0.97% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 780.0,
@@ -2535,10 +2535,10 @@
      "Consumables & caches": 1620.0,
      "Habitat & life support": 2964.0,
      "ISRU": 182.0,
-     "Industry": 82.0,
+     "Industry": 92.0,
      "Orbital assets": 6.0,
      "Power generation": 2682.0,
-     "Power storage": 714.3,
+     "Power storage": 715.7,
      "Power system": 54.0,
      "Recon & science": 4.0,
      "Robotics": 184.0,
@@ -2554,8 +2554,8 @@
      ],
      [
       "battery_module_100kwh",
-      1066.1,
-      714.3
+      1068.2,
+      715.7
      ],
      [
       "cargo_crane",
@@ -2594,8 +2594,8 @@
      ],
      [
       "electronics_fab",
-      1.0,
-      10.0
+      2.0,
+      20.0
      ],
      [
       "excavator_rassor",
@@ -2729,8 +2729,8 @@
     "isru_nameplate_t": 4155.235,
     "derate": 1.0,
     "launches": 3400,
-    "mass": 12426.9098,
-    "kwe": 34640.0,
+    "mass": 12401.6218,
+    "kwe": 34600.0,
     "launch_cost": 306000.0,
     "prop": 21009,
     "prop_produced": 4155.24,
@@ -2741,14 +2741,14 @@
     "closure": "closure_gen_3",
     "imp_req": 887,
     "imp_del": 900,
-    "hardware_t": 18466.1,
+    "hardware_t": 18460.1,
     "load_kw": 34506,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 1,112 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 290 modules can feed ~1,160 people (surplus vs 1,112 residents).",
      "Recurring imports: residents need 887 t this synod at 0.8 t/person/yr (closure stage: closure gen 3); manifests deliver 900 t.",
-     "34,640 kWe of storm-proof power \u2014 roughly 28,867 homes' worth, with 134 kW of headroom over the installed load.",
+     "34,600 kWe of storm-proof power \u2014 roughly 28,833 homes' worth, with 94 kW of headroom over the installed load.",
      "Batteries hold 207.0 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
      "Fuel plant produces ~6.9 t of methalox per day \u2014 a full Starship return load every 7 months.",
      "21,009 t of propellant banked by the next window's arrival \u2014 15.0 Starship return flights' worth. The crew's ride home could be filled 15.0 times over.",
@@ -2757,7 +2757,7 @@
      "Robot workforce: 380 humanoids and 46 rovers.",
      "EDL track record: landings so far demonstrate ~99% reliability (rule-of-three floor); this window's ships each land with ~95% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~152 months (1,112 residents) \u2014 propellant production halts, the crew does not.",
-     "18,466 t of hardware on the surface \u2014 44.0\u00d7 the mass of the ISS, and 1.85% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "18,460 t of hardware on the surface \u2014 44.0\u00d7 the mass of the ISS, and 1.85% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 1740.0,
@@ -2767,7 +2767,7 @@
      "ISRU": 214.0,
      "Industry": 166.0,
      "Orbital assets": 6.0,
-     "Power generation": 5196.0,
+     "Power generation": 5190.0,
      "Power storage": 1387.1,
      "Power system": 78.0,
      "Recon & science": 4.0,
@@ -2834,8 +2834,8 @@
      ],
      [
       "fission_unit",
-      866.0,
-      5196.0
+      865.0,
+      5190.0
      ],
      [
       "grading_tools",
@@ -2952,12 +2952,12 @@
    }
   ],
   "cumulative": {
-   "mass_delivered_t": 25883.9009,
+   "mass_delivered_t": 25875.200900000003,
    "ships": 392,
    "total_launches": 6664,
    "launch_cost_musd": 599760.0,
-   "cargo_cost_low_musd": 231058.0,
-   "cargo_cost_high_musd": 967292.0
+   "cargo_cost_low_musd": 230958.0,
+   "cargo_cost_high_musd": 966892.0
   },
   "first_crew": "2037-07"
  },
