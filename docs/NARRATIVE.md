@@ -66,8 +66,8 @@ the plan.
 ## The manifest, window by window
 
 Fleet sizes obey the one ramp rule that survived scrutiny — the *total* landed
-fleet at least doubles each synod (cumulative 5 → 10 → 21 → 42 → 84 → 194 →
-394). Launch counts include tanker refueling (~16 per ship). Propellant
+fleet at least doubles each synod (cumulative 5 → 10 → 20 → 40 → 82 → 192 →
+392). Launch counts include tanker refueling (~16 per ship). Propellant
 "banked" is what the plant produces by the time the *next* window arrives, with
 newly-delivered capacity ramping at 60% its first synod.
 
@@ -112,7 +112,7 @@ redundancy**: the capability is backstopped by 2031's pre-deployed pilot chain,
 and the 30% propellant margin absorbs any one lost ship. A sixth ship was
 considered and rejected as mass we don't need.
 
-### 2035 · Second plant + the base — prove survival (11 ships)
+### 2035 · Second plant + the base — prove survival (10 ships)
 
 **Motivation:** double propellant output, and stage everything a crew needs to
 live before they leave Earth.
@@ -124,11 +124,14 @@ the habitat cluster, deep consumable caches, shelters. Power reaches 3,040 kWe.
 1,000 sols) and `radiation_managed`. **Cumulative risk retired: 100%** — every
 schedule-critical gate is closed a full window before crew.
 
-**Key decision — why 11 ships, not 10:** at the *verified* 614 m³ bay, this
-window is volume-bound, not mass-bound (habitats and caches are bulky, not
-heavy). The real bay volume forced the honest ship count.
+**Key decision — habitats fly folded:** the habitats are TransHab/B330-class
+inflatables that stow at ~75 m³ and deploy to ~300 m³ (~4× compression;
+TransHab 329.4 m³ per BVAD, BEAM flew 2016). For a while the model billed
+them at deployed volume and this window needed an 11th ship to carry the
+air — stowing them honestly gave the ship back. Same discipline as the
+614 m³ bay: when a number gets honest, the fleet follows it.
 
-### 2037 · First crew — arrive to a working base (21 ships, 12 people)
+### 2037 · First crew — arrive to a working base (20 ships, 12 people)
 
 **Motivation:** by now the base is powered, provisioned, and fueled, and every
 requirement has been bought off at least one synod early. Only now do people
@@ -173,10 +176,10 @@ a rounding error against self-sufficiency.
 
 ## What the whole thing costs, and where the uncertainty lives
 
-Cumulatively the plan lands **394 ships over ~6,700 launches** delivering
+Cumulatively the plan lands **392 ships over ~6,700 launches** delivering
 ~25,900 t. At the disclosed near-term launch price that is ~$600B of launch;
 on SpaceX's internal-cost basis (expended cargo ships, reused tankers) it is
-closer to ~$90B. Cargo hardware dwarfs launch, and development cost — Starship,
+closer to ~$87B. Cargo hardware dwarfs launch, and development cost — Starship,
 fission, ISRU R&D — is larger still and deliberately kept out of these
 figures (it is a separate ledger we chose not to model).
 

@@ -269,11 +269,14 @@
     {
       "id": "L2-HAB-02",
       "parent": "L1-HAB-01",
-      "statement": "At least 5 habitat modules shall be on the surface before crew arrival.",
+      "statement": "At least 5 habitat modules (rigid or inflatable) shall be on the surface before crew arrival.",
       "verify": {
         "method": "Inspection",
         "kind": "min_qty",
-        "component": "habitat_module",
+        "component": [
+          "habitat_module",
+          "habitat_inflatable"
+        ],
         "qty": 5
       },
       "planned_window": "2035-05"

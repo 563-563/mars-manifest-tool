@@ -38,6 +38,13 @@ def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     assert w["2037-07"].propellant_cumulative_t > 5 * 1400
 
 
+def test_honest_fleet_counts(plan_result):
+    # 2035 fits 10 ships once habitats stow at the inflatable's honest 75 m3
+    # (the 11th ship existed only to carry deployed-volume air); 2037's count
+    # follows the >=2x cumulative fleet-growth rule (20 -> 40), not packing
+    assert [w.ships for w in plan_result.windows] == [5, 5, 10, 20, 42, 110, 200]
+
+
 def test_every_window_fits_its_fleet(plan_result, baseline):
     cap = baseline.get("fleet.payload_mass_per_ship_t")
     for w in plan_result.windows:
@@ -52,8 +59,11 @@ def test_surface_state_lays_flat(plan_result):
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
     # pre-crew chains (14) + city-era growth (4+6+8)
     assert inv["water_electrolysis"] == 32
-    assert inv["habitat_module"] == 9          # pre-city (deployed-volume fixture component)
-    assert inv["habitat_inflatable"] == 275   # city era, honest stowed volume
+    # all habitats are inflatables (honest ~75 m3 stowed volume): 9 pre-city
+    # (1+4+4) + 275 city-era; the rigid habitat_module survives only in the
+    # frozen workbook fixtures
+    assert "habitat_module" not in inv
+    assert inv["habitat_inflatable"] == 284
     # power and habitat dominate the city-era surface, per the research
     top_group = max(final.surface_by_group, key=final.surface_by_group.get)
     assert top_group in ("Power generation", "Habitat & life support")

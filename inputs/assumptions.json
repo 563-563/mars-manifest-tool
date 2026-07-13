@@ -28,7 +28,7 @@
     },
     "overheads": {
       "spares_fraction_of_dry": 0.35,
-      "contingency_fraction": 0.10
+      "contingency_fraction": 0.1
     },
     "isru": {
       "_comment": "Sabatier-chain rate & energy assumptions (see PROVENANCE.md). Stoichiometry is computed in isru.py from molar masses; these are efficiencies, timing, and the mixture ratio. Energies are system-level (include balance of plant). mode: 'sabatier' (full methalox from water+CO2) or 'oxygen_only' (DRA-5.0-style fallback: LOX from atmospheric CO2 via solid-oxide electrolysis, CH4 imported from Earth -- no water dependency).",
@@ -84,9 +84,21 @@
         "infrastructure_ready": 0.5,
         "mobility": 0.5
       },
-      "crew_era_components": ["habitat_module", "eclss_habitat", "radiation_shelter", "consumables_cache"],
-      "demo_exempt_units": {"habitat_module": 1, "eclss_habitat": 1},
-      "shelf_life_components": ["consumables_cache"]
+      "crew_era_components": [
+        "habitat_module",
+        "habitat_inflatable",
+        "eclss_habitat",
+        "radiation_shelter",
+        "consumables_cache"
+      ],
+      "demo_exempt_units": {
+        "habitat_module": 1,
+        "habitat_inflatable": 1,
+        "eclss_habitat": 1
+      },
+      "shelf_life_components": [
+        "consumables_cache"
+      ]
     },
     "cost": {
       "per_launch_cost_musd": {
@@ -116,7 +128,7 @@
       "overrides": {
         "fleet.tankers_per_ship": 16,
         "cost.active_launch_cost": "near_term",
-        "overheads.spares_fraction_of_dry": 0.40,
+        "overheads.spares_fraction_of_dry": 0.4,
         "_note": "Near-term launch cost, full-scale ISRU load, heavy spares."
       }
     },
@@ -182,7 +194,7 @@
         "isru.liquefaction_kwh_per_kg_propellant": 1.6,
         "isru.plant_availability": 0.7,
         "isru.commissioning_factor": 0.4,
-        "overheads.spares_fraction_of_dry": 0.40,
+        "overheads.spares_fraction_of_dry": 0.4,
         "overheads.contingency_fraction": 0.25,
         "cost.active_launch_cost": "near_term",
         "_note": "The peer-reviewed skeptic case (Maiwald/DLR, Sci Reports 2024): ISRU + orbital refill + cryo-chill are low-TRL and would need 10-20 yr more development than SpaceX plans. Combines Handmer's high ISRU energies, low plant availability/commissioning, heavy spares + AIAA-grade 25% contingency, near-term launch cost, and flips the refill/chill transport-readiness gates FALSE so the L1-TRANS requirements go OPEN. Not a prediction -- the honest lower bound. See docs/COMPARATIVES.md, CITY_RAMP_RESEARCH section 6."
@@ -192,21 +204,21 @@
       "inherits": "baseline",
       "overrides": {
         "overheads.contingency_fraction_by_group": {
-          "ISRU": 0.30,
-          "Water mining": 0.30,
-          "Industry": 0.30,
+          "ISRU": 0.3,
+          "Water mining": 0.3,
+          "Industry": 0.3,
           "Agriculture": 0.25,
           "Habitat & life support": 0.25,
           "Power generation": 0.25,
           "Site prep & construction": 0.25,
-          "Robotics": 0.20,
-          "Power storage": 0.20,
-          "Thermal & support": 0.20,
+          "Robotics": 0.2,
+          "Power storage": 0.2,
+          "Thermal & support": 0.2,
           "Consumables & caches": 0.15,
           "Comms nav & autonomy": 0.15,
           "Power system": 0.15,
-          "Recon & science": 0.10,
-          "Orbital assets": 0.10
+          "Recon & science": 0.1,
+          "Orbital assets": 0.1
         },
         "_note": "AIAA S-120 mass-growth-allowance by subsystem maturity, replacing the flat 10%: new-technology (ISRU, mining, city industry) 25-30%; new development of an existing type (habitat, fission, site prep, agriculture) 25%; moderate-heritage (robotics, storage, thermal) 20%; mostly-known (comms, consumables, power distribution) 15%; off-the-shelf-ish (science instruments, orbital sats) 10%. The flat 10% baseline is low for TRL 3-4 hardware (flagged in PROVENANCE section 3); this scenario is the honest MGA. Kept a scenario pending review before any baseline promotion."
       }
@@ -241,17 +253,17 @@
       "inherits": "baseline",
       "overrides": {
         "overheads.spares_fraction_by_group": {
-          "Habitat & life support": 0.40,
-          "ISRU": 0.40,
+          "Habitat & life support": 0.4,
+          "ISRU": 0.4,
           "Water mining": 0.35,
-          "Robotics": 0.30,
+          "Robotics": 0.3,
           "Site prep & construction": 0.25,
-          "Thermal & support": 0.20,
-          "Comms nav & autonomy": 0.20,
+          "Thermal & support": 0.2,
+          "Comms nav & autonomy": 0.2,
           "Power generation": 0.15,
           "Power storage": 0.15,
-          "Power system": 0.10,
-          "Recon & science": 0.10
+          "Power system": 0.1,
+          "Recon & science": 0.1
         },
         "_note": "Literature-informed per-group sparing replacing the flat 35%. Anchors: ECLSS spares 34-41% of system mass for a 919-day Mars mission (Owens/de Weck-line ECLSS reliability analyses; ISS ECLSS = 34% of all logistics mass, NTRS 20210000437) -> 0.40 for life support, and 0.40 for ISRU (same continuous-process class, zero flight heritage). Mechanisms in abrasive regolith 0.30-0.35. FSP reactors are specified for 10 years unattended -> 0.15. Passive distribution/structures 0.10. Groups not listed fall back to spares_fraction_of_dry. See PROVENANCE.md section 3."
       }
@@ -261,10 +273,38 @@
     "_comment": "Synod index -> calendar label. Windows recur ~every 26 months. Program start shifted to 2031: no 2026 flight (Moon-first pivot, Feb 2026; orbital refueling undemonstrated mid-2026), first robotic window early 2030s per independent consensus. First crew 2037 remains aggressive vs the 2030s-2040s expert range.",
     "cadence_months": 26,
     "schedule": [
-      {"synod_index": 0, "id": "2031-01", "transit_days": 210, "objective": "Loss-tolerant precursor: EDL, power, pilot ISRU, ECLSS testbed", "ship_count": 5, "crewed": false},
-      {"synod_index": 1, "id": "2033-03", "transit_days": 210, "objective": "Fuel factory: rate-matched ISRU chain + reactors", "ship_count": 5, "crewed": false},
-      {"synod_index": 2, "id": "2035-05", "transit_days": 210, "objective": "Second plant + habitat cluster + deep caches", "ship_count": 10, "crewed": false},
-      {"synod_index": 3, "id": "2037-07", "transit_days": 210, "objective": "First crew (gated on capabilities + propellant banked)", "ship_count": 20, "crewed": true}
+      {
+        "synod_index": 0,
+        "id": "2031-01",
+        "transit_days": 210,
+        "objective": "Loss-tolerant precursor: EDL, power, pilot ISRU, ECLSS testbed",
+        "ship_count": 5,
+        "crewed": false
+      },
+      {
+        "synod_index": 1,
+        "id": "2033-03",
+        "transit_days": 210,
+        "objective": "Fuel factory: rate-matched ISRU chain + reactors",
+        "ship_count": 5,
+        "crewed": false
+      },
+      {
+        "synod_index": 2,
+        "id": "2035-05",
+        "transit_days": 210,
+        "objective": "Second plant + habitat cluster + deep caches",
+        "ship_count": 10,
+        "crewed": false
+      },
+      {
+        "synod_index": 3,
+        "id": "2037-07",
+        "transit_days": 210,
+        "objective": "First crew (gated on capabilities + propellant banked)",
+        "ship_count": 20,
+        "crewed": true
+      }
     ]
   },
   "capability_gates": {
@@ -279,22 +319,98 @@
     ],
     "capability_unlocks": {
       "_comment": "Data-driven unlock rules evaluated by the CampaignPlanner after each window's deliveries. Conditions in a rule are ANDed: all_of/any_of (component ids delivered), min_installed_kwe, min_landings.",
-      "edl_proven": {"min_landings": 1},
-      "precision_landing": {"all_of": ["landing_beacons"]},
-      "comms_established": {"all_of": ["relay_ground_station"]},
-      "power_baseload": {"min_installed_kwe": 100},
-      "water_supply": {"all_of": ["ice_prospecting", "excavator_rassor", "water_processing"]},
-      "water_confirmed": {"any_path": [
-        {"all_of": ["ice_prospecting"], "min_sols_on_surface": {"ice_prospecting": 200}},
-        {"all_of": ["kinetic_penetrator_set", "orbital_radar_set"], "min_sols_on_surface": {"kinetic_penetrator_set": 30}}
-      ]},
-      "return_propellant_proven": {"all_of": ["co2_acquisition", "sabatier_reactor", "water_electrolysis", "cryo_liquefaction", "isru_control"], "min_propellant_t": 1400},
-      "life_support_closed": {"all_of": ["eclss_habitat", "consumables_cache"], "min_sols_on_surface": {"eclss_habitat": 1000}},
-      "habitat_ready": {"all_of": ["habitat_module"]},
-      "radiation_managed": {"all_of": ["radiation_shelter"]},
-      "autonomy_proven": {"all_of": ["central_compute", "robotic_maint_kit"]},
-      "mobility": {"all_of": ["rover_unpressurized"]},
-      "infrastructure_ready": {"all_of": ["cargo_crane", "power_distribution", "logistics_kit"]}
+      "edl_proven": {
+        "min_landings": 1
+      },
+      "precision_landing": {
+        "all_of": [
+          "landing_beacons"
+        ]
+      },
+      "comms_established": {
+        "all_of": [
+          "relay_ground_station"
+        ]
+      },
+      "power_baseload": {
+        "min_installed_kwe": 100
+      },
+      "water_supply": {
+        "all_of": [
+          "ice_prospecting",
+          "excavator_rassor",
+          "water_processing"
+        ]
+      },
+      "water_confirmed": {
+        "any_path": [
+          {
+            "all_of": [
+              "ice_prospecting"
+            ],
+            "min_sols_on_surface": {
+              "ice_prospecting": 200
+            }
+          },
+          {
+            "all_of": [
+              "kinetic_penetrator_set",
+              "orbital_radar_set"
+            ],
+            "min_sols_on_surface": {
+              "kinetic_penetrator_set": 30
+            }
+          }
+        ]
+      },
+      "return_propellant_proven": {
+        "all_of": [
+          "co2_acquisition",
+          "sabatier_reactor",
+          "water_electrolysis",
+          "cryo_liquefaction",
+          "isru_control"
+        ],
+        "min_propellant_t": 1400
+      },
+      "life_support_closed": {
+        "all_of": [
+          "eclss_habitat",
+          "consumables_cache"
+        ],
+        "min_sols_on_surface": {
+          "eclss_habitat": 1000
+        }
+      },
+      "habitat_ready": {
+        "any_of": [
+          "habitat_module",
+          "habitat_inflatable"
+        ]
+      },
+      "radiation_managed": {
+        "all_of": [
+          "radiation_shelter"
+        ]
+      },
+      "autonomy_proven": {
+        "all_of": [
+          "central_compute",
+          "robotic_maint_kit"
+        ]
+      },
+      "mobility": {
+        "all_of": [
+          "rover_unpressurized"
+        ]
+      },
+      "infrastructure_ready": {
+        "all_of": [
+          "cargo_crane",
+          "power_distribution",
+          "logistics_kit"
+        ]
+      }
     }
   }
 }

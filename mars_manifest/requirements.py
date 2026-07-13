@@ -154,7 +154,11 @@ class RequirementsEngine:
             return verify["flag"] in w.capabilities_after
         if kind == "min_qty":
             inv = {cid: q for cid, q, _ in w.surface_inventory}
-            return inv.get(verify["component"], 0) >= verify["qty"]
+            comps = verify["component"]
+            if isinstance(comps, str):
+                comps = [comps]
+            # a list means any mix of the named components counts toward qty
+            return sum(inv.get(c, 0) for c in comps) >= verify["qty"]
         if kind == "min_installed_kwe":
             return w.installed_generation_kwe >= verify["kwe"]
         if kind == "min_propellant_t":

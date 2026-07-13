@@ -38,7 +38,7 @@ Status vs plan: CLOSED (on plan) / EARLY / LATE / OPEN; recurring requirements: 
 | &nbsp;&nbsp;&nbsp;&nbsp;L2-LS-02 | The ECLSS demonstration article shall be landed in the first window (demo clock). | Inspection | 2031-01 | 2031-01 | CLOSED |
 | &nbsp;&nbsp;&nbsp;&nbsp;L2-LS-03 | Pre-landed consumable caches of 90 t or more shall be on the surface before crew. | Inspection | 2035-05 | 2035-05 | CLOSED |
 | &nbsp;&nbsp;L1-HAB-01 | Pressurized habitat volume beyond the landed ships shall be ready before crew. | Demonstration | 2031-01 | 2031-01 | CLOSED |
-| &nbsp;&nbsp;&nbsp;&nbsp;L2-HAB-02 | At least 5 habitat modules shall be on the surface before crew arrival. | Inspection | 2035-05 | 2035-05 | CLOSED |
+| &nbsp;&nbsp;&nbsp;&nbsp;L2-HAB-02 | At least 5 habitat modules (rigid or inflatable) shall be on the surface before crew arrival. | Inspection | 2035-05 | 2035-05 | CLOSED |
 | &nbsp;&nbsp;L1-RAD-01 | A storm shelter and radiation protection shall be in place before crew. | Inspection | 2035-05 | 2035-05 | CLOSED |
 | &nbsp;&nbsp;L1-COM-01 | A surface-to-Earth communications link shall operate from the first window. | Demonstration | 2031-01 | 2031-01 | CLOSED |
 | &nbsp;&nbsp;L1-AUT-01 | The base shall operate autonomously under a 4-22 minute one-way light delay. | Demonstration | 2031-01 | 2031-01 | CLOSED |

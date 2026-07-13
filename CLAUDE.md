@@ -24,7 +24,8 @@ governs NOW.*
 
 - **`inputs/program.json` is the program.** 2031-01 start (Moon-first
   pivot; no 2026 flight) → fuel factory 2033-03 → second plant + habitats
-  2035-05 (11 ships; volume-bound at the real 614 m³ bay) → first crew 2037-07.
+  2035-05 (10 ships; habitats stow folded at the inflatable's honest 75 m³)
+  → first crew 2037-07 (20 ships; set by the ≥2× fleet-growth rule).
 - Crew gating is strict by design: propellant *banked* (≥1,400 t), 1,000-sol
   ECLSS demonstration, prospect-before-commit (`water_confirmed`), and no
   single-ship loss may cost a schedule-critical capability.
