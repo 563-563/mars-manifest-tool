@@ -114,6 +114,18 @@
     {
      "id": "L2-PWR-02",
      "statement": "Installed generation shall reach 500 kWe or more in the first window."
+    },
+    {
+     "id": "L2-RET-02",
+     "statement": "An Earth-entry thermal protection system rated for ~11.6 km/s interplanetary-return entry (~8x the heat load of a ~5.7 km/s Mars arrival) shall be qualified."
+    },
+    {
+     "id": "L2-RET-03",
+     "statement": "Mars ascent and trans-Earth injection (~6.5 km/s from the surface, single stage, no Mars-orbit refueling) shall be qualified."
+    },
+    {
+     "id": "L2-RET-04",
+     "statement": "Transfer and loading of ISRU-produced methalox into the return vehicle, and its cryogenic hold through the surface wait, shall be demonstrated; the return flight shall carry propellant samples for Earth-side verification."
     }
    ],
    "ships_detail": [
@@ -1208,6 +1220,10 @@
     {
      "id": "L2-PWR-04",
      "statement": "Installed generation shall reach 1.5 MWe or more before crew arrival."
+    },
+    {
+     "id": "L2-RET-05",
+     "statement": "A full crewed-return propellant load shall be produced and stored before the uncrewed return flight, which consumes a real load."
     }
    ],
    "ships_detail": [

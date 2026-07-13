@@ -129,6 +129,23 @@ chain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,
 | `crewed_requires` gates | 6 flags | **B (as doctrine)** | Encodes NASA/industry consensus and the deep dive's core finding: no crew without demonstrated EDL, baseload power, return propellant, closed life support, habitat, radiation management (deep dive §2 & §6). The specific flag set is our taxonomy (HANDOFF §6); the *rule* is well-sourced doctrine. |
 | `capability_unlocks` rules | — | **D** | Tool extension (delivered-hardware proxies for "demonstrated capability"). Deliberately simplistic in v1: delivering a Sabatier plant is not the same as *proving* propellant production. Flagged for M6: add an explicit demonstration/commissioning delay (e.g. gate retires one window after delivery). |
 
+### 5a. Return-leg astrodynamics (`L1-RET-01` requirement branch, `transport_readiness.{earth_entry_tps,mars_ascent_tei,surface_prop_transfer}`)
+
+Added 2026-07-13. The tool models the outbound cargo leg only; the return
+leg was asserted at L0 ("demonstrated return path") but never decomposed.
+These figures verify the return is **not** a mirror of the outbound. Computed
+first-order from published orbital constants (Hohmann transfer, patched-conic
+v-infinity); see the derivation in the session log.
+
+| Quantity | Value | Tier | Source & validation |
+|---|---|---|---|
+| Hohmann transit time (each way) | ~259 d | **A** | Same heliocentric transfer ellipse both directions → transit time is symmetric to first order. Confirms `transit_days`=210 (a faster-than-Hohmann nominal) is defensible for the return leg as a **symmetric assumption**, not a derived asymmetry. |
+| Mars escape / surface gravity | 5.03 km/s / 3.73 m/s² (0.38 g) | **A** | vs Earth 11.19 km/s / 9.81 m/s². Leaving Mars is far cheaper in Δv than leaving Earth. |
+| Mars surface → TEI Δv | ~5.7 km/s ideal, ~6.5 km/s with losses | **B** | Single stage, entirely on ISRU propellant; no Mars-orbit tanker (contrast Earth's LEO-refuel architecture). Underlies `L2-RET-03`. |
+| Earth-return entry speed | ~11.6 km/s | **A** | v_inf ~2.9 km/s + Earth escape. **~2.04× the ~5.7 km/s Mars-arrival entry → ~8.4× heat load (∝v³).** The return TPS is a distinct qualification item, not the Mars-EDL shield reused. Underlies `L2-RET-02`. |
+| Mars→Earth departure window in the gap | ~Jan 2035 dep, ~Aug 2035 Earth arr | **B** | Conjunction-class return (arrival + ~460 d surface wait); recurs every synod. Falls ~23 months before the 2037-07 crew commit → an uncrewed return demonstrator can gate crew #1. Underlies `L1-RET-01`. First-order (fixed 210 d transit, nominal stay); robust to ±weeks slop given the 23-month margin. |
+| `transport_readiness` return flags | true (baseline) | **B (as doctrine)** | Mirror of the outbound orbit/reuse/refill/chill flags. All three are undemonstrated as of 2026 (nothing has ascended from Mars, transferred ISRU propellant, or flown an interplanetary-return entry at scale); `conservative_feasibility` flips them false. |
+
 ## 6. Component catalog (`catalog.csv`)
 
 Masses, volumes, powers and duty cycles are **Tier D throughout** — notional order-of-magnitude engineering estimates derived from the manifest narrative (`../Mars-Robotic-Precursor-Flight-Manifest.md`), scaled to be internally consistent. Anchors where they exist:

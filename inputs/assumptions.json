@@ -72,11 +72,14 @@
       "max_prob": 0.95
     },
     "transport_readiness": {
-      "_comment": "Earth-side prerequisites the whole program assumes are demonstrated before window 0 (Handmer's 'orbit, reuse, refill, chill'). All true in the baseline premise; the conservative_feasibility scenario flips the two undemonstrated-as-of-2026 ones (refill, chill) false to make the DLR/Maiwald critique machine-visible via the L1-TRANS requirements.",
+      "_comment": "Transport-readiness flags: outbound (Handmer's 'orbit, reuse, refill, chill') and the return leg (earth_entry_tps, mars_ascent_tei, surface_prop_transfer). All true in the baseline premise; conservative_feasibility flips the undemonstrated-as-of-2026 ones false to make the DLR/Maiwald critique machine-visible via the L1-TRANS / L1-RET requirements. The return flags gate L1-RET-01 (uncrewed return-flight demo); nothing has yet ascended from Mars, transferred ISRU propellant, or flown an interplanetary-return entry at this scale.",
       "orbit": true,
       "reuse": true,
       "refill": true,
-      "chill": true
+      "chill": true,
+      "earth_entry_tps": true,
+      "mars_ascent_tei": true,
+      "surface_prop_transfer": true
     },
     "lifecycle": {
       "_comment": "Systems-lifecycle analysis config. risk_weights: relative severity of each gate, normalized ~100, derived from the deep-dive's six hard problems (orbital refueling is Earth-side and outside the surface campaign). crew_era_components: hardware whose function is only exercised when crew arrives; flying it early is idle mass UNLESS it is a demonstration article (demo_exempt_units: first N units count as testbeds, e.g. the 1000-day ECLSS proof).",
@@ -199,6 +202,9 @@
       "overrides": {
         "transport_readiness.refill": false,
         "transport_readiness.chill": false,
+        "transport_readiness.earth_entry_tps": false,
+        "transport_readiness.mars_ascent_tei": false,
+        "transport_readiness.surface_prop_transfer": false,
         "isru.electrolysis_kwh_per_kg_h2o": 12.2,
         "isru.co2_capture_kwh_per_kg_co2": 1.4,
         "isru.sabatier_support_kwh_per_kg_ch4": 3.0,

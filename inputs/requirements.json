@@ -217,6 +217,65 @@
       "planned_window": "2035-05"
     },
     {
+      "id": "L1-RET-01",
+      "parent": "L0-MSN-01",
+      "statement": "The program shall demonstrate an uncrewed Mars-surface-to-Earth return flight before committing crew, flown on a Mars-to-Earth departure window inside the propellant-ready-to-crew gap.",
+      "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. The return leg is physically distinct from the outbound and is otherwise unproven until the first crewed ship flies it. A Mars-to-Earth departure opportunity falls ~Jan 2035 (Earth arrival ~Aug 2035), ~23 months before the 2037-07 crew commit, so the demonstration fits the existing schedule slack.",
+      "source": "SpaceX-to-Mars deep dive Problem 1/6; full-profile-uncrewed-first precedent (Crew Dragon Demo-1, Artemis I); return-leg astrodynamics, PROVENANCE section 5"
+    },
+    {
+      "id": "L2-RET-02",
+      "parent": "L1-RET-01",
+      "statement": "An Earth-entry thermal protection system rated for ~11.6 km/s interplanetary-return entry (~8x the heat load of a ~5.7 km/s Mars arrival) shall be qualified.",
+      "rationale": "Return entry speed is ~2x Mars arrival and heating scales ~v^3; the return TPS is a distinct qualification item, not the Mars-EDL heat shield reused. This is the sharpest outbound/return asymmetry.",
+      "source": "PROVENANCE section 5 (return-leg astrodynamics)",
+      "verify": {
+        "method": "Demonstration",
+        "kind": "precondition",
+        "flag": "earth_entry_tps"
+      },
+      "planned_window": "2031-01"
+    },
+    {
+      "id": "L2-RET-03",
+      "parent": "L1-RET-01",
+      "statement": "Mars ascent and trans-Earth injection (~6.5 km/s from the surface, single stage, no Mars-orbit refueling) shall be qualified.",
+      "rationale": "Leaving Mars is far cheaper in delta-v than leaving Earth (~5.0 vs 11.2 km/s escape), but the vehicle must lift the entire return load off the surface on ISRU propellant, because there is no orbital tanker at Mars.",
+      "source": "PROVENANCE section 5 (return-leg astrodynamics)",
+      "verify": {
+        "method": "Demonstration",
+        "kind": "precondition",
+        "flag": "mars_ascent_tei"
+      },
+      "planned_window": "2031-01"
+    },
+    {
+      "id": "L2-RET-04",
+      "parent": "L1-RET-01",
+      "statement": "Transfer and loading of ISRU-produced methalox into the return vehicle, and its cryogenic hold through the surface wait, shall be demonstrated; the return flight shall carry propellant samples for Earth-side verification.",
+      "rationale": "The propellant the whole architecture depends on must actually be loaded and kept flight-quality on the surface; bringing samples home closes the loop on the deciding risk with the lightest possible cargo.",
+      "source": "PROVENANCE section 5; MOXIE reality check",
+      "verify": {
+        "method": "Demonstration",
+        "kind": "precondition",
+        "flag": "surface_prop_transfer"
+      },
+      "planned_window": "2031-01"
+    },
+    {
+      "id": "L2-RET-05",
+      "parent": "L1-RET-01",
+      "statement": "A full crewed-return propellant load shall be produced and stored before the uncrewed return flight, which consumes a real load.",
+      "rationale": "Ties the return-flight demonstration to actual propellant availability; the demonstrator burns ~1,400 t, which the 2033 factory banks by ~late 2034.",
+      "source": "Deep dive Problem 3",
+      "verify": {
+        "method": "Test",
+        "kind": "capability",
+        "flag": "return_propellant_proven"
+      },
+      "planned_window": "2033-03"
+    },
+    {
       "id": "L1-LS-01",
       "parent": "L0-MSN-01",
       "statement": "A near-closed life-support loop shall be demonstrated on Mars for 1,000 sols before crew.",
