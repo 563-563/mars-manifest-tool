@@ -43,7 +43,7 @@ quietly used.
 |---|---|---|
 | **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, ECLSS demonstration article, prospect-before-commit water survey. Retires ~50% of weighted program risk on first landing. |
 | **2033-03** | 5 ships | The fuel factory: rate-matched ISRU chain + the reactors it drags (1,760 kWe). `return_propellant_proven` retires with ~1,826 t banked (chain ramps at 60% its first synod) — gated on 2031 confirming site water first. |
-| **2035-05** | 10 ships | Second plant (2× production) + habitat cluster + deep caches. `life_support_closed` + `radiation_managed`; all schedule-critical risk retired. Habitats fly folded (TransHab/B330-class, ~4× compression) — stowing them honestly at 75 m³ gives back the 11th ship the old deployed-volume figure demanded. |
+| **2035-05** | 10 ships | Second plant (2× production) + habitat cluster + deep caches. `life_support_closed` + `radiation_managed`; all schedule-critical risk retired. Habitats fly folded (TransHab/B330-class, 75 m³ stowed → ~300 m³ deployed); the window is mass-bound at 10 ships. |
 | **2037-07** | 20 ships | First crew (12) lands at a powered, provisioned base with ~8,700 t of propellant banked, ~93% demonstrated EDL reliability, and every requirement closed at least one synod earlier. Count set by the ≥2× fleet-growth rule (20 → 40 cumulative), not packing. |
 | **2039 → 2044** | 42 → 200 ships | City ramp: past the 110-person survival floor (2039), Gen-3 industrial closure (2041), the NSS 1,000-adult settlement milestone (2044, ~1,112 people). Recurring imports walk the ~500× decay curve as local industry closes. |
 

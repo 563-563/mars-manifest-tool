@@ -41,8 +41,7 @@ next one is allowed to commit.
    life-support loop has run for 1,000 sols." Gates retire on measured state.
 2. **Every number carries a receipt.** Each input has a source and a
    confidence tier in `PROVENANCE.md`; when a source drifts, the baseline
-   changes and the consequences propagate (this is why the ship bay is 614 m³,
-   not the 1,000 m³ we started with). Claims that fail verification — including
+   changes and the consequences propagate. Claims that fail verification — including
    most of SpaceX's aspirational cadence figures — are recorded as failing,
    not quietly used.
 3. **No single ship loss may cost a schedule-critical capability.** A
@@ -126,10 +125,9 @@ schedule-critical gate is closed a full window before crew.
 
 **Key decision — habitats fly folded:** the habitats are TransHab/B330-class
 inflatables that stow at ~75 m³ and deploy to ~300 m³ (~4× compression;
-TransHab 329.4 m³ per BVAD, BEAM flew 2016). For a while the model billed
-them at deployed volume and this window needed an 11th ship to carry the
-air — stowing them honestly gave the ship back. Same discipline as the
-614 m³ bay: when a number gets honest, the fleet follows it.
+TransHab 329.4 m³ per BVAD, BEAM flew 2016). Folded stowage is what lets 10
+ships carry the habitat cluster, the shelters, and the deep caches: the
+window is mass-bound, not volume-bound.
 
 ### 2037 · First crew — arrive to a working base (20 ships, 12 people)
 

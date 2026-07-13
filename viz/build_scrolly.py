@@ -32,7 +32,7 @@ NARR = {
  "2035-05": ("The Base",
    "Before you commit human beings, everything they need to stay alive has to be on the ground and proven, not in transit and hoped-for. This window duplicates the fuel plant (plant-level redundancy and double the rate) and lands the habitat cluster, the radiation shelters, and deep consumable caches. It also closes the one clock you cannot rush: a life-support loop has to actually run for 1,000 sols to be believed, and that demonstration article has been ticking since 2031.",
    "life_support_closed and radiation_managed, which retires the last schedule-critical risk a full window before any crew. Power reaches 3,040 kWe; the plant now makes a return load every 7 months and 4,941 t are banked, 3.5 return flights over. There is 1,500 m³ of pressurized volume for roughly 60 people and 90 t of cached food, water and oxygen, enough for a crew of 12 to live four years on the shelf with zero recycling.",
-   "Ten ships, and we used to say eleven. The habitats fly folded, TransHab-style, stowing at a quarter of their deployed volume, and for a while the model billed them at full blow-up size. Catching that gave a whole ship back. Same discipline as the 614 m³ bay: when a number gets honest, the fleet follows it."),
+   "Habitats fly folded. TransHab-style inflatables stow at a quarter of their deployed size, so 75 m³ in the bay becomes ~300 m³ of living space on the ground. That compression is what lets ten ships carry a whole base's worth of buildings: this window is mass-bound, not volume-bound."),
  "2037-07": ("First Crew",
    "This is the payoff of every rule that came before it. People go only after the base is lit, stocked, fuelled, and every requirement has been signed off, and not one synod sooner. Twelve is a real crew, inside the peer-reviewed 10 to 20 band for a first landing and matched to the consumables case, not a number picked for a headline.",
    "The crew lands on top of 8,701 t of banked propellant, their ride home fillable more than six times over, and an EDL record that began at a coin toss in 2031 and now demonstrates about 93% reliability from the successes since. Every capability they lean on is spread across multiple hulls, so no single bad landing can strand them. The whole base draws 3,240 kWe and has been running itself, unwatched, for years.",
@@ -366,13 +366,10 @@ footer a{color:var(--muted)}
       launches toward 1,400 tonnes of methalox sitting in a tank you could walk up and kick, and a
       life-support loop that has already run itself for a thousand sols. Gates open on what’s
       measured, not what got manifested.</li>
-      <li><b>Every number carries a receipt.</b> Each input has a source and a confidence tier.
-      When a source moves, we move. We’ve eaten that three times now (the ship bay is 614 m&sup3;,
-      not the 1,000 we started with; solar turned out a lot heavier than we’d hoped; and the
-      folded habitats were briefly billed at their blown-up size, which was hiding a whole ship).
-      And the famous cadence numbers that don’t survive a fact-check? Logged as failing, not
-      quietly folded in. If we won’t try to break our own plan, nobody should trust it enough to
-      fly on it.</li>
+      <li><b>Every number carries a receipt.</b> Each input has a source and a confidence tier,
+      and when a source moves, the baseline moves with it, consequences and all. The famous
+      cadence numbers that don’t survive a fact-check? Logged as failing, not quietly used.
+      If we won’t try to break our own plan, nobody should trust it enough to fly on it.</li>
       <li><b>No single ship loss costs a schedule-critical capability.</b> A coin-flip first
       landing is not something you stake a program on. So the things the future depends on (power,
       water, the propellant chain, comms, autonomy) ride spread across hulls and land a window
