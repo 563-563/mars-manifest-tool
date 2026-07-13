@@ -53,3 +53,24 @@ per-ship capacity (100 t / 614 m³, carried in the JSON header). Items named
 `spares:<group>` are the sparing overhead packed as explicit cargo;
 `fission_unit` and `battery_module_100kwh` rows are auto-sized by the power
 budget rather than hand-listed in the campaign file.
+
+## What the costs mean — and what is deliberately not costed
+
+Each line item carries `cost_musd_low` / `cost_musd_high`: the catalog's
+per-unit cost range × quantity. These are mostly C/D-tier notional ranges
+(see `PROVENANCE.md`), which is why they are always a **range, never a
+point** — quote them that way.
+
+The line items **are** the program's cargo-hardware cost, not a parallel
+estimate: each window's items sum to its `cargo_hardware_cost_musd`
+(test-enforced), and those windows sum to the cumulative cargo figure the
+story page quotes (~$231B–$967B). `launch_cost_musd` is carried separately
+per window (ships × tanker-multiplied launch rates).
+
+Three things are deliberately outside these numbers:
+
+- **Spares** (`spares:<group>` rows, ~26% of packed mass) — mass overhead
+  only, uncosted; their cost columns are empty by design.
+- **Contingency** (mass-growth allowance) — a mass margin, not a purchase.
+- **Development cost** (Starship, fission, ISRU R&D) — a separate ledger
+  the model intentionally does not track (`docs/CONSIDERED.md`).

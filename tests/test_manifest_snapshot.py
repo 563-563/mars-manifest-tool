@@ -58,3 +58,21 @@ def test_committed_snapshot_is_fresh(snapshot):
     fresh["generated_from"] = committed["generated_from"] = ""  # path spelling differs
     assert committed == fresh, (
         "docs/manifests/ is stale — regenerate with `mars manifests inputs/program.json`")
+
+
+def test_line_item_costs_reconcile_with_program_cost(snapshot):
+    """Per-item costs must sum to each window's cargo-hardware cost (the number
+    already baked into the program totals) — proving the snapshot's line items
+    ARE the program cost, not a parallel estimate. Spares are uncosted mass
+    overhead by design (docs/CONSIDERED.md) and carry null costs."""
+    snap = json.loads((snapshot / "manifests.json").read_text(encoding="utf-8"))
+    for w in snap["windows"]:
+        lo = sum(i["cost_musd_low"] for s in w["ships_detail"] for i in s["items"]
+                 if i["cost_musd_low"] is not None)
+        hi = sum(i["cost_musd_high"] for s in w["ships_detail"] for i in s["items"]
+                 if i["cost_musd_high"] is not None)
+        assert lo == pytest.approx(w["cargo_hardware_cost_musd"]["low"], rel=0.02), w["id"]
+        assert hi == pytest.approx(w["cargo_hardware_cost_musd"]["high"], rel=0.02), w["id"]
+        for s in w["ships_detail"]:
+            for i in s["items"]:
+                assert (i["cost_musd_low"] is None) == i["id"].startswith("spares:")

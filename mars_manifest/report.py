@@ -707,12 +707,16 @@ def manifest_snapshot(result: CampaignResult, matrix, catalog: Catalog,
                 if c.power_role == "consumer" else 0.0
             row["generation_kwe"] = round(c.generation_kwe * qty, 1)
             row["readiness_gate"] = c.readiness_gate or ""
-        else:  # spares:<group> pseudo-items
+            row["cost_musd_low"] = round(c.unit_cost_musd_low * qty, 2)
+            row["cost_musd_high"] = round(c.unit_cost_musd_high * qty, 2)
+        else:  # spares:<group> pseudo-items — mass overhead, deliberately uncosted
             row["name"] = "Spares — " + cid.split(":", 1)[1]
             row["group"] = "Spares"
             row["avg_load_kw"] = 0.0
             row["generation_kwe"] = 0.0
             row["readiness_gate"] = ""
+            row["cost_musd_low"] = None
+            row["cost_musd_high"] = None
         return row
 
     windows = []
@@ -742,6 +746,9 @@ def manifest_snapshot(result: CampaignResult, matrix, catalog: Catalog,
             "propellant_banked_t": round(w.propellant_cumulative_t),
             "population": w.population,
             "new_capabilities": list(w.new_capabilities),
+            "cargo_hardware_cost_musd": {"low": round(w.cargo_cost_low_musd),
+                                          "high": round(w.cargo_cost_high_musd)},
+            "launch_cost_musd": round(w.launch_cost_musd),
             "requirements_closed": [
                 {"id": rid, "statement": stmts.get(rid, "")}
                 for rid in req_by_window.get(w.window_id, [])],
@@ -765,12 +772,15 @@ def manifest_csv_rows(snapshot: dict) -> list[list]:
     """Flatten the snapshot to one row per (window, ship, item) for the CSV."""
     rows = [["window", "ship", "component_id", "name", "group", "qty",
              "mass_t", "volume_m3", "avg_load_kw", "generation_kwe",
-             "readiness_gate"]]
+             "cost_musd_low", "cost_musd_high", "readiness_gate"]]
     for w in snapshot["windows"]:
         for s in w["ships_detail"]:
             for it in s["items"]:
                 rows.append([w["id"], s["ship"], it["id"], it["name"],
                              it["group"], it["qty"], it["mass_t"],
                              it["volume_m3"], it["avg_load_kw"],
-                             it["generation_kwe"], it["readiness_gate"]])
+                             it["generation_kwe"],
+                             "" if it["cost_musd_low"] is None else it["cost_musd_low"],
+                             "" if it["cost_musd_high"] is None else it["cost_musd_high"],
+                             it["readiness_gate"]])
     return rows
