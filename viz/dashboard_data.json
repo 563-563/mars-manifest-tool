@@ -3159,7 +3159,7 @@
  },
  "requirements": {
   "counts": {
-   "CLOSED": 26,
+   "CLOSED": 31,
    "PASS": 4,
    "EARLY": 2
   },
@@ -3176,6 +3176,9 @@
     "L2-PWR-02",
     "L1-H2O-01",
     "L2-PROP-02",
+    "L2-RET-02",
+    "L2-RET-03",
+    "L2-RET-04",
     "L2-LS-02",
     "L2-LS-04",
     "L1-HAB-01",
@@ -3189,7 +3192,8 @@
     "L1-PROP-01",
     "L2-PROP-03",
     "L2-PROP-04",
-    "L2-PROP-05"
+    "L2-PROP-05",
+    "L2-RET-05"
    ],
    "2035-05": [
     "L1-LS-01",
@@ -3401,6 +3405,61 @@
     "planned": "2035-05",
     "actual": "2033-03",
     "status": "EARLY"
+   },
+   {
+    "id": "L1-RET-01",
+    "lvl": 1,
+    "parent": "L0-MSN-01",
+    "stmt": "The program shall demonstrate an uncrewed Mars-surface-to-Earth return flight before committing crew, flown on a Mars-to-Earth departure window inside the propellant-ready-to-crew gap.",
+    "method": "Rollup",
+    "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. The return leg is physically distinct from the outbound and is otherwise unproven until the first crewed ship flies it. A Mars-to-Earth departure opportunity falls ~Jan 2035 (Earth arrival ~Aug 2035), ~23 months before the 2037-07 crew commit, so the demonstration fits the existing schedule slack.",
+    "planned": "rollup",
+    "actual": "2033-03",
+    "status": "CLOSED"
+   },
+   {
+    "id": "L2-RET-02",
+    "lvl": 2,
+    "parent": "L1-RET-01",
+    "stmt": "An Earth-entry thermal protection system rated for ~11.6 km/s interplanetary-return entry (~8x the heat load of a ~5.7 km/s Mars arrival) shall be qualified.",
+    "method": "Demonstration",
+    "rationale": "Return entry speed is ~2x Mars arrival and heating scales ~v^3; the return TPS is a distinct qualification item, not the Mars-EDL heat shield reused. This is the sharpest outbound/return asymmetry.",
+    "planned": "2031-01",
+    "actual": "2031-01",
+    "status": "CLOSED"
+   },
+   {
+    "id": "L2-RET-03",
+    "lvl": 2,
+    "parent": "L1-RET-01",
+    "stmt": "Mars ascent and trans-Earth injection (~6.5 km/s from the surface, single stage, no Mars-orbit refueling) shall be qualified.",
+    "method": "Demonstration",
+    "rationale": "Leaving Mars is far cheaper in delta-v than leaving Earth (~5.0 vs 11.2 km/s escape), but the vehicle must lift the entire return load off the surface on ISRU propellant, because there is no orbital tanker at Mars.",
+    "planned": "2031-01",
+    "actual": "2031-01",
+    "status": "CLOSED"
+   },
+   {
+    "id": "L2-RET-04",
+    "lvl": 2,
+    "parent": "L1-RET-01",
+    "stmt": "Transfer and loading of ISRU-produced methalox into the return vehicle, and its cryogenic hold through the surface wait, shall be demonstrated; the return flight shall carry propellant samples for Earth-side verification.",
+    "method": "Demonstration",
+    "rationale": "The propellant the whole architecture depends on must actually be loaded and kept flight-quality on the surface; bringing samples home closes the loop on the deciding risk with the lightest possible cargo.",
+    "planned": "2031-01",
+    "actual": "2031-01",
+    "status": "CLOSED"
+   },
+   {
+    "id": "L2-RET-05",
+    "lvl": 2,
+    "parent": "L1-RET-01",
+    "stmt": "A full crewed-return propellant load shall be produced and stored before the uncrewed return flight, which consumes a real load.",
+    "method": "Test",
+    "rationale": "Ties the return-flight demonstration to actual propellant availability; the demonstrator burns ~1,400 t, which the 2033 factory banks by ~late 2034.",
+    "planned": "2033-03",
+    "actual": "2033-03",
+    "status": "CLOSED"
    },
    {
     "id": "L1-LS-01",
