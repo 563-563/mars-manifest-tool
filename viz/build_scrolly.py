@@ -109,7 +109,8 @@ PAYLOAD = {
     "params": P,
     "cap_labels": CAP_LABELS, "cap_order": CAP_ORDER,
     "base_cum": {"ships": CUM["ships"], "launches": CUM["total_launches"],
-                 "mass": round(CUM["mass_delivered_t"]), "cost": round(CUM["launch_cost_musd"])},
+                 "mass": round(CUM["mass_delivered_t"]), "cost": round(CUM["launch_cost_musd"]),
+                 "cargo_lo": round(CUM["cargo_cost_low_musd"]), "cargo_hi": round(CUM["cargo_cost_high_musd"])},
 }
 
 CONSOLE = "https://claude.ai/code/artifact/1fa983e5-510f-401f-9820-bac33444ca7c"
@@ -389,9 +390,11 @@ footer a{color:var(--muted)}
     ~<span class="live" id="t-launch">6,700</span> launches, ~<span class="live" id="t-mass">25,900</span>
     tonnes on the ground. Call it <strong>$<span class="live" id="t-near">600</span>B</strong> of
     launch at near-term prices, or about <strong>$<span class="live" id="t-int">87</span>B</strong>
-    if you cost it the way SpaceX does internally. Either way the cargo hardware dwarfs the launch
-    bill, and development cost dwarfs <em>that</em>, which is exactly why it sits in a separate
-    ledger we refuse to hand-wave here. <span class="mono" id="t-note" style="font-size:13px;color:var(--muted)"></span></p>
+    if you cost it the way SpaceX does internally. And the launch bill isn't the big line: the
+    cargo hardware riding those ships runs roughly <strong>$__CARGO_LO__B to $__CARGO_HI__B</strong>
+    at catalog unit ranges (soft numbers, quoted as a range on purpose; spares and development cost
+    sit outside it, and development would dwarf all of the above, which is exactly why it lives in
+    a separate ledger we refuse to hand-wave here). <span class="mono" id="t-note" style="font-size:13px;color:var(--muted)"></span></p>
     <p>The real fights don’t get averaged into mush. They’re scenarios you can flip. Is the whole
     thing even buildable on this timeline? (The peer-reviewed skeptics say orbital refill and
     cryo-chill are a decade-plus short of ready. Flip those two and watch requirements go red.)
@@ -817,6 +820,8 @@ scrim.onclick=closeDrawer;
 document.getElementById("p-badge").onclick=openDrawer;
 document.getElementById("p-badge").onkeydown=(e)=>{ if(e.key==="Enter"||e.key===" ")openDrawer(); };
 document.getElementById("resetBtn").onclick=()=>{ K=defaults(); recompute(); };
+document.getElementById("footNote").textContent =
+  'Knobs move launch cost; the cargo hardware itself adds ~$'+fmt(Math.round(BC.cargo_lo/1000))+'B to $'+fmt(Math.round(BC.cargo_hi/1000))+'B (catalog ranges).';
 document.addEventListener("keydown",(e)=>{ if(e.key==="Escape")closeDrawer(); });
 
 // theme toggle
@@ -849,7 +854,9 @@ html = (HTML
         .replace("__DATA__", json.dumps(PAYLOAD))
         .replace("__WINDOWS__", "\n".join(sections))
         .replace("__CONSOLE__", CONSOLE)
-        .replace("__WALK__", WALK))
+        .replace("__WALK__", WALK)
+        .replace("__CARGO_LO__", f"{round(CUM['cargo_cost_low_musd']/1000):,}")
+        .replace("__CARGO_HI__", f"{round(CUM['cargo_cost_high_musd']/1000):,}"))
 out = HERE / "mars_manifest_story.html"
 out.write_text(html, encoding="utf-8")
 print("wrote", out, len(html), "bytes")
