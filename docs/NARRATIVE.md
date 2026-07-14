@@ -76,9 +76,11 @@ the evidence still chooses the date.
 
 ## The manifest, window by window
 
-Fleet sizes obey the one ramp rule that survived scrutiny — the fleet at
-least doubles each synod (5 → 10 → 20 → 40 → 110 → 200; 385 ships
-cumulative). Launch counts include tanker refueling (~16 per ship).
+Fleets are sized to their cargo at ≤90% of fleet mass, subject to the one
+ramp rule that survived scrutiny — the *cumulative* landed fleet at least
+doubles each synod (5 → 10 → 15 → 34 → 97 → 161; 322 ships cumulative). No
+air freight: a growth-floored window tops up its holds with risk depth
+rather than flying empty. Launch counts include tanker refueling (~16 per ship).
 Propellant "banked" is what the plant produces by the time the *next* window
 arrives, with newly-delivered capacity ramping at 60% its first synod.
 
@@ -122,7 +124,7 @@ eight times the heating. It carries a tank of Mars-made methalox and a crate
 of dust-weathered parts for Earth labs. The first thing ever to come home
 from Mars is a receipt.
 
-### 2035 · First crew — twelve people and a hold full of pilots (20 ships)
+### 2035 · First crew — twelve people and a hold full of pilots (15 ships)
 
 **Motivation:** the base is powered, fueled, sheltered, and proven. Twelve
 people — inside the peer-reviewed 10–20 band — launch in May 2035 with the
@@ -132,19 +134,21 @@ cuts it in the open: if the demo fails mid-cruise, they land anyway onto
 years of caches and wait out one window while the fix flies. Their own
 return, ~March 2037, flies a profile by then proven nineteen months earlier.
 
-**What they land on:** 7,036 t of banked propellant (five full ride-home
+**What they land on:** 7,358 t of banked propellant (five full ride-home
 loads), 1,500 m³ of pressurized volume — a roomy 125 m³ each against NASA's
-76.5 m³/person standard — a ~91% demonstrated landing record, and their own
+76.5 m³/person standard — a ~90% demonstrated landing record, and their own
 26-month consumables bridge flying beside them.
 
-**Why the holds are half empty:** deliberately. What this fleet carries is
-the future at pilot scale — 12 agriculture modules, the first regolith
-refinery, the first polymer plant (both process-anchored to NASA
-demonstrations: molten regolith electrolysis and Sabatier-derived
-polyethylene), hot-spare ISRU depth, pad-sintering rigs for the next fleet,
-and 70 robots on the surface to run it all.
+**What fills the holds:** the future at pilot scale, plus depth — 12
+agriculture modules, the first regolith refinery, the first polymer plant
+(both process-anchored to NASA demonstrations: molten regolith electrolysis
+and Sabatier-derived polyethylene), hot-spare ISRU components, pad-sintering
+rigs for the next fleet, and 100 robots on the surface to run it all.
+Fifteen ships because the fleet is sized to the cargo, not the other way
+around — and every hold flies at ~85%, packed with pilots and spares
+instead of air.
 
-### 2037 · The village — scale what the pilots proved (40 ships, 112 people)
+### 2037 · The village — scale what the pilots proved (34 ships, 112 people)
 
 **Motivation:** from proving capabilities to growing people. The target is
 Salotti's 110-person survival floor: the line where, in principle, the
@@ -154,35 +158,36 @@ settlement could keep itself alive if the ships stopped coming.
 data — 32 agriculture modules feeding ~128, Gen-1/2 industry (refineries and
 polymers turning regolith and CO₂ into structure and plastic), and two more
 fuel chains **now that crew rotation is finally the customer**: 14.9 t of
-methalox a day, 9.7 loads banked. Forty ships land on pads the robots paved
-two years earlier. Power reaches 9,280 kWe.
+methalox a day, 10.3 loads banked. Thirty-four ships land on pads the robots
+paved two years earlier. Power reaches 9,800 kWe.
 
-### 2039 · The town — Gen-3 closure (110 ships, 512 people)
+### 2039 · The town — Gen-3 closure (97 ships, 512 people)
 
 Food, plastics, and structures now come out of local dirt; the import bill
 per head drops from 10 to 2 t/person/year and keeps sliding down the ~500×
 decay curve. It isn't free: agriculture is the power monster, and
-grow-lighting shoves the base past 20,100 kWe. On Mars, food is electricity
+grow-lighting shoves the base past 20,600 kWe. On Mars, food is electricity
 wearing a costume. The electronics-fab pilot lands at the earliest window its
 feedstock industry exists to supply — chips remain the last thing Mars ever
 makes. Every populated window is machine-checked to cover its residents'
 consumables; none runs a deficit.
 
-### 2041 · The settlement — 1,112 adults (200 ships)
+### 2041 · The settlement — 1,112 adults (161 ships)
 
 The NSS 1,000-adult formal-settlement milestone, **three years earlier than
 the conservative plan** — reached not by cutting gates but by re-sequencing
-around them. ~26,500 t of hardware across 385 ships, 36,920 kWe, 292
-agriculture modules feeding ~1,168, and 85,200 m³ of pressurized volume still
-sized to the honest 76.5 m³-per-person standard. And the honest coda: this is
+around them. ~28,400 t of hardware across 322 ships, 39,600 kWe, 312
+agriculture modules feeding ~1,248, and 91,500 m³ of pressurized volume still
+sized to the honest 76.5 m³-per-person standard — with headroom for the wave
+after. And the honest coda: this is
 a settlement, not independence — self-sufficiency is on the order of a
 million people, and we are 1,112. We'd rather say that out loud than pretend
 the city is around the corner.
 
 ## What the whole thing costs, and where the uncertainty lives
 
-Cumulative through 2041: **385 ships, ~6,545 launches** (tankers included),
-**~$589 B in launch services** at the near-term ~$90 M/launch price (the
+Cumulative through 2041: **322 ships, ~5,474 launches** (tankers included),
+**~$493 B in launch services** at the near-term ~$90 M/launch price (the
 defensible disclosed figure; the aspirational internal-cost basis is a
 scenario, not the baseline), and cargo hardware spanning **~$236–990 B** —
 an order-of-magnitude range on purpose, because first-of-kind hardware costs

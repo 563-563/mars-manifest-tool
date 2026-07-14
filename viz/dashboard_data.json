@@ -1872,55 +1872,55 @@
    {
     "id": "2035-05",
     "objective": "First crew: 12 land with pilots for everything the village scales",
-    "ships": 20,
+    "ships": 15,
     "synod_index": 2,
     "settlers": 12,
-    "isru_nameplate_t": 4565.451,
+    "isru_nameplate_t": 5102.563,
     "derate": 1.0,
-    "launches": 340,
-    "mass": 1005.6357999999999,
-    "kwe": 4680.0,
-    "launch_cost": 30600.0,
-    "prop": 7036,
-    "prop_produced": 4243.18,
+    "launches": 255,
+    "mass": 1265.3859,
+    "kwe": 5200.0,
+    "launch_cost": 22950.0,
+    "prop": 7358,
+    "prop_produced": 4565.45,
     "new_caps": [],
     "pop": 12,
     "closure": "none",
     "imp_req": 0,
     "imp_del": 45,
-    "hardware_t": 1575.5,
-    "load_kw": 4665,
+    "hardware_t": 1754.8,
+    "load_kw": 5181,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 12 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 12 modules can feed ~48 people (surplus vs 12 residents).",
-     "4,680 kWe of storm-proof power \u2014 roughly 3,900 homes' worth, with 15 kW of headroom over the installed load.",
-     "Batteries hold 28.0 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
-     "Fuel plant produces ~7.6 t of methalox per day \u2014 a full Starship return load every 6 months.",
-     "7,036 t of propellant banked by the 2037-07 window \u2014 5.0 Starship return flights' worth. The crew's ride home could be filled 5.0 times over.",
+     "5,200 kWe of storm-proof power \u2014 roughly 4,333 homes' worth, with 19 kW of headroom over the installed load.",
+     "Batteries hold 31.1 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "Fuel plant produces ~8.5 t of methalox per day \u2014 a full Starship return load every 5 months.",
+     "7,358 t of propellant banked by the 2037-07 window \u2014 5.3 Starship return flights' worth. The crew's ride home could be filled 5.3 times over.",
      "1,500 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~60 people.",
      "90 t of cached food/water/O2 \u2014 a crew of 12 could live on it for 49 months with zero recycling.",
-     "Robot workforce: 70 humanoids and 8 rovers.",
-     "EDL track record: landings so far demonstrate ~91% reliability (rule-of-three floor); this window's ships each land with ~74% odds.",
+     "Robot workforce: 100 humanoids and 10 rovers.",
+     "EDL track record: landings so far demonstrate ~90% reliability (rule-of-three floor); this window's ships each land with ~74% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~502 months (12 residents) \u2014 propellant production halts, the crew does not.",
-     "1,576 t of hardware on the surface \u2014 3.8\u00d7 the mass of the ISS, and 0.16% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "1,755 t of hardware on the surface \u2014 4.2\u00d7 the mass of the ISS, and 0.18% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 72.0,
-     "Comms nav & autonomy": 8.0,
+     "Comms nav & autonomy": 10.5,
      "Consumables & caches": 90.0,
-     "Habitat & life support": 114.0,
-     "ISRU": 171.0,
+     "Habitat & life support": 116.0,
+     "ISRU": 196.0,
      "Industry": 20.0,
      "Orbital assets": 6.0,
-     "Power generation": 702.0,
-     "Power storage": 187.5,
-     "Power system": 18.0,
+     "Power generation": 780.0,
+     "Power storage": 208.3,
+     "Power system": 21.0,
      "Recon & science": 4.0,
-     "Robotics": 59.0,
-     "Site prep & construction": 19.0,
-     "Thermal & support": 57.5,
-     "Water mining": 47.5
+     "Robotics": 73.0,
+     "Site prep & construction": 31.0,
+     "Thermal & support": 72.0,
+     "Water mining": 55.0
     },
     "inv": [
      [
@@ -1930,23 +1930,23 @@
      ],
      [
       "battery_module_100kwh",
-      279.9,
-      187.5
+      310.9,
+      208.3
      ],
      [
       "cargo_crane",
-      5.0,
-      25.0
+      6.0,
+      30.0
      ],
      [
       "central_compute",
-      3.0,
-      1.5
+      4.0,
+      2.0
      ],
      [
       "co2_acquisition",
-      7.0,
-      14.0
+      8.0,
+      16.0
      ],
      [
       "consumables_cache",
@@ -1955,13 +1955,13 @@
      ],
      [
       "cryo_liquefaction",
-      7.0,
-      63.0
+      8.0,
+      72.0
      ],
      [
       "dust_mitigation",
-      5.0,
-      7.5
+      6.0,
+      9.0
      ],
      [
       "eclss_habitat",
@@ -1970,13 +1970,13 @@
      ],
      [
       "excavator_rassor",
-      14.0,
-      28.0
+      16.0,
+      32.0
      ],
      [
       "fission_unit",
-      117.0,
-      702.0
+      130.0,
+      780.0
      ],
      [
       "grading_tools",
@@ -2005,18 +2005,18 @@
      ],
      [
       "landing_beacons",
-      4.0,
-      2.0
+      5.0,
+      2.5
      ],
      [
       "logistics_kit",
-      5.0,
-      15.0
+      6.0,
+      18.0
      ],
      [
       "optimus_robot",
-      70.0,
-      7.0
+      100.0,
+      10.0
      ],
      [
       "orbital_radar_set",
@@ -2030,13 +2030,13 @@
      ],
      [
       "power_distribution",
-      6.0,
-      18.0
+      7.0,
+      21.0
      ],
      [
       "radiation_shelter",
-      4.0,
-      4.0
+      6.0,
+      6.0
      ],
      [
       "recon_instruments",
@@ -2050,43 +2050,43 @@
      ],
      [
       "relay_ground_station",
-      3.0,
-      4.5
+      4.0,
+      6.0
      ],
      [
       "robotic_maint_kit",
+      12.0,
+      18.0
+     ],
+     [
+      "rover_unpressurized",
       10.0,
       15.0
      ],
      [
-      "rover_unpressurized",
-      8.0,
-      12.0
-     ],
-     [
       "sabatier_reactor",
-      8.0,
-      24.0
+      10.0,
+      30.0
      ],
      [
       "sintering_rig",
-      3.0,
-      18.0
+      5.0,
+      30.0
      ],
      [
       "thermal_control",
-      7.0,
-      35.0
+      9.0,
+      45.0
      ],
      [
       "water_electrolysis",
-      17.0,
-      68.0
+      19.0,
+      76.0
      ],
      [
       "water_processing",
-      5.0,
-      17.5
+      6.0,
+      21.0
      ]
     ],
     "crewed": true
@@ -2094,17 +2094,17 @@
    {
     "id": "2037-07",
     "objective": "Village: past the 110-person survival floor; scale the F3 pilots",
-    "ships": 40,
+    "ships": 34,
     "synod_index": 3,
     "settlers": 100,
-    "isru_nameplate_t": 7788.123,
+    "isru_nameplate_t": 8325.235,
     "derate": 1.0,
-    "launches": 680,
+    "launches": 578,
     "mass": 2988.0704,
-    "kwe": 9280.0,
-    "launch_cost": 61200.0,
-    "prop": 13535,
-    "prop_produced": 6499.05,
+    "kwe": 9800.0,
+    "launch_cost": 52020.0,
+    "prop": 14395,
+    "prop_produced": 7036.17,
     "new_caps": [
      "closure_gen_1",
      "closure_gen_2",
@@ -2114,40 +2114,40 @@
     "closure": "none",
     "imp_req": 260,
     "imp_del": 300,
-    "hardware_t": 3709.6,
-    "load_kw": 9256,
+    "hardware_t": 3888.8,
+    "load_kw": 9772,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 112 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 32 modules can feed ~128 people (surplus vs 112 residents).",
      "Recurring imports: residents need 260 t this synod at 10 t/person/yr (closure stage: none); manifests deliver 300 t.",
-     "9,280 kWe of storm-proof power \u2014 roughly 7,733 homes' worth, with 24 kW of headroom over the installed load.",
-     "Batteries hold 55.5 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
-     "Fuel plant produces ~13.0 t of methalox per day \u2014 a full Starship return load every 4 months.",
-     "13,535 t of propellant banked by the 2039-09 window \u2014 9.7 Starship return flights' worth. The crew's ride home could be filled 9.7 times over.",
+     "9,800 kWe of storm-proof power \u2014 roughly 8,167 homes' worth, with 28 kW of headroom over the installed load.",
+     "Batteries hold 58.6 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "Fuel plant produces ~13.9 t of methalox per day \u2014 a full Starship return load every 3 months.",
+     "14,395 t of propellant banked by the 2039-09 window \u2014 10.3 Starship return flights' worth. The crew's ride home could be filled 10.3 times over.",
      "9,000 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~360 people.",
      "390 t of cached food/water/O2 \u2014 a crew of 12 could live on it for 214 months with zero recycling.",
-     "Robot workforce: 130 humanoids and 16 rovers.",
-     "EDL track record: landings so far demonstrate ~96% reliability (rule-of-three floor); this window's ships each land with ~86% odds.",
+     "Robot workforce: 160 humanoids and 18 rovers.",
+     "EDL track record: landings so far demonstrate ~95% reliability (rule-of-three floor); this window's ships each land with ~86% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~233 months (112 residents) \u2014 propellant production halts, the crew does not.",
-     "3,710 t of hardware on the surface \u2014 8.8\u00d7 the mass of the ISS, and 0.37% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "3,889 t of hardware on the surface \u2014 9.3\u00d7 the mass of the ISS, and 0.39% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 192.0,
-     "Comms nav & autonomy": 10.5,
+     "Comms nav & autonomy": 13.0,
      "Consumables & caches": 390.0,
-     "Habitat & life support": 668.0,
-     "ISRU": 276.0,
+     "Habitat & life support": 670.0,
+     "ISRU": 301.0,
      "Industry": 52.0,
      "Orbital assets": 6.0,
-     "Power generation": 1392.0,
-     "Power storage": 372.1,
-     "Power system": 30.0,
+     "Power generation": 1470.0,
+     "Power storage": 392.8,
+     "Power system": 33.0,
      "Recon & science": 4.0,
-     "Robotics": 99.0,
-     "Site prep & construction": 32.0,
-     "Thermal & support": 115.5,
-     "Water mining": 70.5
+     "Robotics": 113.0,
+     "Site prep & construction": 44.0,
+     "Thermal & support": 130.0,
+     "Water mining": 78.0
     },
     "inv": [
      [
@@ -2157,23 +2157,23 @@
      ],
      [
       "battery_module_100kwh",
-      555.4,
-      372.1
+      586.3,
+      392.8
      ],
      [
       "cargo_crane",
-      7.0,
-      35.0
+      8.0,
+      40.0
      ],
      [
       "central_compute",
-      5.0,
-      2.5
+      6.0,
+      3.0
      ],
      [
       "co2_acquisition",
-      11.0,
-      22.0
+      12.0,
+      24.0
      ],
      [
       "consumables_cache",
@@ -2182,13 +2182,13 @@
      ],
      [
       "cryo_liquefaction",
-      11.0,
-      99.0
+      12.0,
+      108.0
      ],
      [
       "dust_mitigation",
-      9.0,
-      13.5
+      10.0,
+      15.0
      ],
      [
       "eclss_habitat",
@@ -2197,13 +2197,13 @@
      ],
      [
       "excavator_rassor",
-      22.0,
-      44.0
+      24.0,
+      48.0
      ],
      [
       "fission_unit",
-      232.0,
-      1392.0
+      245.0,
+      1470.0
      ],
      [
       "grading_tools",
@@ -2232,18 +2232,18 @@
      ],
      [
       "landing_beacons",
-      4.0,
-      2.0
+      5.0,
+      2.5
      ],
      [
       "logistics_kit",
-      9.0,
-      27.0
+      10.0,
+      30.0
      ],
      [
       "optimus_robot",
-      130.0,
-      13.0
+      160.0,
+      16.0
      ],
      [
       "orbital_radar_set",
@@ -2257,13 +2257,13 @@
      ],
      [
       "power_distribution",
-      10.0,
-      30.0
+      11.0,
+      33.0
      ],
      [
       "radiation_shelter",
-      8.0,
-      8.0
+      10.0,
+      10.0
      ],
      [
       "recon_instruments",
@@ -2277,43 +2277,43 @@
      ],
      [
       "relay_ground_station",
-      4.0,
-      6.0
+      5.0,
+      7.5
      ],
      [
       "robotic_maint_kit",
+      20.0,
+      30.0
+     ],
+     [
+      "rover_unpressurized",
       18.0,
       27.0
      ],
      [
-      "rover_unpressurized",
-      16.0,
-      24.0
-     ],
-     [
       "sabatier_reactor",
-      12.0,
-      36.0
+      14.0,
+      42.0
      ],
      [
       "sintering_rig",
-      5.0,
-      30.0
+      7.0,
+      42.0
      ],
      [
       "thermal_control",
-      15.0,
-      75.0
+      17.0,
+      85.0
      ],
      [
       "water_electrolysis",
-      29.0,
-      116.0
+      31.0,
+      124.0
      ],
      [
       "water_processing",
-      7.0,
-      24.5
+      8.0,
+      28.0
      ]
     ],
     "crewed": true
@@ -2321,17 +2321,17 @@
    {
     "id": "2039-09",
     "objective": "Town: 500+; Gen-3 closure; electronics-fab pilot at earliest window",
-    "ships": 110,
+    "ships": 97,
     "synod_index": 4,
     "settlers": 400,
-    "isru_nameplate_t": 7934.382,
+    "isru_nameplate_t": 8655.689,
     "derate": 1.0,
-    "launches": 1870,
+    "launches": 1649,
     "mass": 8717.4866,
-    "kwe": 20120.0,
-    "launch_cost": 168300.0,
-    "prop": 21411,
-    "prop_produced": 7875.88,
+    "kwe": 20640.0,
+    "launch_cost": 148410.0,
+    "prop": 22918,
+    "prop_produced": 8523.51,
     "new_caps": [
      "closure_gen_3"
     ],
@@ -2339,40 +2339,40 @@
     "closure": "closure_gen_2",
     "imp_req": 485,
     "imp_del": 1050,
-    "hardware_t": 9977.3,
-    "load_kw": 20057,
+    "hardware_t": 10156.5,
+    "load_kw": 20572,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 512 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
      "Agriculture: 132 modules can feed ~528 people (surplus vs 512 residents).",
      "Recurring imports: residents need 485 t this synod at 2 t/person/yr (closure stage: closure gen 2); manifests deliver 1,050 t.",
-     "20,120 kWe of storm-proof power \u2014 roughly 16,767 homes' worth, with 63 kW of headroom over the installed load.",
-     "Batteries hold 120.3 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
-     "Fuel plant produces ~13.2 t of methalox per day \u2014 a full Starship return load every 3 months.",
-     "21,411 t of propellant banked by the 2041-11 window \u2014 15.3 Starship return flights' worth. The crew's ride home could be filled 15.3 times over.",
+     "20,640 kWe of storm-proof power \u2014 roughly 17,200 homes' worth, with 68 kW of headroom over the installed load.",
+     "Batteries hold 123.4 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "Fuel plant produces ~14.4 t of methalox per day \u2014 a full Starship return load every 3 months.",
+     "22,918 t of propellant banked by the 2041-11 window \u2014 16.4 Starship return flights' worth. The crew's ride home could be filled 16.4 times over.",
      "39,600 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~1,584 people.",
      "1,440 t of cached food/water/O2 \u2014 a crew of 12 could live on it for 789 months with zero recycling.",
-     "Robot workforce: 230 humanoids and 26 rovers.",
+     "Robot workforce: 260 humanoids and 28 rovers.",
      "EDL track record: landings so far demonstrate ~98% reliability (rule-of-three floor); this window's ships each land with ~95% odds.",
      "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~188 months (512 residents) \u2014 propellant production halts, the crew does not.",
-     "9,977 t of hardware on the surface \u2014 23.8\u00d7 the mass of the ISS, and 1.00% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "10,157 t of hardware on the surface \u2014 24.2\u00d7 the mass of the ISS, and 1.02% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
      "Agriculture": 792.0,
-     "Comms nav & autonomy": 15.5,
+     "Comms nav & autonomy": 18.0,
      "Consumables & caches": 1440.0,
-     "Habitat & life support": 2920.0,
-     "ISRU": 300.0,
+     "Habitat & life support": 2922.0,
+     "ISRU": 325.0,
      "Industry": 102.0,
      "Orbital assets": 6.0,
-     "Power generation": 3018.0,
-     "Power storage": 806.3,
-     "Power system": 48.0,
+     "Power generation": 3096.0,
+     "Power storage": 827.0,
+     "Power system": 51.0,
      "Recon & science": 4.0,
-     "Robotics": 162.0,
-     "Site prep & construction": 68.0,
-     "Thermal & support": 202.5,
-     "Water mining": 93.0
+     "Robotics": 176.0,
+     "Site prep & construction": 80.0,
+     "Thermal & support": 217.0,
+     "Water mining": 100.5
     },
     "inv": [
      [
@@ -2382,23 +2382,23 @@
      ],
      [
       "battery_module_100kwh",
-      1203.4,
-      806.3
+      1234.3,
+      827.0
      ],
      [
       "cargo_crane",
-      11.0,
-      55.0
+      12.0,
+      60.0
      ],
      [
       "central_compute",
-      7.0,
-      3.5
+      8.0,
+      4.0
      ],
      [
       "co2_acquisition",
-      11.0,
-      22.0
+      12.0,
+      24.0
      ],
      [
       "consumables_cache",
@@ -2407,13 +2407,13 @@
      ],
      [
       "cryo_liquefaction",
-      11.0,
-      99.0
+      12.0,
+      108.0
      ],
      [
       "dust_mitigation",
-      15.0,
-      22.5
+      16.0,
+      24.0
      ],
      [
       "eclss_habitat",
@@ -2427,13 +2427,13 @@
      ],
      [
       "excavator_rassor",
-      28.0,
-      56.0
+      30.0,
+      60.0
      ],
      [
       "fission_unit",
-      503.0,
-      3018.0
+      516.0,
+      3096.0
      ],
      [
       "grading_tools",
@@ -2462,18 +2462,18 @@
      ],
      [
       "landing_beacons",
-      6.0,
-      3.0
+      7.0,
+      3.5
      ],
      [
       "logistics_kit",
-      15.0,
-      45.0
+      16.0,
+      48.0
      ],
      [
       "optimus_robot",
-      230.0,
-      23.0
+      260.0,
+      26.0
      ],
      [
       "orbital_radar_set",
@@ -2487,13 +2487,13 @@
      ],
      [
       "power_distribution",
-      16.0,
-      48.0
+      17.0,
+      51.0
      ],
      [
       "radiation_shelter",
-      16.0,
-      16.0
+      18.0,
+      18.0
      ],
      [
       "recon_instruments",
@@ -2507,43 +2507,43 @@
      ],
      [
       "relay_ground_station",
-      6.0,
-      9.0
+      7.0,
+      10.5
      ],
      [
       "robotic_maint_kit",
-      30.0,
-      45.0
+      32.0,
+      48.0
      ],
      [
       "rover_unpressurized",
-      26.0,
-      39.0
+      28.0,
+      42.0
      ],
      [
       "sabatier_reactor",
-      12.0,
-      36.0
+      14.0,
+      42.0
      ],
      [
       "sintering_rig",
-      11.0,
-      66.0
+      13.0,
+      78.0
      ],
      [
       "thermal_control",
-      27.0,
-      135.0
+      29.0,
+      145.0
      ],
      [
       "water_electrolysis",
-      35.0,
-      140.0
+      37.0,
+      148.0
      ],
      [
       "water_processing",
-      10.0,
-      35.0
+      11.0,
+      38.5
      ]
     ],
     "crewed": true
@@ -2551,104 +2551,104 @@
    {
     "id": "2041-11",
     "objective": "Settlement: 1,000+ adults (NSS milestone), three synods early",
-    "ships": 200,
+    "ships": 161,
     "synod_index": 5,
     "settlers": 600,
-    "isru_nameplate_t": 7934.382,
+    "isru_nameplate_t": 8655.689,
     "derate": 1.0,
-    "launches": 3400,
-    "mass": 12501.4978,
-    "kwe": 36920.0,
-    "launch_cost": 306000.0,
-    "prop": 29345,
-    "prop_produced": 7934.38,
+    "launches": 2737,
+    "mass": 14178.4998,
+    "kwe": 39600.0,
+    "launch_cost": 246330.0,
+    "prop": 31574,
+    "prop_produced": 8655.69,
     "new_caps": [
      "settlement_established"
     ],
     "pop": 1112,
     "closure": "closure_gen_3",
     "imp_req": 887,
-    "imp_del": 900,
-    "hardware_t": 18819.6,
-    "load_kw": 36831,
+    "imp_del": 1050,
+    "hardware_t": 20192.0,
+    "load_kw": 39516,
     "enables": [
      "First crew lands at a base that is already powered, provisioned, and holds their return propellant.",
      "Resident population: 1,112 \u2014 every per-capita clock (power, food area, habitat volume, imports) now has a denominator.",
-     "Agriculture: 292 modules can feed ~1,168 people (surplus vs 1,112 residents).",
-     "Recurring imports: residents need 887 t this synod at 0.8 t/person/yr (closure stage: closure gen 3); manifests deliver 900 t.",
-     "36,920 kWe of storm-proof power \u2014 roughly 30,767 homes' worth, with 89 kW of headroom over the installed load.",
-     "Batteries hold 221.0 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
-     "Fuel plant produces ~13.2 t of methalox per day \u2014 a full Starship return load every 3 months.",
-     "29,345 t of propellant banked by the next window's arrival \u2014 21.0 Starship return flights' worth. The crew's ride home could be filled 21.0 times over.",
-     "85,200 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~3,408 people.",
-     "2,340 t of cached food/water/O2 \u2014 a crew of 12 could live on it for 1,283 months with zero recycling.",
-     "Robot workforce: 380 humanoids and 42 rovers.",
+     "Agriculture: 312 modules can feed ~1,248 people (surplus vs 1,112 residents).",
+     "Recurring imports: residents need 887 t this synod at 0.8 t/person/yr (closure stage: closure gen 3); manifests deliver 1,050 t.",
+     "39,600 kWe of storm-proof power \u2014 roughly 33,000 homes' worth, with 84 kW of headroom over the installed load.",
+     "Batteries hold 237.1 MWh \u2014 6 hours of full-base power with zero generation (dust storms are a non-event on fission).",
+     "Fuel plant produces ~14.4 t of methalox per day \u2014 a full Starship return load every 3 months.",
+     "31,574 t of propellant banked by the next window's arrival \u2014 22.6 Starship return flights' worth. The crew's ride home could be filled 22.6 times over.",
+     "91,200 m\u00b3 of pressurized volume beyond the ships \u2014 long-duration habitable space for ~3,648 people.",
+     "2,490 t of cached food/water/O2 \u2014 a crew of 12 could live on it for 1,365 months with zero recycling.",
+     "Robot workforce: 460 humanoids and 44 rovers.",
      "EDL track record: landings so far demonstrate ~99% reliability (rule-of-three floor); this window's ships each land with ~95% odds.",
-     "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~141 months (1,112 residents) \u2014 propellant production halts, the crew does not.",
-     "18,820 t of hardware on the surface \u2014 44.8\u00d7 the mass of the ISS, and 1.88% of the ~1,000,000 t Musk estimates for a self-sufficient city."
+     "Water independence: if mining stopped, ECLSS recycles ~90% and cached water covers the makeup for ~150 months (1,112 residents) \u2014 propellant production halts, the crew does not.",
+     "20,192 t of hardware on the surface \u2014 48.1\u00d7 the mass of the ISS, and 2.02% of the ~1,000,000 t Musk estimates for a self-sufficient city."
     ],
     "groups": {
-     "Agriculture": 1752.0,
-     "Comms nav & autonomy": 20.5,
-     "Consumables & caches": 2340.0,
-     "Habitat & life support": 6276.0,
-     "ISRU": 332.0,
-     "Industry": 186.0,
+     "Agriculture": 1872.0,
+     "Comms nav & autonomy": 23.0,
+     "Consumables & caches": 2490.0,
+     "Habitat & life support": 6726.0,
+     "ISRU": 357.0,
+     "Industry": 206.0,
      "Orbital assets": 6.0,
-     "Power generation": 5538.0,
-     "Power storage": 1480.6,
-     "Power system": 72.0,
+     "Power generation": 5940.0,
+     "Power storage": 1588.5,
+     "Power system": 75.0,
      "Recon & science": 4.0,
-     "Robotics": 255.0,
-     "Site prep & construction": 116.0,
-     "Thermal & support": 318.5,
-     "Water mining": 123.0
+     "Robotics": 274.0,
+     "Site prep & construction": 152.0,
+     "Thermal & support": 333.0,
+     "Water mining": 145.5
     },
     "inv": [
      [
       "agri_module",
-      292.0,
-      1752.0
+      312.0,
+      1872.0
      ],
      [
       "battery_module_100kwh",
-      2209.8,
-      1480.6
+      2370.9,
+      1588.5
      ],
      [
       "cargo_crane",
-      17.0,
-      85.0
+      18.0,
+      90.0
      ],
      [
       "central_compute",
-      11.0,
-      5.5
+      12.0,
+      6.0
      ],
      [
       "co2_acquisition",
-      11.0,
-      22.0
+      12.0,
+      24.0
      ],
      [
       "consumables_cache",
-      156.0,
-      2340.0
+      166.0,
+      2490.0
      ],
      [
       "cryo_liquefaction",
-      11.0,
-      99.0
+      12.0,
+      108.0
      ],
      [
       "dust_mitigation",
-      23.0,
-      34.5
+      24.0,
+      36.0
      ],
      [
       "eclss_habitat",
-      284.0,
-      1988.0
+      304.0,
+      2128.0
      ],
      [
       "electronics_fab",
@@ -2657,13 +2657,13 @@
      ],
      [
       "excavator_rassor",
-      36.0,
-      72.0
+      42.0,
+      84.0
      ],
      [
       "fission_unit",
-      923.0,
-      5538.0
+      990.0,
+      5940.0
      ],
      [
       "grading_tools",
@@ -2672,8 +2672,8 @@
      ],
      [
       "habitat_inflatable",
-      284.0,
-      4260.0
+      304.0,
+      4560.0
      ],
      [
       "ice_prospecting",
@@ -2692,18 +2692,18 @@
      ],
      [
       "landing_beacons",
-      6.0,
-      3.0
+      7.0,
+      3.5
      ],
      [
       "logistics_kit",
-      23.0,
-      69.0
+      24.0,
+      72.0
      ],
      [
       "optimus_robot",
-      380.0,
-      38.0
+      460.0,
+      46.0
      ],
      [
       "orbital_radar_set",
@@ -2712,18 +2712,18 @@
      ],
      [
       "polymer_chemical_plant",
-      6.0,
-      48.0
+      7.0,
+      56.0
      ],
      [
       "power_distribution",
-      24.0,
-      72.0
+      25.0,
+      75.0
      ],
      [
       "radiation_shelter",
-      28.0,
-      28.0
+      38.0,
+      38.0
      ],
      [
       "recon_instruments",
@@ -2732,60 +2732,60 @@
      ],
      [
       "regolith_refinery",
-      9.0,
-      108.0
+      10.0,
+      120.0
      ],
      [
       "relay_ground_station",
-      8.0,
-      12.0
+      9.0,
+      13.5
      ],
      [
       "robotic_maint_kit",
-      46.0,
-      69.0
+      48.0,
+      72.0
      ],
      [
       "rover_unpressurized",
-      42.0,
-      63.0
+      44.0,
+      66.0
      ],
      [
       "sabatier_reactor",
-      12.0,
-      36.0
+      14.0,
+      42.0
      ],
      [
       "sintering_rig",
-      19.0,
-      114.0
+      25.0,
+      150.0
      ],
      [
       "thermal_control",
-      43.0,
-      215.0
+      45.0,
+      225.0
      ],
      [
       "water_electrolysis",
-      43.0,
-      172.0
+      45.0,
+      180.0
      ],
      [
       "water_processing",
-      14.0,
-      49.0
+      17.0,
+      59.5
      ]
     ],
     "crewed": true
    }
   ],
   "cumulative": {
-   "mass_delivered_t": 26458.7277,
-   "ships": 385,
-   "total_launches": 6545,
-   "launch_cost_musd": 589050.0,
-   "cargo_cost_low_musd": 236308.0,
-   "cargo_cost_high_musd": 990432.0
+   "mass_delivered_t": 28395.4798,
+   "ships": 322,
+   "total_launches": 5474,
+   "launch_cost_musd": 492660.0,
+   "cargo_cost_low_musd": 254880.0,
+   "cargo_cost_high_musd": 1069780.0
   },
   "first_crew": "2035-05"
  },
