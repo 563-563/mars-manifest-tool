@@ -251,7 +251,7 @@
      "objective": "Crew + 26-month bridge aboard + agri/industry pilots + ISRU hot-spare depth + pad rigs for the 2037 fleet",
      "crewed": true,
      "settlers": 12,
-     "ships": 20,
+     "ships": 15,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -269,51 +269,51 @@
       },
       {
        "id": "radiation_shelter",
-       "qty": 2
+       "qty": 4
       },
       {
        "id": "robotic_maint_kit",
-       "qty": 6
+       "qty": 8
       },
       {
        "id": "thermal_control",
-       "qty": 4
+       "qty": 6
       },
       {
        "id": "dust_mitigation",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "optimus_robot",
-       "qty": 50
+       "qty": 80
       },
       {
        "id": "rover_unpressurized",
-       "qty": 4
+       "qty": 6
       },
       {
        "id": "cargo_crane",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "relay_ground_station",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "landing_beacons",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "central_compute",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "power_distribution",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "logistics_kit",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "agri_module",
@@ -329,31 +329,31 @@
       },
       {
        "id": "water_electrolysis",
-       "qty": 3
+       "qty": 5
       },
       {
        "id": "sabatier_reactor",
-       "qty": 2
-      },
-      {
-       "id": "co2_acquisition",
-       "qty": 1
-      },
-      {
-       "id": "water_processing",
-       "qty": 1
-      },
-      {
-       "id": "excavator_rassor",
        "qty": 4
       },
       {
+       "id": "co2_acquisition",
+       "qty": 2
+      },
+      {
+       "id": "water_processing",
+       "qty": 2
+      },
+      {
+       "id": "excavator_rassor",
+       "qty": 6
+      },
+      {
        "id": "cryo_liquefaction",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "sintering_rig",
-       "qty": 2
+       "qty": 4
       }
      ]
     }
@@ -370,7 +370,7 @@
      "objective": "100 settlers; agri+industry at scale; fuel doubled for rotation era",
      "crewed": true,
      "settlers": 100,
-     "ships": 40,
+     "ships": 34,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -493,7 +493,7 @@
      "objective": "400 settlers; food/polymers/structures local",
      "crewed": true,
      "settlers": 400,
-     "ships": 110,
+     "ships": 97,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -604,33 +604,33 @@
      "objective": "600 settlers; the 1,000-adult formal-settlement milestone",
      "crewed": true,
      "settlers": 600,
-     "ships": 200,
+     "ships": 161,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
       {
        "id": "habitat_inflatable",
-       "qty": 152
+       "qty": 172
       },
       {
        "id": "eclss_habitat",
-       "qty": 152
+       "qty": 172
       },
       {
        "id": "agri_module",
-       "qty": 160
+       "qty": 180
       },
       {
        "id": "consumables_cache",
-       "qty": 60
+       "qty": 70
       },
       {
        "id": "regolith_refinery",
-       "qty": 4
+       "qty": 5
       },
       {
        "id": "polymer_chemical_plant",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "electronics_fab",
@@ -642,23 +642,23 @@
       },
       {
        "id": "excavator_rassor",
-       "qty": 8
-      },
-      {
-       "id": "water_processing",
-       "qty": 4
-      },
-      {
-       "id": "sintering_rig",
-       "qty": 8
-      },
-      {
-       "id": "radiation_shelter",
        "qty": 12
       },
       {
+       "id": "water_processing",
+       "qty": 6
+      },
+      {
+       "id": "sintering_rig",
+       "qty": 12
+      },
+      {
+       "id": "radiation_shelter",
+       "qty": 20
+      },
+      {
        "id": "optimus_robot",
-       "qty": 150
+       "qty": 200
       },
       {
        "id": "rover_unpressurized",

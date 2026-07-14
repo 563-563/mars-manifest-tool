@@ -42,10 +42,10 @@ def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
 
 
 def test_honest_fleet_counts(plan_result):
-    # 5-10-20 through first crew (each window >=2x the last), then the city
-    # ramp; 2035's and 2037's counts follow the fleet-growth rule, not packing
-    # (crew fleets fly light), while 2039/2041 are genuinely cargo-bound
-    assert [w.ships for w in plan_result.windows] == [5, 10, 20, 40, 110, 200]
+    # fleet sized to cargo at <=90% mass, subject to the cumulative >=2x
+    # growth floor ("no air freight"): 2035 and 2041 are growth-floored and
+    # topped up with risk depth; 2037/2039 are genuinely cargo-bound
+    assert [w.ships for w in plan_result.windows] == [5, 10, 15, 34, 97, 161]
 
 
 def test_every_window_fits_its_fleet(plan_result, baseline):
@@ -60,14 +60,14 @@ def test_surface_state_lays_flat(plan_result):
     assert hw == sorted(hw)  # hardware only accumulates
     final = plan_result.windows[-1]
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
-    # pilot (2) + doubled factory (12) + crew-wave hot spares (3) +
+    # pilot (2) + doubled factory (12) + crew-wave hot spares (3+2) +
     # village chains (12) + town/settlement growth (6+8)
-    assert inv["water_electrolysis"] == 43
+    assert inv["water_electrolysis"] == 45
     # all habitats are inflatables (honest ~75 m3 stowed volume): 5 pre-village
-    # (1+4) + 279 city-era, each sized to the 76.5 m3/person pressurized
-    # standard; the rigid habitat_module survives only in the frozen fixtures
+    # (1+4) + 299 city-era, sized to the 76.5 m3/person pressurized standard
+    # with settlement growth headroom; habitat_module survives only in fixtures
     assert "habitat_module" not in inv
-    assert inv["habitat_inflatable"] == 284
+    assert inv["habitat_inflatable"] == 304
     # power and habitat dominate the city-era surface, per the research
     top_group = max(final.surface_by_group, key=final.surface_by_group.get)
     assert top_group in ("Power generation", "Habitat & life support")
