@@ -33,188 +33,176 @@ That reframing is the whole logic of the plan: **it is a sequence of proofs,
 not a delivery schedule.** Each window exists to retire specific risk so the
 next one is allowed to commit.
 
-## Three rules that shape every decision
+## Four rules that shape every decision
 
 1. **Nothing commits until the thing it depends on is *demonstrated* — not
    merely delivered.** The crew does not launch toward "we sent a fuel plant."
-   It launches toward "1,400 tonnes of propellant are in the tanks" and "the
-   life-support loop has run for 1,000 sols." Gates retire on measured state.
+   It launches toward "1,400 tonnes of propellant are in the tanks," "the
+   life-support loop has run for 1,000 sols," and "an empty ship is already
+   flying the trip home." Gates retire on measured state.
 2. **Every number carries a receipt.** Each input has a source and a
    confidence tier in `PROVENANCE.md`; when a source drifts, the baseline
-   changes and the consequences propagate. Claims that fail verification — including
-   most of SpaceX's aspirational cadence figures — are recorded as failing,
-   not quietly used.
+   changes and the consequences propagate. Claims that fail verification —
+   including most of SpaceX's aspirational cadence figures — are recorded as
+   failing, not quietly used.
 3. **No single ship loss may cost a schedule-critical capability.** A
    50/50 first landing is not a plan you bet the program on, so the things
    that unblock the future — power, water, the propellant chain, comms,
-   autonomy — are spread across hulls and pre-deployed a window early. Crew-era
-   comforts can accept single-hull risk because a lost habitat can be re-flown
-   before anyone needs it.
+   autonomy — are spread across hulls, with the pilot chain already on the
+   ground as the hot spare.
+4. **Pilot one synod ahead; scale when the demand ships.** Every capability
+   flies first as a test article one window before its bulk buy, and nothing
+   flies before its customer exists. Fuel capacity follows rotation demand;
+   agriculture and industry scale on their own pilots' data; provisions
+   pre-land exactly one synod of survival (the *bridge*) and fly the depth
+   with the people. The one exception is the bridge itself, because its
+   customer is the worst day.
 
 ## The dates, and why they moved
 
 The plan starts in **2031, not 2026.** There is no 2026 flight: the program
 pivoted Moon-first, and orbital refueling — the nearest gate — was still
 undemonstrated. A first robotic landing in the early 2030s matches independent
-expert consensus; first crew in **2037** sits at the aggressive end of it. The
-old Musk-schedule dates survive only as frozen regression fixtures, never as
-the plan.
+expert consensus. First crew in **2035** is deliberately beyond the aggressive
+end of that consensus — and the plan is honest about what that means: it is an
+**option on 2035, not a promise.** Every gate still retires on demonstrated
+state, and under the peer-reviewed skeptic scenario
+(`conservative_feasibility`) the gates hold and crew auto-slips to 2037 —
+which is precisely the archived conservative program
+(`examples/conservative_program.json`). You choose the aggressive sequencing;
+the evidence still chooses the date.
 
 ---
 
 ## The manifest, window by window
 
-Fleet sizes obey the one ramp rule that survived scrutiny — the *total* landed
-fleet at least doubles each synod (cumulative 5 → 10 → 20 → 40 → 82 → 192 →
-392). Launch counts include tanker refueling (~16 per ship). Propellant
-"banked" is what the plant produces by the time the *next* window arrives, with
-newly-delivered capacity ramping at 60% its first synod.
+Fleet sizes obey the one ramp rule that survived scrutiny — the fleet at
+least doubles each synod (5 → 10 → 20 → 40 → 110 → 200; 385 ships
+cumulative). Launch counts include tanker refueling (~16 per ship).
+Propellant "banked" is what the plant produces by the time the *next* window
+arrives, with newly-delivered capacity ramping at 60% its first synod.
 
 ### 2031 · The precursor — prove you can land, power, and prospect (5 ships)
 
 **Motivation:** retire the "does anything work at all" unknowns on the first
-landing, and shrink the water error bars before committing a fuel factory.
+touchdown, cheaply, before anything expensive depends on the answers.
+Everything schedule-critical flies at quantity two, smeared across hulls.
 
-**What flies:** a loss-tolerant robotic batch — 16 fission reactors (640 kWe),
-a pilot ISRU chain in duplicate, water prospecting, comms, humanoid + rover
-robots, one habitat + one ECLSS unit flown together on a single hull as the integrated **1,000-sol life-support testbed** (the loop needs the sealed volume; the inflatable needs the endurance run),
-and — the cheapest idea on the manifest — **kinetic penetrators plus an
-orbital radar constellation** that read the subsurface from orbit.
+**What it proves:** EDL at 100-tonne class; 640 kWe of storm-proof fission
+baseload; precision landing, comms, autonomy, mobility; a pilot ISRU chain
+making its first ~1 t of methalox a day (322 t banked by 2033 — proof of
+chemistry, not production); and **site water confirmed in ~30 sols** by
+kinetic penetrators and orbital radar instead of 200 sols of drilling.
 
-**What it proves:** EDL, dust-storm-proof baseload power, mobility, autonomy,
-comms, precision landing, and confirmed site water. This one window **retires
-50% of the program's weighted risk** — the whole "unknown unknowns" category
-dies on first landing.
+**The two clocks:** one habitat and one ECLSS unit land now, not for use but
+to start the 1,000-sol life-support demonstration — the one gate money cannot
+compress, only start early. It completes mid-2034, eleven months before crew
+commit.
 
-**Key decision — why penetrators:** water knowledge is the binding constraint
-on everything downstream, and surface drilling alone needs ~200 sols to
-confirm it. Dropping steel rods and reading the craters from orbit gives a
-`water_confirmed` answer in ~30 sols, cheaply and without betting on a soft
-landing. It is the highest-leverage cheap move in the plan.
+### 2033 · The fuel factory, doubled — prove the ride home (10 ships)
 
-### 2033 · The fuel factory — prove the ride home (5 ships)
+**Motivation:** the single thing that makes a crewed return credible is
+propellant you didn't haul from Earth. This window flies **two** rate-matched
+chains, not one, because one tankful is a promise and two is a plan: the
+second load is what lets an empty ship rehearse the entire trip home while
+the first stays banked for people.
 
-**Motivation:** the single milestone that makes a crewed *return* credible.
+**What it proves:** `return_propellant_proven`, `life_support_closed`, and
+`radiation_managed` — **every crew gate green a full synod before anyone
+launches.** 7.2 t of methalox a day (a full return load every ~6.5 months;
+2,793 t banked by 2035) on 2,800 kWe. The 45 t **survival bridge** — one
+synod of food, water and oxygen for twelve — is pre-landed and verified by
+robots before any crew commits to needing it. Gated on 2031 actually finding
+the water; we don't fly a factory at a hunch.
 
-**What flies:** the rate-matched propellant chain from `size_chain` — 6
-electrolyzers, the reactors they drag (1,760 kWe installed), CO₂ capture,
-Sabatier, cryo, and the excavators to feed them.
+**The dress rehearsal:** in **January 2035** a cargo ship fuels from the
+plant and flies home, empty — Mars ascent, trans-Earth injection, and an
+Earth entry at ~11.6 km/s, twice the speed of a Mars arrival and roughly
+eight times the heating. It carries a tank of Mars-made methalox and a crate
+of dust-weathered parts for Earth labs. The first thing ever to come home
+from Mars is a receipt.
 
-**What it proves:** `return_propellant_proven`. By the next window ~1,826 t are
-banked — over the 1,400 t a crewed ship needs, with ~30% margin. Cumulative
-risk retired: 75%.
+### 2035 · First crew — twelve people and a hold full of pilots (20 ships)
 
-**Key decisions:** (1) This fleet is *gated on `water_confirmed`* from 2031 —
-prospect-before-commit. We do not ship a fuel factory toward water we haven't
-found. (2) It is the program's critical path, yet it needs **no extra
-redundancy**: the capability is backstopped by 2031's pre-deployed pilot chain,
-and the 30% propellant margin absorbs any one lost ship. A sixth ship was
-considered and rejected as mass we don't need.
+**Motivation:** the base is powered, fueled, sheltered, and proven. Twelve
+people — inside the peer-reviewed 10–20 band — launch in May 2035 with the
+return demonstrator still inbound to Earth. **They commit three months before
+it reports.** That is the one corner this program deliberately cuts, and it
+cuts it in the open: if the demo fails mid-cruise, they land anyway onto
+years of caches and wait out one window while the fix flies. Their own
+return, ~March 2037, flies a profile by then proven nineteen months earlier.
 
-### 2035 · Second plant + the base — prove survival (10 ships)
+**What they land on:** 7,036 t of banked propellant (five full ride-home
+loads), 1,500 m³ of pressurized volume — a roomy 125 m³ each against NASA's
+76.5 m³/person standard — a ~91% demonstrated landing record, and their own
+26-month consumables bridge flying beside them.
 
-**Motivation:** double propellant output, and stage everything a crew needs to
-live before they leave Earth.
+**Why the holds are half empty:** deliberately. What this fleet carries is
+the future at pilot scale — 12 agriculture modules, the first regolith
+refinery, the first polymer plant (both process-anchored to NASA
+demonstrations: molten regolith electrolysis and Sabatier-derived
+polyethylene), hot-spare ISRU depth, pad-sintering rigs for the next fleet,
+and 70 robots on the surface to run it all.
 
-**What flies:** a second matched chain (plant-level redundancy *and* 2× rate),
-the habitat cluster, deep consumable caches, shelters. Power reaches 3,040 kWe.
+### 2037 · The village — scale what the pilots proved (40 ships, 112 people)
 
-**What it proves:** `life_support_closed` (the ECLSS testbed has now run its
-1,000 sols) and `radiation_managed`. **Cumulative risk retired: 100%** — every
-schedule-critical gate is closed a full window before crew.
+**Motivation:** from proving capabilities to growing people. The target is
+Salotti's 110-person survival floor: the line where, in principle, the
+settlement could keep itself alive if the ships stopped coming.
 
-**Key decision — habitats fly folded:** the habitats are TransHab/B330-class
-inflatables that stow at ~75 m³ and deploy to ~300 m³ (~4× compression;
-TransHab 329.4 m³ per BVAD, BEAM flew 2016). Folded stowage is what lets 10
-ships carry the habitat cluster, the shelters, and the deep caches: the
-window is mass-bound, not volume-bound.
+**What it deploys:** every 2035 pilot at scale, shaped by two years of pilot
+data — 32 agriculture modules feeding ~128, Gen-1/2 industry (refineries and
+polymers turning regolith and CO₂ into structure and plastic), and two more
+fuel chains **now that crew rotation is finally the customer**: 14.9 t of
+methalox a day, 9.7 loads banked. Forty ships land on pads the robots paved
+two years earlier. Power reaches 9,280 kWe.
 
-### 2037 · First crew — arrive to a working base (20 ships, 12 people)
+### 2039 · The town — Gen-3 closure (110 ships, 512 people)
 
-**Motivation:** by now the base is powered, provisioned, and fueled, and every
-requirement has been bought off at least one synod early. Only now do people
-go.
+Food, plastics, and structures now come out of local dirt; the import bill
+per head drops from 10 to 2 t/person/year and keeps sliding down the ~500×
+decay curve. It isn't free: agriculture is the power monster, and
+grow-lighting shoves the base past 20,100 kWe. On Mars, food is electricity
+wearing a costume. The electronics-fab pilot lands at the earliest window its
+feedstock industry exists to supply — chips remain the last thing Mars ever
+makes. Every populated window is machine-checked to cover its residents'
+consumables; none runs a deficit.
 
-**What they find:** ~8,700 t of propellant banked — several return loads over.
-EDL has a demonstrated ~93% reliability from the landings so far (it began at a
-coin-flip). The crew is 12 — inside the peer-reviewed 10–20 first-crew range.
+### 2041 · The settlement — 1,112 adults (200 ships)
 
-**Key decision — why the strict gate:** the crew commits against a fully
-bought-off baseline, not a promise. This is the payoff of rule #1: the
-propellant that flies them home already exists, the life-support loop is proven,
-and no capability they depend on rides on a single hull.
-
-### 2039 → 2044 · The city ramp — from outpost to settlement
-
-Now the character changes from *proving capabilities* to *scaling population
-and closing the industrial loop.*
-
-- **2039 · Village (42 ships, ~112 people):** passes Salotti's **110-person
-  survival floor**; first local industry (refinery, polymer plant) and
-  agriculture come online (Gen-1/2 closure).
-- **2041 · Town (110 ships, ~512 people):** **Gen-3 closure** — food,
-  polymers, and structures now made locally.
-- **2044 · Settlement (200 ships, ~1,112 people):** crosses the **NSS
-  1,000-adult settlement milestone.**
-
-Across this ramp the recurring import bill per resident walks down the verified
-decay curve — ~10 t/person/year with nothing local, toward ~20 kg/person/year
-as raw-material manufacturing closes — a ~500× cliff, not a gradient. Every
-populated window is checked to deliver enough consumables to cover its
-residents; none runs a deficit.
-
-**The honest gap:** the plan reaches a *settlement*, not *autarky*. Full
-industrial independence is ~1,000,000 people by the sources we trust; 1,112 is
-~1.85% of the way there — even though by 2044 the surface holds ~18,500 t of
-hardware, already **44× the mass of the ISS**. The tool states both plainly
-rather than implying the city is around the corner: a huge outpost, and still
-a rounding error against self-sufficiency.
-
----
+The NSS 1,000-adult formal-settlement milestone, **three years earlier than
+the conservative plan** — reached not by cutting gates but by re-sequencing
+around them. ~26,500 t of hardware across 385 ships, 36,920 kWe, 292
+agriculture modules feeding ~1,168, and 85,200 m³ of pressurized volume still
+sized to the honest 76.5 m³-per-person standard. And the honest coda: this is
+a settlement, not independence — self-sufficiency is on the order of a
+million people, and we are 1,112. We'd rather say that out loud than pretend
+the city is around the corner.
 
 ## What the whole thing costs, and where the uncertainty lives
 
-Cumulatively the plan lands **392 ships over ~6,700 launches** delivering
-~25,900 t. At the disclosed near-term launch price that is ~$600B of launch;
-on SpaceX's internal-cost basis (expended cargo ships, reused tankers) it is
-closer to ~$87B. Cargo hardware dwarfs launch, and development cost — Starship,
-fission, ISRU R&D — is larger still and deliberately kept out of these
-figures (it is a separate ledger we chose not to model).
-
-The serious disagreements are carried as **scenario axes**, not smoothed into a
-single answer:
-
-- **Is the architecture even feasible on this timeline?** The
-  `conservative_feasibility` scenario carries the peer-reviewed DLR/Maiwald
-  skeptic case — it flips orbital refill and cryo-chill to *not demonstrated*,
-  and those Earth-side requirements go OPEN while the harsher ISRU energies
-  cascade into propellant shortfalls. This is the honest lower bound.
-- **How hard is ISRU energy?** 7.6 kWh/kg (our bottom-up) to 15.3 (Handmer's
-  all-in) — full-scale power 0.85 to 1.7 MW.
-- **Water risk:** if prospecting disappoints, `oxygen_only_isru` (import
-  methane) and `h2_import` (import hydrogen, no mining) are modeled fallbacks.
-- **How many people is "self-sustaining"?** 110 / 1,000 / 1,000,000 — three
-  different questions, all carried as milestones.
+Cumulative through 2041: **385 ships, ~6,545 launches** (tankers included),
+**~$589 B in launch services** at the near-term ~$90 M/launch price (the
+defensible disclosed figure; the aspirational internal-cost basis is a
+scenario, not the baseline), and cargo hardware spanning **~$236–990 B** —
+an order-of-magnitude range on purpose, because first-of-kind hardware costs
+are Tier-D guesses and we refuse to pretend otherwise. Development cost
+(Starship itself, fission, ISRU R&D) is deliberately outside the ledger.
 
 ## What we deliberately do *not* model
 
-So omissions read as decisions, `docs/CONSIDERED.md` records every idea weighed
-and set aside — Phobos propellant depots, a development-cost ledger, one-way
-crew doctrine, mass-driven population growth, per-item surface offload limits,
-and more, each tagged *deferred*, *out of scope*, *rejected*, or *simplified*
-with the reason. The register is part of the honesty: the tool is clear about
-its own edges.
+Return flights exist as requirements and doctrine (L1-RET-01), not as modeled
+missions — no orbital logistics, no crew rotation reducing headcount, no
+Phobos depots. Population only accumulates. EDL losses are independent
+per-ship draws, not correlated bad synods. Industrial closure unlocks on
+plant *presence* plus population, not ratio-scaled capacity. Each shortcut is
+logged in `docs/CONSIDERED.md` so omissions read as decisions.
 
 ## How to read the rest
 
-- **`README.md`** — what the tool is and how to run it.
-- **`PROVENANCE.md`** — every input, its source, tier, and verification log.
-- **`docs/REQUIREMENTS.md`** — the machine-checked buy-off matrix (generated).
-- **`docs/CITY_RAMP_RESEARCH.md`** — the sourced research behind the city ramp.
-- **`docs/COMPARATIVES.md`** — how this plan differs from Handmer / *New Space*
-  2022 / NASA DRA 5.0, and what was adopted.
-- **`docs/CONSIDERED.md`** — the weighed-and-set-aside register.
-- **`CONTRIBUTING.md`** — the rules that keep all of the above honest.
-
-The one-line version: **this is a plan that earns each step before taking it,
-shows its work for every number, and is candid about where it stops.**
+`README.md` for the program at a glance and the source list;
+`docs/REQUIREMENTS.md` for the machine-checked buy-off matrix;
+`docs/manifests/` for what flies on which hull; `PROVENANCE.md` for every
+number's receipt; `docs/COMPARATIVES.md` for how this differs from Handmer,
+*New Space* 2022, and DRA 5.0; the scrollytelling essay (README →
+"Interactive views") for the same story with the manifest panel alongside.
