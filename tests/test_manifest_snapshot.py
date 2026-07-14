@@ -25,7 +25,7 @@ def snapshot(tmp_path_factory):
 
 def test_snapshot_shape_and_budgets(snapshot):
     snap = json.loads((snapshot / "manifests.json").read_text(encoding="utf-8"))
-    assert len(snap["windows"]) == 7
+    assert len(snap["windows"]) == 6
     cap_m = snap["per_ship_capacity"]["mass_t"]
     cap_v = snap["per_ship_capacity"]["volume_m3"]
     for w in snap["windows"]:

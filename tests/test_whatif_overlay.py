@@ -115,11 +115,18 @@ def test_propellant_commissioning_ramp(catalog, manager, city, program, scenario
     delivered = {}
     prev_nameplate = 0.0
     cum = 0.0
+    gate_t = a.get("isru.return_propellant_t", 1400)
     for w in result.windows:
         had_prior = bool(delivered)
-        for m in program.windows[w.synod_index].missions:
-            for it in m.manifest:
-                delivered[it.component_id] = delivered.get(it.component_id, 0.0) + it.qty
+        win = program.windows[w.synod_index]
+        # crewed windows gate on propellant banked BEFORE the window; a blocked
+        # window delivers nothing (the 2035 crew wave under the skeptic
+        # scenario) -- the same rule the story page's overlay applies
+        crewed = any(m.crewed or (m.settlers or 0) > 0 for m in win.missions)
+        if not (crewed and cum < gate_t):
+            for m in win.missions:
+                for it in m.manifest:
+                    delivered[it.component_id] = delivered.get(it.component_id, 0.0) + it.qty
         nameplate = isru.assess_quantities(delivered).tonnes_per_window
         if commission < 1.0 and had_prior:
             effective = prev_nameplate + commission * max(0.0, nameplate - prev_nameplate)

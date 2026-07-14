@@ -219,9 +219,9 @@
     {
       "id": "L1-RET-01",
       "parent": "L0-MSN-01",
-      "statement": "The program shall demonstrate an uncrewed Mars-surface-to-Earth return flight before committing crew, flown on a Mars-to-Earth departure window inside the propellant-ready-to-crew gap.",
-      "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. The return leg is physically distinct from the outbound and is otherwise unproven until the first crewed ship flies it. A Mars-to-Earth departure opportunity falls ~Jan 2035 (Earth arrival ~Aug 2035), ~23 months before the 2037-07 crew commit, so the demonstration fits the existing schedule slack.",
-      "source": "SpaceX-to-Mars deep dive Problem 1/6; full-profile-uncrewed-first precedent (Crew Dragon Demo-1, Artemis I); return-leg astrodynamics, PROVENANCE section 5"
+      "statement": "An uncrewed Mars-surface-to-Earth return demonstration shall depart before the first crew launches and shall complete before the crew's own return flight, and pre-landed surface-hold reserves shall cover a missed return window if the demonstration fails.",
+      "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. Synodic geometry gives exactly one useful slot: the demonstrator departs Mars ~Jan 2035 (on the doubled 2033 plant's surplus), reports at Earth ~Aug 2035 while the crew is in transit, and the crew's own ~Mar 2037 return flies a profile flown 19 months earlier. The accepted residual is the crew committing (May 2035) three months before the demo reports; the hedge is the pre-landed bridge plus fleet caches (years of surface-hold if the crew must wait out a window for a fix).",
+      "source": "SpaceX-to-Mars deep dive Problem 1/6; full-profile-uncrewed-first precedent (Crew Dragon Demo-1, Artemis I); return-leg astrodynamics, PROVENANCE section 5a"
     },
     {
       "id": "L2-RET-02",

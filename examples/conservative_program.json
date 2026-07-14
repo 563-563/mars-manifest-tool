@@ -1,5 +1,5 @@
 {
- "id": "program_plan",
+ "id": "conservative_program",
  "windows": [
   {
    "id": "2031-01",
@@ -127,15 +127,93 @@
    "id": "2033-03",
    "synod_index": 1,
    "transit_days": 210,
-   "objective": "Fuel factory x2: double rate-matched ISRU + the survival bridge, pre-landed",
+   "objective": "Fuel factory: full rate-matched ISRU chain + the reactors it drags",
    "missions": [
     {
      "id": "fuel_factory_2033",
-     "objective": "Double rate-matched ISRU; pre-land the survival floor",
+     "objective": "Deliver the size_chain() matched buy; window-0 chain becomes hot spare",
      "crewed": false,
      "requires": [
       "water_confirmed"
      ],
+     "ships": 5,
+     "packing_policy": "balanced",
+     "pack_spares": true,
+     "manifest": [
+      {
+       "id": "water_electrolysis",
+       "qty": 6
+      },
+      {
+       "id": "co2_acquisition",
+       "qty": 2
+      },
+      {
+       "id": "sabatier_reactor",
+       "qty": 2
+      },
+      {
+       "id": "cryo_liquefaction",
+       "qty": 2
+      },
+      {
+       "id": "water_processing",
+       "qty": 1
+      },
+      {
+       "id": "isru_control",
+       "qty": 1
+      },
+      {
+       "id": "excavator_rassor",
+       "qty": 4
+      },
+      {
+       "id": "optimus_robot",
+       "qty": 10
+      },
+      {
+       "id": "rover_unpressurized",
+       "qty": 2
+      },
+      {
+       "id": "robotic_maint_kit",
+       "qty": 2
+      },
+      {
+       "id": "cargo_crane",
+       "qty": 1
+      },
+      {
+       "id": "thermal_control",
+       "qty": 2
+      },
+      {
+       "id": "dust_mitigation",
+       "qty": 2
+      },
+      {
+       "id": "power_distribution",
+       "qty": 2
+      },
+      {
+       "id": "logistics_kit",
+       "qty": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "2035-05",
+   "synod_index": 2,
+   "transit_days": 210,
+   "objective": "Second plant (2x production) + habitat cluster + deep caches",
+   "missions": [
+    {
+     "id": "buildout_2035",
+     "objective": "Duplicate the fuel factory; stage the crewed-era base",
+     "crewed": false,
      "ships": 10,
      "packing_policy": "balanced",
      "pack_spares": true,
@@ -169,24 +247,48 @@
        "qty": 4
       },
       {
-       "id": "optimus_robot",
-       "qty": 10
+       "id": "habitat_inflatable",
+       "qty": 4
       },
       {
-       "id": "rover_unpressurized",
+       "id": "eclss_habitat",
+       "qty": 4
+      },
+      {
+       "id": "radiation_shelter",
        "qty": 2
       },
       {
-       "id": "robotic_maint_kit",
+       "id": "consumables_cache",
+       "qty": 6
+      },
+      {
+       "id": "sintering_rig",
        "qty": 2
       },
       {
-       "id": "cargo_crane",
+       "id": "grading_tools",
        "qty": 1
       },
       {
-       "id": "thermal_control",
+       "id": "optimus_robot",
+       "qty": 30
+      },
+      {
+       "id": "rover_unpressurized",
+       "qty": 4
+      },
+      {
+       "id": "robotic_maint_kit",
+       "qty": 4
+      },
+      {
+       "id": "cargo_crane",
        "qty": 2
+      },
+      {
+       "id": "thermal_control",
+       "qty": 4
       },
       {
        "id": "dust_mitigation",
@@ -198,57 +300,33 @@
       },
       {
        "id": "logistics_kit",
+       "qty": 2
+      },
+      {
+       "id": "relay_ground_station",
        "qty": 1
       },
       {
-       "id": "water_electrolysis",
-       "qty": 6
-      },
-      {
-       "id": "co2_acquisition",
-       "qty": 2
-      },
-      {
-       "id": "sabatier_reactor",
-       "qty": 2
-      },
-      {
-       "id": "cryo_liquefaction",
-       "qty": 2
-      },
-      {
-       "id": "water_processing",
+       "id": "central_compute",
        "qty": 1
       },
       {
-       "id": "isru_control",
+       "id": "landing_beacons",
        "qty": 1
-      },
-      {
-       "id": "excavator_rassor",
-       "qty": 4
-      },
-      {
-       "id": "radiation_shelter",
-       "qty": 2
-      },
-      {
-       "id": "consumables_cache",
-       "qty": 3
       }
      ]
     }
    ]
   },
   {
-   "id": "2035-05",
-   "synod_index": 2,
+   "id": "2037-07",
+   "synod_index": 3,
    "transit_days": 210,
-   "objective": "First crew: 12 land with pilots for everything the village scales",
+   "objective": "First crew \u2014 arrives to a powered, provisioned, fueled base",
    "missions": [
     {
-     "id": "first_crew_2035",
-     "objective": "Crew + 26-month bridge aboard + agri/industry pilots + ISRU hot-spare depth + pad rigs for the 2037 fleet",
+     "id": "first_crew_2037",
+     "objective": "Crew + consumable depth + habitat growth",
      "crewed": true,
      "settlers": 12,
      "ships": 20,
@@ -257,7 +335,7 @@
      "manifest": [
       {
        "id": "consumables_cache",
-       "qty": 3
+       "qty": 12
       },
       {
        "id": "eclss_habitat",
@@ -285,7 +363,7 @@
       },
       {
        "id": "optimus_robot",
-       "qty": 50
+       "qty": 20
       },
       {
        "id": "rover_unpressurized",
@@ -314,63 +392,23 @@
       {
        "id": "logistics_kit",
        "qty": 2
-      },
-      {
-       "id": "agri_module",
-       "qty": 12
-      },
-      {
-       "id": "regolith_refinery",
-       "qty": 1
-      },
-      {
-       "id": "polymer_chemical_plant",
-       "qty": 1
-      },
-      {
-       "id": "water_electrolysis",
-       "qty": 3
-      },
-      {
-       "id": "sabatier_reactor",
-       "qty": 2
-      },
-      {
-       "id": "co2_acquisition",
-       "qty": 1
-      },
-      {
-       "id": "water_processing",
-       "qty": 1
-      },
-      {
-       "id": "excavator_rassor",
-       "qty": 4
-      },
-      {
-       "id": "cryo_liquefaction",
-       "qty": 1
-      },
-      {
-       "id": "sintering_rig",
-       "qty": 2
       }
      ]
     }
    ]
   },
   {
-   "id": "2037-07",
-   "synod_index": 3,
+   "id": "2039-09",
+   "synod_index": 4,
    "transit_days": 210,
-   "objective": "Village: past the 110-person survival floor; scale the F3 pilots",
+   "objective": "Village: past the 110-person survival floor; Gen-1/2 industry starts",
    "missions": [
     {
-     "id": "village_2037",
-     "objective": "100 settlers; agri+industry at scale; fuel doubled for rotation era",
+     "id": "village_2039",
+     "objective": "100 settlers; first refinery + polymer plant; agriculture online",
      "crewed": true,
      "settlers": 100,
-     "ships": 40,
+     "ships": 42,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -384,43 +422,11 @@
       },
       {
        "id": "agri_module",
-       "qty": 20
+       "qty": 30
       },
       {
        "id": "consumables_cache",
        "qty": 20
-      },
-      {
-       "id": "radiation_shelter",
-       "qty": 4
-      },
-      {
-       "id": "water_electrolysis",
-       "qty": 12
-      },
-      {
-       "id": "co2_acquisition",
-       "qty": 4
-      },
-      {
-       "id": "sabatier_reactor",
-       "qty": 4
-      },
-      {
-       "id": "cryo_liquefaction",
-       "qty": 4
-      },
-      {
-       "id": "water_processing",
-       "qty": 2
-      },
-      {
-       "id": "isru_control",
-       "qty": 2
-      },
-      {
-       "id": "excavator_rassor",
-       "qty": 8
       },
       {
        "id": "regolith_refinery",
@@ -428,15 +434,27 @@
       },
       {
        "id": "polymer_chemical_plant",
-       "qty": 1
-      },
-      {
-       "id": "sintering_rig",
        "qty": 2
       },
       {
-       "id": "grading_tools",
-       "qty": 1
+       "id": "water_electrolysis",
+       "qty": 4
+      },
+      {
+       "id": "excavator_rassor",
+       "qty": 4
+      },
+      {
+       "id": "water_processing",
+       "qty": 2
+      },
+      {
+       "id": "sintering_rig",
+       "qty": 4
+      },
+      {
+       "id": "radiation_shelter",
+       "qty": 4
       },
       {
        "id": "optimus_robot",
@@ -483,14 +501,14 @@
    ]
   },
   {
-   "id": "2039-09",
-   "synod_index": 4,
+   "id": "2041-11",
+   "synod_index": 5,
    "transit_days": 210,
-   "objective": "Town: 500+; Gen-3 closure; electronics-fab pilot at earliest window",
+   "objective": "Town: 500+ people; Gen-3 closure (food, polymers, structures)",
    "missions": [
     {
-     "id": "town_2039",
-     "objective": "400 settlers; food/polymers/structures local",
+     "id": "town_2041",
+     "objective": "400 settlers; agriculture and habitat scale with population",
      "crewed": true,
      "settlers": 400,
      "ships": 110,
@@ -499,11 +517,11 @@
      "manifest": [
       {
        "id": "habitat_inflatable",
-       "qty": 102
+       "qty": 100
       },
       {
        "id": "eclss_habitat",
-       "qty": 102
+       "qty": 100
       },
       {
        "id": "agri_module",
@@ -519,11 +537,11 @@
       },
       {
        "id": "polymer_chemical_plant",
-       "qty": 2
+       "qty": 1
       },
       {
        "id": "electronics_fab",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "water_electrolysis",
@@ -594,13 +612,13 @@
    ]
   },
   {
-   "id": "2041-11",
-   "synod_index": 5,
+   "id": "2044-01",
+   "synod_index": 6,
    "transit_days": 210,
-   "objective": "Settlement: 1,000+ adults (NSS milestone), three synods early",
+   "objective": "Settlement established: 1,000+ adults (NSS milestone)",
    "missions": [
     {
-     "id": "settlement_2041",
+     "id": "settlement_2044",
      "objective": "600 settlers; the 1,000-adult formal-settlement milestone",
      "crewed": true,
      "settlers": 600,
@@ -610,11 +628,11 @@
      "manifest": [
       {
        "id": "habitat_inflatable",
-       "qty": 152
+       "qty": 150
       },
       {
        "id": "eclss_habitat",
-       "qty": 152
+       "qty": 150
       },
       {
        "id": "agri_module",
@@ -634,7 +652,7 @@
       },
       {
        "id": "electronics_fab",
-       "qty": 2
+       "qty": 1
       },
       {
        "id": "water_electrolysis",

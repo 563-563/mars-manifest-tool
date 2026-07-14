@@ -23,7 +23,7 @@ def plan_result(catalog, baseline, manager):
 
 def test_no_violations_and_crew_on_schedule(plan_result):
     assert not plan_result.violations
-    assert plan_result.first_crew_window == "2037-07"
+    assert plan_result.first_crew_window == "2035-05"
 
 
 def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
@@ -31,18 +31,21 @@ def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     # pilot chain ramps in over its first synod (commissioning factor 0.6),
     # so window 0 banks ~322 t rather than the ~537 t nameplate
     assert w["2031-01"].propellant_cumulative_t == pytest.approx(322, abs=5)
-    # matched buy still closes the 1,400 t gate at 2033 (~1,826 t, ~30% margin)
+    # the doubled chain closes the 1,400 t gate at 2033 with ~2,793 t banked
+    # (just shy of two loads): the Jan-2035 return demo burns one, leaving a
+    # full crew load at the May-2035 commit, refilled at ~3.2 loads/synod
     assert "return_propellant_proven" in w["2033-03"].new_capabilities
+    assert w["2033-03"].propellant_cumulative_t == pytest.approx(2793, abs=15)
     assert w["2033-03"].propellant_cumulative_t > 1400
-    # crew arrives with several full return loads banked
-    assert w["2037-07"].propellant_cumulative_t > 5 * 1400
+    # crew lands 2035 on ~5 full return loads
+    assert w["2035-05"].propellant_cumulative_t > 5 * 1400
 
 
 def test_honest_fleet_counts(plan_result):
-    # 2035 fits 10 ships once habitats stow at the inflatable's honest 75 m3
-    # (the 11th ship existed only to carry deployed-volume air); 2037's count
-    # follows the >=2x cumulative fleet-growth rule (20 -> 40), not packing
-    assert [w.ships for w in plan_result.windows] == [5, 5, 10, 20, 42, 110, 200]
+    # 5-10-20 through first crew (each window >=2x the last), then the city
+    # ramp; 2035's and 2037's counts follow the fleet-growth rule, not packing
+    # (crew fleets fly light), while 2039/2041 are genuinely cargo-bound
+    assert [w.ships for w in plan_result.windows] == [5, 10, 20, 40, 110, 200]
 
 
 def test_every_window_fits_its_fleet(plan_result, baseline):
@@ -57,11 +60,12 @@ def test_surface_state_lays_flat(plan_result):
     assert hw == sorted(hw)  # hardware only accumulates
     final = plan_result.windows[-1]
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
-    # pre-crew chains (14) + city-era growth (4+6+8)
-    assert inv["water_electrolysis"] == 32
-    # all habitats are inflatables (honest ~75 m3 stowed volume): 9 pre-city
-    # (1+4+4) + 275 city-era; the rigid habitat_module survives only in the
-    # frozen workbook fixtures
+    # pilot (2) + doubled factory (12) + crew-wave hot spares (3) +
+    # village chains (12) + town/settlement growth (6+8)
+    assert inv["water_electrolysis"] == 43
+    # all habitats are inflatables (honest ~75 m3 stowed volume): 5 pre-village
+    # (1+4) + 279 city-era, each sized to the 76.5 m3/person pressurized
+    # standard; the rigid habitat_module survives only in the frozen fixtures
     assert "habitat_module" not in inv
     assert inv["habitat_inflatable"] == 284
     # power and habitat dominate the city-era surface, per the research
@@ -72,16 +76,17 @@ def test_surface_state_lays_flat(plan_result):
 
 
 def test_population_is_first_class(plan_result):
-    # zero through the robotic era; first crew 2037; village/town/settlement ramp
+    # zero through the robotic era; first crew 2035; the ramp runs one synod
+    # earlier than the conservative program (village 2037 ... settlement 2041)
     pops = [w.population for w in plan_result.windows]
-    assert pops == [0, 0, 0, 12, 112, 512, 1112]
+    assert pops == [0, 0, 12, 112, 512, 1112]
     # blocked missions must not add settlers: covered by delivery gating
     # (population increments live next to landings, after the blocked check)
 
 
 def test_population_appears_in_enablements(plan_result, catalog, baseline):
     from mars_manifest.report import window_enablements
-    lines = window_enablements(plan_result.windows[3], catalog, baseline)
+    lines = window_enablements(plan_result.windows[2], catalog, baseline)
     assert any("Resident population: 12" in ln for ln in lines)
     robotic = window_enablements(plan_result.windows[0], catalog, baseline)
     assert not any("Resident population" in ln for ln in robotic)
@@ -92,14 +97,14 @@ def test_city_ramp_milestones_and_ledger(plan_result):
     # prospecting fast path retires water_confirmed in window 0 (30 sols)
     assert "water_confirmed" in w["2031-01"].capabilities_after
     # milestones fire on the researched thresholds
-    assert "survival_floor" in w["2039-09"].new_capabilities
-    assert "settlement_established" in w["2044-01"].new_capabilities
-    assert "industrial_autarky" not in w["2044-01"].capabilities_after
+    assert "survival_floor" in w["2037-07"].new_capabilities
+    assert "settlement_established" in w["2041-11"].new_capabilities
+    assert "industrial_autarky" not in w["2041-11"].capabilities_after
     # closure ladder progresses and the import rate walks the decay curve
-    assert w["2039-09"].closure_stage == "none"          # rate keyed to window START
-    assert w["2041-11"].closure_stage == "closure_gen_2"
-    assert w["2044-01"].closure_stage == "closure_gen_3"
-    assert w["2044-01"].import_rate_t_py == 0.8
+    assert w["2037-07"].closure_stage == "none"          # rate keyed to window START
+    assert w["2039-09"].closure_stage == "closure_gen_2"
+    assert w["2041-11"].closure_stage == "closure_gen_3"
+    assert w["2041-11"].import_rate_t_py == 0.8
     # every populated window covers its recurring-import requirement
     for r in plan_result.windows:
         if r.population and r.import_required_t:
@@ -113,7 +118,7 @@ def test_city_ramp_milestones_and_ledger(plan_result):
 def test_edl_and_water_metrics_in_enablements(plan_result, catalog, baseline):
     from mars_manifest.report import window_enablements
     # crew window has both new C5 metrics
-    crew = window_enablements(plan_result.windows[3], catalog, baseline)
+    crew = window_enablements(plan_result.windows[2], catalog, baseline)
     text = " ".join(crew)
     assert "EDL track record" in text
     assert "Water independence" in text and "months" in text
@@ -158,4 +163,4 @@ def test_life_support_demo_requires_the_habitat(catalog, baseline, manager):
     w = {r.window_id: r for r in result.windows}
     assert "life_support_closed" not in w["2035-05"].capabilities_after
     assert any("first_crew" in v or "blocked" in v for v in result.violations)
-    assert result.first_crew_window != "2037-07"
+    assert result.first_crew_window != "2035-05"

@@ -48,9 +48,10 @@ def test_program_plan_closes_everything(catalog, baseline, manager, reqs, engine
     matrix = engine.evaluate(reqs, _run(catalog, baseline, manager, PROGRAM))
     assert not matrix.open_ids
     v = {x.requirement.id: x for x in matrix.verdicts}
-    # mission-level requirement closes a full synod before crew
+    # mission-level requirement closes a full synod before the 2035 crew:
+    # life support, radiation, and the return branch all retire at 2033
     assert v["L0-MSN-01"].status == "CLOSED"
-    assert v["L0-MSN-01"].closed_window == "2035-05"
+    assert v["L0-MSN-01"].closed_window == "2033-03"
     # power scale and plant redundancy land ahead of plan
     assert v["L2-PWR-04"].status == "EARLY"
     assert v["L2-PROP-05"].status == "EARLY"
