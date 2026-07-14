@@ -82,6 +82,36 @@ via the session export + build scripts):
   Python 3.10/3.12, plus a gate that runs the requirements buy-off matrix on
   the baseline program and fails if anything is open.
 
+## Sources we keep coming back to
+
+The full per-input trail lives in `PROVENANCE.md`; these are the anchors that
+shaped the model most, and they're worth reading in their own right.
+
+**Architecture & doctrine**
+
+- Casey Handmer — [Starship is Still Not Understood](https://caseyhandmer.wordpress.com/2021/10/28/starship-is-still-not-understood/) and the Feb-2025 follow-ups: the "orbit, reuse, refill, chill" gate sequence, prospect-before-commit, and the cargo-ships-stay economics this plan adopts.
+- *New Space* 2022 — [A Roadmap for a Sustainable Human Mars Settlement](https://pmc.ncbi.nlm.nih.gov/articles/PMC9527650/): the ≥2× fleet-growth rule (the one cadence claim that survived our fact-check), the 10–20 first-crew band, and the RedWater well anchor.
+- NASA [Design Reference Architecture 5.0](https://ntrs.nasa.gov/citations/20090040343): the institutional baseline we diff against; source of the oxygen-only ISRU fallback scenario.
+- Maiwald et al. (DLR), *Scientific Reports* 2024: the peer-reviewed skeptic case — low-TRL ISRU/refill/chill — encoded here as the `conservative_feasibility` scenario rather than argued with.
+
+**Human factors & life support**
+
+- NASA BVAD ([TP-2015-218570/REV2](https://ntrs.nasa.gov/citations/20150000368)): the consumables floor (0.800 kg food / 0.895 kg O₂ / 3.217 kg water per person-day) and crop-area bounds — verified verbatim.
+- NASA/NTRS [20200002973](https://ntrs.nasa.gov/citations/20200002973): net habitable volume (~29 m³/person floor) and the 76.5 m³/person pressurized standard our habitat capacity math uses.
+
+**ISRU & local industry**
+
+- NASA MAV ISRU sizing ([NTRS 20170001421](https://ntrs.nasa.gov/citations/20170001421)): the study our chain's hardware-per-tonne ratio cross-checks against (within 7%); [MOXIE](https://www.nasa.gov/missions/mars-2020-perseverance/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/) remains the only ISRU ever flown on Mars — 122 g of O₂, a number worth keeping in view.
+- Molten regolith electrolysis ([NTRS 20120003037](https://ntrs.nasa.gov/citations/20120003037); [Dec-2024 vacuum demo](https://ntrs.nasa.gov/citations/20250003220)): regolith → oxygen + structural metal alloys — the process behind the `regolith_refinery`.
+- In-situ HDPE on Mars ([NTRS 20050157853](https://ntrs.nasa.gov/citations/20050157853)): CO₂ → ethylene → polyethylene via Sabatier/Fischer-Tropsch — the process behind the `polymer_chemical_plant`; see also [PE-regolith composite printing for radiation shielding](https://www.sciencedirect.com/science/article/abs/pii/S0094576521005269).
+
+**City-scale growth**
+
+- Freitas/Gilbreath lineage ([arXiv 1612.03238](https://arxiv.org/abs/1612.03238)): the industrial-closure generations (gases → plastics → metals → electronics → chips) and the exponential import cliff of incomplete electronics closure.
+- Salotti, [*Scientific Reports* 2020](https://www.nature.com/articles/s41598-020-66740-0): the 110-person minimum-viable-settlement floor.
+- [NSS Space Settlement Roadmap](https://nss.org/space-settlement-roadmap-25-martian-settlement/): the 1,000-adult formal-settlement milestone.
+- Handmer, [The make-buy question in a growing Mars city](https://caseyhandmer.wordpress.com/2022/03/29/understanding-the-make-buy-question-in-a-growing-mars-city/): the ~10 t → ~20 kg per-person-year import collapse (~500×) the city ramp walks down.
+
 ## Setup
 
 ```bash
