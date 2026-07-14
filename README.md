@@ -41,16 +41,21 @@ quietly used.
 
 | Window | Fleet | What it buys |
 |---|---|---|
-| **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, ECLSS demonstration article, prospect-before-commit water survey. Retires ~50% of weighted program risk on first landing. |
-| **2033-03** | 5 ships | The fuel factory: rate-matched ISRU chain + the reactors it drags (1,760 kWe). `return_propellant_proven` retires with ~1,826 t banked (chain ramps at 60% its first synod) — gated on 2031 confirming site water first. |
-| **2035-05** | 10 ships | Second plant (2× production) + habitat cluster + deep caches. `life_support_closed` + `radiation_managed`; all schedule-critical risk retired. Habitats fly folded (TransHab/B330-class, 75 m³ stowed → ~300 m³ deployed); the window is mass-bound at 10 ships. |
-| **2037-07** | 20 ships | First crew (12) lands at a powered, provisioned base with ~8,700 t of propellant banked, ~93% demonstrated EDL reliability, and every requirement closed at least one synod earlier. Count set by the ≥2× fleet-growth rule (20 → 40 cumulative), not packing. |
-| **2039 → 2044** | 42 → 200 ships | City ramp: past the 110-person survival floor (2039), Gen-3 industrial closure (2041), the NSS 1,000-adult settlement milestone (2044, ~1,112 people). Recurring imports walk the ~500× decay curve as local industry closes. |
+| **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 640 kWe fission, pilot fuel plant, prospect-before-commit water survey, and both demonstration clocks started (1,000-sol ECLSS, habitat endurance). Retires ~50% of weighted program risk on first landing. |
+| **2033-03** | 10 ships | The fuel factory, doubled: two rate-matched ISRU chains (3.2 return loads/synod, 2,800 kWe) + the 45 t survival bridge, pre-landed. `return_propellant_proven`, `life_support_closed`, and `radiation_managed` all retire — every crew gate green a full synod before anyone launches. The uncrewed Earth-return demo departs ~Jan 2035 on the plant's surplus. |
+| **2035-05** | 20 ships | **First crew.** 12 people land on ~7,000 t of banked propellant (5 return loads) with their 26-month bridge aboard — plus pilots for everything the village scales: 12 agri modules, refinery + polymer test articles, ISRU hot-spare depth, 70 robots on the surface, pad rigs for the next fleet. |
+| **2037-07** | 40 ships | The village: 112 people, past the 110-person survival floor. Every 2035 pilot deploys at scale (20 agri, 2 refineries + polymer, +2 fuel chains now that crew rotation is the customer). |
+| **2039-09** | 110 ships | The town: 512 people, Gen-3 closure (food, polymers, structures local), electronics-fab pilot at its earliest credible window. |
+| **2041-11** | 200 ships | The settlement: 1,112 adults — the NSS 1,000-adult milestone. Imports walk the ~500× decay curve as local industry closes. |
 
 The 2031 start reflects the verified public record (no 2026 flight;
-Moon-first pivot), and 2037 crew sits at the aggressive end of the
-independent expert consensus. **`docs/NARRATIVE.md` walks the whole arc
-through in plain language;** the city-ramp research is tiered in
+Moon-first pivot). **2035 crew is deliberately aggressive** — but every gate
+still closes on demonstrated state, and the plan degrades honestly: under the
+peer-reviewed skeptic scenario (`conservative_feasibility`) the gates hold and
+crew auto-slips to 2037, which is exactly the archived conservative program
+(`examples/conservative_program.json`). You are choosing an option on 2035,
+not a promise of it. **`docs/NARRATIVE.md` walks the whole arc through in
+plain language;** the city-ramp research is tiered in
 `docs/CITY_RAMP_RESEARCH.md`.
 
 ## Interactive views
@@ -162,8 +167,10 @@ mars report inputs/program.json --format xlsx --out out/program.xlsx
   (`program.json`, `assumptions.json`, `city.json`, `requirements.json`,
   `catalog.csv`); see [`inputs/README.md`](inputs/README.md). This is the one
   place to change the model.
-- `examples/` — frozen regression fixtures only (the `*_2026*` and
-  `campaign_4window` files); pinned to historical values, never the live plan
+- `examples/` — frozen regression fixtures (the `*_2026*` and
+  `campaign_4window` files, pinned to historical values) plus
+  `conservative_program.json`, the maintained gate-maximalist alternative
+  (crew 2037; the baseline's skeptic-scenario outcome)
 - `viz/` — the browser-view build pipeline (reads `inputs/` via the engine)
 - `tests/` — the regression + behavior suite CI enforces
 

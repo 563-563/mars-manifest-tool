@@ -22,13 +22,24 @@ governs NOW.*
 
 ## The baseline
 
-- **`inputs/program.json` is the program.** 2031-01 start (Moon-first
-  pivot; no 2026 flight) → fuel factory 2033-03 → second plant + habitats
-  2035-05 (10 ships; habitats stow folded at the inflatable's honest 75 m³)
-  → first crew 2037-07 (20 ships; set by the ≥2× fleet-growth rule).
+- **`inputs/program.json` is the program** (the blue-sky baseline,
+  re-baselined 2026-07-14): 2031-01 precursor (5 ships) → doubled fuel
+  factory + pre-landed survival bridge 2033-03 (10 ships; 3.2 loads/synod;
+  uncrewed return demo departs ~Jan 2035 on its surplus) → **first crew
+  2035-05** (20 ships, 12 crew, flying with the village's pilots: agri,
+  refinery+polymer test articles, ISRU hot-spare depth) → village 2037-07
+  (40) → town 2039-09 (110) → settlement 2041-11 (200; 1,112 adults).
+  Governing doctrines: fly-with instead of pre-land (the one-synod survival
+  bridge excepted), pilots one synod ahead of their scale deployment, fuel
+  capacity follows demand, ≥2× fleet growth per synod.
 - Crew gating is strict by design: propellant *banked* (≥1,400 t), 1,000-sol
-  ECLSS demonstration, prospect-before-commit (`water_confirmed`), and no
-  single-ship loss may cost a schedule-critical capability.
+  ECLSS demonstration, prospect-before-commit (`water_confirmed`), no
+  single-ship loss may cost a schedule-critical capability, and the return
+  demo departs before crew (L1-RET-01, transit-demo posture: it reports
+  during crew transit; surface-hold reserves hedge a failure).
+- **`examples/conservative_program.json`** is the archived gate-maximalist
+  alternative (crew 2037). It is also what the baseline *becomes* under
+  `conservative_feasibility` — the gates hold and crew auto-slips.
 - `inputs/requirements.json` + `mars requirements` is the buy-off contract;
   `docs/COMPARATIVES.md` records how we differ from Handmer / New Space 2022 /
   NASA DRA 5.0 and what we adopted from them.
