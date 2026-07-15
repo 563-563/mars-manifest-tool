@@ -28,14 +28,14 @@ def test_no_violations_and_crew_on_schedule(plan_result):
 
 def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     w = {r.window_id: r for r in plan_result.windows}
-    # pilot chain ramps in over its first synod (commissioning factor 0.6),
-    # so window 0 banks ~322 t rather than the ~537 t nameplate
-    assert w["2031-01"].propellant_cumulative_t == pytest.approx(322, abs=5)
+    # pilot chain (qty-3 on the bottleneck steps) ramps in over its first
+    # synod at commissioning factor 0.6, banking ~483 t
+    assert w["2031-01"].propellant_cumulative_t == pytest.approx(483, abs=5)
     # the doubled chain closes the 1,400 t gate at 2033 with ~2,793 t banked
     # (just shy of two loads): the Jan-2035 return demo burns one, leaving a
     # full crew load at the May-2035 commit, refilled at ~3.2 loads/synod
     assert "return_propellant_proven" in w["2033-03"].new_capabilities
-    assert w["2033-03"].propellant_cumulative_t == pytest.approx(2793, abs=15)
+    assert w["2033-03"].propellant_cumulative_t == pytest.approx(3223, abs=15)
     assert w["2033-03"].propellant_cumulative_t > 1400
     # crew lands 2035 on ~5 full return loads
     assert w["2035-05"].propellant_cumulative_t > 5 * 1400
@@ -60,9 +60,9 @@ def test_surface_state_lays_flat(plan_result):
     assert hw == sorted(hw)  # hardware only accumulates
     final = plan_result.windows[-1]
     inv = {cid: qty for cid, qty, _ in final.surface_inventory}
-    # pilot (2) + doubled factory (12) + crew-wave hot spares (3+2) +
-    # village chains (12) + town/settlement growth (6+8)
-    assert inv["water_electrolysis"] == 45
+    # pilot (3, qty-3 top-up) + doubled factory (12) + crew-wave hot spares
+    # (3+2) + village chains (12) + town/settlement growth (6+8)
+    assert inv["water_electrolysis"] == 46
     # all habitats are inflatables (honest ~75 m3 stowed volume): 5 pre-village
     # (1+4) + 299 city-era, sized to the 76.5 m3/person pressurized standard
     # with settlement growth headroom; habitat_module survives only in fixtures

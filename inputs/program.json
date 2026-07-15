@@ -33,7 +33,7 @@
       },
       {
        "id": "recon_instruments",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "optimus_robot",
@@ -65,15 +65,15 @@
       },
       {
        "id": "co2_acquisition",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "sabatier_reactor",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "water_electrolysis",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "cryo_liquefaction",
@@ -81,7 +81,7 @@
       },
       {
        "id": "isru_control",
-       "qty": 2
+       "qty": 3
       },
       {
        "id": "ice_prospecting",
@@ -113,7 +113,7 @@
       },
       {
        "id": "kinetic_penetrator_set",
-       "qty": 1
+       "qty": 2
       },
       {
        "id": "orbital_radar_set",

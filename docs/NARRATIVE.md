@@ -90,11 +90,14 @@ arrives, with newly-delivered capacity ramping at 60% its first synod.
 touchdown, cheaply, before anything expensive depends on the answers.
 Everything schedule-critical flies at quantity two, smeared across hulls.
 
-**What it proves:** EDL at 100-tonne class; 640 kWe of storm-proof fission
+**What it proves:** EDL at 100-tonne class; 840 kWe of storm-proof fission
 baseload; precision landing, comms, autonomy, mobility; a pilot ISRU chain
-making its first ~1 t of methalox a day (322 t banked by 2033 — proof of
-chemistry, not production); and **site water confirmed in ~30 sols** by
-kinetic penetrators and orbital radar instead of 200 sols of drilling.
+making ~1.5 t of methalox a day (483 t banked by 2033 — proof of chemistry,
+not production); and **site water confirmed in ~30 sols** by kinetic
+penetrators and orbital radar instead of 200 sols of drilling. The chain's
+bottleneck steps fly at quantity *three*, not two — at 50/50 landing odds,
+qty-2 keeps the whole five-component chain alive only ~24% of the time;
+qty-3 nearly doubles that, and the holds had the margin (no air freight).
 
 **The two clocks:** one habitat and one ECLSS unit land now, not for use but
 to start the 1,000-sol life-support demonstration — the one gate money cannot
@@ -111,8 +114,8 @@ the first stays banked for people.
 
 **What it proves:** `return_propellant_proven`, `life_support_closed`, and
 `radiation_managed` — **every crew gate green a full synod before anyone
-launches.** 7.2 t of methalox a day (a full return load every ~6.5 months;
-2,793 t banked by 2035) on 2,800 kWe. The 45 t **survival bridge** — one
+launches.** 7.7 t of methalox a day (a full return load every ~6 months;
+3,223 t banked by 2035) on 3,000 kWe. The 45 t **survival bridge** — one
 synod of food, water and oxygen for twelve — is pre-landed and verified by
 robots before any crew commits to needing it. Gated on 2031 actually finding
 the water; we don't fly a factory at a hunch.
@@ -134,8 +137,8 @@ cuts it in the open: if the demo fails mid-cruise, they land anyway onto
 years of caches and wait out one window while the fix flies. Their own
 return, ~March 2037, flies a profile by then proven nineteen months earlier.
 
-**What they land on:** 7,358 t of banked propellant (five full ride-home
-loads), 1,500 m³ of pressurized volume — a roomy 125 m³ each against NASA's
+**What they land on:** 8,057 t of banked propellant (five-plus full
+ride-home loads), 1,500 m³ of pressurized volume — a roomy 125 m³ each against NASA's
 76.5 m³/person standard — a ~90% demonstrated landing record, and their own
 26-month consumables bridge flying beside them.
 
@@ -157,16 +160,16 @@ settlement could keep itself alive if the ships stopped coming.
 **What it deploys:** every 2035 pilot at scale, shaped by two years of pilot
 data — 32 agriculture modules feeding ~128, Gen-1/2 industry (refineries and
 polymers turning regolith and CO₂ into structure and plastic), and two more
-fuel chains **now that crew rotation is finally the customer**: 14.9 t of
-methalox a day, 10.3 loads banked. Thirty-four ships land on pads the robots
-paved two years earlier. Power reaches 9,800 kWe.
+fuel chains **now that crew rotation is finally the customer**: 15 t of
+methalox a day, 11 loads banked. Thirty-four ships land on pads the robots
+paved two years earlier. Power reaches 10,000 kWe.
 
 ### 2039 · The town — Gen-3 closure (97 ships, 512 people)
 
 Food, plastics, and structures now come out of local dirt; the import bill
 per head drops from 10 to 2 t/person/year and keeps sliding down the ~500×
 decay curve. It isn't free: agriculture is the power monster, and
-grow-lighting shoves the base past 20,600 kWe. On Mars, food is electricity
+grow-lighting shoves the base past 20,800 kWe. On Mars, food is electricity
 wearing a costume. The electronics-fab pilot lands at the earliest window its
 feedstock industry exists to supply — chips remain the last thing Mars ever
 makes. Every populated window is machine-checked to cover its residents'
@@ -176,7 +179,7 @@ consumables; none runs a deficit.
 
 The NSS 1,000-adult formal-settlement milestone, **three years earlier than
 the conservative plan** — reached not by cutting gates but by re-sequencing
-around them. ~28,400 t of hardware across 322 ships, 39,600 kWe, 312
+around them. ~28,500 t of hardware across 322 ships, 39,800 kWe, 312
 agriculture modules feeding ~1,248, and 91,500 m³ of pressurized volume still
 sized to the honest 76.5 m³-per-person standard — with headroom for the wave
 after. And the honest coda: this is
