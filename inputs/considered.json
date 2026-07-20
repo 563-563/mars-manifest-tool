@@ -357,8 +357,8 @@
     {
      "idea": "RedWater Rodwell rate anchor vs our water plant",
      "source": "New Space 2022 (RedWater)",
-     "status": "**adopted (flag, unresolved)**",
-     "why_where_recorded": "~1 t water per 10 days per well is the one published rate datum; our 3.5 t unit at ~3.6 t/sol implies ~36 wells' worth per plant. Recorded as the sharpening target for the Tier-D water rows — the biggest unreviewed optimism in the ISRU chain. PROVENANCE §2b."
+     "status": "**resolved (2026-07-20)**",
+     "why_where_recorded": "Source-verification pass against the primary Honeybee/Zacny publications: RedWater at TRL-6 produces ~169 kg/h at ~0.45 kWh/kg end-to-end — our unit’s rate matches, and Rodwell production is power-limited, so rate = power/energy is the right physics. The 1 t/10 days figure was a low-power operating point in a secondary summary. Water energy re-anchored 0.3 → 0.45 kWh/kg end-to-end (program-neutral: electrolysis binds every window; even 2× the anchored energy moves nothing). Excavation anchored to the RASSOR 2.0 design law, conservative at any ore grade. PROVENANCE §2b."
     },
     {
      "idea": "Handmer's make-vs-buy threshold (<$100/kg → always make locally)",
