@@ -1,19 +1,142 @@
 # CONOPS-1 — Concept of Operations: the robotic era through first crew
 
-*Covers window 0 (2031) through the first crew's surface establishment
-(2036). A second document, CONOPS-2, will cover the rotation and city era
-(2037 onward) once the constellation-refresh and rotation-logistics
-decisions close. Program quantities are engine output from
-`inputs/program.json`; operational sequences are doctrine recorded here and
-in `docs/CONSIDERED.md` — the planner models mass, schedule, and gates, not
-geometry or timing inside a window. **Every operational quantity below is derived or
-heritage-anchored in Appendix A (inline, generated from the provenance
-ledger — the same rows render as `PROVENANCE.md` §5b). Hardware
-spec-and-heritage sheets: `docs/HARDWARE.md`.***
+## 1. Purpose and scope
 
----
+This document describes how the program's first three flights operate:
+window 0 (2031) through the first crew's surface establishment (2036). It
+is written to be self-contained — a reader needs no other document to
+follow the mission, though every quantity here is traceable to the
+references in §6. A second document, CONOPS-2, will cover the rotation and
+city era (2037 onward) once the constellation-refresh and
+rotation-logistics decisions close.
 
-## 1. System elements
+Program quantities (fleet sizes, masses, propellant, gates) are engine
+output from `inputs/program.json`. Operational sequences — geometry,
+orbits, timing inside a window — are doctrine recorded here and in the
+considered ledger; the planner deliberately does not model them. Every
+operational quantity is derived or heritage-anchored in **Appendix A**,
+which is generated into this document from the provenance ledger and
+freshness-tested against it. Hardware spec-and-heritage sheets:
+`docs/HARDWARE.md`.
+
+## 2. Mission objective and success criteria
+
+The mission-level requirement (L0-MSN-01): *the first crew shall arrive at
+a powered, provisioned, and fueled Mars base with a demonstrated return
+path, and no single cargo-ship loss shall defeat the campaign.*
+
+Success is defined by gates that retire on **demonstrated state, not
+hardware delivery**. Crew may not launch until all six are green:
+
+| Gate | Retires when |
+|---|---|
+| `edl_proven` | a 100 t-class ship has landed (statistics accumulate thereafter) |
+| `power_baseload` | continuous, dust-storm-tolerant power is operating |
+| `return_propellant_proven` | ≥1,400 t of methalox is *produced and banked* on the surface |
+| `life_support_closed` | the integrated habitat+ECLSS article has run **1,000 sols** |
+| `habitat_ready` | pressurized volume beyond the landed ships exists |
+| `radiation_managed` | regolith-shielded storm shelters are in place |
+
+Plus the return-flight posture (L1-RET-01): an uncrewed ship flies the
+complete Mars→Earth profile before crew launch, reporting during their
+transit. End state: December 2035, twelve people alive and working at a
+base holding five-plus fueled return loads.
+
+## 3. Background — the program in brief
+
+Six flights, every 26 months, each one earning permission for the next:
+
+| Flight | Window | Ships | People | Role |
+|---|---|---|---|---|
+| 1 | 2031 | 5 | — | Precursor: land, power, prospect; start the clocks |
+| 2 | 2033 | 10 | — | Fuel factory ×2 + survival bridge; all gates green |
+| 3 | 2035 | 15 | 12 | **First crew** + pilots for everything that scales |
+| 4 | 2037 | 34 | 112 | Village (CONOPS-2) |
+| 5 | 2039 | 97 | 512 | Town (CONOPS-2) |
+| 6 | 2041 | 161 | 1,112 | Settlement (CONOPS-2) |
+
+Five doctrines shape every manifest, and this document applies them
+operationally:
+
+1. **Evidence gates, not calendar dates.** Nothing commits until the
+   thing it depends on is demonstrated.
+2. **Every number carries a receipt** — a source and confidence tier
+   (§5); claims that fail verification are recorded as failing.
+3. **No single ship loss may cost a schedule-critical capability** —
+   critical hardware flies at quantity ≥2, spread across hulls.
+4. **Pilot one synod ahead; scale when the demand ships.** Provisions
+   pre-land exactly one synod of survival (the *bridge*); depth flies
+   with the people.
+5. **No air freight**: fleets are sized to their cargo at ≤90% of mass
+   capacity; floored windows top up with risk depth.
+
+On the dates: first crew in 2035 is deliberately beyond the aggressive
+end of published consensus, and the plan is honest about it — it is an
+**option on 2035, not a promise**. Under the peer-reviewed skeptic
+scenario (`conservative_feasibility`) every gate holds and crew slips
+automatically to 2037. The evidence chooses the date; the sequencing just
+makes the early date *possible*.
+
+## 4. Grounding — the environment and the clock
+
+**The synodic clock rules everything.** Earth and Mars align for
+low-energy transfer once every ~26 months (779.9 days); a
+conjunction-class crossing takes ~210 days at the fast end. Miss a window,
+wait a synod. Return geometry is offset: a ship that arrives must wait
+~460 days on the surface before the Mars→Earth window opens, so there is
+exactly **one return opportunity per synod** — the first fuel-feasible one
+falls in January 2035. Production planning uses ~600 usable sols per
+synod. All surface operations run under a **4–22 minute one-way light
+delay** (and a ~2-week comms blackout at solar conjunction each synod):
+robots execute, Earth supervises by exception, nothing on the critical
+path requires a real-time human in the loop.
+
+**The environment, operationally.** Gravity is 0.38 g (a Mars sol is
+24.66 h — timelines here use *sols* on the surface, days in flight). The
+CO₂ atmosphere is ~6 mbar: thick enough for aerobraking, entry heating,
+and dust, far too thin to breathe or to slow a lander without propulsion.
+**Global dust storms last weeks to months** (the 2018 storm ended the
+Opportunity rover) — they starve solar power but merely inconvenience
+fission, which is why fission anchors the baseline and solar is carried
+as a scenario. Galactic cosmic radiation is unshielded by the thin
+atmosphere; crew-era operations require regolith-covered storm shelters
+(the `radiation_managed` gate). Water exists as subsurface ice at
+mid-latitudes — known from orbit in general, unproven at any specific
+site at mining grade, which is the single uncertainty this mission's
+first month exists to retire.
+
+## 5. How to read the numbers
+
+Every figure in this document carries (or inherits) a confidence tier
+from the provenance ledger:
+
+| Tier | Meaning |
+|---|---|
+| **A** | Physical constant or directly measured value. Will not change. |
+| **B** | Published program specification, disclosed figure, or flight-measured datum. Could change as programs evolve. |
+| **C** | Derived from published figures by a stated calculation — check the derivation, not the source. |
+| **D** | Notional engineering estimate. Order-of-magnitude only; first target for replacement with real data. |
+
+Rows marked **✅ verified** with a date were re-fetched from the primary
+source and checked against the exact claim on that date. Where this
+document states a number without a tier, it is engine output computed
+from tiered inputs. The honest headline: the *architecture* rests mostly
+on A/B/C anchors; most *hardware masses* are still Tier D — which is why
+gates retire on demonstrated state rather than on specifications.
+
+## 6. Referenced documents
+
+| Document | Role |
+|---|---|
+| `inputs/program.json` | The program itself — windows, fleets, manifests (engine input) |
+| `docs/REQUIREMENTS.md` | Machine-checked requirements buy-off matrix (generated) |
+| `docs/manifests/` | Ship-by-ship manifests and the flight summary (generated) |
+| `PROVENANCE.md` | Every input's value, source, tier, and verification log (generated from `inputs/provenance.json`) |
+| `docs/CONSIDERED.md` | Decision register — everything weighed and adopted/rejected/deferred (generated from `inputs/considered.json`) |
+| `docs/HARDWARE.md` | Spec-and-heritage sheets for every element in this CONOPS |
+| `docs/NARRATIVE.md` | The same program told in plain language |
+
+## 7. System elements
 
 - **Transport segment** — Starship-class cargo/crew ships. Cargo hulls fly
   one-way (they are surface assets on arrival: pressure vessels, tankage,
@@ -32,10 +155,9 @@ spec-and-heritage sheets: `docs/HARDWARE.md`.***
   and pre-landed consumables (the survival bridge).
 - **Earth segment** — launch/refueling infrastructure (the four L1-TRANS
   preconditions: orbit, reuse, refill, chill), mission operations under
-  4–22 minute one-way light delay, and the materials/labs loop that
-  receives returned samples.
+  light delay, and the materials/labs loop that receives returned samples.
 
-## 2. Phase R0 — Earth-side preconditions (before 2031)
+## 8. Phase R0 — Earth-side preconditions (before 2031)
 
 Orbital Starship, routine reuse, orbital propellant transfer, and
 long-duration cryo storage must all be demonstrated before window 0
@@ -43,50 +165,50 @@ commits (L1-TRANS-01..04). These are per-scenario readiness flags: the
 baseline assumes them true; `conservative_feasibility` flips refill/chill
 and the requirements matrix goes visibly open.
 
-## 3. Phase R1 — Window 0: land, power, prospect (Jan 2031 – Mar 2033)
+## 9. Phase R1 — Window 0: land, power, prospect (Jan 2031 – Mar 2033)
 
 **Objective:** turn the unknowns that block everything downstream into
 measurements, with no single ship loss costing a schedule-critical
 capability.
 
-**3.1 Launch and transit.** Five ships depart January 2031 (~85 launches
+**9.1 Launch and transit.** Five ships depart January 2031 (~85 launches
 with tankers), 210-day transit. Every schedule-critical capability flies
 at quantity ≥2 spread across hulls; the ISRU chain's bottleneck steps fly
 at quantity 3 (at 50/50 landing odds, qty-2 keeps the five-component chain
 alive ~24% of the time; qty-3 ~44%).
 
-**3.2 Approach and deployment (arrival day, ~Aug 2031).** Hours to days
+**9.2 Approach and deployment (arrival day, ~Aug 2031).** Hours to days
 before entry interface, dispensers release two payload groups on targeted
-approach trajectories (MSL-ballast heritage; zero Δv cost to the ships):
-the equatorial group (areostationary relay) and the polar group (science
-smallsats, carrying the kinetic penetrators). Ships proceed to direct
-entry. The relay's first job is EDL telemetry for its own fleet.
+approach trajectories (MSL-ballast heritage, Appendix A; zero Δv cost to
+the ships): the equatorial group (areostationary relay) and the polar
+group (science smallsats, carrying the kinetic penetrators). Ships proceed
+to direct entry. The relay's first job is EDL telemetry for its own fleet.
 
-**3.3 Landing.** Five direct-entry landings at the orbitally selected
+**9.3 Landing.** Five direct-entry landings at the orbitally selected
 site (per-ship P(land) ≈ 0.5 at this window — the redundancy spreading
 exists for exactly this). Surviving hulls are safed; the robot workforce
 (10 humanoids, rovers, cranes) begins deployment: power grid first
 (840 kWe fission + storage), then comms/nav ground stations, then the
 pilot ISRU chain.
 
-**3.4 The 30-sol water survey (sols ~0–30).** The science smallsats
-capture into 1-sol resonant ellipses (periapsis over the site every sol)
-and begin low passes immediately. Penetrator strikes are commanded from
-orbit, one or two per sol from ~sol 5: ~20 rods per set (100–150 kg,
-steel/tungsten, impact 3.5–4 km/s), each strike timed near an observer
-pass and geometry-vetted — **no strike inside the ~10 km base keep-out**
-(sized by ejecta ballistics), strike ground-tracks oriented so along-track
-dispersion points away from assets. Fresh craters are read over repeated
-passes (imaging, radar sounding, ice-sublimation monitoring; plume
-spectroscopy opportunistically); each strike doubles as a calibrated
-seismic source for base-region subsurface structure. Ground truth from
-30–40 impact points calibrates the radar into a district map
-(~10⁴ km² class). Inside the keep-out, the two drilling prospectors
-ground-truth the near-field mining patch the slow way. `water_confirmed`
-closes at ~sol 30 by the fast path, with drilling (~200 sols) as the
-independent fallback.
+**9.4 The 30-sol water survey (sols ~0–30).** The science smallsats
+capture into 1-sol resonant ellipses (periapsis over the site every sol;
+Δv ladder in Appendix A) and begin low passes immediately. Penetrator
+strikes are commanded from orbit, one or two per sol from ~sol 5: ~20 rods
+per set (100–150 kg, steel/tungsten, impact 3.5–4 km/s), each strike
+timed near an observer pass and geometry-vetted — **no strike inside the
+~10 km base keep-out** (sized by ejecta ballistics, Appendix A), strike
+ground-tracks oriented so along-track dispersion points away from assets.
+Fresh craters are read over repeated passes (imaging, radar sounding,
+ice-sublimation monitoring; plume spectroscopy opportunistically); each
+strike doubles as a calibrated seismic source for base-region subsurface
+structure. Ground truth from 30–40 impact points calibrates the radar
+into a district map (~10⁴ km² class). Inside the keep-out, the two
+drilling prospectors ground-truth the near-field mining patch the slow
+way. `water_confirmed` closes at ~sol 30 by the fast path, with drilling
+(~200 sols) as the independent fallback.
 
-**3.5 Commissioning and steady state (sols 30+).** The pilot chain runs
+**9.5 Commissioning and steady state (sols 30+).** The pilot chain runs
 up (~1.5 t methalox/day; 483 t banked by 2033 — proof of chemistry, not
 production). Two demonstration clocks start: the integrated habitat+ECLSS
 article begins its 1,000-sol run (completes mid-2034). The science sats
@@ -97,7 +219,7 @@ under light delay: robots execute plans, Earth supervises by exception.
 landing, comms, autonomy, mobility, infrastructure, habitat, water supply,
 water *confirmed*) — half the program's weighted risk retired.
 
-## 4. Phase R2 — Window 1: the fuel factory, doubled (Mar 2033 – Jan 2035)
+## 10. Phase R2 — Window 1: the fuel factory, doubled (Mar 2033 – Jan 2035)
 
 **Commit decision (mid-2032):** the factory fleet ships **only if**
 window-0 prospecting confirmed site water (`requires: [water_confirmed]`),
@@ -106,13 +228,13 @@ buy around measured ice grade. If water had failed: relocate (costs a
 synod) or switch ISRU mode to the DRA-5.0-style oxygen-only fallback
 (no water dependency; methane imported at ~4 ships per return load).
 
-**4.1 Arrival (Oct 2033).** Ten ships (~88% full) land on the graded
+**10.1 Arrival (Oct 2033).** Ten ships (~88% full) land on the graded
 zone prepared by the window-0 robots. Cargo: **two** rate-matched ISRU
 chains (window-0's pilot becomes the hot spare), their reactors
 (3,000 kWe total), and the **45 t survival bridge** — one synod of food,
 water, and oxygen for twelve.
 
-**4.2 Operations.** The doubled plant commissions on the ramp (60%
+**10.2 Operations.** The doubled plant commissions on the ramp (60%
 first-synod factor) toward 7.7 t methalox/day — a full 1,400 t return
 load roughly every six months; 3,223 t banked by the 2035 window. Robots
 position and bury the radiation shelters, verify the bridge caches, and
@@ -124,7 +246,7 @@ launches** — propellant banked (≥1,400 t), life support closed, radiation
 managed, habitat ready, EDL statistics accumulating (15 landings), power
 at crew scale.
 
-## 5. Phase R3 — The receipt flight (Jan 2035 – Aug 2035)
+## 11. Phase R3 — The receipt flight (Jan 2035 – Aug 2035)
 
 The plant's second tankful buys the rehearsal. In **January 2035** a
 cargo ship is fueled from the surface plant — the first ISRU propellant
@@ -139,9 +261,9 @@ Arrival at Earth: **August 2035** — during the first crew's outbound
 cruise. This flight retires the L1-RET branch and closes the mission-level
 requirement (L0-MSN-01) at the window before crew.
 
-## 6. Phase C1 — First crew (May 2035 – 2036)
+## 12. Phase C1 — First crew (May 2035 – 2036)
 
-**6.1 Commit posture (May 2035).** Twelve crew launch with the
+**12.1 Commit posture (May 2035).** Twelve crew launch with the
 demonstrator still inbound: **the program's one deliberately cut corner,
 priced in the open.** Commit criteria: all six crew gates green on
 demonstrated state, ≥1,400 t in the tanks *after* the demo's burn, the
@@ -152,14 +274,14 @@ the fix flies — the caches cover a missed return window with years of
 margin. Their own return (~March 2037) flies a profile proven nineteen
 months earlier.
 
-**6.2 Fleet arrival sequencing (Dec 2035).** Fifteen ships; cargo hulls
+**12.2 Fleet arrival sequencing (Dec 2035).** Fifteen ships; cargo hulls
 enter first, the crew ship last, onto sintered pads, with the constellation
 providing EDL telemetry and the surface beacons precision guidance. The
 crew lands on 8,057 t of banked propellant (five-plus return loads),
 1,500 m³ of pressurized volume (125 m³ per person against the 76.5 m³
 standard), and a 26-month consumables bridge that flew beside them.
 
-**6.3 Surface operations.** The twelve are commissioning engineers, not
+**12.3 Surface operations.** The twelve are commissioning engineers, not
 survivors: their cargo is the future at pilot scale — 12 agriculture
 modules (first crops), the first regolith refinery (molten-regolith
 electrolysis), the first polymer plant (Sabatier→Fischer-Tropsch→HDPE),
@@ -167,7 +289,7 @@ hot-spare ISRU depth, and a robot workforce grown to ~100. Every pilot's
 data shapes the 2037 village's scale buy (pilot one synod ahead). Site
 prep for the 34-ship village fleet continues throughout.
 
-**6.4 Contingency postures.**
+**12.4 Contingency postures.**
 - *Return-demo failure:* land anyway; hold one window on caches; fix
   flies on the 2037 fleet; crew returns ~May 2039 at the latest.
 - *Partial fleet loss on arrival:* capabilities survive by redundancy
@@ -179,16 +301,17 @@ prep for the 34-ship village fleet continues throughout.
   gates hold, the 2035 crew window auto-blocks, and the program becomes
   the archived conservative plan — crew 2037, no doctrine change.
 
-## 7. Communications and autonomy
+## 13. Communications and autonomy
 
 Continuous base–Earth relay via areostationary; surface mesh via two
-relay ground stations + beacons; 4–22 min one-way light delay throughout.
-Doctrine: robots execute, Earth supervises by exception, and nothing in
-the critical path requires a real-time human in the loop — including the
-strike campaign, plant commissioning, and pad construction. The crew adds
-on-site judgment, not remote control.
+relay ground stations + beacons; 4–22 min one-way light delay throughout,
+with a ~2-week conjunction blackout each synod that the base rides out
+autonomously. Doctrine: robots execute, Earth supervises by exception,
+and nothing in the critical path requires a real-time human in the loop —
+including the strike campaign, plant commissioning, and pad construction.
+The crew adds on-site judgment, not remote control.
 
-## 8. Traceability
+## 14. Traceability
 
 Phase exits map to the machine-checked gates: R1 → the ten window-0
 capabilities; R2 → `return_propellant_proven`, `life_support_closed`,
@@ -224,3 +347,26 @@ Added 2026-07-20 alongside `docs/CONOPS.md`. These are the doctrine-layer quanti
 | Calibrated survey coverage | ~10⁴ km² class | **D (judgment)** | 30–40 ground-truth points across a ~100 km district, each calibrating the SAR return signature for its terrain unit; coverage extends over geologically similar terrain. The program's actual mining appetite is ~1 ha/yr — the survey's real product is a ranked decade of sites plus a validated method. |
 | Smallsat bus class | ~600–800 kg science / ~2 t relay | **D (analog C)** | Starlink-derived bus masses (~260 kg V1.0 → ~800 kg V2 Mini class, public figures, not re-verified) + Mars hardening + capture propellant (~26–36% fractions per the Δv rows) inside the 6 t catalog set. Count (3–4 + 1) is a sketch — the open sizing decision in the ledger. |
 <!-- CONOPS_BASIS:END -->
+
+## Appendix B — glossary
+
+| Term | Meaning |
+|---|---|
+| **Synod** | The ~26-month Earth–Mars alignment cycle; one launch window per synod each way |
+| **Sol** | A Mars day, 24.66 h; surface timelines count sols |
+| **Conjunction-class transfer** | The low-energy ~210-day crossing used by every flight here |
+| **v∞ (v-infinity)** | Arrival/departure speed relative to the planet before its gravity is counted |
+| **EDL** | Entry, Descent, and Landing |
+| **TEI** | Trans-Earth Injection — the burn that leaves Mars for home |
+| **ISRU** | In-Situ Resource Utilization — making propellant (and more) from local air and ice |
+| **Methalox** | Methane + liquid-oxygen propellant; ~1,400 t is one crewed ride home |
+| **Sabatier** | The CO₂ + H₂ → CH₄ + H₂O reaction at the heart of the fuel plant |
+| **ECLSS** | Environmental Control and Life Support System — the air/water recycling loop |
+| **Areostationary** | The Mars-synchronous orbit (~17,000 km altitude): a satellite hangs over one longitude |
+| **SAR** | Synthetic Aperture Radar — the shallow-ice mapping instrument |
+| **Rodwell** | A water well melted into an ice sheet (Antarctic practice; RedWater's Mars version) |
+| **RASSOR** | NASA's counter-rotating bucket-drum excavator line; the ancestor of our diggers |
+| **The bridge** | The pre-landed 45 t / one-synod survival cache — the only provisions that fly ahead of people |
+| **The receipt flight** | The January 2035 uncrewed Mars→Earth demonstration |
+| **Gate** | A capability requirement that retires on demonstrated state, never on delivery |
+| **Tier (A/B/C/D)** | Confidence grade of a number; see §5 |
