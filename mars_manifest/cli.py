@@ -133,6 +133,9 @@ def main(argv: list[str] | None = None) -> int:
     p_edl.add_argument("campaign")
     p_edl.add_argument("--scenario", default="baseline")
 
+    sub.add_parser("ledgers", help="Regenerate PROVENANCE.md + docs/CONSIDERED.md "
+                   "from their JSON sources (inputs/provenance.json, inputs/considered.json)")
+
     p_man = sub.add_parser("manifests",
                            help="Per-window, per-ship manifest snapshot (JSON + CSV)")
     p_man.add_argument("campaign")
@@ -286,6 +289,12 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print(md)
         return 1 if matrix.open_ids else 0
+
+    if args.command == "ledgers":
+        from .ledgers import render_ledgers
+        for p in render_ledgers(inputs_dir.parent):
+            print(f"Wrote {p}")
+        return 0
 
     if args.command == "manifests":
         import csv

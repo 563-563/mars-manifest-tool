@@ -13,12 +13,14 @@ governs NOW.*
    volume, solar density), the seed changes and consequences propagate.
 2. **Input data** (`inputs/*.json`, `inputs/catalog.csv`) — the single editable
    input surface, split by concern (program / assumptions / city / requirements
-   / catalog). The catalog is the source of truth for component attributes;
+   / catalog / the provenance + considered ledgers). The catalog is the source of truth for component attributes;
    assumptions are injected, never hard-coded. See `inputs/README.md`.
 3. **Engines** (`mars_manifest/`) — pure, deterministic, tested. Reports only
    render; no computation in the report layer.
-4. **Generated documents** (`docs/REQUIREMENTS.md`, the console and walkthrough
-   artifacts, xlsx reports) — regenerate, never hand-edit.
+4. **Generated documents** (`docs/REQUIREMENTS.md`, `PROVENANCE.md`,
+   `docs/CONSIDERED.md`, the console and walkthrough artifacts, xlsx
+   reports) — regenerate, never hand-edit. The two ledgers' source of truth
+   is `inputs/provenance.json` / `inputs/considered.json`.
 
 ## The baseline
 
@@ -79,6 +81,7 @@ mars plan inputs/program.json --format md   # the program at a glance
 mars requirements inputs/program.json --out docs/REQUIREMENTS.md  # regen after plan edits
 mars manifests inputs/program.json          # regen docs/manifests/ after plan edits (test-enforced fresh)
 mars lifecycle inputs/program.json          # risk buy-down + idle-mass audit
+mars ledgers                                # regen PROVENANCE.md + docs/CONSIDERED.md from inputs/*.json
 ```
 
 The story page regenerates from the in-repo pipeline (`viz/export_dashboard_data.py`

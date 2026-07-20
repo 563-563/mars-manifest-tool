@@ -1,0 +1,370 @@
+{
+ "title": "Considered — the ideas we looked at and did NOT model (yet)",
+ "preamble": [
+  {
+   "type": "prose",
+   "md": "*GENERATED from `inputs/considered.json` — edit the JSON, then run\n`mars ledgers` to regenerate this view. Do not hand-edit this file.*"
+  },
+  {
+   "type": "prose",
+   "md": "*A register so collaborators know omissions are decisions, not blind spots.\nStatuses: **deferred** (on the task list), **out of scope** (real, but not\nthis tool's job yet), **rejected** (failed verification or graded\nlow-rigor — do not resurrect without new evidence), **simplified** (modeled,\nbut with a stated shortcut).*"
+  },
+  {
+   "type": "table",
+   "columns": [
+    "Idea",
+    "Source",
+    "Status",
+    "Why / where recorded"
+   ],
+   "keys": [
+    "idea",
+    "source",
+    "status",
+    "why_where_recorded"
+   ],
+   "rows": [
+    {
+     "idea": "Phobos/Deimos propellant depots (refuel in Mars orbit, ~½ the surface-lift propellant)",
+     "source": "Handmer Feb-2025 comment thread",
+     "status": "**out of scope**",
+     "why_where_recorded": "Needs a crewed-return / orbital-logistics module the tool doesn't have; revisit when return flights are modeled. COMPARATIVES addendum."
+    },
+    {
+     "idea": "DSN / optical-comms bandwidth limits (Psyche-style laser links)",
+     "source": "same thread",
+     "status": "**out of scope**",
+     "why_where_recorded": "Ground-segment capacity, not a mass/schedule quantity in this model."
+    },
+    {
+     "idea": "SpaceX in-housing matrix (who builds what by 2028)",
+     "source": "Handmer Feb-2025",
+     "status": "**out of scope**",
+     "why_where_recorded": "Organizational forecast, not a mass/schedule input. Useful context only."
+    },
+    {
+     "idea": "One-way / no-return crew doctrine",
+     "source": "HANDOFF §10 (original open question)",
+     "status": "**deferred, no task**",
+     "why_where_recorded": "Would remove the propellant-banked crew gate and harden life-support requirements instead; a doctrine fork we've deliberately not taken."
+    },
+    {
+     "idea": "Development (non-recurring) cost ledger",
+     "source": "HANDOFF §10",
+     "status": "**deferred, no task**",
+     "why_where_recorded": "Recurring launch+cargo cost is modeled; R&D ledger (Starship $15B+, fission, ISRU) still excluded on purpose."
+    },
+    {
+     "idea": "Musk cadence/timeline figures (5→20→100→500 ships; 25–30 yr self-sufficiency; 10–15 windows; late-2026 first flight; ~5-ship first batch as a *plan*)",
+     "source": "AIAA/Teslarati/Space.com",
+     "status": "**rejected**",
+     "why_where_recorded": "Every one failed 3-vote adversarial verification or was superseded by the Feb-2026 Moon pivot. CITY_RAMP_RESEARCH §4; raw votes in `_city_ramp_raw_findings.json`. Citable as aspiration only."
+    },
+    {
+     "idea": "\"600 kW vs 25 kW = demo-to-production ISRU power gap\" framing",
+     "source": "Aerospace America",
+     "status": "**rejected**",
+     "why_where_recorded": "Numbers real, framing wrong: it's linear propellant-mass scaling between two vehicle sizes, killed twice by independent skeptic panels."
+    },
+    {
+     "idea": "arxiv 2112.06145 & 1904.01389 (1000-person colony papers) as anchors",
+     "source": "deep-research sweep",
+     "status": "**rejected**",
+     "why_where_recorded": "Direct reading: qualitative / low-rigor; no extractable budgets. The million-person sibling (2112.06155) survived at Tier C."
+    },
+    {
+     "idea": "500–1,000 / 5,000–10,000 population thresholds",
+     "source": "newspaceeconomy blog",
+     "status": "**rejected**",
+     "why_where_recorded": "Source auto-graded unreliable; the milestones we carry (110 / 1,000 / 1M) trace to Salotti, NSS, Handmer instead."
+    },
+    {
+     "idea": "NSS's Mars-born-generation criterion for `settlement_established`",
+     "source": "NSS roadmap",
+     "status": "**simplified**",
+     "why_where_recorded": "We gate on population ≥1,000 only; no birth/demographics model exists. Noted in `city.json`."
+    },
+    {
+     "idea": "Orbital assets as a distinct mission type (deploy to orbit, never land)",
+     "source": "task A4 design",
+     "status": "**simplified**",
+     "why_where_recorded": "Penetrators/orbital sats are modeled as manifest mass and appear in \"surface\" inventory; a true `orbital:` mission type is future work if orbital logistics grow."
+    },
+    {
+     "idea": "Ratio-based industrial closure (plant capacity per capita, not presence)",
+     "source": "task A3 design",
+     "status": "**simplified**",
+     "why_where_recorded": "Closure stages unlock on component presence + population thresholds; real closure would scale plant *count* with population. Import-decay stages are interpolated between Handmer's two verified endpoints (10 t → 20 kg)."
+    },
+    {
+     "idea": "Local-construction mass offsets (NSS: build habitats from regolith after Gen-3 closure)",
+     "source": "NSS / closure ladder",
+     "status": "**deferred, no task**",
+     "why_where_recorded": "City windows still import all habitat mass; closing structures locally would cut the largest import line. Natural B-phase follow-up."
+    },
+    {
+     "idea": "Population departures / return flights reducing headcount",
+     "source": "A1 design",
+     "status": "**simplified**",
+     "why_where_recorded": "Population only accumulates; crew rotation and returnees aren't modeled."
+    },
+    {
+     "idea": "LH2 boil-off physics for the h2_import mode",
+     "source": "TheRadicalModerate analysis",
+     "status": "**deferred → task C6**",
+     "why_where_recorded": "The mode's weak point (surface LH2 cryocooling) will carry a hard D-tier flag when built."
+    },
+    {
+     "idea": "Probabilistic EDL + two-ship loss",
+     "source": "comment threads + our own flags",
+     "status": "**adopted (C2)**",
+     "why_where_recorded": "edl.py: per-ship P(land) ramping 0.5→0.95 over synods; per-capability survival (independent-loss approximation); rule-of-three demonstrated reliability; loss_tolerance gains n_lost for k-ship. `mars edl` report."
+    },
+    {
+     "idea": "Within-window arrival *sequencing* (early test articles, relay-first, valuable cargo late)",
+     "source": "Handmer comment thread",
+     "status": "**simplified**",
+     "why_where_recorded": "C2 models one uniform P(land) per window, not ship-by-ship arrival order. Sequencing (staggered arrival energies, telemetry-relay-first) is a scheduling layer on top; deferred."
+    },
+    {
+     "idea": "Correlated EDL failures (a bad synod, shared design flaw)",
+     "source": "C2 design",
+     "status": "**simplified**",
+     "why_where_recorded": "Survival math assumes independent ship losses. A common-cause failure (dust, a design defect) would correlate them and lower survival; not modeled. The independence assumption is optimistic and flagged in edl.py."
+    },
+    {
+     "idea": "Redundancy-2 is insufficient for multi-component chains at low landing odds",
+     "source": "C2 finding",
+     "status": "**acted on (2026-07-14, window 0)**",
+     "why_where_recorded": "return_propellant_proven needs all 5 ISRU components; at p=0.5 qty-2 survives only ~24% (0.75^5). Under no-air-freight the window-0 holds were topped up to qty-3 on the four bottleneck chain steps (elec/CO2/Sabatier/control; cryo stays qty-2 — its 80 kW power drag doesn't fit the margin line) plus doubled single-point sensors (penetrators, recon) → chain survival ~44%, W0 banks 483 t, fleet at 87% mass. The C4 six-ship rejection stands: this buys survival with sunk hold capacity, not extra hulls."
+    },
+    {
+     "idea": "Earth-side readiness gates (orbit, reuse, refill, chill)",
+     "source": "Handmer Feb-2025",
+     "status": "**adopted (C1)**",
+     "why_where_recorded": "L1-TRANS requirements, `precondition` verify kind reads per-scenario `transport_readiness` flags; conservative_feasibility opens refill+chill."
+    },
+    {
+     "idea": "The 2037-crew \"conservative program\" (pre-land everything, crew a window after all gates)",
+     "source": "the pre-2026-07-14 baseline",
+     "status": "**archived alternative**",
+     "why_where_recorded": "`examples/conservative_program.json`. Superseded as baseline by the blue-sky program (crew 2035) after the 2026-07-14 review. Not a rival plan: under `conservative_feasibility` the blue-sky gates hold and crew auto-slips to 2037 — the archive *is* the blue-sky plan's bad-weather outcome."
+    },
+    {
+     "idea": "Tripling fuel capacity on the 2035 crew wave (+4–5 chains, ~8 loads/synod)",
+     "source": "blue-sky review 2026-07-14",
+     "status": "**rejected**",
+     "why_where_recorded": "Packing fact, not preference: +4 chains = 106% of the 20-hull fleet's mass. Double fits at 74%; and the post-2033 3.2 loads/synod already fuels ~3 full evacuations of a 12-person base per synod. Capacity follows demand to the 2037 village wave."
+    },
+    {
+     "idea": "Deep pre-landed consumable caches (90 t+ before crew)",
+     "source": "original baseline doctrine",
+     "status": "**superseded (bridge-not-depth)**",
+     "why_where_recorded": "Pre-land exactly one synod of survival (45 t bridge, verified before commit); depth flies with the crew at near-zero marginal cost since crew fleets fly light. Same-window provisions are conditioned on the crew's own landing anyway; the bridge hedges the common-mode arrival failure."
+    },
+    {
+     "idea": "Front-loading village-scale hardware onto the half-empty 2035 fleet",
+     "source": "blue-sky review 2026-07-14",
+     "status": "**rejected (one exception)**",
+     "why_where_recorded": "Violates pilot-one-synod-ahead: the F4 scale buy should be shaped by F3's pilot data, and idle crew-era mass is what the lifecycle review flags. Exception adopted: site-prep rigs moved to 2035 so robots pave the 40-ship landing zone two years ahead."
+    },
+    {
+     "idea": "Return-flight cadence (the scheduled routes home)",
+     "source": "blue-sky review 2026-07-14",
+     "status": "**adopted (doctrine, not modeled)**",
+     "why_where_recorded": "One Mars→Earth window per synod, first fuel-feasible one ~Jan 2035. Baselined flights: **Jan 2035** uncrewed receipt flight (L1-RET-01; departs before crew, reports during their transit); **Mar 2037** crew #1 return (flies the profile proven 19 months earlier); **May 2039+** rotation era. The ~Nov 2032 window is dead: the pilot plant hasn't banked a load by then. Nothing flies *for* samples — cargo rides routes that exist anyway. Return missions remain unmodeled in the planner (see \"Population departures\" row)."
+    },
+    {
+     "idea": "Return cargo: propellant sample + weathered hardware on the 2035 receipt flight",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**adopted (baseline, L2-RET-04)**",
+     "why_where_recorded": "Free mass on a flight that must fly. Note the honest hierarchy: the receipt flight *itself* is the full-fidelity propellant test (the fuel flew a ship home); the tank sample is contaminant forensics, the weathered seals/filters/PV are Earth-lab failure autopsy."
+    },
+    {
+     "idea": "Return cargo: Mars-made materials coupons on the 2037 crew return",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**adopted (doctrine)**",
+     "why_where_recorded": "The one return payload that is load-bearing: alloy ingots, polymer coupons, sintered brick from the 2035 industry pilots, certified in Earth labs (load frames, SEM/CT, ASTM protocols — instrumentation that can never fit the base's mass/labor budget). Results land ~2038, exactly in time to decide whether 2039+ windows substitute local structure for imported habitat tonnage — the largest import line (see \"Local-construction mass offsets\" row, which this unlocks). Transport loads are a *feature* for coupons: a specimen that survives ascent+cruise+entry then tests to spec has seen worse than service."
+    },
+    {
+     "idea": "Return cargo: regolith / inorganic-chemistry sample returns",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**rejected (on-site)**",
+     "why_where_recorded": "Perchlorate and regolith chemistry screening flies on flown-heritage wet-chemistry instruments (Phoenix detected perchlorates in situ, 2008). Inorganics aren't altered by transport but gain little from it; on-site answers the operational question immediately vs a 26-month Earth loop."
+    },
+    {
+     "idea": "Return cargo: ice cores / volatiles to Earth",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**rejected**",
+     "why_where_recorded": "Requires cryogenic hold through ascent, cruise, and entry — real engineering for marginal gain over on-site screening. Revisit only if a science customer (not this program) funds it."
+    },
+    {
+     "idea": "Return cargo: agri/plant samples",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**rejected (on-site strictly better)**",
+     "why_where_recorded": "The agri pilots grow crops in actual Mars gravity, radiation, and treated regolith; Earth can only simulate. The pilot is the ground truth — data, not plants, comes home."
+    },
+    {
+     "idea": "Half-empty growth-rule fleets (“the holds are the doctrine” framing)",
+     "source": "blue-sky review 2026-07-14",
+     "status": "**superseded (no air freight)**",
+     "why_where_recorded": "A half-empty hold is an unexamined inherited number, not a virtue. Fleet = max(cargo at ≤90% mass, cumulative-doubling floor); growth-floored windows (2035, 2041) top up with doctrine-clean risk depth. 385 → 322 ships, ~1,070 fewer launches, ~$96 billion saved, landed mass UP 26.5 → 28.4 kt."
+    },
+    {
+     "idea": "Return cargo: organics / astrobiology samples",
+     "source": "return-cargo review 2026-07-14",
+     "status": "**out of scope**",
+     "why_where_recorded": "Cruise radiation degrades organics (the known MSR fidelity problem) and life-detection is not this program's driver. A science program's problem, on a science program's budget."
+    },
+    {
+     "idea": "AIAA MGA contingency",
+     "source": "PROVENANCE backlog",
+     "status": "**adopted (D3)**",
+     "why_where_recorded": "`aiaa_contingency` scenario: per-group mass-growth allowance replacing the flat 10%; scenario-only pending review."
+    },
+    {
+     "idea": "NASA ISRU plant masses",
+     "source": "PROVENANCE backlog",
+     "status": "**checked (D2)**",
+     "why_where_recorded": "Our chain aggregate validated within 7% of the NASA MAV ISRU study — numbers confirmed, not replaced (PROVENANCE §6)."
+    },
+    {
+     "idea": "Semi-Markov component sparing on invented MTBFs",
+     "source": "PROVENANCE backlog / task D4",
+     "status": "**rejected (false precision)**",
+     "why_where_recorded": "A full semi-Markov model on failure rates we'd have to invent is sophistication over guessed data. Instead D4 ships the correct Poisson sparing *method* (`spares.py`, `poisson_spares` scenario) with D-tier ISS-anchored rates, off by default and flagged. Real MTBFs plug in without re-engineering; until then informed_spares (grounded in the 34-41% ECLSS band) is baseline."
+    },
+    {
+     "idea": "Single-hull industry seeds (polymer plant at 2039, electronics fab at 2041) exposed closure milestones to one bad landing",
+     "source": "found in the post-coupling loss-tolerance sweep",
+     "status": "**resolved 2026-07-13, by resequencing**",
+     "why_where_recorded": "The program already buys two of each; the second unit now flies WITH the wave that starts that closure stage instead of a window later (2039 carries both polymer plants, 2041 both electronics fabs), so the pair splits across hulls, and the later window's single unit is backstopped by the one already on the surface. Zero added hardware; fleet, launches, and cost unchanged. Same plant-level-redundancy logic as the 2035 fuel-plant duplication. Every window from 2033 on is now fully single-ship-loss tolerant; the only remaining single-point set is the 2031 habitat+ECLSS demo article, accepted and documented (re-flies in 2033 with ~360 sols of clock margin)."
+    },
+    {
+     "idea": "Costing the spares and contingency overheads",
+     "source": "found during M1-M5 build; re-surfaced adding line-item costs to docs/manifests/",
+     "status": "**simplified, logged**",
+     "why_where_recorded": "Cargo-hardware cost covers manifest items + auto-sized power hardware at catalog unit ranges. Spares (~26% of packed mass) and the mass-growth allowance are carried as MASS only, uncosted: spares pricing would need per-group $/kg assumptions we have no source for, and MGA is a margin, not a purchase. Costing spares at parent-group rates would raise cargo cost roughly a quarter; do it only with a sourced basis. Line items in docs/manifests/ show empty cost cells for spares so the gap is visible, not hidden."
+    },
+    {
+     "idea": "Balanced packer split complementary pairs (habitat vs the ECLSS that runs inside it)",
+     "source": "found reviewing window-0 loss cases",
+     "status": "**resolved 2026-07-13**",
+     "why_where_recorded": "Anti-affinity is right for redundant twins, wrong for items that only work together: splitting the demo set means both hulls must land. `fleet.affinity_sets` now bundles each habitat 1:1 with an ECLSS unit on one hull (anti-affinity still spreads the pairs), and the `life_support_closed` gate requires the habitat with the 1,000-sol clock on both. Precedent: every closed-loop demo in history ran inside a sealed volume (NASA LMLSTP, ISS ECLSS chamber testing, MELiSSA, Lunar Palace 1); inflatables need their own endurance run (BEAM 2016)."
+    },
+    {
+     "idea": "`habitat_module` stowed volume = deployed volume (300 m³)",
+     "source": "found during B3 build",
+     "status": "**resolved 2026-07-13**",
+     "why_where_recorded": "The workbook-era component carried deployed volume as its stowed figure. The live baseline now flies `habitat_inflatable` (75 m³ stowed → ~300 m³ deployed, TransHab/B330 ~4× compression) in every window from 2031 on — which returned the 11th ship at 2035 (volume-bound no more) and, via the ≥2× growth rule, reset 2037 to 20 ships (fleet 394 → 392). `habitat_module` survives only inside the frozen workbook-port fixtures, which pin the original spreadsheet math and are never re-anchored. (Ship counts quoted are as of this 2026-07-13 resolution; the 2026-07-14 blue-sky/no-air-freight re-baselines superseded them.)"
+    },
+    {
+     "idea": "Per-ship packing checks raw volume ≤ bay, while the batch check applies packing efficiency",
+     "source": "found during B3 build",
+     "status": "**simplified**",
+     "why_where_recorded": "Two volume standards coexist: the packer admits raw ≤ 614 m³/ship; the budget batch check divides by 0.65 first. The stricter batch check is what surfaces warnings. Unifying them is future work."
+    },
+    {
+     "idea": "6th ship on the 2033 fuel-factory window for redundancy",
+     "source": "task C4",
+     "status": "**rejected (gold-plating)**",
+     "why_where_recorded": "The window already meets the single-fault standard: capability is backstopped by window-0's pre-deployed pilot chain (L1-LOG-02 passes), and the ~30% propellant-gate margin absorbs one lost ship's ~20% (1,826→1,525 t > 1,400). Adding a ship carries mass we don't need to meet our stated single-fault bar. The two-ship-loss cliff (~1,224 t) is beyond that bar; it's C2's probabilistic-loss target."
+    },
+    {
+     "idea": "Production-margin loss requirement (gate must clear under one fuel-factory ship loss)",
+     "source": "task C4",
+     "status": "**deferred → task C2**",
+     "why_where_recorded": "Formalizing \"propellant gate survives a ship loss\" as a machine-checked requirement needs the campaign re-run with a ship dropped — the same simulation C2's probabilistic-EDL pass builds. Verified by hand for now (holds); requirement to follow."
+    }
+   ]
+  }
+ ],
+ "sections": [
+  {
+   "level": 2,
+   "title": "From the deep-research sweep (city-ramp)",
+   "blocks": [
+    {
+     "type": "prose",
+     "md": "Findings surfaced by the two deep-research runs (`docs/_city_ramp_raw_findings.json`,\nverdicts in `docs/CITY_RAMP_RESEARCH.md`) that we weighed but did not model,\nchose against, or simplified — recorded so their omission is visible."
+    },
+    {
+     "type": "table",
+     "columns": [
+      "Idea",
+      "Source / verdict",
+      "Status",
+      "Why / where"
+     ],
+     "keys": [
+      "idea",
+      "source_verdict",
+      "status",
+      "why_where"
+     ],
+     "rows": [
+      {
+       "idea": "Per-item surface offload limit: ~30 t feasible, single 100 t payloads doubtful",
+       "source_verdict": "AIAA stability analysis (unverified, votes errored)",
+       "status": "**not modeled**",
+       "why_where": "We assume a 100 t ship payload offloads fine; a real per-item offload cap would force cargo to be sub-divided and could change ship counts. A genuine unmodeled physical constraint — flagged for a future packing refinement, not yet acted on."
+      },
+      {
+       "idea": "\"Danger zone\": 1,000–100,000 people is the worst range — too big to evacuate, too small to be self-sufficient",
+       "source_verdict": "Handmer (unverified, session-limit errored)",
+       "status": "**not modeled**",
+       "why_where": "A strategic risk concept, not a mass/schedule quantity. Our milestones (110 / 1,000 / 1M) bracket it but we don't score evacuation-vs-autarky exposure. Worth a lifecycle metric someday."
+      },
+      {
+       "idea": "GMU agent-based minimum of 22 settlers",
+       "source_verdict": "technology.org / GMU preprint (Tier C, single source)",
+       "status": "**rejected as the floor anchor**",
+       "why_where": "We use Salotti's peer-reviewed 110 (3-0 verified) for `survival_floor`, not GMU's 22 — different framing (accident/resource survival vs labor-closure) and weaker sourcing. Noted as an alternate, lower bound."
+      },
+      {
+       "idea": "NSS \"reasonable self-sufficiency\" = 3 capabilities (life support, local food, local habitat construction)",
+       "source_verdict": "NSS roadmap (2-1 verified)",
+       "status": "**simplified**",
+       "why_where": "Our `settlement_established` gates on population ≥1,000 plus the closure ladder; we do not separately score NSS's 3-capability functional test. The closure stages approximate it."
+      },
+      {
+       "idea": "Per-capita material *usage* ~10× Earth on Mars",
+       "source_verdict": "Handmer (unverified, errored)",
+       "status": "**baked in, not explicit**",
+       "why_where": "Reflected implicitly in the high no-closure import figure (10 t/person/yr); we don't carry a separate Earth-vs-Mars usage multiplier."
+      },
+      {
+       "idea": "Agriculture crop area (~40–50 m²/person) also closes the O₂/CO₂ loop",
+       "source_verdict": "Frontiers (unverified, errored)",
+       "status": "**simplified**",
+       "why_where": "`agri_module` models grow-lighting power and food coverage but not its life-support (O₂/CO₂) co-benefit, which would offset some ECLSS load. Conservative (understates agriculture's value)."
+      },
+      {
+       "idea": "Mass→population coupling: ~620,000 t cumulative import ≈ 1M people; population doubles per window",
+       "source_verdict": "Handmer (unverified, errored)",
+       "status": "**not modeled**",
+       "why_where": "Our city windows are hand-authored with explicit settler counts and fleet sizes; population is not derived from cumulative delivered mass. A mass-driven population model is the natural M7 step."
+      },
+      {
+       "idea": "Maiwald specifics: ~191.5 t ISRU system, ~2.5 MW draw, ~1,263 t consumables for 12 crew/500 d",
+       "source_verdict": "DLR/Maiwald 2024 (unverified, errored)",
+       "status": "**used qualitatively (C1)**",
+       "why_where": "The `conservative_feasibility` scenario carries the DLR *posture* (high ISRU energy, low availability, refill/chill not demonstrated) rather than these exact figures as hard anchors; they informed the direction, not specific seed values."
+      },
+      {
+       "idea": "Cannon & Britt food self-sufficiency in 20–40 years",
+       "source_verdict": "Universe Today (2-1 verified)",
+       "status": "**not modeled as a clock**",
+       "why_where": "We gate closure on hardware + population, not on a food-closure calendar. The 20–40 yr figure is consistent with our ~2037–2041 Gen-3 (food) closure but isn't an input."
+      }
+     ]
+    },
+    {
+     "type": "prose",
+     "md": "Add to this file whenever something is weighed and set aside — an entry here\nis cheaper than a collaborator re-litigating it from scratch."
+    }
+   ]
+  }
+ ],
+ "_comment": "SOURCE OF TRUTH for this ledger. The markdown view is generated by `mars ledgers`; a freshness test enforces it. Rows are fielded objects under sections[].blocks[].rows."
+}

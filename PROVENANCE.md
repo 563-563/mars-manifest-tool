@@ -1,5 +1,8 @@
 # Input Provenance & Validation Audit
 
+*GENERATED from `inputs/provenance.json` — edit the JSON, then run
+`mars ledgers` to regenerate this view. Do not hand-edit this file.*
+
 *Every number the engines consume, traced to its source. Compiled 2026-07-09.
 Companion to `inputs/assumptions.json` and `inputs/catalog.csv`.
 Sources below were re-verified against the public record on the compile date;

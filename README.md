@@ -162,17 +162,17 @@ mars report inputs/program.json --format xlsx --out out/program.xlsx
 
 | File | What it is |
 |---|---|
-| `inputs/README.md` | **Start here to change anything** — the five input files, their fields, the tiers, and the edit → run → regenerate workflow |
+| `inputs/README.md` | **Start here to change anything** — the input files, their fields, the tiers, and the edit → run → regenerate workflow |
 | `docs/NARRATIVE.md` | **Start here for the story** — the whole program walked through in plain language, window by window, with the reasoning behind each call |
 | `CONTRIBUTING.md` | The rules that keep the repo honest — read before changing any number |
-| `PROVENANCE.md` | Every input: value, source, tier, sensitivity, verification log |
+| `PROVENANCE.md` | Every input: value, source, tier, sensitivity, verification log — **generated** from `inputs/provenance.json` (`mars ledgers`) |
 | `CLAUDE.md` | The working agreement: hierarchy of truth, baseline, regression contract |
 | `HANDOFF.md` | The original kickoff spec — **historical**; read for intent, not values |
 | `docs/REQUIREMENTS.md` | Generated buy-off matrix for the baseline program (never hand-edit) |
 | `docs/manifests/` | **Generated ship-by-ship manifests** (JSON + CSV) — what flies on which hull at what mass/volume/power, and which requirements each window closes (never hand-edit; `mars manifests` regenerates) |
 | `docs/COMPARATIVES.md` | How this plan differs from Handmer / *New Space* 2022 / NASA DRA 5.0, and what was adopted |
 | `docs/CITY_RAMP_RESEARCH.md` | Verified research brief for the city-scale extension (population thresholds, import-mass decay, fleet-growth rules) |
-| `docs/CONSIDERED.md` | Ideas weighed and set aside — deferred, out-of-scope, rejected, or simplified — so omissions read as decisions |
+| `docs/CONSIDERED.md` | Ideas weighed and set aside — deferred, out-of-scope, rejected, or simplified — so omissions read as decisions. **Generated** from `inputs/considered.json` (`mars ledgers`) |
 
 ## Layout
 

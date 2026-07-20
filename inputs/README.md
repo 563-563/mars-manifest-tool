@@ -1,6 +1,9 @@
 # inputs/ — the entire editable input surface
 
-Everything the model reads lives in this one directory, split by concern so you
+Everything the model reads lives in this one directory — plus the two
+governance ledgers (`provenance.json`, `considered.json`), whose markdown
+views (`PROVENANCE.md`, `docs/CONSIDERED.md`) regenerate via `mars ledgers`
+and are freshness-tested. Everything is split by concern so you
 can edit only the part you care about. Change a file here, re-run, and the
 consequences propagate through the engine, the tests, and the browser views.
 Nothing is computed in this directory; it is pure input.

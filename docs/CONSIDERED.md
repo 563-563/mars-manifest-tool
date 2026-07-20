@@ -1,5 +1,8 @@
 # Considered — the ideas we looked at and did NOT model (yet)
 
+*GENERATED from `inputs/considered.json` — edit the JSON, then run
+`mars ledgers` to regenerate this view. Do not hand-edit this file.*
+
 *A register so collaborators know omissions are decisions, not blind spots.
 Statuses: **deferred** (on the task list), **out of scope** (real, but not
 this tool's job yet), **rejected** (failed verification or graded
