@@ -275,6 +275,102 @@
      "source": "task C4",
      "status": "**deferred → task C2**",
      "why_where_recorded": "Formalizing \"propellant gate survives a ship loss\" as a machine-checked requirement needs the campaign re-run with a ship dropped — the same simulation C2's probabilistic-EDL pass builds. Verified by hand for now (holds); requirement to follow."
+    },
+    {
+     "idea": "Crew at the *second* window (~52 months after first landing)",
+     "source": "New Space 2022 roadmap",
+     "status": "**rejected (stricter gating kept)**",
+     "why_where_recorded": "Their timeline assumes gates retire on first attempt. Ours holds crew to banked propellant, the completed 1,000-sol ECLSS demo, and the return demo in flight — crew arrives at the third window (2035) even in the blue-sky plan. COMPARATIVES 'where we differ'."
+    },
+    {
+     "idea": "Solar-first surface power (mass-produced panels, oversize the farm)",
+     "source": "Handmer; New Space 2022",
+     "status": "**rejected for baseline, kept as scenario**",
+     "why_where_recorded": "After adopting Handmer's survival-vs-production load split (which un-rigged our storm math), the trade is honest: solar is lighter but accepts months of production halt in a global storm. Fission stays baseline for the crewed era; `solar_only` scenario carries the alternative. PROVENANCE §2."
+    },
+    {
+     "idea": "Split cargo/crew missions — cargo pre-deployed one synod ahead",
+     "source": "NASA DRA 5.0",
+     "status": "**adopted (the verification-margin spine)**",
+     "why_where_recorded": "DRA 5.0's split-mission architecture is our one-window rule: hardware lands, proves itself, and only then does the next commitment ride on it. The blue-sky fly-with doctrine trims *what* pre-lands (bridge, pilots), never the proof-before-commit ordering."
+    },
+    {
+     "idea": "Nuclear-thermal propulsion and DRA's crew-of-6 mission shape",
+     "source": "NASA DRA 5.0",
+     "status": "**out of scope**",
+     "why_where_recorded": "We assume Starship-class chemical transport and settlement-scale crews (12+); DRA's transit architecture is a different program. Only its surface doctrine (split missions, nuclear power, ISRU descope option) carries over."
+    },
+    {
+     "idea": "BVAD's full ECLSS/logistics sizing model",
+     "source": "NASA BVAD TP-2015-218570",
+     "status": "**simplified**",
+     "why_where_recorded": "We take the metabolic floor verbatim (0.800/0.895/3.217 kg per person-day, Tier B) and the crop-area bounds; the rest of BVAD's system-by-system logistics model collapses into per-group spares fractions. Sharpening that is the `informed_spares` lineage. PROVENANCE §3."
+    },
+    {
+     "idea": "Sizing habitat capacity at the bare NHV floor (~29 m³/person)",
+     "source": "NTRS 20200002973",
+     "status": "**rejected (2026-07-14)**",
+     "why_where_recorded": "The same study's 76.5 m³/person *pressurized* standard (NHV + systems + stowage) is the honest capacity divisor — the floor overstates capacity ~2.6×. This exact error shipped once ('room for 60') and was corrected in the story essay; all capacity math now uses 76.5. inputs/city.json `pressurized_volume_m3`."
+    },
+    {
+     "idea": "Vazquez Pombo's 30–200 kWe/person 'ISRU' power band",
+     "source": "Vazquez Pombo 2021",
+     "status": "**rejected (scope confusion), values adopted selectively**",
+     "why_where_recorded": "Their 'ISRU' is life-support-scale, NOT a propellant factory — conflating the two understates fuel-plant power ~10×. We adopt only the subsistence curve (25 → 17 kWe/person at 100+) and size the propellant chain explicitly from chemistry. inputs/city.json note."
+    },
+    {
+     "idea": "Molten regolith electrolysis as the regolith-refinery process basis",
+     "source": "NTRS 20120003037; Dec-2024 KSC demo (NTRS 20250003220)",
+     "status": "**adopted (process anchor)**",
+     "why_where_recorded": "Regolith → oxygen + ferro-alloys, NASA-demonstrated in vacuum Dec 2024. Anchors *what the refinery is* (Tier B process); its 12 t / 200 kW catalog row stays Tier D. PROVENANCE §6."
+    },
+    {
+     "idea": "Sabatier → Fischer-Tropsch → polyethylene as the polymer-plant basis",
+     "source": "NTRS 20050157853; Acta Astronautica 2021",
+     "status": "**adopted (process anchor)**",
+     "why_where_recorded": "CO₂ → ethylene → HDPE piggybacks the fuel plant's chemistry; products are film/liners/pipe/printer feedstock, plus PE-regolith composite radiation shielding. Anchors the Gen-2 closure tier. PROVENANCE §6."
+    },
+    {
+     "idea": "Industrial-closure generations with an electronics cliff",
+     "source": "Freitas/Gilbreath lineage (arXiv 1612.03238)",
+     "status": "**adopted (the city model's spine)**",
+     "why_where_recorded": "Import decay is keyed to closure generations (10 → 4 → 2 → 0.8 → 0.2 t/person-yr); incomplete electronics closure grows imports *exponentially*, which is why the fab is the last pilot (2039) and chips close last of all. inputs/city.json `import_decay_t_per_person_year`."
+    },
+    {
+     "idea": "Salotti's time-budget labor mechanism behind the 110-person floor",
+     "source": "Salotti SciRep 2020",
+     "status": "**simplified**",
+     "why_where_recorded": "We adopt the 110 threshold as a population gate; his underlying labor model (hours available vs required, cooperation sharing factor) is not modeled. A real labor budget would also price how many robots substitute for how many settlers — future work."
+    },
+    {
+     "idea": "Integrated sealed-volume life-support demonstration (no bare-ECLSS demos)",
+     "source": "NASA LMLSTP 1997; ISS chamber testing; BEAM 2016",
+     "status": "**adopted (2026-07-13 doctrine)**",
+     "why_where_recorded": "A loop is only demonstrable inside a sealed volume, and the integrated failure modes are the ones that matter. L2-LS-04 pins it; `fleet.affinity_sets` packs each habitat+ECLSS pair on one hull; the 1,000-sol clock runs on both articles."
+    },
+    {
+     "idea": "MOXIE as the ISRU reality anchor",
+     "source": "NASA MOXIE (2021–2023 flight data)",
+     "status": "**adopted (honesty anchor)**",
+     "why_where_recorded": "122 g of O₂ total at 6–12 g/hr is the entire flight heritage of Mars ISRU — ~9 orders of magnitude below our 2033 plant. It is why every ISRU component mass stays Tier D, why commissioning ramps at 0.6, and why the oxygen-only fallback (MOXIE chemistry) exists. PROVENANCE §2b/§6."
+    },
+    {
+     "idea": "RedWater Rodwell rate anchor vs our water plant",
+     "source": "New Space 2022 (RedWater)",
+     "status": "**adopted (flag, unresolved)**",
+     "why_where_recorded": "~1 t water per 10 days per well is the one published rate datum; our 3.5 t unit at ~3.6 t/sol implies ~36 wells' worth per plant. Recorded as the sharpening target for the Tier-D water rows — the biggest unreviewed optimism in the ISRU chain. PROVENANCE §2b."
+    },
+    {
+     "idea": "Handmer's make-vs-buy threshold (<$100/kg → always make locally)",
+     "source": "Handmer make-buy 2022",
+     "status": "**deferred**",
+     "why_where_recorded": "The endpoints of his curve (10 t → ~20 kg/person-yr) are the city ramp's import decay; the decision *rule* itself (a per-item make/buy economic threshold) is unmodeled — it would turn closure stages from presence-gates into economics. Natural successor to ratio-based closure."
+    },
+    {
+     "idea": "Kinetic penetrators + orbital radar as the fast water-confirmation path",
+     "source": "Handmer Feb-2025 ('rods from the gods')",
+     "status": "**adopted (A4)**",
+     "why_where_recorded": "Steel spears released on approach + Marslink-class radar retire `water_confirmed` in ~30 sols vs ~200 drilling — cheaper, faster, and loss-tolerant (doubled at window 0 since the no-air-freight top-up). The 2033 factory gate keys on it, with drilling as the fallback path."
     }
    ]
   }
