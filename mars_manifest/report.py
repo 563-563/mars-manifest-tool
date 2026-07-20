@@ -391,9 +391,35 @@ def window_enablements(w, catalog: Catalog, a: Assumptions,
     return out
 
 
+def flight_summary_markdown(result: CampaignResult, mass_cap_t: float) -> str:
+    """The program at a glance: one row per flight — ships, hold utilisation,
+    population, and the capabilities that window newly unlocks. Rendered
+    identically in `mars plan`, docs/manifests/SUMMARY.md, and the generated
+    README section (freshness is test-enforced)."""
+    rows = []
+    for i, w in enumerate(result.windows, start=1):
+        util = w.mass_delivered_t / (w.ships * mass_cap_t) if w.ships else 0.0
+        rows.append([f"{i}", w.window_id, w.ships, f"{100*util:.0f}%",
+                     f"{w.population:,}" if w.population else "—",
+                     ", ".join(f"`{c}`" for c in w.new_capabilities) or "—"])
+    c = result.cumulative
+    table = _md_table(
+        ["Flight", "Window", "Ships", "Holds full", "Population", "Capabilities unlocked"],
+        rows)
+    tail = (f"\n\nCumulative: **{c['ships']} ships · "
+            f"{c['total_launches']:,} launches** (tankers included) · "
+            f"{c['mass_delivered_t']:,.0f} t landed · first crew "
+            f"**{result.first_crew_window or 'not achieved'}**.")
+    return table + tail
+
+
 def campaign_markdown(result: CampaignResult, catalog: Optional[Catalog] = None,
                       assumptions: Optional[Assumptions] = None) -> str:
     parts = [f"# Campaign — {result.campaign_id}", ""]
+    if assumptions is not None:
+        parts += ["## Flight summary", "",
+                  flight_summary_markdown(
+                      result, assumptions.get("fleet.payload_mass_per_ship_t")), ""]
     rows = []
     for w in result.windows:
         crew = any(m.crewed and not m.blocked for m in w.missions)

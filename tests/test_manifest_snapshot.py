@@ -60,6 +60,27 @@ def test_committed_snapshot_is_fresh(snapshot):
         "docs/manifests/ is stale — regenerate with `mars manifests inputs/program.json`")
 
 
+def test_flight_summary_is_fresh_everywhere(snapshot):
+    """The flight-at-a-glance table is generated in three places — the
+    SUMMARY.md snapshot and the marked README section must both match a fresh
+    regeneration, so the program table a reader sees can never drift from the
+    engine."""
+    fresh = (snapshot / "SUMMARY.md").read_text(encoding="utf-8")
+    committed = (ROOT / "docs" / "manifests" / "SUMMARY.md").read_text(encoding="utf-8")
+    assert committed == fresh, (
+        "docs/manifests/SUMMARY.md is stale — regenerate with "
+        "`mars manifests inputs/program.json`")
+    # the README carries the same table between markers
+    fresh_table = fresh.split("*\n\n", 1)[1].strip()
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    begin, end = "<!-- FLIGHT_SUMMARY:BEGIN -->", "<!-- FLIGHT_SUMMARY:END -->"
+    assert begin in readme and end in readme, "README lost its summary markers"
+    section = readme.split(begin, 1)[1].split(end, 1)[0]
+    assert fresh_table in section, (
+        "README flight summary is stale — regenerate with "
+        "`mars manifests inputs/program.json`")
+
+
 def test_line_item_costs_reconcile_with_program_cost(snapshot):
     """Per-item costs must sum to each window's cargo-hardware cost (the number
     already baked into the program totals) — proving the snapshot's line items
