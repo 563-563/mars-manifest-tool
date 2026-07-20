@@ -6,7 +6,9 @@
 decisions close. Program quantities are engine output from
 `inputs/program.json`; operational sequences are doctrine recorded here and
 in `docs/CONSIDERED.md` — the planner models mass, schedule, and gates, not
-geometry or timing inside a window.*
+geometry or timing inside a window. **Derivations and heritage for every
+operational quantity used below: `PROVENANCE.md` §5b. Hardware
+spec-and-heritage sheets: `docs/HARDWARE.md`.***
 
 ---
 

@@ -171,6 +171,7 @@ mars report inputs/program.json --format xlsx --out out/program.xlsx
 | `docs/REQUIREMENTS.md` | Generated buy-off matrix for the baseline program (never hand-edit) |
 | `docs/manifests/` | **Generated ship-by-ship manifests** (JSON + CSV) — what flies on which hull at what mass/volume/power, and which requirements each window closes (never hand-edit; `mars manifests` regenerates) |
 | `docs/CONOPS.md` | **CONOPS-1**: operational sequences for the robotic era through first crew — approach deployments, the 30-sol strike survey, keep-outs, the receipt flight, crew commit posture (doctrine layer over the model; CONOPS-2 for the city era is planned) |
+| `docs/HARDWARE.md` | Spec-and-heritage sheets for every CONOPS-1 hardware element — what each thing physically is, its flown/COTS anchor, and what's still a guess |
 | `docs/COMPARATIVES.md` | How this plan differs from Handmer / *New Space* 2022 / NASA DRA 5.0, and what was adopted |
 | `docs/CITY_RAMP_RESEARCH.md` | Verified research brief for the city-scale extension (population thresholds, import-mass decay, fleet-growth rules) |
 | `docs/CONSIDERED.md` | Ideas weighed and set aside — deferred, out-of-scope, rejected, or simplified — so omissions read as decisions. **Generated** from `inputs/considered.json` (`mars ledgers`) |
