@@ -23,6 +23,16 @@ def test_markdown_views_are_fresh():
             f"{paths['md']} is stale — edit {paths['json']} and run `mars ledgers`")
 
 
+def test_conops_inline_appendix_is_fresh():
+    from mars_manifest.ledgers import CONOPS_MARKERS, render_conops_basis
+    begin, end = CONOPS_MARKERS
+    text = (ROOT / "docs" / "CONOPS.md").read_text(encoding="utf-8")
+    assert begin in text and end in text, "CONOPS.md lost its appendix markers"
+    section = text.split(begin, 1)[1].split(end, 1)[0]
+    assert render_conops_basis(ROOT) in section, (
+        "docs/CONOPS.md Appendix A is stale — run `mars ledgers`")
+
+
 def test_rows_are_fielded_and_complete():
     prov = load_ledger(ROOT, "provenance")
     cons = load_ledger(ROOT, "considered")

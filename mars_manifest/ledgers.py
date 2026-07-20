@@ -134,6 +134,21 @@ def load_ledger(root: Path, name: str) -> dict:
     return json.loads((root / LEDGERS[name]["json"]).read_text(encoding="utf-8"))
 
 
+CONOPS_MD = "docs/CONOPS.md"
+CONOPS_MARKERS = ("<!-- CONOPS_BASIS:BEGIN -->", "<!-- CONOPS_BASIS:END -->")
+
+
+def render_conops_basis(root: Path) -> str:
+    """Render the provenance ledger's CONOPS-quantities section (5b) as the
+    inline appendix body for docs/CONOPS.md — same rows, one source."""
+    doc = load_ledger(root, "provenance")
+    sec = next(s for s in doc["sections"] if s["title"].startswith("5b."))
+    parts = []
+    for b in sec["blocks"]:
+        parts.append(b["md"] if b["type"] == "prose" else _render_table(b))
+    return "\n\n".join(parts)
+
+
 def render_ledgers(root: Path) -> list[Path]:
     """Regenerate both markdown views from their JSON sources."""
     written = []
@@ -142,4 +157,17 @@ def render_ledgers(root: Path) -> list[Path]:
         out = root / paths["md"]
         out.write_text(render_markdown(doc), encoding="utf-8", newline="\n")
         written.append(out)
+    conops = root / CONOPS_MD
+    begin, end = CONOPS_MARKERS
+    if conops.exists():
+        text = conops.read_text(encoding="utf-8")
+        if begin in text and end in text:
+            head, rest = text.split(begin, 1)
+            _, tail = rest.split(end, 1)
+            body = ("\n<!-- generated from inputs/provenance.json 5b by "
+                    "`mars ledgers`; do not hand-edit -->\n"
+                    + render_conops_basis(root) + "\n")
+            conops.write_text(head + begin + body + end + tail,
+                              encoding="utf-8", newline="\n")
+            written.append(conops)
     return written
