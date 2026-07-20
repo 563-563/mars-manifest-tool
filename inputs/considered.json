@@ -389,6 +389,12 @@
      "source": "constellation review 2026-07-20",
      "status": "**flagged (open decision)**",
      "why_where_recorded": "The constellation flies once, at window 0, and is never reinforced through 2041: one dispenser on one hull until release (single-point before deployment), ~5–7 yr smallsat design life ageing out right as the village arrives (2037), and by the settlement 1,112 people ride a 14-year-old never-refreshed orbital layer while bandwidth and EDL-support demand scale with population and fleet size. Candidates: a replacement/growth set every other window (2035 and 2039 fleets have mass margin) and promoting orbital assets to a real mission type (see the simplification row). Deferred pending the constellation-sizing decision; the CONOPS-2 (rotation/city era) review is the natural venue."
+    },
+    {
+     "idea": "Return-flight ground segment: hulls-as-tank-farm, ascent pad, autonomous pre-flight",
+     "source": "CONOPS R2/R3 review 2026-07-20",
+     "status": "**adopted (doctrine, not modeled)**",
+     "why_where_recorded": "Banked methalox stores in landed one-way hulls (~1,200 t tankage each; three hulls cover everything banked through 2035), so no dedicated storage tanks fly; the plant's reliquefaction loop manages farm boil-off (energy already in the liquefaction row). One landing pad is sintered to launch grade at debris standoff from the base, with an insulated cryo transfer run from the farm. Demonstrator pre-flight: year-ahead hull selection, robotic TPS survey with tile replacement, engine chill/spin-prime, a short static fire (also the pad's qualification event), autonomous countdown with Earth veto under light delay, and a dust-weather launch commit from the constellation. The receipt flight qualifies this same ground segment for the crew's 2037 departure. No new catalog hardware needed (sintering rigs, robots, plant cryo equipment); plume-ejecta standoff distances remain unquantified Tier D doctrine, an open item for the spatial layer."
     }
    ]
   }

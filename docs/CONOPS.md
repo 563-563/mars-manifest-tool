@@ -82,12 +82,15 @@ makes the early date possible.
 **The synodic clock rules everything.** Earth and Mars align for
 low-energy transfer once every ~26 months (779.9 days), and a
 conjunction-class crossing takes ~210 days at the fast end. Miss a window,
-wait a synod. Return geometry is offset: a ship that arrives must wait
-~460 days on the surface before the Mars-to-Earth window opens, so there
-is one return opportunity per synod. The first fuel-feasible one falls in
-January 2035. Production planning uses ~600 usable sols per synod. All
-surface operations run under a 4-22 minute one-way light delay, plus a
-~2-week comms blackout at solar conjunction each synod. Robots execute,
+wait a synod.
+
+Return geometry is offset: a ship that arrives must wait ~460 days on the
+surface before the Mars-to-Earth window opens, so there is one return
+opportunity per synod. The first fuel-feasible one falls in January 2035.
+Production planning uses ~600 usable sols per synod.
+
+All surface operations run under a 4-22 minute one-way light delay, plus
+a ~2-week comms blackout at solar conjunction each synod. Robots execute,
 Earth supervises by exception, and nothing on the critical path requires
 a real-time human in the loop.
 
@@ -95,15 +98,18 @@ a real-time human in the loop.
 24.66 h; timelines here use sols on the surface and days in flight. The
 CO₂ atmosphere is ~6 mbar: thick enough for aerobraking, entry heating,
 and dust, far too thin to breathe or to slow a lander without propulsion.
+
 Global dust storms last weeks to months (the 2018 storm ended the
 Opportunity rover). They starve solar power but only inconvenience
 fission, which is why fission anchors the baseline and solar is carried
 as a scenario. Galactic cosmic radiation is unshielded by the thin
 atmosphere, so crew-era operations require regolith-covered storm
-shelters (the `radiation_managed` gate). Water exists as subsurface ice
-at mid-latitudes. It is known from orbit in general and unproven at any
-specific site at mining grade, and that gap is the single uncertainty
-this mission's first month exists to retire.
+shelters (the `radiation_managed` gate).
+
+Water exists as subsurface ice at mid-latitudes. It is known from orbit
+in general and unproven at any specific site at mining grade, and that
+gap is the single uncertainty this mission's first month exists to
+retire.
 
 ## 5. How to read the numbers
 
@@ -120,10 +126,11 @@ from the provenance ledger:
 Rows marked ✅ verified with a date were re-fetched from the primary
 source and checked against the exact claim on that date. Where this
 document states a number without a tier, it is engine output computed
-from tiered inputs. The honest summary: the architecture rests mostly on
-A/B/C anchors, while most hardware masses are still Tier D. That split is
-the reason gates retire on demonstrated state rather than on
-specifications.
+from tiered inputs.
+
+The honest summary: the architecture rests mostly on A/B/C anchors, while
+most hardware masses are still Tier D. That split is the reason gates
+retire on demonstrated state rather than on specifications.
 
 ## 6. Referenced documents
 
@@ -167,7 +174,7 @@ commits (L1-TRANS-01..04). These are per-scenario readiness flags: the
 baseline assumes them true, and `conservative_feasibility` flips
 refill/chill so the requirements matrix goes visibly open.
 
-## 9. Phase R1: Window 0: land, power, prospect (Jan 2031 to Mar 2033)
+## 9. Phase R1: land, power, prospect (window 0, Jan 2031 to Mar 2033)
 
 **Objective:** turn the unknowns that block everything downstream into
 measurements, with no single ship loss costing a schedule-critical
@@ -223,7 +230,7 @@ and Earth supervises by exception.
 landing, comms, autonomy, mobility, infrastructure, habitat, water
 supply, water *confirmed*). Half the program's weighted risk is retired.
 
-## 10. Phase R2: Window 1: the fuel factory, doubled (Mar 2033 to Jan 2035)
+## 10. Phase R2: the fuel factory, doubled (window 1, Mar 2033 to Jan 2035)
 
 **Commit decision (mid-2032).** The factory fleet ships only if window-0
 prospecting confirmed site water (`requires: [water_confirmed]`), with
@@ -236,15 +243,42 @@ ships per return load.
 **10.1 Arrival (Oct 2033).** Ten ships (~88% full) land on the graded
 zone prepared by the window-0 robots. Cargo: two rate-matched ISRU
 chains (window-0's pilot becomes the hot spare), their reactors
-(3,000 kWe total), and the 45 t survival bridge, one synod of food,
-water, and oxygen for twelve.
+(3,000 kWe total), and the 45 t survival bridge.
 
-**10.2 Operations.** The doubled plant commissions on the ramp (60%
-first-synod factor) toward 7.7 t of methalox per day, a full 1,400 t
-return load roughly every six months, with 3,223 t banked by the 2035
-window. Robots position and bury the radiation shelters, verify the
+The bridge is one synod of food, water, and oxygen for twelve, and it is
+the single exception to fly-with provisioning (the bridge-not-depth
+doctrine in the considered ledger). Its customer is a common-mode arrival
+failure, so it must exist and be robot-verified on the ground *before*
+any crew commits. Everything beyond one synod flies with the crew in
+2035.
+
+**10.2 Plant operations.** The doubled plant commissions on the ramp
+(60% first-synod factor) toward 7.7 t of methalox per day, a full
+1,400 t return load roughly every six months, with 3,223 t banked by the
+2035 window. Robots position and bury the radiation shelters, verify the
 bridge caches, and begin sintering landing pads for the next fleet.
 Mid-2034 the 1,000-sol ECLSS demonstration completes.
+
+**10.3 Return-flight ground segment.** The receipt flight needs a ground
+segment as much as a fuel supply, and this window builds it from assets
+already on the manifest:
+
+- *The tank farm is the fleet.* Banked methalox stores in the main tanks
+  of landed one-way hulls; each holds a full ~1,200 t load, so three
+  hulls' tankage covers everything banked through 2035. The plant's
+  reliquefaction loop manages boil-off across the farm. No dedicated
+  storage tanks fly.
+- *The ascent pad.* A landing pad takes a nearly-empty ship on a short
+  braking burn; a launch puts full thrust into the ground for the whole
+  commit. The sintering rigs thicken one pad to launch grade, sited at
+  debris standoff from the base, and robots emplace the insulated cryo
+  transfer run from the tank farm to it. Standoff distances are doctrine,
+  not yet quantified (plume-ejecta modeling is an open item in the
+  ledger).
+- *Demonstrator selection.* A window-1 hull in the best post-landing
+  health is chosen for the receipt flight; robotic survey of its
+  Earth-entry TPS, engines, and tankage begins a full year before
+  departure.
 
 **Phase exit criteria:** every crew gate green a full synod before anyone
 launches. Propellant banked (≥1,400 t), life support closed, radiation
@@ -253,19 +287,36 @@ at crew scale.
 
 ## 11. Phase R3: The receipt flight (Jan 2035 to Aug 2035)
 
-The plant's second tankful buys the rehearsal. In January 2035 a cargo
-ship is fueled from the surface plant, the first ISRU propellant transfer
-and cryo hold-through-countdown ever performed, and flies the entire
-return profile empty: Mars ascent and trans-Earth injection (~6.5 km/s,
-single stage, since no orbital tanker exists at Mars), a 210-day cruise,
-and Earth entry at ~11.6 km/s. That entry is roughly twice the speed of a
-Mars arrival and eight times the heating, a TPS qualification of its own
-(L2-RET-02). The areostationary relay carries its ascent telemetry. Cargo
-home: a tank of Mars-made methalox and a crate of dust-weathered
+The plant's second tankful buys the rehearsal.
+
+**11.1 Pre-flight campaign (late 2034).** The selected hull moves to the
+ascent pad and is fueled from the tank farm over several weeks: the first
+ISRU propellant transfer and cryogenic hold-through-countdown ever
+performed. Robots complete the TPS survey and replace suspect tiles from
+spares, run engine chill cycles and spin-primes, and finish with a short
+static fire on the pad: the first rocket firing on Mars since the ship's
+own landing, and the pad's qualification event. Countdown is autonomous
+under light delay; Earth holds a veto up to light-time, and the commit
+criteria are simple: telemetry green, farm topped, and the constellation's
+weather watch showing no dust storm inbound.
+
+**11.2 The flight (Jan to Aug 2035).** Three-engine ascent off the
+sintered pad, with the base protected by the standoff geometry, then
+trans-Earth injection (~6.5 km/s total, single stage, since no orbital
+tanker exists at Mars). The areostationary relay carries the ascent
+telemetry. A 210-day cruise follows, then Earth entry at ~11.6 km/s;
+that entry is roughly twice the speed of a Mars arrival and eight times
+the heating, a TPS qualification of its own (L2-RET-02).
+
+Cargo home: a tank of Mars-made methalox and a crate of dust-weathered
 components for Earth-lab analysis. Arrival at Earth comes in August 2035,
-during the first crew's outbound cruise. This flight retires the L1-RET
-branch and closes the mission-level requirement (L0-MSN-01) at the window
-before crew.
+during the first crew's outbound cruise.
+
+**11.3 What it proves.** The flight retires the L1-RET branch and closes
+the mission-level requirement (L0-MSN-01) at the window before crew. Just
+as important, it qualifies the *ground segment*: the pad, the transfer
+run, the checkout regime, and the autonomous countdown are the same ones
+the crew's own March 2037 departure will use.
 
 ## 12. Phase C1: First crew (May 2035 to 2036)
 
@@ -313,10 +364,13 @@ prep for the 34-ship village fleet continues throughout.
 Continuous base-Earth relay via areostationary; surface mesh via two
 relay ground stations plus beacons; 4-22 min one-way light delay
 throughout, with a ~2-week conjunction blackout each synod that the base
-rides out autonomously. Doctrine: robots execute, Earth supervises by
-exception, and nothing in the critical path requires a real-time human in
-the loop. That includes the strike campaign, plant commissioning, and pad
-construction. The crew adds on-site judgment, not remote control.
+rides out autonomously.
+
+Doctrine: robots execute, Earth supervises by exception, and nothing in
+the critical path requires a real-time human in the loop. That includes
+the strike campaign, plant commissioning, pad construction, and the
+receipt flight's countdown. The crew adds on-site judgment, not remote
+control.
 
 ## 14. Traceability
 
@@ -324,13 +378,17 @@ Phase exits map to the machine-checked gates: R1 retires the ten window-0
 capabilities; R2 retires `return_propellant_proven`,
 `life_support_closed`, and `radiation_managed` (and L0-MSN-01 closes); R3
 retires the L1-RET branch; C1 spends them and closes the two crew-scale
-quantity requirements (L2-HAB-02, L2-LS-03). The buy-off matrix
-(`docs/REQUIREMENTS.md`) and flight summary (`docs/manifests/SUMMARY.md`)
-are the generated, test-enforced views of the same claims. What this
-document adds, and the model does not check, is geometry and intra-window
-timing: keep-out radii, strike scheduling, arrival sequencing, orbit
-choices. Those are doctrine, ledgered in `docs/CONSIDERED.md`, awaiting a
-spatial/timing layer if one is ever built.
+quantity requirements (L2-HAB-02, L2-LS-03).
+
+The buy-off matrix (`docs/REQUIREMENTS.md`) and flight summary
+(`docs/manifests/SUMMARY.md`) are the generated, test-enforced views of
+the same claims.
+
+What this document adds, and the model does not check, is geometry and
+intra-window timing: keep-out radii, strike scheduling, arrival
+sequencing, orbit choices, pad standoff. Those are doctrine, ledgered in
+`docs/CONSIDERED.md`, awaiting a spatial/timing layer if one is ever
+built.
 
 ---
 
