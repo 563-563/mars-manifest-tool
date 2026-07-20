@@ -265,9 +265,14 @@ already on the manifest:
 
 - *The tank farm is the fleet.* Banked methalox stores in the main tanks
   of landed one-way hulls; each holds a full ~1,200 t load, so three
-  hulls' tankage covers everything banked through 2035. The plant's
-  reliquefaction loop manages boil-off across the farm. No dedicated
-  storage tanks fly.
+  hulls' tankage covers everything banked through 2035. Robots fit the
+  farm hulls with multi-layer insulation blankets; at the ~99% heat-flow
+  reduction MLI provides, boil-off runs of order 1 t per hull-day and the
+  plant's reliquefaction loop absorbs it for a ~100 kW-class overhead
+  (research anchors in PROVENANCE §5c; exact power is a backlog item).
+  Zero-boil-off cryocoolers for Mars methalox are a named NASA technology
+  line, in testing but not shelf hardware. No dedicated storage tanks
+  fly.
 - *The ascent pad.* A landing pad takes a nearly-empty ship on a short
   braking burn; a launch puts full thrust into the ground for the whole
   commit. The sintering rigs thicken one pad to launch grade, sited at
@@ -295,7 +300,11 @@ ISRU propellant transfer and cryogenic hold-through-countdown ever
 performed. Robots complete the TPS survey and replace suspect tiles from
 spares, run engine chill cycles and spin-primes, and finish with a short
 static fire on the pad: the first rocket firing on Mars since the ship's
-own landing, and the pad's qualification event. Countdown is autonomous
+own landing, and the pad's qualification event. This campaign is the
+mitigation for a genuinely novel risk: no cryogenic engine has ever
+restarted after long dormancy on a planetary surface, and NASA's own
+Mars Ascent Vehicle chose solid motors in 2019 partly to avoid exactly
+this problem (PROVENANCE §5c). Countdown is autonomous
 under light delay; Earth holds a veto up to light-time, and the commit
 criteria are simple: telemetry green, farm topped, and the constellation's
 weather watch showing no dust storm inbound.
@@ -330,6 +339,14 @@ the crew proceeds to a powered, provisioned base and holds one window
 while the fix flies. The caches cover a missed return window with years
 of margin. Their own return, ~March 2037, flies a profile proven nineteen
 months earlier.
+
+This blind spot is the price of the accelerated schedule, and it is worth
+stating plainly: under the archived conservative program (crew 2037), the
+demo's August 2035 report lands ~23 months *before* the crew commit and
+the corner does not exist. Accelerating crew to 2035 created it; reverting
+to 2037 removes it. The program carries the 2035 option because the hedge
+(bridge, caches, a proven profile before the crew's own return) prices the
+residual risk honestly.
 
 **12.2 Fleet arrival sequencing (Dec 2035).** Fifteen ships. Cargo hulls
 enter first and the crew ship last, onto sintered pads, with the

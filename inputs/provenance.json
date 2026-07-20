@@ -730,6 +730,57 @@
    ]
   },
   {
+   "level": 3,
+   "title": "5c. Return-flight ground segment: research anchors (2026-07-20)",
+   "blocks": [
+    {
+     "type": "prose",
+     "md": "Added 2026-07-20 after review flagged the CONOPS ground-segment items (tank farm, ascent pad, pre-flight campaign) as under-researched. Anchors below are from a targeted source pass; quantitative follow-ups are logged in the §8b backlog."
+    },
+    {
+     "type": "table",
+     "columns": [
+      "Topic",
+      "Finding",
+      "Tier",
+      "Source / implication"
+     ],
+     "keys": [
+      "topic",
+      "finding",
+      "tier",
+      "source_implication"
+     ],
+     "rows": [
+      {
+       "topic": "Hull-tank boil-off with MLI",
+       "finding": "~20-layer MLI cuts heat flow up to ~99%; an unchilled, blanketed Starship boils off <1 t/day (lunar case); Mars surface is comparable to LEO with colder radiators",
+       "tier": "**C**",
+       "source_implication": "[Handmer, Long duration propellant stability in Starship (Mar 2025)](https://caseyhandmer.wordpress.com/2025/03/14/long-duration-propellant-stability-in-starship/), his stated derivations. Implication: the hulls-as-tank-farm doctrine is credible *with MLI blankets applied by robots*; ~3 farm hulls at ~1 t/day each puts reliquefaction overhead in the ~100 kW class against a 3,000 kWe base. That inventory-reliquefaction load is not yet in the model's power budget (backlog item 7)."
+      },
+      {
+       "topic": "Zero-boil-off cryocoolers for Mars LOX/CH4",
+       "finding": "NASA runs a named 90 K cryocooler technology line explicitly targeting zero boil-off LOX/methane and ISRU liquefaction on Mars; 'tube-on-tank' systems entered testing 2025",
+       "tier": "**B**",
+       "source_implication": "[NTRS 20180004710](https://ntrs.nasa.gov/citations/20180004710) (Plachta et al., Cryogenics 2018); [NASA Glenn CFM](https://www.nasa.gov/centers-and-facilities/glenn/brr-its-cold-in-here-nasas-cryo-efforts-beyond-the-atmosphere/); [2025 tube-on-tank testing](https://phys.org/news/2025-07-nasa-technique-super-cold-fuel.html). Implication: farm ZBO is a real technology program, not shelf hardware; treat as a development item alongside refill/chill, not a given."
+      },
+      {
+       "topic": "Plume-surface interaction at landing/launch",
+       "finding": "Apollo 12's LM sandblasted Surveyor III at 180 m (pitting, scouring on the facing side); on Mars the atmosphere *focuses* large-lander plumes, digging deep craters under the engines in soft soil",
+       "tier": "**B (Surveyor) / C (Mars focusing)**",
+       "source_implication": "Apollo 12/Surveyor III record ([CLASS/UCF](https://sciences.ucf.edu/class/landing-team/the-science-of-plume-effects/), [arXiv 2306.01087](https://arxiv.org/pdf/2306.01087)); [Metzger, ISRU Implications for Lunar and Martian Plume Effects (arXiv 2104.06248)](https://arxiv.org/pdf/2104.06248); NASA runs a dedicated PSI simulation program. Implication: the ascent pad is mandatory, not conservative — a full-thrust launch off unprepared Mars regolith risks engine-dug cratering under the vehicle itself, worse than the lunar case. Standoff distances remain unquantified here; Metzger's paper is the source to mine (backlog item 8)."
+      },
+      {
+       "topic": "Cryogenic-engine dormancy on a planetary surface",
+       "finding": "NASA's funded Mars-ascent program (MSR MAV) selected two-stage solid motors (decision Dec 2019) — flight heritage, propellant density, and storability through Mars surface dormancy weighed against higher-Isp alternatives; the vehicle pre-heats to −20 °C for launch after dormancy",
+       "tier": "**B**",
+       "source_implication": "[NTRS 20200002328, MAV Solid Propulsion Configuration](https://ntrs.nasa.gov/citations/20200002328); [MAV propellant-aging studies](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20160008023.pdf). Implication: no cryogenic rocket engine has ever restarted after months-to-years dormant on a planetary surface — the receipt flight's chill/spin-prime/static-fire campaign is the mitigation for a genuinely novel risk, and it sits under the `mars_ascent_tei` readiness flag for exactly this reason."
+      }
+     ]
+    }
+   ]
+  },
+  {
    "level": 2,
    "title": "6. Component catalog (`catalog.csv`)",
    "blocks": [
@@ -948,7 +999,7 @@
    "blocks": [
     {
      "type": "prose",
-     "md": "1. ~~Real sparing analysis to replace the flat 35%~~ **Partially done 2026-07-09**: `informed_spares` scenario carries literature-based per-group fractions (ECLSS band is solid; non-ECLSS fractions remain constructed). Full buy-down needs real per-component Mars MTBFs. **D4 (2026-07-10)**: the Poisson sparing *method* is implemented (`spares.py`, `poisson_spares` scenario) — mathematically rigorous, but its failure rates are D-tier (no real Mars MTBFs exist), so `informed_spares` remains the defensible baseline. Method now awaits data, not engineering.\n2. ~~ISRU pilot-plant mass from NASA literature~~ **Done 2026-07-10 (D2)**: NASA MAV ISRU study cross-checks our chain aggregate to within 7% (see §6); numbers validated, not replaced. Component-level splits remain the refinement target.\n3. Starship cargo-variant actual payload capacity as flights accumulate (watch: does 100 t survive contact with reality?). **Priced 2026-07-20**: a 75 t reality re-sizes the fleet 322 → ~434 ships (~+$171B at near-term prices) but breaks no gate and moves no date — a cost risk, not a schedule risk. Re-verify at every real launch-window pass.\n4. ~~FSP program updates~~ **Done 2026-07-09**: `fsp_2025` scenario encodes the Aug-2025 100 kWe directive.\n5. Contingency fraction to AIAA-standard MGA by subsystem TRL (current 10% is likely low). **Priced 2026-07-20**: `aiaa_contingency` on the current fleets pushes every window to 92–98% (margin rule fails, nothing blocks, crew stays 2035-05); promotion ≈ +32 ships / ~+$49B. Decision deferred to the next deliberate re-manifest, where the 10% fleet-margin rule should be reconsidered alongside it (they partly double-cover the same growth).\n6. Demonstration-delay model for capability gates (delivered ≠ proven). **Reviewed 2026-07-20**: the crew-critical gates already carry hard state checks (propellant *produced*, ECLSS *sols*, landings *counted*); a strict one-synod delay on the soft unlocks still clears crew 2035 because everything soft-gated pre-lands a synod early (shelters 2033 → proven 2035). Building it should *harden* the plan, not move it. Urgency trigger: any manifest edit that first-delivers a soft-gated capability in the window it is needed."
+     "md": "1. ~~Real sparing analysis to replace the flat 35%~~ **Partially done 2026-07-09**: `informed_spares` scenario carries literature-based per-group fractions (ECLSS band is solid; non-ECLSS fractions remain constructed). Full buy-down needs real per-component Mars MTBFs. **D4 (2026-07-10)**: the Poisson sparing *method* is implemented (`spares.py`, `poisson_spares` scenario) — mathematically rigorous, but its failure rates are D-tier (no real Mars MTBFs exist), so `informed_spares` remains the defensible baseline. Method now awaits data, not engineering.\n2. ~~ISRU pilot-plant mass from NASA literature~~ **Done 2026-07-10 (D2)**: NASA MAV ISRU study cross-checks our chain aggregate to within 7% (see §6); numbers validated, not replaced. Component-level splits remain the refinement target.\n3. Starship cargo-variant actual payload capacity as flights accumulate (watch: does 100 t survive contact with reality?). **Priced 2026-07-20**: a 75 t reality re-sizes the fleet 322 → ~434 ships (~+$171B at near-term prices) but breaks no gate and moves no date — a cost risk, not a schedule risk. Re-verify at every real launch-window pass.\n4. ~~FSP program updates~~ **Done 2026-07-09**: `fsp_2025` scenario encodes the Aug-2025 100 kWe directive.\n5. Contingency fraction to AIAA-standard MGA by subsystem TRL (current 10% is likely low). **Priced 2026-07-20**: `aiaa_contingency` on the current fleets pushes every window to 92–98% (margin rule fails, nothing blocks, crew stays 2035-05); promotion ≈ +32 ships / ~+$49B. Decision deferred to the next deliberate re-manifest, where the 10% fleet-margin rule should be reconsidered alongside it (they partly double-cover the same growth).\n6. Demonstration-delay model for capability gates (delivered ≠ proven). **Reviewed 2026-07-20**: the crew-critical gates already carry hard state checks (propellant *produced*, ECLSS *sols*, landings *counted*); a strict one-synod delay on the soft unlocks still clears crew 2035 because everything soft-gated pre-lands a synod early (shelters 2033 → proven 2035). Building it should *harden* the plan, not move it. Urgency trigger: any manifest edit that first-delivers a soft-gated capability in the window it is needed.\n7. Farm-scale inventory reliquefaction power (the model budgets liquefaction per kg *produced*, not per kg *stored*). With MLI-blanketed hulls the overhead looks ~100 kW-class (§5c) — quantify against ZBO performance data and add to the power budget if material.\n8. Plume-ejecta standoff distances for the ascent pad and landing zones — mine Metzger (arXiv 2104.06248) and the NASA PSI program for numbers; currently Tier D doctrine in the CONOPS."
     }
    ]
   }
