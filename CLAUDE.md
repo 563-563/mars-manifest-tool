@@ -61,7 +61,7 @@ governs NOW.*
 
 ## The regression contract, precisely
 
-`tests/` (59 green) pins two different things — don't confuse them:
+`tests/` (the full suite; CI-enforced green) pins two different things — don't confuse them:
 - **Workbook-port fixtures** (origin: HANDOFF.md §7, via the pinned 2026
   example files): 98.5 t fixed
   hardware, 354.15 kW, 9×40 kWe fission, 236.4 t, 55–85 launches. These verify
@@ -81,9 +81,11 @@ mars manifests inputs/program.json          # regen docs/manifests/ after plan e
 mars lifecycle inputs/program.json          # risk buy-down + idle-mass audit
 ```
 
-Artifacts (console + surface walkthrough) regenerate from the session
-scratchpad export script (`export_dashboard_data.py` → embed JSON →
-republish); see auto-memory for URLs. Re-run the PROVENANCE §8 source
+The story page regenerates from the in-repo pipeline (`viz/export_dashboard_data.py`
+→ `viz/build_scrolly.py` → republish to the same artifact URL). The console
+and surface-walkthrough artifacts regenerate from the session scratchpad
+export (see auto-memory for URLs) and are point-in-time snapshots — check
+their vintage against the current baseline before citing them. Re-run the PROVENANCE §8 source
 verification whenever a real launch window passes or before any major
 decision — both prior failures were silent source drift.
 

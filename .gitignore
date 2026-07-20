@@ -9,3 +9,6 @@ dist/
 out/
 *.xlsx
 !data/*.xlsx
+
+# local working exports (chat handoffs, rendered pages)
+Colonizing Mars*

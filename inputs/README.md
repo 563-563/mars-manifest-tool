@@ -82,7 +82,7 @@ more `missions`, each carrying a `manifest` of catalog components:
 **Reshaping the program — the three moves you asked for:**
 
 - **Front-load.** Move ships/settlers earlier: raise `ships` in 2033/2035, drop
-  them in 2041/2044. Watch the propellant and life-support gates in
+  them in 2039/2041. Watch the propellant and life-support gates in
   `mars plan` — pulling crew earlier can trip `return_propellant_proven` if the
   fuel plant hasn't banked enough yet.
 - **Back-load.** The reverse. The gates simply retire later; the requirements

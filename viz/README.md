@@ -12,7 +12,7 @@ python viz/build_scrolly.py           # data   -> viz/mars_manifest_story.html
 ```
 
 `mars_manifest_story.html` is a self-contained scrollytelling essay: prose on
-the left, a sticky manifest panel on the right that advances through the seven
+the left, a sticky manifest panel on the right that advances through the six
 launch windows as you scroll, and an **Adjust the model** drawer.
 
 ### How the what-if drawer stays honest
