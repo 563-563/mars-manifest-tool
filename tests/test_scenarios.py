@@ -91,7 +91,7 @@ def test_fsp_2025_directive_scenario(manager, catalog, precursor):
     assert b.fission.units == 4
     assert b.fission.mass_t == pytest.approx(60.0)
     # heavier gen than the 40 kWe path (54 t) -> grand total rises
-    assert b.mass.grand_total_t == pytest.approx(210.4, abs=0.3)  # baseline spares re-anchored 0.35->0.13
+    assert b.mass.grand_total_t == pytest.approx(233.8, abs=0.4)  # per-group MGA promoted to baseline 2026-07-21
 
 
 def test_baseline_launch_math_unchanged_by_split_feature(catalog, baseline, precursor):
@@ -107,7 +107,7 @@ def test_informed_spares_per_group(manager, catalog, precursor):
     b = BudgetEngine(catalog, a).compute(precursor)
     # hand-computed: group masses x literature fractions + 0.15 on gen/storage
     assert b.mass.spares_t == pytest.approx(37.5, abs=0.05)
-    assert b.mass.grand_total_t == pytest.approx(220.8, abs=0.1)
+    assert b.mass.grand_total_t == pytest.approx(243.3, abs=0.3)  # per-group MGA now in baseline
     # baseline flat sparing must be untouched (regression contract)
     base = BudgetEngine(catalog, manager.resolve("baseline")).compute(precursor)
     assert base.mass.spares_t == pytest.approx(19.72, abs=0.05)  # baseline spares 0.35->0.13 (2026-07-21)
@@ -138,11 +138,13 @@ def test_window_enablements_read_like_english(manager, catalog, campaign_4w):
 
 def test_aiaa_contingency_per_group(manager, catalog, precursor):
     from mars_manifest.budgets import BudgetEngine
+    # 2026-07-21: the AIAA per-group MGA was PROMOTED to baseline (flat 10% was
+    # too low for TRL 3-4 hardware). The frozen workbook_port keeps the old
+    # flat 10%, so compare against that.
     base = BudgetEngine(catalog, manager.resolve("baseline")).compute(precursor)
-    aiaa = BudgetEngine(catalog, manager.resolve("aiaa_contingency")).compute(precursor)
-    # AIAA MGA (mostly 20-30%) is heavier than the flat 10% baseline
-    assert aiaa.mass.contingency_t > base.mass.contingency_t
-    assert aiaa.mass.grand_total_t > base.mass.grand_total_t
-    # baseline flat contingency must be exactly 10% of hardware (regression)
-    hw = base.mass.fixed_hardware_t + base.mass.generation_t + base.mass.storage_t
-    assert base.mass.contingency_t == pytest.approx(0.10 * hw, abs=0.01)
+    flat = BudgetEngine(catalog, manager.resolve("workbook_port")).compute(precursor)
+    # per-group AIAA MGA (now baseline) is heavier per-group than the old flat 10%
+    assert base.mass.contingency_t > flat.mass.contingency_t
+    # workbook_port keeps flat contingency = exactly 10% of hardware (regression)
+    hw = flat.mass.fixed_hardware_t + flat.mass.generation_t + flat.mass.storage_t
+    assert flat.mass.contingency_t == pytest.approx(0.10 * hw, abs=0.01)

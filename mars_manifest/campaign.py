@@ -8,6 +8,7 @@ data-driven (capability_gates in inputs/assumptions.json), not hard-coded.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from typing import Optional
 
@@ -139,7 +140,7 @@ class CampaignPlanner:
             caps_before = frozenset(state.capabilities)
             delivered_before = dict(state.delivered)
 
-            for mission in window.missions:
+            for _mi, mission in enumerate(window.missions):
                 needed = list(mission.requires)
                 # anyone aboard means crew gates apply — settlers can't sneak
                 # past the gating by leaving crewed: false
@@ -154,7 +155,21 @@ class CampaignPlanner:
                         f"missing capabilities: {', '.join(missing)}"
                     )
                 budget = self.budget_engine.compute(mission)
-                packing = self.packing_engine.pack(mission, budget)
+                # Top-down fleet sizing ("no air freight"): when a mission does
+                # not pin `ships`, derive the hull count from the cargo mass at
+                # the target fill, floored by the cumulative >=Nx growth rule.
+                # Fleet size becomes a computed output, not a hand-set input, so
+                # it self-corrects whenever the manifest mass changes.
+                ships_override = None
+                if not mission.ships and mission.packing_policy == "balanced":
+                    fill = self.a.get("fleet.target_fill", 0.9)
+                    mass_cap = self.a.get("fleet.payload_mass_per_ship_t")
+                    cargo_ships = max(1, math.ceil(budget.mass.grand_total_t / (mass_cap * fill)))
+                    growth_floor = 0
+                    if _mi == 0 and self.min_fleet_growth and prev_ships > 0:
+                        growth_floor = max(0, math.ceil((self.min_fleet_growth - 1) * prev_ships))
+                    ships_override = max(cargo_ships, growth_floor)
+                packing = self.packing_engine.pack(mission, budget, ships_override=ships_override)
                 outcomes.append(MissionOutcome(mission.id, mission.crewed, blocked, missing, budget, packing))
                 warnings.extend(budget.warnings)
                 warnings.extend(packing.warnings)

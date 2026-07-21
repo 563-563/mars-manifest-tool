@@ -92,6 +92,12 @@
        "value": "16 (baseline) / 10 (optimistic)",
        "tier": "**B**",
        "source_validation": "The two published bounds: SpaceX's plan shared with NASA implies ~14 refueling flights + depot + ship (GAO counted **16 total**; [NASA OIG IG-26-004](https://oig.nasa.gov/wp-content/uploads/2026/03/final-report-ig-26-004-nasas-management-of-the-human-landing-system-contracts.pdf), [Starship HLS Wikipedia](https://en.wikipedia.org/wiki/Starship_HLS)); SpaceX's own baseline is ~10; Musk has claimed 4–8 ([Universe Today](https://www.universetoday.com/articles/musk-says-that-refueling-starship-for-lunar-landings-will-take-8-launches-maybe-4)). These are *lunar* HLS numbers; a Mars ship needs a comparable full depot load. Ship-to-ship cryo transfer remains undemonstrated (mid-2026), so the spread is honest uncertainty — the tool carries both bounds by design."
+      },
+      {
+       "input": "`fleet.target_fill` / top-down sizing",
+       "value": "0.90",
+       "tier": "**C — added 2026-07-21**",
+       "source_validation": "Fleet size is now COMPUTED, not hand-declared: ships/window = max(ceil(cargo mass / (100 t x 0.90)), cumulative >=2x growth floor). \"No air freight\" becomes a self-correcting property -- when manifest mass changes, the fleet resizes automatically toward 90% fill. Replaces hand-tuned ship counts. Program.json windows no longer pin `ships`; frozen fixtures still may."
       }
      ]
     }
@@ -498,9 +504,9 @@
       },
       {
        "input": "`contingency_fraction`",
-       "value": "0.10",
-       "tier": "**D**",
-       "source_validation": "Standard mass-growth-allowance practice (AIAA S-120 class: 10–30% depending on maturity). 10% is *low* for concept-stage hardware — ANSI/AIAA guidance suggests 25–30% for TRL 3–4 systems. **The `aiaa_contingency` scenario (D3, done)** carries the honest per-group MGA (25–30% for ISRU/mining/city-industry down to 10% for off-the-shelf); kept a scenario pending review before baseline promotion."
+       "value": "per-group 0.10-0.30 (baseline) / 0.10 flat (workbook_port)",
+       "tier": "**C — promoted 2026-07-21**",
+       "source_validation": "AIAA S-120 mass-growth-allowance by subsystem maturity PROMOTED to baseline (was flat 0.10, too low for TRL 3-4 per deep research 2026-07-21): ISRU/mining/industry 0.30, habitat/fission/agri/site-prep 0.25, robotics/storage/thermal 0.20, comms/consumables 0.15, science/orbital 0.10. Real programs carry 25-30% at concept stage (THEMIS, GSFC IDC, LUVOIR). Flat 0.10 frozen in workbook_port for the port regression."
       }
      ]
     }

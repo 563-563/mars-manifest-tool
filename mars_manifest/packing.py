@@ -105,8 +105,10 @@ class PackingEngine:
         launch_cost_tier: Optional[str] = None,
         policy: Optional[str] = None,
         include_spares: Optional[bool] = None,
+        ships_override: Optional[int] = None,
     ) -> PackingResult:
         a = self.a
+        self._ships_override = ships_override
         mass_cap = a.get("fleet.payload_mass_per_ship_t")
         vol_cap = a.get("fleet.payload_volume_per_ship_m3")
         policy = policy or mission.packing_policy
@@ -206,7 +208,7 @@ class PackingEngine:
         land a *working* set, not a shell without a loop — while anti-affinity
         still spreads the bundles themselves across hulls. Ship pins are
         ignored under this policy."""
-        n = mission.ships or max(1, math.ceil(
+        n = self._ships_override or mission.ships or max(1, math.ceil(
             sum(i.mass_t for i in items) / mass_cap))
         ships = {i: PackedShip(i) for i in range(1, n + 1)}
         groups = self._affinity_groups(items)

@@ -16,7 +16,8 @@
           "eclss_habitat"
         ]
       ],
-      "_affinity_comment": "Complementary items bundled 1:1 onto the same hull by the balanced packer: a habitat without its ECLSS (or vice versa) does nothing, so splitting the pair doubles EDL exposure. Test-as-you-fly precedent: every closed-loop life-support demo in history ran inside a sealed volume (NASA LMLSTP chamber demos; ISS ECLSS; MELiSSA; Lunar Palace 1), and inflatables need their own long-duration demo (BEAM 2016). Anti-affinity still spreads the PAIRS across different hulls."
+      "_affinity_comment": "Complementary items bundled 1:1 onto the same hull by the balanced packer: a habitat without its ECLSS (or vice versa) does nothing, so splitting the pair doubles EDL exposure. Test-as-you-fly precedent: every closed-loop life-support demo in history ran inside a sealed volume (NASA LMLSTP chamber demos; ISS ECLSS; MELiSSA; Lunar Palace 1), and inflatables need their own long-duration demo (BEAM 2016). Anti-affinity still spreads the PAIRS across different hulls.",
+      "target_fill": 0.9
     },
     "power": {
       "sol_hours": 24.6,
@@ -39,7 +40,24 @@
     },
     "overheads": {
       "spares_fraction_of_dry": 0.13,
-      "contingency_fraction": 0.1
+      "contingency_fraction": 0.1,
+      "contingency_fraction_by_group": {
+        "ISRU": 0.3,
+        "Water mining": 0.3,
+        "Industry": 0.3,
+        "Agriculture": 0.25,
+        "Habitat & life support": 0.25,
+        "Power generation": 0.25,
+        "Site prep & construction": 0.25,
+        "Robotics": 0.2,
+        "Power storage": 0.2,
+        "Thermal & support": 0.2,
+        "Consumables & caches": 0.15,
+        "Comms nav & autonomy": 0.15,
+        "Power system": 0.15,
+        "Recon & science": 0.1,
+        "Orbital assets": 0.1
+      }
     },
     "isru": {
       "_comment": "Sabatier-chain rate & energy assumptions (see PROVENANCE.md). Stoichiometry is computed in isru.py from molar masses; these are efficiencies, timing, and the mixture ratio. Energies are system-level (include balance of plant). mode: 'sabatier' (full methalox from water+CO2) or 'oxygen_only' (DRA-5.0-style fallback: LOX from atmospheric CO2 via solid-oxide electrolysis, CH4 imported from Earth -- no water dependency).",
@@ -301,7 +319,8 @@
         "overheads.contingency_fraction": 0.1,
         "isru.co2_capture_kwh_per_kg_co2": 0.7,
         "isru.liquefaction_kwh_per_kg_propellant": 0.8,
-        "_note": "FROZEN reproduction of the original hand-built spreadsheet (HANDOFF.md 5.1/7): spares 0.35-of-dry, contingency 0.10, pre-2026-07-21 ISRU energies. The workbook-port regression fixtures (tests/test_budgets.py) resolve THIS, not baseline, so the live baseline can be re-anchored to verified data without breaking the port check. Do not edit."
+        "_note": "FROZEN reproduction of the original hand-built spreadsheet (HANDOFF.md 5.1/7): spares 0.35-of-dry, contingency 0.10, pre-2026-07-21 ISRU energies. The workbook-port regression fixtures (tests/test_budgets.py) resolve THIS, not baseline, so the live baseline can be re-anchored to verified data without breaking the port check. Do not edit.",
+        "overheads.contingency_fraction_by_group": null
       }
     }
   },

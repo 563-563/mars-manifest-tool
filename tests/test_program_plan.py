@@ -45,7 +45,7 @@ def test_honest_fleet_counts(plan_result):
     # fleet sized to cargo at <=90% mass, subject to the cumulative >=2x
     # growth floor ("no air freight"): 2035 and 2041 are growth-floored and
     # topped up with risk depth; 2037/2039 are genuinely cargo-bound
-    assert [w.ships for w in plan_result.windows] == [5, 10, 15, 34, 97, 161]
+    assert [w.ships for w in plan_result.windows] == [5, 11, 16, 32, 94, 158]
 
 
 def test_every_window_fits_its_fleet(plan_result, baseline):

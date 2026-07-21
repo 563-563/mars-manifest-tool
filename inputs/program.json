@@ -11,7 +11,6 @@
      "id": "precursor_2031_program",
      "objective": "Redundant on schedule-critical capabilities (power, ISRU, water, comms, autonomy, infrastructure). Crew-era hardware deferred per lifecycle review EXCEPT one habitat+ECLSS set, flown early as the 1000-sol life-support demonstration article. Caches and shelters wait for window 2 (shelf life; passive hardware needs no demo).",
      "crewed": false,
-     "ships": 5,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -136,7 +135,6 @@
      "requires": [
       "water_confirmed"
      ],
-     "ships": 10,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -251,7 +249,6 @@
      "objective": "Crew + 26-month bridge aboard + agri/industry pilots + ISRU hot-spare depth + pad rigs for the 2037 fleet",
      "crewed": true,
      "settlers": 12,
-     "ships": 15,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -370,7 +367,6 @@
      "objective": "100 settlers; agri+industry at scale; fuel doubled for rotation era",
      "crewed": true,
      "settlers": 100,
-     "ships": 34,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -493,7 +489,6 @@
      "objective": "400 settlers; food/polymers/structures local",
      "crewed": true,
      "settlers": 400,
-     "ships": 97,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
@@ -604,7 +599,6 @@
      "objective": "600 settlers; the 1,000-adult formal-settlement milestone",
      "crewed": true,
      "settlers": 600,
-     "ships": 161,
      "packing_policy": "balanced",
      "pack_spares": true,
      "manifest": [
