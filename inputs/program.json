@@ -218,7 +218,7 @@
       },
       {
        "id": "water_processing",
-       "qty": 1
+       "qty": 7
       },
       {
        "id": "isru_control",
@@ -341,7 +341,7 @@
       },
       {
        "id": "water_processing",
-       "qty": 2
+       "qty": 4
       },
       {
        "id": "excavator_rassor",

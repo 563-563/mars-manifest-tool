@@ -25,6 +25,13 @@ def baseline(manager):
 
 
 @pytest.fixture(scope="session")
+def workbook_port(manager):
+    # frozen original-spreadsheet overheads/energies; the workbook-port
+    # regression must not move when the live baseline is re-anchored
+    return manager.resolve("workbook_port")
+
+
+@pytest.fixture(scope="session")
 def precursor(catalog):
     return load_mission(ROOT / "examples" / "precursor_2026.yaml", catalog)
 

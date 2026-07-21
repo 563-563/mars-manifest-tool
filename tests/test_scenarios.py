@@ -91,7 +91,7 @@ def test_fsp_2025_directive_scenario(manager, catalog, precursor):
     assert b.fission.units == 4
     assert b.fission.mass_t == pytest.approx(60.0)
     # heavier gen than the 40 kWe path (54 t) -> grand total rises
-    assert b.mass.grand_total_t == pytest.approx(245.1, abs=0.2)
+    assert b.mass.grand_total_t == pytest.approx(210.4, abs=0.3)  # baseline spares re-anchored 0.35->0.13
 
 
 def test_baseline_launch_math_unchanged_by_split_feature(catalog, baseline, precursor):
@@ -110,7 +110,7 @@ def test_informed_spares_per_group(manager, catalog, precursor):
     assert b.mass.grand_total_t == pytest.approx(220.8, abs=0.1)
     # baseline flat sparing must be untouched (regression contract)
     base = BudgetEngine(catalog, manager.resolve("baseline")).compute(precursor)
-    assert base.mass.spares_t == pytest.approx(53.08, abs=0.05)
+    assert base.mass.spares_t == pytest.approx(19.72, abs=0.05)  # baseline spares 0.35->0.13 (2026-07-21)
 
 
 def test_ship_manifest_detail_sums_match(catalog, baseline, precursor):

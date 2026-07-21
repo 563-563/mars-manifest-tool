@@ -1,0 +1,809 @@
+45th International Conference on Environmental Systems                                         ICES-2015-041
+12-16 July 2015, Bellevue, Washington
+
+          Estimating the Life Cycle Cost of Space Systems
+
+                                     Harry W. Jones1
+          NASA Ames Research Center, Moffett Field, CA, 94035-0001
+
+         A space system's Life Cycle Cost (LCC) includes design and development, launch and
+     emplacement, and operations and maintenance. Each of these cost factors is usually
+     estimated separately. NASA uses three different parametric models for the design and
+     development cost of crewed space systems; the commercial PRICE-H space hardware cost
+     model, the NASA-Air Force Cost Model (NAFCOM), and the Advanced Missions Cost
+     Model (AMCM). System mass is an important parameter in all three models. System mass
+     also determines the launch and emplacement cost, which directly depends on the cost per
+     kilogram to launch mass to Low Earth Orbit (LEO). The launch and emplacement cost is
+     the cost to launch to LEO the system itself and also the rockets, propellant, and lander
+     needed to emplace it. The ratio of the total launch mass to payload mass depends on the
+     mission scenario and destination. The operations and maintenance costs include any
+     material and spares provided, the ground control crew, and sustaining engineering. The
+     Mission Operations Cost Model (MOCM) estimates these costs as a percentage of the system
+     development cost per year.
+
+                                                        Nomenclature
+
+ALS  =    Advanced Life Support
+          Advanced Missions Cost Model
+AMCM =    Advanced Space Transportation Program
+          Baseline Values and Assumptions Document
+ASTP =    Cost Estimating Handbook
+          Cost Estimating Relationship
+BVAD =    Design, Development, Test, and Evaluation
+          Environmental Control and Life Support
+CEH =     Initial Operation Capability
+          International Space Station
+CER =     Johnson Space Center
+          Launch and Emplacement
+DDT&E =   Life Cycle Cost
+          Low Earth Orbit
+ECLS =    Life Support Systems
+          Mission Operations Cost Model
+IOC  =    Marshall Space Flight Center
+          NASA-Air Force Cost Model
+ISS  =    Project Cost Estimating Capability
+          Parametric Review of Information for Costing and Evaluation
+JSC  =    Space Launch System
+          Space Operations Cost Model
+L&E =     Spacecraft/Vehicle Level Cost Model
+          Technology Readiness Level
+LCC =     Work Breakdown Structure
+
+LEO =
+
+LSS  =
+
+MOCM =
+
+MSFC =
+
+NAFCOM =
+
+PCEC =
+
+PRICE =
+
+SLS  =
+
+SOCM =
+
+SVLCM =
+
+TRL  =
+
+WBS =
+
+1 Systems Engineer, Bioengineering Branch, Mail Stop N239-8.
+                                                      I. Introduction
+
+THIS report considers how to estimate the Life Cycle Cost (LCC) of space systems. The LCC contains all the
+     costs of a project, program, or mission. LCC has three components, Design, Development, Test, and Evaluation
+(DDT&E), Launch and Emplacement (L&E), and Operations. These are usually estimated separately.
+
+    LCC is a basic metric in systems engineering and is fundamental in NASA planning. An understanding of
+expected costs is needed to help select technology and compare design architectures and mission scenarios. LCC
+should be considered in trade studies and design change proposals. (NASA Systems Engineering Handbook 2007, p.
+119)
+
+A. Cost estimation and control
+    The LCC can be used to define the project cost profile or set an overall cost cap. It follows that estimating the
+
+LCC correctly in detail and over time is highly desirable. (NASA Systems Engineering Handbook, 2007, pp. 125-
+129) The cost estimating methods described in this paper are logical, well established, and generally accepted. They
+are usually thought to be correct and useful. Nevertheless, frequent substantial cost overruns show that accurately
+estimating and controlling project cost is not a solved problem. Estimating and controlling cost is technically
+difficult, but the major problem is that human political and personal interests prevent us from making good cost
+estimates and keeping costs within planned limits.
+
+B. Human behavioral problems that affect cost estimation and control
+    Some of the human behavioral problems with costs include the use of best-case minimum cost estimates,
+
+political sensitivity to high cost estimates, short term rather than long term or life cycle thinking, and failure to
+ignore sunk costs.
+1. Best case cost estimates
+
+    The cost estimates that are presented to secure project approval tend to be the best-case minimum cost, to be
+optimistic, and to have no contingency reserve. Predicting cost is one of the many forms of predicting the future.
+Most future predictions are not really intended to be accurate. They are often disguised advocacy of some project or
+action. Cost estimates can be improved using actual cost data, tracking prediction performance, and identifying and
+minimizing the sources of error. Cost estimates should be made by independent analysts and not influenced by
+project advocates or opponents.
+2. Political sensitivity to costs
+
+    The key activity in NASA or any project organization is selecting and funding projects. Cost estimates enter into
+the trade-offs and directly affect project approval. Budget estimates are usually challenged and revised during
+bureaucratic funding struggles.
+
+    It is politically astute to avoid premature discussion or estimation of costs. For example,
+     "NASA has not released comprehensive, long-term cost estimates for SLS and Orion. The reason is to avoid giving
+    Congress sticker shock, said William Gerstenmaier, NASA's associate administrator for human exploration and operations.
+    "If we laid out a path directly to Mars and we laid out all the vehicles and all the testing and all the work to get there, then
+    you end up with a fairly long period of time with a lot of funding that goes into that activity that says this program is
+    something maybe we don't want to go do," Gerstenmaier said in November during a panel discussion with SLS and Orion
+    prime contractors at the Newseum in Washington." (Leone 2014)
+3. Short term rather than long term or life cycle thinking
+    Short term thinking can be described as overly discounting the future. In financial planning, future costs and
+benefits should be discounted back to their current present value. Since money earns interest, a dollar today is worth
+more than a dollar in ten years. It will amount to the original dollar plus the accumulated compound interest. The
+selection of any particular interest or discount rate is somewhat arbitrary but it strongly affects the expected financial
+return of investments. The Office of Management and Budget long ago mandated a very high discount rate of 10%
+for federal projects. (de Neufville 1990) (OMB 1992) The present value of one dollar received in ten years is only
+39 cents today at a 10% discount rate. If 39 cents is placed at 10% compound interest, it will amount to one dollar in
+ten years. For an investment to be profitable at a high 10% discount rate, 39 cents we spend today must pay back
+more than a dollar in ten years. If interest rates are high, only high return investments can make a profit.
+    Current interest rates for government bonds are nominally about 2%. Since inflation is also about 2%, the real
+interest rate, defined as the nominal interest rate minus inflation, is roughly zero. This means that a future dollar to
+be received ten years from now is worth about as much as a dollar on hand now. We can spend much more than 39
+cents, we can spend nearly a full dollar, to get back a dollar ten years in the future. The current near zero interest rate
+is quite unusual and is the intended effect of the government providing money to stimulate the economy. The US
+should take advantage of the current low interest rate by investing more heavily in infrastructure ­ roads, bridges,
+
+                                                                       2
+                                       International Conference on Environmental Systems
+airports - and in research and development - biotech, automation, energy, space. Low interest rates discourage
+saving and stimulate investment, at least for rational long term optimizers.
+
+    Most individuals do not plan their personal finance based on the available interest rate. People have compelling
+current needs and limited current income, so they often borrow at high rates. Individuals subjectively perceive a high
+interest rate. To most of us, a dollar now seems much more valuable than a dollar in the far future. Most save little
+for retirement.
+
+    Project managers also seem to intuitively use the same high interest rate as most private individuals. They tend to
+spend all available dollars to solve current problems with no goal beyond delivering a working product on schedule.
+Project managers under budget and schedule pressure tend not to invest in the better reliability, operability, and
+maintainability that would reduce overall Life Cycle Cost.
+
+    An organization such as NASA can mandate the goal of reducing LCC, but directives have limited ability to
+affect the detailed investment decisions made in a project. Ed Smiley, of Apollo 13 rescue fame, told me "We never
+considered operations costs" in response to a presentation advocating LCC. (Smiley 2003)
+4. Not ignoring sunk costs
+
+    A sunk cost is a past cost that has already been incurred and cannot be recovered. In economic theory, only
+future costs and benefits should be relevant to current investment decisions. Letting past sunk costs influence future
+spending is irrational. However, humans usually have professional, personal, and project commitments that make
+them very reluctant to admit failure and terminate an unsuccessful project.
+
+    Past investments were made to produce our current knowledge and technology options. Past expenses can never
+be unspent. The current technical possibilities, not past hopes or sunk costs, should determine future funding
+decisions. In practice, sunk costs are often not ignored. Saving face, maintaining commitment, and establishing
+credibility can block the economically rational choice.
+
+    Regardless of these human problems, it is necessary to better understand, correctly estimate, and effectively
+control costs. Improvement is possible and urgently needed.
+
+    The LCC has three components, DDT&E, L&E, and Operations. DDT&E cost estimation is considered first.
+
+               II. Design, Development, Test, and Evaluation (DDT&E) cost estimation
+
+    The costs for a new system design, development, test, and evaluation are often estimated top-down, using
+parametric cost estimating relationships derived from similar hardware. The major cost driver for space systems is
+weight. A first approximation of flight hardware cost is some factor times the component weight to some power,
+such as factor * (weight)x. The exponent of weight, x, is typically about 0.5, and ranges from 0.25 to 0.75, so cost
+increases more slowly than weight. Large adjustments to the estimated costs are usually made on the basis of
+estimated system complexity.
+
+    An alternate approach is to estimate the costs bottom-up, by summing the estimated costs of hardware design,
+development, and test. A bottom-up estimate seems more convincing than a top-down estimate because it can be
+justified in detail, but it is usually more subjective and less accurate. Detailed engineering cost summations can be
+useful for existing systems but can be far off for new systems. Cost estimators strongly prefer top-down cost
+estimates.
+
+    Parametric cost models provide the most effective way to estimate the DDT&E cost of space hardware early in
+the mission cycle. NASA uses three different parametric models for crewed space systems; the Advanced Missions
+Cost Model (AMCM), the commercial PRICE-H space hardware cost model, and the NASA-Air Force Cost Model
+(NAFCOM). The Spacecraft/Vehicle Level Cost Model (SVLCM) estimates spacecraft costs only. The Project Cost
+Estimating Capability (PCEC) has been developed to replace NAFCOM.
+
+A. The Advanced Missions Cost Model (AMCM).
+    The AMCM was developed by the Exploration Programs Office at Johnson Space Center. It was intended to be a
+
+long-range cost forecasting tool that could predict cost as far out as 25 to 50 years, that would include substantially
+different types of systems, would be simple to use, would require few inputs, and would allow cost studies to be
+performed quickly and efficiently during the early conceptual stages of a mission.
+
+    The model parameters include all the major cost drivers. The user defined inputs include the system dry mass,
+the total quantity of development and production units, the type of mission, the first year of system operations, the
+hardware block or generation, and the estimated difficulty. Design cost economies of scale occur with mass for most
+development hardware. The learning curve gives production economies of scale for an increasing number of units.
+The type of mission is related to organizational cultural differences that affect cost. Spacecraft, missiles, aircraft,
+ships, and ground mobile equipment have decreasing costs. The cost of programs has increased with time, even after
+
+                                                                       3
+                                       International Conference on Environmental Systems
+the effects of inflation are accounted for. The future mission time allows long range planning. Using existing designs
+provides substantial reductions in cost. The estimated difficulty accounts for differences in performance, capacity,
+readiness of technology, and complexity of design.
+
+    The AMCM data base includes eight manned spacecraft developed by NASA; Mercury, Gemini, Apollo
+command module, Apollo lunar module, skylab, shuttle orbiter, spacelab, and station. The overall database has more
+than 260 development programs. Historical cost data is normalized by systematically accounting for the effects of
+different initial operating dates, quantities, and weights. (Cyr 1988) (Guerra and Shishko 2000, pp. 946-7)
+
+    The AMCM is a single Cost Estimating Relationship (CER) using mass, quantity, mission type, number of
+design generations, and technical difficulty to estimate the total system cost for DDT&E and production.
+
+    The AMCM formula for the cost of DDT&E and production in millions of 1999 dollars is:
+
+    Development and production cost =  Q  M  TM S  1/(IOC ­ 1900) B  © D
+
+    The Greek letter constants are:
+     = 5.65 x 10-4
+    ® = 0.5941
+     = 0.6604
+    TM = 80.599
+     = 3.8085 x 10-55
+     = -0.3553
+    © = 1.5691
+
+    Substituting approximately for the constants, the AMCM becomes
+
+    Development and production cost = 5.65 * 10- 4 Q0.59 M 0.66 80.6 S (3.81 * 10-55)(1/(IOC ­ 1900) B -0.36 1.57 D
+
+    Q is the total quantity of development and production units, M is the system dry mass in pounds, S specifies the
+type of mission (2.13 for human habitat, 2.46 for crewed planetary lander), IOC (Initial Operation Capability) is the
+first year of system operations, B is the hardware block or generation (1 for new design, 2 for second generation),
+and D is the estimated difficulty (0 for average, 2.5 for extremely difficult, and -2.5 for extremely easy). (Guerra and
+Shishko 2000, pp. 946-7)
+
+    The AMCM is available online (Federation of American Scientists 2014). It has been applied to life support
+systems in (Jones 2013-3407) and (Jones 2012-3618).
+1. AMCM parameters and their effects
+
+    The AMCM model uses well established cost drivers. Cost per unit decreases with the quantity of units, Q, due
+to the effect of experience reflected in the learning curve. Q includes development units, credit for partial units and
+mock-ups, test units, and flight units. The dry mass, M, is the most frequently used cost estimation parameter. M is
+here in pounds. For kilograms,  = 9.51 x 10-4. Different types of missions have had very different costs per unit
+weight. The type of mission, S, allows the AMCM formula to be used for the major different missions. The year of
+Initial Operation Capability, IOC, accounts for the fact that the cost of programs increases with time. The hardware
+block or number of past generations, B, reflects that cost decreases with the level of design inheritance. The most
+subjective parameter in AMCM is the difficulty, D. Adjustments for difficulty or complexity are also used in the
+PRICE and NAFCOM models. The difficulty parameter can reflect differences in technology, materials,
+manufacturing processes, parts count, design inheritance, schedule, the number of different organizations involved,
+and even the developing organization's experience and culture. (Guerra and Shishko 2000, pp. 946-947) The
+FY1999 dollars are usually adjusted to current dollars using inflation tables.
+
+    Table 1 shows the AMCM cost estimate for a reference system with Q = 1, M = 100, S = 2.13 for a human
+habitat, IOC = 2015, B = 1, and D = 0, and for variations of each parameter.
+
+                                                                       4
+                                       International Conference on Environmental Systems
+Table 1. AMCM cost estimates for a reference system and variations of each parameter.
+
+     Parameter                                  Values
+
+Q          Quantity    1       2     1     1            1                 1              1     1
+                                                                                       100   100
+M          Mass        100     100   200   100          100               100          2.13  2.13
+                                                                                       2015  2015
+S          Specification 2.13  2.13  2.13  2.46         2.13              2.13
+                                                                                         1     1
+IOC        Initial date 2015 2015 2015     2015  2025 2015                             -2.5  +2.5
+
+B          Block       1       1     1     1            1                 2             15   141
+
+D          Difficulty  0       0     0     0            0                 0            0.32  3.08
+
+  Total                46      69    72    195          50                36
+cost, M$
+
+Unit cost              1.00    0.75  1.58  4.26         1.09              0.78
+  ratio
+
+    The estimated cost is 46 million 1999 dollars for a 100 pound unit. Variations of each parameter are shown in
+bold. For two units, Q = 2, the total cost increases only by 50% and the cost per unit decreases by 25%. Doubling
+the mass, M, increases unit cost by 58% but the cost per kilogram is 21% less. If the mission specification, S, is 2.46
+for crewed planetary lander, the total cost is 4.26 times higher, 195 million 1999 dollars. If the IOC date is 2025
+instead of 2015, cost increases only 9%. For a second generation block B =2 instead of 1, the cost is 22% less. For
+an extremely easy development with a difficulty, D = -2.5, cost decreases by a factor of 3. For an extremely difficult
+development, D = -2.5, cost is 3.08 times higher.
+2. AMCM cost estimates
+
+    The development and production cost for human space missions typically has been $50 to 150 k/kg. (Wertz and
+Larson 1996, p. 254) (National Academy Press, App. C 1997) (Guerra and Shishko 2000, p. 953)
+
+    Consider a development similar to the International Space Station (ISS) life support system. Suppose Q = 1, M =
+1,500 pounds (682 kg), S = 2.13 for a human habitat, IOC = 2000, B = 8 for the many previous prototypes and test
+units, and low difficulty, D = -2.0. The total cost is estimated at $45 million. The cost per delivered kilogram is
+$45,000k/682 kg = $66 k/kg.
+
+    For a Mars surface mission, suppose Q =1, M = 1,500 pounds (682 kg), S = 2.46 for crewed planetary lander,
+IOC = 2025, B = 10 for past and future prototypes and units, and the difficulty is average, D = 0, considering the
+higher reliability needed for Mars. The total cost is estimated to be $1,241 million. The cost per delivered kilogram
+is $1,241 million/682 kg = $1.82 million/kg. This is a much higher cost per kilogram than for the Shuttle or ISS,
+which are less difficult than planetary missions. A very high cost is expected. "The cost of a human-crewed mission
+to the Moon or Mars is typically millions of dollars per delivered kg." (Wertz and Larson 1996, p. 254)
+3. Inflation adjustments
+
+    The AMCM formula estimates costs in millions of 1999 dollars. Past inflation tables can be used to adjust cost to
+current dollars. Sometimes projected future inflation is used to estimate future costs. (NASA Systems Engineering
+Handbook 2007, p. 127) The NASA New Start Inflation Index shows an inflation factor of 1.570 from 1999 to 2015
+and 2.009 from 1999 to 2025. (NASA New Start Index Inflation Index) Inflation adjustments are necessary in
+accurately estimating actual costs but might be omitted in trade-off studies if only relative costs are important.
+
+B. The commercial PRICE-H hardware cost model
+    The PRICE parametric cost models dominate the commercial market and are frequently used in aerospace.
+
+PRICE models exist for hardware development, hardware maintenance, software development, life-cycle costs, and
+scheduling. They are distributed by Parametric Review of Information for Costing and Evaluation (PRICE) Systems
+Solutions.
+
+    The PRICE H Hardware cost model uses industry-specific parametric modeling to estimate costs, resources, and
+schedules for structural, electro-mechanical and electronic components and complex assemblies. A subscription is
+required and NASA holds an agency wide license. NASA has annually recalibrated PRICE-H for space missions.
+
+    PRICE-H contains hundreds of Cost Estimating Relationships (CERs) based on confidential data from thousands
+of projects including space hardware. PRICE-H estimates the hardware development and production cost of most
+manufactured hardware, but it requires extensive detailed inputs. The most fundamental input is mission
+classification, such as human rated space, since there are different models for different mission types. The most
+basic input parameters are two masses, the active electronics mass and the less costly mechanical/structural mass.
+The most important elements of the model are the costs per unit mass for electronics and mechanical/structure.
+
+                                                      5
+                       International Conference on Environmental Systems
+These are obtained from tables or by calibrating the model using relevant past costs. The cost estimates thus depend
+directly on the hardware mass.
+
+    Users identify hardware items at each level of the work breakdown structure. Price H then aggregates the cost of
+assemblies into a full system cost. The number of development and production units and the schedule milestones are
+also required. A production learning curve may be defined.
+
+    PRICE H uses three qualitative complexity variables to distinguish hardware having higher or lower cost per unit
+mass. These parameters are the mechanical, electronic, and engineering complexity. Engineering complexity reflects
+the scope of the development task, the skills of the development organization, and the amount of design repetition.
+The complexities may be taken from built-in reference tables or the cost estimator may calibrate the model based on
+experience, judgment, and even the acceptability of the final cost result. The quantitative masses and the qualitative
+complexities together largely determine the cost estimates. (Greenberg 1992, pp. 85-86) (Guerra and Shishko 2000,
+p. 945) (PRICE 2014) (Trivailo et al. 2012)
+
+    The PRICE H cost model is usually applied by an experienced cost estimator working closely with engineering,
+management, and the customer for the estimate. PRICE acknowledges that "You can manipulate the inputs to get
+any answer you want out of that model." This is explained as a desirable ability to tailor the model to match the
+known historical data and thus produce sound cost results. It is further acknowledged that, "The pressure to produce
+a popular estimate is great. Some estimators bow to that pressure." (Fad 2013) The knowledge, ability, and
+professional integrity of the cost estimator will affect the quality of the cost estimate. The cost estimator should not
+be a member of the project being estimated, and the best arrangement would be an independent and impartial cost
+estimating organization.
+
+    PRICE H seems too large, complicated, indeterminate, and labor intensive to be used to quickly compare the
+costs of multiple alternate projects. It is much more suitable to provide a deep contextual and evolving
+understanding of the cost of a large project. PRICE H thus strongly contrasts with the AMCM model, which is quite
+easy to set up in a spreadsheet and use without specialized cost estimating knowledge. AMCM uses fewer, more
+objective, and totally quantitative inputs to produce a less adjustable result.
+
+C. The NASA-Air Force Cost Model (NAFCOM)
+    The NASA-Air Force Cost Model (NAFCOM) parametric cost estimating tool was developed by the Marshall
+
+Space Flight Center's (MSFC) and is used for crewed spacecraft, uncrewed spacecraft, and launch vehicles in the
+early phases of development. It uses multivariable cost estimating relationships (CERs) which are based on
+historical NASA and Air Force space projects. New missions are added with each release of NAFCOM. There have
+been twelve releases since 1989 and it now includes over 155 NASA and Air Force space flight hardware projects.
+
+    Early in a project, NAFCOM can produce weight based estimates using only a Work Breakdown Structure
+(WBS) and mass estimates. NAFCOM's multivariable cost estimating allows the estimator to select appropriate
+historical data-points from the database. Quantitative inputs include weight, materials, power requirements and
+design life. Technical and programmatic complexity factors are applied to the CERs. They consider contractor
+experience, management layers, technology readiness, and requirements changes.
+
+    The model produces costs for DDT&E and for recurring production costs at the subsystem or component levels.
+There are cost models for structure, thermal, attitude control, power, environmental control and life support, crew
+accommodations, propulsion, command and data handling. NAFCOM includes elements in the Environmental
+Control and Life Support (ECLS) subsystem. The costs for system integration, test, ground support, systems
+engineering, and program management are estimated separately and added. The Space Operations Cost Model
+(SOCM) is integrated into NAFCOM. (Guerra and Shishko 2000, pp. 945, 7) (NAFCOM 2014) (NAFCOM FAQ)
+(Trivailo et al. 2012)
+
+    The NAFCOM software is available on request. NAFCOM is a Windows desktop application. Microsoft Excel is
+also required. The government version is restricted and a contractor releasable version has the historical weights and
+costs hidden. All CERs and model inputs are the same between versions. (NAFCOM 2014) (NAFCOM FAQ)
+
+    NAFCOM is being replaced by a new model called Project Cost Estimating Capability (PCEC) with similar
+capabilities. Limited technical support is being provided to current NAFCOM12 users. (Prince et al. 2014)
+NAFCOM, like PRICE H, should be used by an experienced cost estimator.
+
+D. Spacecraft/Vehicle Level Cost Model (SVLCM)
+    The Spacecraft/Vehicle Level Cost Model (SVLCM) is a top level model which provides instant rough-order-of-
+
+magnitude estimates for spacecraft development and production costs. SVLCM is a highly simplified version of
+NAFCOM and is available on-line. The user inputs are the project name, project type, the system dry weight in
+pounds or kilograms, the quantity of units, and a learning curve for multiple units. The project types modeled are
+
+                                                                       6
+                                       International Conference on Environmental Systems
+liquid rocket engines, manned spacecraft, unmanned planetary spacecraft, launch vehicles, unmanned Earth orbiting
+spacecraft, and scientific instruments. The manned spacecraft costs are based on eight data points. Life support cost
+models are not specifically included. Like NAFCOM, SVLCM produces the costs for development and production
+in millions of FY1999 dollars. (Global Security 2014) (Trivalo et al. 2012)
+
+1. SVLCM cost estimates
+    Table 2 shows the SVLCM cost estimates for two different manned spacecraft systems with masses of 100 and
+
+1,500 pounds. The equivalent AMCM cost estimates are shown for comparison.
+
+Table 2. SVLCM cost estimates for manned spacecraft systems with masses of 100 and 1,500 pounds.
+
+Parameter                                 Values
+
+Project type                    Manned spacecraft Manned spacecraft
+
+System dry weight in pounds     100               1,500
+
+Quantity of units               1                 1
+
+Learning curve                  85%               85%
+
+Development cost, M$            147               653
+
+Production cost, M$             7                 43
+
+SVLCM total cost, M$            154               696
+
+Comparable AMCM total cost, M$  15 - 195          45 - 1,241
+
+    The SVLCM estimated costs are 154 million for a 100 pound unit and 696 million dollars for a 1,500 pound unit.
+Both AMCM and SVLCM costs are in 1999 dollars. (Global Security 2014) The comparable AMCM total cost is
+the range of total cost estimates for a system having the same weight. The SVLCM estimated costs are in the upper
+middle range of the AMCM estimated costs, at 79 percent and 56 percent of the AMCM maximums. The AMCM
+model is more adaptable and useful than the SVLCM model.
+
+E. Project Cost Estimating Capability (PCEC)
+    The Project Cost Estimating Capability (PCEC) has been developed as the replacement for NAFCOM.
+
+NAFCOM was failure prone, suffered from performance issues, and required excessive support. The NAFCOM
+software architecture reflected a WBS that differed from the NASA Standard WBS. It provided insufficient insight
+into the functioning of the model and the development of the CERs. (Prince et al. 2014)
+
+    NASA has developed PCEC to solve these problems and also to address diverse cost estimating requirements
+and to emphasize problem driven analysis over tool driven analysis. PCEC is an Excel based system with a user
+interface and WBS and CER libraries. The core methods and capabilities of NAFCOM, such as first pound cost and
+multivariable CER equations, are implemented in PCEC. COTS tools now provide some functions previously
+contained in NAFCOM. The objective is capability and flexibility rather than ease of use. PCEC was initially
+distributed only to NASA but will be made freely available as was NAFCOM. (PCEC 2014) (Prince et al. 2014)
+
+F. DDT&E cost estimation summary
+    The AMCM is simple and quick to use. It does not require specialized software or a trained operator. It seems
+
+the best cost estimator for use during system trade-offs and initial technology assessment. Repeatable, defensible
+relative costs comparisons would be more important that a refined but subjective best guess cost estimate. The Price-
+H cost model and the PCEC that is replacing NAFCOM are suitable for the careful estimation of the cost of a large
+development project. We next consider launch and emplacement cost.
+
+                           III. Launch and Emplacement (L&E) cost estimation
+
+    Some missions such as ISS operate in Low Earth Orbit (LEO). Missions beyond LEO will typically reach LEO
+first and later depart to the moon, an asteroid, or Mars. The cost to launch and emplace space systems thus has two
+components, the cost of launch to LEO and the additional cost for emplacement at the mission location beyond
+LEO.
+
+A. Cost of launch to Low Earth Orbit (LEO)
+    The Space Shuttle cost to launch to Low Earth Orbit (LEO) was typically quoted as $20 k/kg. The usual cost for
+
+launch to LEO has been about $10 k/kg for many decades, but this high cost has been considered a major
+impediment to space exploration and development. (Wertz and Larson 1996, p. 125)
+
+                                                                       7
+                                       International Conference on Environmental Systems
+    A yearly Space Shuttle budget of 4 billion dollars for 10 planned launches of 16,000 kg to LEO corresponds to a
+cost of $25 k/kg. Since there were 135 shuttle flights over 30 years, the flight rate was only 4.5 launches per year,
+which corresponds to a higher cost of $55 k/kg. This launch and operations cost does not include development cost,
+which could add another half a billion dollars per launch. (Strickland 2013) Adding development cost, the cost of
+launch to LEO could have been as high as $87 k/kg.
+
+    NASA is developing the Space Launch System (SLS). Its initial capability will be 70,000 kg to LEO and one
+quoted cost is 500 million dollars per launch. (Wikipedia, Space Launch System 2014) This corresponds to a
+reasonable cost of $7.140 k/kg. However the 500 million dollar cost per launch is an unofficial NASA target that
+seems to reflect only the incremental cost per launch, without the initial development and continuing operations
+costs. (Strickland 2013) About 8 billion dollars will be required for SLS development through the first flight in 2017
+or 2018. (Aitoro 2014) SLS has been criticized because its mission is undefined and few launches are definitely
+planned, but NASA hopes for once-a-year launches after the first crewed Orion flight in 2021. (Davis 2014) If there
+were a total of 16 launches, allocating the 8 billion dollar development cost would add a second 500 million dollar
+cost to each launch and the cost per kilogram would double to $14,280 k/kg.
+
+    Future NASA and commercial launch vehicle development could greatly reduce the cost per kilogram to reach
+LEO. "Today, it costs $10,000 to put a pound of payload in Earth orbit. NASA's goal is to reduce the cost of getting
+to space ... developing technologies that target a 100-fold reduction in the cost of getting to space by 2025,
+lowering the price tag to $100 per pound." (NASA ASTP 2000) Space X's long planned Falcon Heavy has its first
+launch projected for 2016. It is expected to launch 53,000 kg to LEO at a cost of 85 million dollars, a cost of only
+$1.6 k/kg. (Space X, Falcon Heavy) Falcon Heavy cost estimates per launch have been higher, up to 135 million
+dollars, giving a higher cost of $2.5 k/kg to LEO. (Wikipedia, Falcon Heavy)
+
+    A reasonable historically based cost for launch to LEO is $10 k/kg. An optimistic estimate for the future would
+be $2.5 k/kg, a 75% reduction. The likely worst case might be $25 k/kg, ten times the best case.
+
+B. Computing mass ratios for emplacement beyond LEO
+    A moon or Mars mission requires launching to LEO both the payload and the propulsion system - the rocket and
+
+propellant - needed to get the payload to its final destination. The surface payload must be placed on the moon or
+Mars. The transit vehicle must be placed in moon or Mars orbit and later returned to LEO. The emplacement cost
+depends on the ratio of the total initial LEO mass to the final payload mass. The initial mass includes the propellant
+
+but the final mass does not. These initial/final mass ratios depend on the required -v and the specific impulse of the
+propellant. Typical initial/final mass ratios from LEO to the moon or Mars and landing or return are shown in Table
+3 below. (Condon et al. 2000, pp. 276-279)
+
+Table 3. Initial/final mass ratios beyond LEO.
+
+Moon
+
+LEO to moon orbit and  6.7
+landing
+
+LEO to moon orbit and  5.0
+return to Earth
+
+Mars
+
+LEO to Mars orbit and  4.8
+landing
+
+LEO to Mars orbit and  13.2
+return to Earth
+
+    The Moon landing requires rocket powered lunar orbit insertion and descent. The Mars landing saves propellant
+mass by using aerobraking for Mars orbit insertion followed by combined parachute and powered descent. The
+initial/final mass ratios indicate the need to launch to LEO propellant that is 4.8 to 13.2 times as massive as the
+payload plus the transit and landing rockets. The rocket mass is typically 15% of the propellant mass. (Petro 2000, p.
+405) (Wertz and Larson 1996, p. 142) Table 3 gives the ratio of payload plus rocket plus propellant mass to the
+payload plus rocket mass, so the ratio of payload plus rocket plus propellant mass to the payload mass alone will be
+substantially higher. The exact stack-to-payload mass ratios can be calculated for any particular mission plan.
+Missions that use only chemical propulsion will have significantly higher mass ratios, but these can be reduced by
+using aerobraking and gravity assist. (Jones 2003-01-2635) (Jones 2012-3618)
+
+                                                      8
+                       International Conference on Environmental Systems
+C. Location factors or gear ratios for locations beyond LEO
+The stack-to-payload mass ratios are often called location factors or gear ratios. The location factor is the ratio of the
+total payload, rocket, and propulsion mass necessary in LEO to emplace the payload mass at its mission destination.
+The total mass required in LEO is simply the payload mass multiplied by the location factor or gear ratio. (Fisher et
+al. 2003) (BVAD 2004)
+
+Table 4. Location factors or gear ratios for locations beyond LEO.
+
+                                       (BVAD 2004) (BVAD 2008)      Average
+
+Moon                                                                   7.1
+                                                                       8.2
+LEO to moon orbit and landing          6.98  7.2
+                                                                       3.3
+LEO to moon orbit and return to Earth  7.36  9.1                       6.3
+
+Mars
+
+LEO to Mars orbit and landing          3.77  2.77
+
+LEO to Mars orbit and return to Earth  6.77  5.77
+
+    The nominal location factors from the Life Support Baseline Values and Assumptions Document (BVAD) are
+given in Table 4. The (BVAD 2004) and (BVAD 2008) values differ somewhat. The (BVAD 2008) (BVAD 2010)
+and (BVAD 2014) location factors values are identical. The BVAD location factors for Mars are based on the Mars
+Dual Lander architecture which uses aerobraking. The BVAD 2004 estimates for the moon are based on a similar
+architecture, while BVAD 2008 and later estimates for the moon are based on the L1 Gateway architecture.
+
+    Connolly's Mars design example in Human Spaceflight uses solar electric propulsion to ferry cargo slowly from
+LEO to High Earth Orbit where the Mars habitat/lander is assembled. Nuclear propulsion in LEO was ruled out. A
+chemical rocket is used for a fast 180 day crew transit to Mars. The stack-to-payload mass ratio is 3.1 for the
+habitat/lander, and is similar to the BVAD values (Connolly 2000, pp. 986-987, 998-999) (Jones 2012-3618)
+
+                                          IV. Operations cost estimation
+
+    The operations phase of a human space mission begins after launch and continues until the crew returns to Earth.
+The operations cost includes crew training, ground support, mission control and planning, and data analysis. Ground
+support provides constant coverage with on-call expertise for maintenance and trouble-shooting. Sustaining
+engineering is needed to support maintenance and trouble-shooting. The system complexity and the mission duration
+are the two major drivers of operations cost. (Wertz and Larson 1999, pp. 214-218) (Jones 2003-01-2635)
+
+    Space operations costs can be approximately predicted as an additional percentage of the system development
+cost every year. Mission constraints and systems design choices tend to drive DDT&E and operations costs in the
+same direction. Complex human missions, severe environments, and higher risk aversion increase both DDT&E and
+operations cost. New technology, large amounts of software, complex monitoring and control, tight margins, and
+multiple operational modes do also. (Wertz and Larson 1996, pp. 214-218) (Jones 2003-01-2635)
+
+    Human space programs before the space shuttle were relatively short term and had small operations costs. The
+space shuttle's estimated total cost for the first ten years had 58% for operations and 37% for DDT&E, so the
+operations cost for ten years is 157% of the DDT&E cost. Shuttle operations therefore cost roughly 15.7% of
+DDT&E per year, but this includes launch, which is usually estimated separately. The early estimated total cost of
+the ISS including ten years of operations had 51% for operations and 45% for DDT&E. The ten year operations cost
+is 113% of the DDT&E cost. ISS operations cost is roughly 11% of DDT&E per year, not including launch. (Guerra
+and Shishko 2000, p. 938) (Jones 2003-01-2635)
+
+    The Johnson Space Center (JSC) developed the Mission Operations Cost Model (MOCM). It is a high-level
+estimating tool that provides a quick rough order of magnitude cost estimate for spacecraft mission operations. The
+MOCM estimates the average annual operations costs for manned, unmanned, or planetary missions based on the
+total development and production cost of the spacecraft. The JSC MOCOM was maintained as an online calculator
+but is no longer available. (NASA CEH) The MOCM estimated manned spacecraft operations cost as equal to
+10.9% of the total development and production cost per year. (Jones 2003-01-2635)
+
+                                              V. Life Cycle Cost (LCC)
+
+    The Life Cycle Cost (LCC) of a space mission is the sum of the costs for Design, Development, Test, and
+Evaluation (DDT&E), Launch and Emplacement (L&E), and Operations. The LCC of a hardware system is
+estimated for four different missions, a future space station, a moon base, a Mars transit vehicle, and a Mars base.
+The mission parameters and costs are shown in Table 5
+
+                                                                       9
+                                       International Conference on Environmental Systems
+Table 5. Mission Life Cycle Cost (LCC).                      Mission
+
+               AMCM Parameters            Space station  Mars transit Moon base  Mars base
+   Q Quantity
+   M Mass, lb                                  2.13            1                    2.46
+   M Mass, kg
+    S Specification                             -2             1,500                  0
+  IOC Initial date
+   B Block                                      98             682                 1,032
+   D Difficulty                                144                                 1,513
+                                               46%       2.13         2.46          84%
+                   DDT&E cost
+          DDT&E cost, $M                         1             2030                  3.3
+          DDT&E cost per kg, $k                  7                                   23
+          DDT&E cost % of total                 10             2                     33
+                                                3%                                   2%
+                     L&E cost                            0            -2
+          Cost to LEO, $k/kg                    10                                   1.5
+          Gear ratio                                     242          419
+          L&E cost, $M                         108                                  170
+          L&E cost per kg, $k                  159       355          614           250
+          L&E cost % of total                  51%                                  14%
+                                                         78%          45%
+                 Operations cost               214                                 1,224
+          Mission duration, years              313             10                  1,795
+          Operations cost per year/DDT&E
+          Operations cost, $M                            6.3          7.1
+          Operations cost per kg, $k
+          Operations cost % of total                     43           48
+
+                     Total cost                          63           71
+                      Total cost, $M
+                  Total cost per kg, $k                  14%          5%
+
+                                                         1            10
+
+                                                               0.11
+
+                                                         27           461
+
+                                                         39           676
+
+                                                         9%           50%
+
+                                                         312          928
+
+                                                         457          1,361
+
+    The system costs are high, 100's of millions of dollars, and they increase as the missions go outward from a
+space station to a moon base, a Mars transit vehicle, and a Mars base. The LCC per kilogram increases from about
+$300k to $2M per kilogram. The costs are in 1999 dollars and are more that fifty percent higher now and would be
+more than double in current dollars by the end of the next decade.
+
+    Most of the parameters are the same for all missions. The identical parameters are the quantity, mass, initial
+operating date, block, cost to launch to LEO, and operations cost per year as a fraction of DDT&E cost. The AMCM
+specification, S, is 2.13 for a manned habitat and 2.46 for a planetary lander. The difficulty was set to -2, easy, for a
+future space station and moon base since quick resupply or crew return are possible. The difficulty was set to 0,
+average, for the Mars transit vehicle and Mars base because of their much more difficult reliability requirement. The
+relative costs of DDT&E, L&E, and operations are shown in Figure 1.
+
+                              10
+International Conference on Environmental Systems
+    Figure 1. Costs of DDT&E, L&E, and operations in $k/kg.
+
+    The DDT&E cost is always a major portion of the mission cost, about 45% for a space station or Moon base and
+about 80% for Mars transit and a Mars base. The DDT&E cost is a smaller part of the total for a space station or
+Moon base because these are ten year long missions with high operations costs,
+
+    The L&E cost is relatively small, averaging about 6%. The anticipated reduction of LEO launch cost by a factor
+of four, to $2.5 k/kg, would reduce total LCC by only 4 or 5%. An increase by a factor of four would increase
+average mission cost only by 18%.
+
+    The operations costs are very high for the two ten year missions, about 50% of the total for space station and
+moon base. The high operations costs reflect high DDT&E cost and long mission duration.
+
+    The facts that the L&E cost is negligible and that the operations cost is directly proportional to the DDT&E cost
+makes it clear that the DDT&E cost is the major driver in LCC. The AMCM formula suggests that DDT&E cost
+might be reduced by reducing the system mass and functionality, by using designs with a long multigenerational
+heritage, and by reducing the programmatic and technical difficulty. It is thought that the culture of human space
+development must change to reduce cost. Some suggestions are concurrent engineering, integrated design
+environments, simulation based design, and use of commercial parts, practices, and organizations. (Guerra and
+Shishko 2000, pp. 954-7)
+
+    The general approach cost estimating shown in Table 5 seems reasonable and useful. The LCC computation
+presented can easily be revised for different assumptions and missions. It is too simple to capture second order
+effects. For instance, spending more on DDT&E to achieve lower mass would tend to incorrectly reduce the
+estimate of DDT&E cost. Similarly, spending more on DDT&E to decrease operational problems would wrongly
+tend to increase the estimate of operations cost. The AMCM estimate of DDT&E cost produces only a rough
+historically based estimate that can be useful but is necessarily inexact.
+
+                                                    VI. Conclusion
+
+    A quick rough order of magnitude estimate of space systems' Life Cycle Cost (LCC) can be provided by adding
+estimates of the costs for Design, Development, Test, and Evaluation (DDT&E), Launch and Emplacement (L&E),
+and operations. The DDT&E cost estimate is developed using the Advanced Missions Cost Model (AMCM). The
+L&E cost estimate is based on the historic cost of launch to Low Earth Orbit (LEO) and the mission-specific stack-
+to-payload mass ratio. The operations cost estimate is a historically based additional percentage of the DDT&E cost
+per year.
+
+    A rough LCC estimate can be used in preliminary technology selection and architecture trade-offs and to
+compare alternate mission scenarios. The model presented here could be updated or tailored for specific technology
+areas. More detailed and flexible models should be used in project planning and management.
+
+                                                                      11
+                                       International Conference on Environmental Systems
+                                                          References
+
+    Aitoro, J. R., "Is NASA masking billions in costs tied to some of its largest space programs?" Washington Business Journal,
+May 9, 2014, http://www.bizjournals.com/washington/bio/81/Jill+R.+Aitoro
+
+    AMCM Advanced Missions Cost Model, (formerly at http://cost.jsc.nasa.gov/AMCM.html),
+http://fas.org/news/reference/calc/AMCM.htm, accessed Nov 4, 2014.
+
+    BVAD, Advanced Life Support Baseline Values and Assumptions Document, NASA/CR--2004­208941, August, 2004.
+    BVAD, Exploration Life Support Baseline Values and Assumptions Document, ESCG-4470-10-TEAN-DOC-0015, February
+26, 2010.
+    BVAD, Exploration Life Support Baseline Values and Assumptions Document, ESCG-4470-08-TEAN-DOC-0301A,
+December 22, 2008.
+    BVAD, Life Support Baseline Values and Assumptions Document, draft, March 22, 2014.
+    Condon, G., Tigges, M., and Cruz, M. I., "Entry, Descent, landing, and Ascent," in W. K. Larson, and L. K. Pranke, eds.,
+Human Spaceflight: Mission Analysis and Design, McGraw-Hill, New York, 1999.
+    Connolly, J. F., "Mars Design Example," in W. K. Larson, and L. K. Pranke, eds., Human Spaceflight: Mission Analysis and
+Design, McGraw-Hill, New York, 1999.
+    Cyr, K., "Cost Understanding," vol. III Space Exploration Annual Report, SAA-C-R-001, pp. 1296-1418,
+ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19890006474.pdf, Johnson Space Center, Oct. 1988.
+    Davis, J., "How NASA Plans to Land Humans on Mars," Planetary Society blogs, Nov. 20, 2014,
+http://www.planetary.org/blogs/jason-davis/2014/20141119-how-nasa-plans-mars.html
+    de Neufville, R., Applied Systems Analysis, McGraw-Hill, New York, p. 231, 1990.
+    Fad, B., "10 Dumb Statements on Estimating: Confessions of a Cost Lifer," PRICE Systems, 2013, PRICESystems.com,
+accessed Nov. 5, 2014.
+    Federation of American Scientists, Advanced Missions Cost Model, fas.org/news/reference/calc/AMCM.htm, accessed Nov.
+6, 2014.
+    Fisher, J. W., Levri, J. A., and Jones, H. W., "The Effect of Mission Location on Mission Costs and Equivalent System
+Mass," 2003-01-2633, 33rd ICES (International Conference on Environmental Systems), 2003.
+    Global Security website, http://www.globalsecurity.org/military/intro/reference/calc/SVLCM.htm, accessed Nov. 7, 2014.
+    Greenberg, J.S., "Appendix: CERs and Models" to Mandell, H. C., "Cost-Estimating Relationships in Space Programs," in
+Space Economics, J.S. Greenberg and H.R. Hertzfeld, eds., American Institute of Aeronautics and Astronautics, Washington,
+1992.
+    Guerra, L., and R. Shishko, "Estimating the Cost of Crewed Space Systems," in Larson, W. K., and Pranke, L. K., eds.,
+Human Spaceflight: Mission Analysis and Design, McGraw-Hill, New York, 2000.
+    Jones, H. W., "Equivalent Mass versus Life Cycle Cost for Life Support Technology Selection," 2003-01-2635, 33rd ICES
+(International Conference on Environmental Systems), 2003.
+    Jones, H. W., "Methods and Costs to Achieve Ultra Reliable Life Support," AIAA 2012-3618, 42nd International Conference
+on Environmental Systems, 15 - 19 July 2012, San Diego, California.
+    Jones, H. W., "Storage or Recycling Life Support for Mars?" AIAA 2013-3407, 43rd International Conference on
+Environmental Systems, July 14- 14-18, 2013, Vail, CO.
+    Leone, D., "GAO: True Cost of SLS, Orion Unclear," http://www.spacenews.com/article/civil-space/40610gao-true-cost-of-
+sls-orion-unclear, May. 19, 2014, accessed May 21, 2014.
+    NAFCOM FAQ, NASA/AIR FORCE COST MODEL FREQUENTLY ASKED QUESTIONS,
+www.nasa.gov/pdf/729289main_NAFCOM%20FAQ.PDF, accessed Nov. 6, 2014.
+    NAFCOM website, http://www.nasa.gov/offices/ooe/NAFCOM.html#.VFu0fId8RMg, accessed Nov. 6, 2014.
+    NASA ASTP, Advanced Space Transportation Program: Paving the Highway to Space, 2000,
+http://www.nasa.gov/centers/marshall/news/background/facts/astp.html_prt.htm, accessed Nov. 18, 2014.
+    NASA CEH Cost Estimating Handbook, JSC, 2004, p. M-8.
+    NASA New Start Index Inflation Index, 724337main_2012 NASA New Start Inflation Index use in FY13 Distribution
+File.xlsx, http://www.nasa.gov/offices/ooe/CAD/Publications.html#.VG_FwId8RMh, downloaded Nov. 19, 2014.
+    NASA Systems Engineering Handbook, SP-2007-6105, Rev. 1, December 2007, pp. 119, 125-129.
+    National Academy Press, Reducing the Costs of Space Science Research Missions,
+http://www.nationalacademies.org/ssb/jctmenu.html Washington, 1997.
+    OMB Circular A-94, "Guidelines and Discount Rates for Benefit-Cost Analysis of Federal Programs," October 29, 1992.
+    PCEC, Project Cost Estimating Capability, http://www.nasa.gov/offices/ooe/PCEC/, accessed Nov. 6, 2014.
+    Petro, A., "Transfer, Entry, Landing, and Ascent Vehicles," in Larson, W. K., and Pranke, L. K, eds., Human Spaceflight:
+Mission Analysis and Design, McGraw-Hill, New York, 2000.
+    PRICE Systems website, http://pricesystems.com, accessed Nov. 5, 2014.
+    Prince, A., Alford, B., Boswell, B., Pitlyk, M., and Pedigo, M., "Development of a Project Cost Estimating Capability," May
+15, 2014, www.nasa.gov/sites/default/files/files/PCEC_CarpeDiem_May2014.pdf, accessed Nov. 6, 2014. See also, Prince, A.,
+Alford, B., Boswell, B., Pitlyk, M., and Pedigo, M., "The International Cost Estimating and Analysis Association 2014
+Workshop Space Papers," http://www.iceaaonline.com/2014-space-papers/, accessed Nov. 6, 2014.
+    Smiley, Robert "Ed," comment in response to presentation of (Jones 2003-01-2635).
+    Space X, Falcon Heavy, http://www.spacex.com/falcon-heavy, accessed Nov. 19, 2014.
+
+                                                                      12
+                                       International Conference on Environmental Systems
+    Strickland, J., "Revisiting SLS/Orion launch costs," The Space Review, July 15, 2013,
+www.thespacereview.com/article/2330/1
+
+    Trivailo, O., Sippel, M., and Sekercioglu, Y. A., "Review of hardware cost estimation methods, models and tools applied to
+early phases of space mission planning," Progress in Aerospace Sciences, Volume 53, August 2012, pages 1­17.
+
+    Wertz, J. R., and Larson, W. J., eds., Reducing Space Mission Cost, Space Technology Series, Kluwer, Dordrecht, 1996.
+    Wikipedia, Falcon Heavy, http://en.wikipedia.org/wiki/Falcon_Heavy, accessed Nov. 19, 2014.
+    Wikipedia, Space Launch System, en.wikipedia.org/wiki/Space_Launch_System, accessed Nov. 20, 2014.
+
+                                                                      13
+                                       International Conference on Environmental Systems
+

@@ -236,14 +236,14 @@
       {
        "input": "`electrolysis_kwh_per_kg_h2o`",
        "value": "6.1",
-       "tier": "**C**",
-       "source_validation": "= 55 kWh/kg H₂ ÷ 8.94 kg H₂O per kg H₂. **Verified 2026-07-09**: \"Electrolysis of water at ambient temperatures requires 50–55 kWh per kilogram of hydrogen — alkaline 50, PEM 55; thermodynamic limit 40\" ([World Nuclear](https://world-nuclear.org/information-library/energy-and-the-environment/hydrogen-production-and-uses), primary; [EH2 whitepaper](https://eh2.com/wp-content/uploads/2025/01/Final_PEM_vs_Alkaline_December_2024_Whitepaper.pdf) secondary). **2026-07-10**: CATF PDF finally parsed (pypdf) — PEM system at **48.1 kWh_AC/kg H₂** as a 2030 estimate, i.e. our 55 is the conservative current-day figure with ~13% improvement headroom. Terrestrial numbers — Mars packaging will be worse, not better."
+       "tier": "**B — confirmed 2026-07-21**",
+       "source_validation": "= 55 kWh/kg H₂ ÷ 8.94 kg H₂O per kg H₂. **Verified 2026-07-09**: \"Electrolysis of water at ambient temperatures requires 50–55 kWh per kilogram of hydrogen — alkaline 50, PEM 55; thermodynamic limit 40\" ([World Nuclear](https://world-nuclear.org/information-library/energy-and-the-environment/hydrogen-production-and-uses), primary; [EH2 whitepaper](https://eh2.com/wp-content/uploads/2025/01/Final_PEM_vs_Alkaline_December_2024_Whitepaper.pdf) secondary). **2026-07-10**: CATF PDF finally parsed (pypdf) — PEM system at **48.1 kWh_AC/kg H₂** as a 2030 estimate, i.e. our 55 is the conservative current-day figure with ~13% improvement headroom. Terrestrial numbers — Mars packaging will be worse, not better. [CONFIRMED 2026-07-21 against ISS OGA flight hardware: 28-cell AOGA stack, 46.9 A rated, ~1.7 V/cell -> ~2.23 kW producing 9.25 kg-O2/day = ~5.8 kWh/kg-O2 stack-only = ~5.2 kWh/kg-H2O; +15-40% system-level lands at ~6-7, so our 6.1 holds. NTRS 20230008013 / 20190030425.]"
       },
       {
        "input": "`co2_capture_kwh_per_kg_co2`",
-       "value": "0.7",
-       "tier": "**D**",
-       "source_validation": "Cryo-freezing/adsorption of 6-mbar CO₂; literature spans ~0.3–2+ kWh/kg depending on method. Order-of-magnitude."
+       "value": "1.0",
+       "tier": "**C — re-anchored 2026-07-21**",
+       "source_validation": "Re-anchored 0.7 -> 1.0 to the NASA Glenn TSA pump study ([NTRS 20180000404](https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20180000404.pdf), TFAWS 2017): a 3.05 kg/hr-CO2 module draws 2.8-3.6 kW at the 2-3 stage / 350 kPa optimum, i.e. ~0.9-1.2 kWh/kg CO2 (up to ~2.3 for aggressive pressure targets). Adsorbent mass figures are a few kg (adsorbent-only) and do not bound the 2 t production unit."
       },
       {
        "input": "`sabatier_support_kwh_per_kg_ch4`",
@@ -253,15 +253,15 @@
       },
       {
        "input": "`liquefaction_kwh_per_kg_propellant`",
-       "value": "0.8",
-       "tier": "**C/D**",
-       "source_validation": "Cryocooler work for CH₄/O₂ + boil-off reliquefaction at Mars ambient; typical estimates ~0.5–1."
+       "value": "1.5",
+       "tier": "**B — re-anchored 2026-07-21**",
+       "source_validation": "Re-anchored 0.8 -> 1.5. NASA cryo studies converge on 1.6-2.2 kWh/kg for O2 liquefaction ([NTRS 20170009150](https://ntrs.nasa.gov/api/citations/20170009150/downloads/20170009150.pdf), [20160004211](https://ntrs.nasa.gov/api/citations/20160004211/downloads/20160004211.pdf); Cryogenics 2018); blended over methalox (~78% O2 + cheaper CH4) gives ~1.4-1.8 kWh/kg-propellant. Our prior 0.8 was ~2x optimistic. Not the chain bottleneck; effect is on power, not schedule."
       },
       {
        "input": "`water_processing_kwh_per_kg_h2o`",
        "value": "0.35",
        "tier": "**C — re-anchored 2026-07-20**",
-       "source_validation": "Melt/filter/deionize energy per kg product water. Re-anchored to the RedWater TRL-6 measured system: total SEC ~1.62 MJ/kg (0.45 kWh/kg) end-to-end at 169 kg/h ([AIAA ASCEND 2021](https://arc.aiaa.org/doi/10.2514/6.2021-4038); Honeybee/Zacny). We carry 0.35 here + 0.1 excavation = 0.45 end-to-end matching the measured figure. Program-neutral: electrolysis is the chain bottleneck at every window (verified 2026-07-20)."
+       "source_validation": "Melt/filter/deionize energy per kg product water. Re-anchored to the RedWater TRL-6 measured system: total SEC ~1.62 MJ/kg (0.45 kWh/kg) end-to-end at 169 kg/h ([AIAA ASCEND 2021](https://arc.aiaa.org/doi/10.2514/6.2021-4038); Honeybee/Zacny). We carry 0.35 here + 0.1 excavation = 0.45 end-to-end matching the measured figure. Program-neutral: electrolysis is the chain bottleneck at every window (verified 2026-07-20). [2026-07-21: the RATE is now capped separately (isru.water_extraction_kg_h2o_per_hr_per_unit), because water is process/grade-limited, not power-limited -- see the water-resource row.]"
       },
       {
        "input": "`excavation_kwh_per_kg_h2o`",
@@ -322,6 +322,57 @@
     {
      "type": "prose",
      "md": "**Gate change (2026-07-09):** `return_propellant_proven` now additionally\nrequires `min_propellant_t: 1400` — cumulative tonnes actually produced by the\ncampaign's ISRU state, not just hardware delivered. In the program plan the\ngate retires one window after the fuel-factory delivery (2033-03, 2,686 t\nbanked) and the first crew launches with ~10,200 t produced. The planner also\nderates production when installed generation can't carry the delivered load.\n\n**Validation checks the model now reproduces from first principles:** specific\nenergy ≈ **7.72 kWh/kg propellant** → one 1,400 t load ≈ **10.8 GWh** →\n**~850 kW continuous** chain power (at 85% availability) to fill one load per\nwindow — squarely the \"~1 MW full-scale ISRU\" domain constant (HANDOFF §2).\nNet water ≈ **684 t per load** — the \"hundreds of tonnes\" grounding. Pilot\nchain (seeded quantities): **~21 kg/hr nameplate, electrolysis-limited**,\n~269 t per window = 19% of one load, ~8.8 years to a full load."
+    }
+   ]
+  },
+  {
+   "level": 3,
+   "title": "2b-water. Water resource grade & extraction rate (`isru.water_extraction_kg_h2o_per_hr_per_unit`)",
+   "blocks": [
+    {
+     "type": "prose",
+     "md": "Added 2026-07-21 after deep research found the prior single-unit water rate (~3.6 t/day) optimistic by 1-2 orders of magnitude. Water is **process/grade-limited, not power-limited** (the old rate = power/energy model was wrong in kind), so the extraction step now carries an explicit per-unit rate ceiling keyed to ice grade. The achievable rate depends entirely on the resource the site actually has, which flight-1 prospecting must confirm as *minable* (grade/depth/form/extent), not merely present."
+    },
+    {
+     "type": "table",
+     "columns": [
+      "Quantity",
+      "Value",
+      "Tier",
+      "Source & validation"
+     ],
+     "keys": [
+      "quantity",
+      "value",
+      "tier",
+      "source_validation"
+     ],
+     "rows": [
+      {
+       "quantity": "Clean-ice extraction rate (baseline)",
+       "value": "16.7 kg-H2O/hr/unit (~0.4 t/day)",
+       "tier": "**C**",
+       "source_validation": "NASA Mars Rodwell (Rodriguez-well) modeled steady-state: 120-400 L/day/well at 2-10 kW thermal ([NTRS TP-20205011353](https://ntrs.nasa.gov/api/citations/20205011353/downloads/Rodwell%20Experiment%20Final%20Report%20TP-20205011353.pdf)). Baseline uses the optimistic ~0.4 t/day ceiling. RedWater vendor model claims 169 kg/hr but that is MODELED steady-state, not demonstrated; the demonstrated chamber rate was ~11 kg/hr ([New Space 2022, Mellerowicz/Zacny](https://www.liebertpub.com/doi/full/10.1089/space.2021.0057)). ~4 extraction units feed one return load/synod."
+      },
+      {
+       "quantity": "Garden-regolith extraction rate (skeptic scenario)",
+       "value": "1.2 kg-H2O/hr/unit (~29 kg/day)",
+       "tier": "**C**",
+       "source_validation": "NASA 2024 kiloton-class Water Extraction Rig: a ~3.3 t unit on ~1%-water \"garden\" regolith yields only ~29 kg/day (4 rigs + ~29,000 t regolith for 150 t over 44 months). Carried in the `garden_regolith` scenario, where water becomes program-dominating and crew slips -- the downside the minable-ice gate exists to rule out."
+      },
+      {
+       "quantity": "Mars ice grade distribution",
+       "value": "bimodal",
+       "tier": "**B**",
+       "source_validation": "Mars water is bimodal by site. Mid-latitude massive/excess ice: >90% pure, 1-2 m deep, >100 m thick, low lithic content ([Dundas et al. 2018 Science](https://www.science.org/doi/10.1126/science.aao1619); 2021 JGR \"clean shallow ice\"); mapped regionally by SWIM ([Nature Astronomy 2020](https://www.nature.com/articles/s41550-020-01290-z); [swim.psi.edu](https://swim.psi.edu/)), with Arcadia Planitia (~40N) flagged favorable for ISRU. Equatorial/typical \"garden\" regolith: ~1-8% by weight (bake at ~12.5 kWh/kg-thermal). Site selection targets the mid-latitude clean ice (SpaceX-favored Arcadia); fission baseline absorbs the higher-latitude solar penalty."
+      },
+      {
+       "quantity": "Excavation scaling (RASSOR)",
+       "value": "2.7 t regolith/day/robot (design)",
+       "tier": "**B (figure) / C (scaling)**",
+       "source_validation": "RASSOR 2.0: 66 kg, 2.7 t regolith/day ([ASCE 2016](https://ascelibrary.org/doi/10.1061/9780784479971.018)) -- but that is a lunar/dry-simulant DESIGN capability, and NASA states SOTA low-mass excavators cannot mine the quantities Mars propellant needs. No published scaling law to a 2 t production machine. For clean-ice Rodwell, excavation is not the binding path; it binds only in the garden-regolith case (~33-66 robots for 3.6 t/day at 2-4% grade)."
+      }
+     ]
     }
    ]
   },
@@ -435,9 +486,9 @@
      "rows": [
       {
        "input": "`spares_fraction_of_dry`",
-       "value": "0.35",
-       "tier": "**B**",
-       "source_validation": "Anchored to flight experience: ECLSS accounted for **34% of all supplied logistics mass** on ISS ([NTRS 20210000437](https://ntrs.nasa.gov/citations/20210000437)); NASA deep-space studies show spares dominating maintenance logistics and closed-loop ECLSS *increasing* spares demand ([NTRS 20210022453](https://ntrs.nasa.gov/api/citations/20210022453/downloads/IEEE_Regenerative%20ECLSS%20and%20Logistics%20Analysis%20for%20Sustained%20Lunar%20Missions%20v3.docx.pdf)). NASA modeling without spares puts mission reliability <1% (deep dive §2, Problem 5). 30–40% of dry mass is the defensible planning band; scenarios carry 0.25 (optimistic) to 0.40 (conservative). At 53 t, this is the single biggest \"soft\" mass line."
+       "value": "0.13 (baseline) / 0.35 (workbook_port fixture)",
+       "tier": "**C — re-anchored 2026-07-21**",
+       "source_validation": "Re-anchored 0.35 -> 0.13. The 0.35 rested on a unit mismatch: ECLSS was 34% of ISS *resupply logistics* mass ([NTRS 20210000437]), NOT 35% of installed *dry* mass; real ECLSS spares-of-dry run ~8-16% (deep-research 2026-07-21). ECLSS reliability history (pre-flight estimates off up to 22x) argues against going lower. The original 0.35 workbook formula is preserved in the frozen `workbook_port` scenario so the port regression is unaffected. Real NASA sparing is per-component MTBF-driven (informed_spares/poisson scenarios); any flat fraction is a simplification."
       },
       {
        "input": "`spares_fraction_by_group` (`informed_spares` scenario)",

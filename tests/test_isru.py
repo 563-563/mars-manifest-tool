@@ -43,9 +43,9 @@ def test_pilot_scale_vs_return_load(result):
 def test_full_scale_power_matches_domain_grounding(result):
     # HANDOFF.md §2: full-scale ISRU ~1 MW continuous. Chain at 85% availability
     # comes out ~850 kW — squarely the right order.
-    assert result.full_scale_kw_required == pytest.approx(853, abs=15)
-    assert result.spec_energy_kwh_per_kg == pytest.approx(7.65, abs=0.1)
-    assert result.energy_per_return_load_gwh == pytest.approx(10.7, abs=0.2)
+    assert result.full_scale_kw_required == pytest.approx(959, abs=15)
+    assert result.spec_energy_kwh_per_kg == pytest.approx(8.60, abs=0.1)
+    assert result.energy_per_return_load_gwh == pytest.approx(12.0, abs=0.2)  # spec re-anchored
 
 
 def test_excavation_step_present_with_headroom(result):
@@ -69,9 +69,10 @@ def test_scaling_the_bottleneck(catalog, baseline, precursor):
         if item.component_id == "water_electrolysis":
             item.qty = 5
     r = IsruEngine(catalog, baseline).assess(mission)
-    # 5x electrolysis pushes the bottleneck to the next-slowest step (sabatier)
-    assert r.bottleneck == "sabatier"
-    assert r.propellant_rate_kg_hr > 50
+    # 5x electrolysis pushes the bottleneck to the water-extraction ceiling
+    # (clean-ice Rodwell cap, re-anchored 2026-07-21), not sabatier
+    assert r.bottleneck == "water_processing"
+    assert r.propellant_rate_kg_hr > 30  # water-cap-bound at 1 extraction unit
 
 
 def test_chain_design_one_load_per_synod(catalog, baseline):
@@ -82,21 +83,21 @@ def test_chain_design_one_load_per_synod(catalog, baseline):
     units = {s.key: s.units_required for s in d.steps}
     utils = {s.key: s.utilization for s in d.steps}
     assert units["electrolysis"] == 6
-    assert units["co2_capture"] == 2
+    assert units["co2_capture"] == 3  # co2 energy re-anchored 0.7->1.0 (NASA TSA)
     assert units["sabatier"] == 3
-    assert units["liquefaction"] == 2
-    assert units["water_processing"] == 1
+    assert units["liquefaction"] == 3  # liquefaction energy re-anchored 0.8->1.5
+    assert units["water_processing"] == 4  # clean-ice extraction cap needs ~4 wells/load
     # matched: big-ticket steps land at high utilization
     assert utils["electrolysis"] == pytest.approx(0.87, abs=0.02)
-    assert utils["co2_capture"] == pytest.approx(0.97, abs=0.02)
+    assert utils["co2_capture"] == pytest.approx(0.92, abs=0.02)  # 3 co2 units
     # granularity slack flagged where ceil() forces it
     assert any("sabatier" in n or "liquefaction" in n or "water_processing" in n
                for n in d.notes)
-    # rollup: ~61 t of chain drags ~1 MW of power -> the domain constant again
-    assert d.chain_mass_t == pytest.approx(61.0, abs=1.0)
-    assert d.chain_avg_kw == pytest.approx(1050, abs=15)
-    assert d.fission_units == 27
-    assert d.total_mass_t == pytest.approx(265, abs=5)
+    # rollup: chain mass/power after the 2026-07-21 re-anchor (water cap, co2/liq energy)
+    assert d.chain_mass_t == pytest.approx(82, abs=1.5)
+    assert d.chain_avg_kw == pytest.approx(1236, abs=20)
+    assert d.fission_units == 31
+    assert d.total_mass_t == pytest.approx(318, abs=6)
 
 
 def test_chain_design_custom_target(catalog, baseline):
@@ -114,12 +115,12 @@ def test_oxygen_only_fallback(manager, catalog, precursor):
     a = manager.resolve("oxygen_only_isru")
     r = IsruEngine(catalog, a).assess(precursor)
     assert r.mode == "oxygen_only"
-    assert r.bottleneck == "o2_electrolysis"
-    assert r.propellant_rate_kg_hr == pytest.approx(11.6, abs=0.1)
+    assert r.bottleneck == "co2_capture"  # co2 energy re-anchor shifts the oxygen-only bottleneck
+    assert r.propellant_rate_kg_hr == pytest.approx(8.72, abs=0.1)
     assert r.water_for_return_load_t == 0.0
     assert r.ch4_import_t_per_load == pytest.approx(304.3, abs=0.5)
     assert r.ch4_import_ships_per_load == 4
-    assert r.spec_energy_kwh_per_kg == pytest.approx(13.7, abs=0.1)
+    assert r.spec_energy_kwh_per_kg == pytest.approx(15.25, abs=0.15)
 
 
 def test_high_energy_scenario_matches_handmer_anchor(manager, catalog, precursor):

@@ -1,0 +1,564 @@
+   
+ 
+   
+ 
+ISRU Pilot Excavator: Bucket drum scaling experimental results 
+Jason Schuler1, Andrew Nick2, Kurt Leucht3, Austin Langton4, Drew Smith5  
+ 
+1 Exploration Systems and Development Office, Mail Code: UB-E2, NASA Kennedy 
+Space Center, FL 32899, 321-867-7854, jason.m.schuler@nasa.gov 
+2 Exploration Systems and Development Office, Mail Code: UB -E2, NASA Kennedy 
+Space Center, FL 32899, 321-867-4873, andrew.j.nick@nasa.gov 
+3 Exploration Systems and Operations Division, Mail Code: NE-XS, NASA Kennedy 
+Space Center, FL 32899, 321-861-7594, kurt.leucht@nasa.gov 
+4 Exploration Systems and Development Office, Mail Code: UB -E2, NASA Kennedy 
+Space Center, FL 32899, 321-867-9822, austin.g.langton@nasa.gov 
+5 Exploration Systems and Development Office, Mail Code: UB-E2, NASA Kennedy 
+Space Center, FL 32899, 321-867-8726, jonathan.d.smith@nasa.gov 
+ 
+ 
+ABSTRACT 
+NASA’s Space Technology Mission Directorate (STMD) is funding the development 
+of a robotic excavator called the “ISRU Pilot Excavator” (IPEx) which will be a 
+technology demonstration of excavating and transporting 10 metric tons of lunar 
+regolith on the surface of the moon with a 30kg-class robotic excavator. IPEx will be 
+the next generation of robotic excavators to use bucket drums as excavation tools. 
+This is an evolution of the Regolith Advanced Surface Systems Operations Robot 
+(RASSOR) developed at NASA’s Kennedy Space Center (KSC).  
+Bucket drums are hollow cylinders with regularly spaced scoops around the 
+perimeter. The drums rotate in one direction to collect regolith with the scoops. The 
+regolith slides down an internal baffling system inside the drum which prevents the 
+regolith from falling back out of the scoops (see Figure 1). The captured regolith can 
+then be transported while held in the drum 
+and then deposited by rotating the drum in 
+the opposite direction allowing the 
+regolith to slide back down the baffling 
+and out of the excavation scoops. Bucket 
+drums were developed by Lockheed 
+Martin in 2008 and used on multiple 
+robotic excavator prototypes ever since. 
+However, the forces on a bucket drum and 
+considerations for scaling have not been 
+measured in detail. Bucket drums are 
+challenging to model using classical 
+blade\bucket equations because of their 
+unique geometry. Therefore, this experiment was performed to measure the forces on 
+three bucket drums of the same geometry at different scales. Small: 9.4” (239mm) 
+Figure 1. Bucket Drum with partial 
+section view showing internals 
+
+ 
+   
+ 
+dia. x 8.1” (206mm) width, Medium: 11.6” (294mm) dia. x 10” (254mm) width, and 
+Large: 17” (432mm) dia. x 14.1” (358mm) width.  
+The test stand consisted of an actuated gantry with controlled motion in the vertical 
+(Z) and horizontal (X) axes and a single rotation axis (R). The bucket drums were 
+individually mounted to the rotary axis of the test stand and translated across a 
+prepared bed of BP-1 lunar regolith simulant at a specified linear speed and cutting 
+depth. The test stand was outfitted with a torque sensor in line with the rotation of the 
+drum (R) and a 3 axis (X, Y, and Z) load cell. In addition to the three sizes of bucket 
+drums the linear excavation speed and cutting depth were test variables.  
+The results of these experiments show the relationship between the three scales of 
+bucket drums for factors such as: excavation force, torque due to regolith rotation 
+inside the drum, excavation energy, time to fill, etc. and will be discussed in detail in 
+this paper. This fundamental data will be used in the design of IPEx and can inform 
+the design of future bucket drum excavators. 
+INTRODUCTION  
+The In-Situ Resource Utilization (ISRU) Pilot Excavator (IPEx) Project will develop 
+a 30 kg-class excavator to demonstrate robotic excavation of large amounts (10,000 
+kg) of lunar regolith. IPEx uses novel excavation tools, called bucket drums, which 
+are hollow cylinders with scoops staggered around the outside. Regolith is collected 
+with the scoops and flows into the drum where it is captured due to an internal baffle 
+system. The excavator can then transport the regolith in the drum and reverse the 
+direction of the drum rotation to dispense the regolith back out. IPEx uses sets of 
+bucket drums that dig simultaneously in opposing directions (see Figure 2). This 
+combination of bucket drum excavation tools and counter-acting excavation forces 
+enables low mass robotic excavators to effectively dig in reduced gravity 
+environments. This is a significant departure from terrestrial excavators that rely on 
+high mass and weights to produce tractive forces to counteract the forces of 
+excavation. To date, NASA has only excavated tens of kilograms of lunar regolith. 
+Excavation has never been performed by a dedicated excavation technology 
+machine/robot, rather only as a secondary function of an exploration rover or by an 
+astronaut using scooping/sampling methods. IPEx will be NASA’s first lunar surface 
+robot specifically designed with the reliability and efficiency to excavate large 
+quantities of regolith. This capability is critical to sustained lunar mission success. By 
+the end of the decade, the excavation needs increase from sampling levels to tens or 
+hundreds of tons of regolith per year. Full-scale sustained ISRU and construction of 
+infrastructure will increase that amount to thousands of tons of regolith per year. IPEx 
+is targeting a 2026 demonstration on the lunar surface. 
+ 
+   
+ 
+ 
+The IPEx leverages years of design refinement and testing of RASSOR. The first 
+generation of RASSOR was a proof-of-concept that demonstrated the ability to do 
+excavation in low gravity with a low mass excavator by using counter-acting 
+excavation tools. The second generation of RASSOR (known as RASSOR 2.0) was a 
+breadboard system built with components that have proven paths to flight, which 
+enabled the team to accurately estimate key metrics such as mass and energy usage 
+for future flight versions of the excavator to inform architecture studies.  
+The IPEx dry mass target is 30kg which requires a reduction in scale from the current 
+RASSOR 2.0 system which has a dry mass of 65kg. Volumetrically, IPEx will be 
+scaled between 50% - 70% of RASSOR 2.0. The bucket drums of IPEx will therefore 
+also be reduced scale, and a method of estimating the forces on the scaled bucket 
+drums during excavation is needed.  
+An abundance of prior work and models exist for prediction of excavation forces  
+however these models represent conventional excavation tools such as blades and 
+buckets and do not address the unique configuration of a bucket drum.  
+The primary goal of this work is to inform the design of the IPEx by answering the 
+following questions: 
+• What is the regolith capacity of the scaled bucket drum? 
+• What are the forces (X,Y ,Z) and torque due to excavation? 
+• How do those forces and torque change with drum rotational speed, linear 
+cutting speed, and cut depth? 
+• How long does it take for the scaled bucket drum to fill at various cut 
+depths and speeds? 
+• How much energy is used during excavation, and how does it vary with 
+drum rotational speed, linear cutting speed, and cut depth?  
+Figure 2. Counter-acting excavation forces 
+Figure XX:  
+ 
+   
+ 
+EXPERIMENTAL SETUP  
+Three different bucket sizes have 
+been selected for the test (see 
+Figure 3). The range of sizes is to 
+help determine a scaling 
+relationship for different size 
+bucket drums. The largest drum is 
+the RASSOR 2.0 drum. The 
+medium and small drums were 
+scaled to meet the minimum and 
+maximum required sizes for the 
+ISRU Pilot Excavator. The 
+overall dimensions for the bucket drums are as follows (see Figure 4 and Table 1): 
+ 
+Table 1. Bucket Drum Dimensions 
+ Width Diameter Scoop Width Scoop Height 
+Small 7.83” 
+(198.9mm) 
+9.35” 
+(237.5mm) 
+2.03” (51.6mm) 1.04” (26.4mm) 
+Medium 9.69” 
+(246.1mm) 
+11.62” 
+(295.1mm) 
+2.5” (63.5mm) 1.36” (34.5mm) 
+Large 13.88” 
+(352.6mm) 
+17.21” 
+(437.1mm) 
+3.56” (90.4mm) 1.88” (47.8mm) 
+Bucket drums have many performance-dependent dimensions that effect their digging 
+and collection. The scoop height and width determine the dig depth and flow rate into 
+the drum. Special consideration needs to be made to mitigate bridging of the regolith 
+as it enters the drum. Scoop height also determines the effective internal diameter, 
+which determines the amount of total regolith collected. The baffle follows behind 
+the scoop opening and is required to keep regolith from falling out of the scoop 
+Figure 4. Bucket Drum Dimensions 
+Figure 3. Bucket Drum Size Comparison 
+
+ 
+   
+ 
+opening during digging and transportation. The baffle geometry can also affect 
+bridging, and total regolith collected. The baffle channel width expands as it 
+approaches the center to reduce bridging and ease the flow of regolith as it enters the 
+drum. Each drum slice, which consists of two scoop openings, has closed section 
+walls to separate the drums slices from one another. The intent of the closed slices is 
+to reduce the amount of regolith that may fall out of a downward facing drum scoop 
+by limiting the exposed volume to one slice instead of the entire bucket drum. 
+The bucket drums are made using two different construction techniques and 
+materials. The large drum was made for RASSOR 2.0 and is a bonded assembly 
+consisting of aluminum, carbon fiber, and stainless steel. The vertical side and section 
+walls are aluminum. The top scoop and baffle sections are thin carbon fiber sheets 
+which are glued to the vertical side and section walls. The cutting-edge teeth are 
+made from stainless steel and are riveted to the carbon fiber sheets and vertical side 
+and section walls. The small and medium bucket drums are a monolithic piece made 
+from 3D printed SLS nylon. The general geometry of all bucket drums is intended to 
+be identical except for the obvious scaling differences. The major differences 
+between the large and small/medium buckets drums are the sharp corners of the 
+baffle sections and the scoop teeth. The larger bucket drum has perpendicular corners 
+in the baffle sections and the small/medium bucket drums have a radius. The radius is 
+assumed to help reduce friction and aid in reducing bridging. The small/medium 
+bucket drums were printed with a straight edge along the scoop cutting edge whereas 
+the larger bucket drums have a jagged tooth profile. 
+Testing was performed in the KSC Regolith Test Bed (RTB). The RTB is an 
+enclosure with 120 tons of BP-1 lunar simulant corresponding to a volume of 8m x 
+8m x 1.1m. BP-1, or Black Point 1, lunar simulant is an inexpensive geotechnical 
+lunar regolith simulant sometimes used for excavation and mobility testing. BP-1 is 
+derived from material in the Black Point basalt lava flow in northern Arizona. 
+Because it is derived from basalt, BP-1 is more representative of mare lunar soils than 
+highland lunar soils. The granular size distribution of BP-1 falls within the one 
+standard deviation of actual lunar regolith particle distribution returned by Apollo 
+lunar missions. 
+The bucket drum test stand consists of 2 linear axes, X and Z, and a rotary axis, R 
+(see Figure 5). The linear axes are closed loop controlled and have linear absolute 
+sensors measuring the position of the final stage. The X axis has a maximum speed of 
+246 mm/sec and a positioning accuracy of 0.25 mm. The Z axis has a maximum 
+speed of 460 mm/sec and a positioning accuracy of 0.25 mm. 
+ 
+   
+ 
+To prepare the BP-1 simulant, leveling and compacting attachments were designed to 
+attach to the bucket drum test stand. A beam was used to drag across the excavation 
+area using the X axis to create a surface parallel with respect to the test stand (see 
+Figure 8). Relief trenches were dug at the start and end of the excavation area to 
+allow deposition of the surcharge of the regolith collected by the beam. The 
+compacting attachment uses a handheld vibratory concrete compactor with a 
+modified compacting plate (see Figure 9). The compacting plate is wider than the 
+large bucket drum and has bent up edges to allow it to stay above the regolith during 
+operation. The compacting attachment is driven using the X axis. The relief trenches 
+also allow for the bucket drum to start and end excavation without engagement. The 
+end relief trench was also used as the dump location for the bucket drum after 
+excavation. 
+The test is outfitted with two 
+feedback sensors: a torque 
+sensor and a multi-axis force 
+sensor (see Figure 6). The 
+torques sensor is coaxial with 
+the R axis. The torque sensor 
+is an Interface Force sensor 
+part number: 5330-600. This 
+sensor has measuring range of 
+±600 in·lbf (68 N·m) and a 
+nonlinearity of ±0.1% of full-
+scale output. The multi axis 
+sensor is an Interface Force 
+3 Axis Force Sensor 
+Torque Sensor 
+Figure 6: Sensor Layout 
+X 
+ Z 
+R 
+~3.85m excavation 
+area 
+Figure 5. Bucket Drum Test Stand 
+ 
+   
+ 
+sensor part number: 3A120-1kN. This sensor has measuring range of ±225 lbf (±1 
+kN) and a nonlinearity of ±0.2% of full-scale output. NIST calibrations were used for 
+both sensors. A calibrated weight was used to verify the sensors in their system 
+configuration.  
+The Data Acquisition System (DAQ) is a National Instruments (NI) cRIO. The 
+software allows for manual and scripted control of the test stand actuation. The 
+scripted control allows for blocking and non-blocking position and velocity 
+commands and time waits for each axis. This ensures repeatable test motion profiles 
+for each experiment. The force and torque sensors are logged at 1 kHz, but the 
+feedback from the motor controllers is logged at 10 Hz. This motor feedback is 
+oversampled to properly align with the force/torque data. The slower rate of motor 
+feedback is due to the limitations of the CAN bus interface used to control the motor 
+controllers. The force/torque sensors are measured using a NI-9237 C Series 
+Strain/Bridge Input Module, which has a 24-bit resolution and a ±25 mV/V input 
+range. The software performs all the unit conversions real-time. The variables that are 
+recorded are as follows: X (lbf), Y(lbf), Z (lbf), Torque (in*lbf), Z position (mm), Z 
+Velocity (mm/sec), X Position (mm), X Velocity (mm/sec), R Position (revolutions), 
+R Velocity (rpm), R (Motor Active Current, Amps), Sample Rate (Hz), Elapsed Time 
+(minutes). 
+EXPERIMENTAL VARIABLES 
+Tests were performed varying the size of the bucket drum, linear speed during 
+excavation, and cut depth. Table 2 lists the experimental variables and their ranges.  
+Table 2. Experimental variables and ranges 
+Test Variable Range 
+Bucket Drum Size Small, Medium, Large 
+Linear Cut Speed 10mm/s, 30mm/s 
+Cut Depth 10mm, 40% of scoop height 
+ 
+The combination of these variables resulted in 12 unique tests and each test case was 
+repeated 4 times resulting in a total of 48 tests. The two values for cut depth were 
+chosen to provide absolute (10mm) and relative (40% of scoop height) comparisons 
+between the drum sizes. The cut depths were based on prior experience with the 
+RASSOR 2.0 excavation robot. During the many hundreds of hours of testing with 
+RASSOR 2.0, it was observed that when digging at the full depth of the bucket drum 
+scoop the regolith could bridge across the opening and reduce the amount of regolith 
+collected per rotation. The team found that limiting the cut depth to only utilize a 
+maximum of 50% of the bucket drum scoop opening would collect more regolith per 
+rotation.  
+ 
+ 
+   
+ 
+The rotational speed of the bucket drums 
+and the linear cut speeds were 
+intentionally linked during testing to keep 
+a constant cut pitch (the number of scoops 
+per linear distance) across all bucket drum 
+sizes. When the linear cut speed was 
+increased or decreased the rotational 
+speed was changed proportionally. The 
+chosen ratio resulted in a bucket drum 
+tangential velocity that was 8.5x the linear 
+cut speed. This ratio was based upon 
+previous experience and modeling and 
+ensured a relatively smooth cut surface 
+that would benefit subsequent cutting 
+passes (see Figure 7). The linear cut 
+speeds chosen are in the range needed for 
+the IPEx concept of operations. 
+ 
+TEST PROCEDURE 
+Prepare/Reset Test Bed: 
+The test bed was carefully prepared and characterized with hand geotechnical tools 
+throughout the testing regimen to ensure consistency and repeatability. The BP-1 
+lunar regolith simulant requires special considerations when preparing or resetting the 
+test bed. The geotechnical properties of the soil bed can vary wildly based on factors 
+such as humidity, pouring method, compacting method, and surrounding soil 
+densities, just to name a few. 
+To prepare the test bed or to reset it between test regimens, a team member first used 
+a hand shovel to loosen the bed of simulant. This operation involved scooping up the 
+BP-1 simulant to approximately 80cm of depth, and then gently pouring it back into 
+the same location. This operation was performed on the entire width and length of the 
+bucket drum test bed. 
+The team member then scooped excess material from previous tests to roughly fill in 
+noticeable low spots. After the simulant had been adequately churned up and roughly 
+evened, a wide flat rake was manually pulled across the surface to perform a rough 
+level. Care was taken to not compact the soil during this process. Once the surface 
+was roughly leveled by hand, the Bucket Drum Test Stand was outfitted with a 
+leveling bar and was used to perform final precision leveling and smoothing (see 
+Figure 8).  
+Figure 7.  Bucket Drum Test Bed 
+being precision leveled 
+
+ 
+   
+ 
+Next, the Bucket Drum Test Stand was 
+outfitted with a vibratory compactor and 
+was used to perform precise and 
+repeatable soil compaction. The 
+compactor was gently lowered onto the 
+surface and dragged across the full length 
+of the test bed for 4 separate passes while 
+being lowered 2mm between each pass 
+(see Figure 9). 
+ 
+The bucket drum under test was then 
+spun up by the Bucket Drum Test Stand 
+and gently lowered via manual control 
+to find the exact Z-axis position where 
+the bucket drum just barely touched the 
+surface. This Z-axis position became the 
+zero position for height and all 
+subsequent Z-axis position commands 
+were based off that number.  
+Once the bucket drum test bed was 
+leveled and compacted, hand-held 
+geotechnical tools were used to characterize the soil (see Figure 10). A Humboldt 
+Pocket Shear Vane Tester was used for quick and efficient determinations of shear 
+strength. A Humboldt Soil Penetrometer was used to determine compressive strength 
+of the unconfined soil. Three measurements with each tool were taken in three 
+separate locations along the 
+length of the bucket drum test 
+bed. These measurements were 
+taken before and after each 
+bucket drum test run to confirm 
+consistency from test to test.  
+During the course of testing the 
+average measurement from the 
+shear vane tester ranged from 
+27-32 kPa and the penetrometer 
+from 206-226 kPa. 
+After the bucket drum test bed 
+was precisely leveled and 
+compacted, a 5mm skim cut was 
+Figure 8.  Bucket Drum Test Bed being 
+precision leveled 
+Figure 9. Bucket Drum Test Bed being 
+precision compacted 
+Figure 10. Team members taking geotechnical 
+measurements of the Bucket Drum Test Bed 
+following a test run 
+
+ 
+   
+ 
+performed with the bucket drum under test. This skim cut removed the less 
+compacted topmost layer of simulant and ensured each test began with a regolith bed 
+under the same conditions. All these steps were taken to prepare the bucket drum test 
+bed for the actual bucket drum testing. 
+Bucket Drum Testing: 
+The Bucket Drum Test Stand control software was configured for each test run by test 
+personnel. Configurable parameters include bucket drum rotational speed in rpm, X-
+axis linear speed in mm per sec, Z-axis cut depth in mm, data log filename, load cell 
+zeroing speed in rpm, X-axis start/end/dump positions in mm, and others.  
+Once all the control software parameters were configured per the current line in the 
+test matrix, the operator simply pressed the START TEST button and the Bucket 
+Drum Test Stand control software automatically performed the entire test run. Each 
+automated test run included the following actions: 
+• start data logging 
+• temporarily spin the bucket drum under test in mid-air and monitor the values 
+of all the load cells 
+• calculate each load cell value offset, zero the load cells, and stop drum 
+rotation 
+• while still in mid-air, move the bucket drum under 
+test to the configured starting X-axis position 
+• lower the drum via Z-axis to the configured cut 
+depth inside the trench so it is still hanging in 
+mid-air 
+• spin the bucket drum under test to the configured 
+rotational speed 
+• translate the bucket drum under test along the X-
+axis at the configured linear speed 
+• once the bucket drum under test has reached the 
+configured end X-axis position (or user hits the 
+ABORT TEST button), raise the bucket drum in 
+mid-air, allow the full drum to rotate a minimum 
+of one rotation, halt the bucket drum spinning, 
+move the bucket drum in X-axis to the dump 
+location, and spin the bucket drum backwards to 
+dump out the material (see Figure 11) 
+• halt data logging 
+Figure 11. Bucket drum 
+dumping collected regolith 
+
+ 
+   
+ 
+After each test run, test personnel used the hand-held geotechnical tools to 
+characterize the soil along the newly revealed surface layer. Then test personnel 
+configured the control software parameters per the next line in the test matrix and 
+another run was performed. As this sequence was repeated, the bucket drum under 
+test dug a step deeper into the prepared regolith simulant during each test run. After 
+several test runs, the Bucket Drum Test Stand reached a depth limit as the structure 
+on the Z-axis approached the uncut top layer of regolith simulant. The test matrix was 
+designed such that test runs were paused prior to this limit and the test bed was then 
+reset per the earlier section before continuing.  
+RESULTS 
+Example test output data 
+In order to properly design IPEx the forces and torques during excavation must be 
+understood. Figure 12 below shows a typical plot of the forces and torques produced 
+during a bucket drum excavation test.  The force in the X direction is the primary 
+force of excavation. This force was generally constant during an excavation test 
+because the regolith bed was prepared and leveled, and the cutting depth and speed 
+were constant.   The force in the Y direction was negligible in all test data. The force 
+Figure 12. Example bucket drum test output data 
+Start cut 
+Drum rotating in air 
+Dump 
+Stop cut 
+ 
+   
+ 
+in the Z direction starts from zero and linearly increases as the regolith is captured in 
+the drum. The total torque about the R axis of the bucket drum is a combination of the 
+torque due to the excavation X-force and the torque of the captured regolith 
+recirculating inside the drum. Following a test cut the bucket drum was lifted into the 
+air and rotated multiple revolutions. The torque shown during that process is purely 
+due to the recirculation of the captured regolith as the drum is no longer in contact 
+with the test bed. Similarly, the Z force at that time is constant and equates to the 
+weight of the regolith captured in the drum. Finally, the forces and torques can be 
+seen returning to zero quickly upon reversing the rotation of the drum and dumping 
+the regolith.  
+ 
+Excavation force sensitivity to cut depth and speed 
+To aide with the design of bucket drums and their actuators a plot was generated that 
+shows the horizontal excavation force per bucket drum width vs cut speed and depth 
+(see Figure 13). This plot can be used to provide an estimated horizontal excavation 
+force for various scales of bucket drums, cut depths, and cut speeds. The ranges of the 
+Figure 13. Example bucket drum test output data 
+
+ 
+   
+ 
+variables in this work envelope the needs for the IPEx concept of operations, however 
+future work could increase these ranges to increase fidelity. The shaded area in the 
+plot shows the tested range of these variables and the resulting trend lines from the 
+data.  
+ 
+Total regolith collected 
+The average mass of regolith collected by each bucket drum is an important metric to 
+properly scale IPEx to meet the mission KPPs. Table 3 below lists the average mass 
+of regolith collected for the three scales of bucket drums tested and corresponding 
+total excavator capacity for a 4-bucket-drum system. 
+ 
+Table 3: Total regolith collected 
+Bucket Drum Size Avg. Total Regolith  
+Collected Per Drum (kg) 
+4- Bucket-Drum  
+Excavator Capacity (kg) 
+Small 3.80 15.21 
+Medium 7.30 29.20 
+Large 24.98 99.94 
+ 
+Regolith collection rate 
+Similarly, the regolith collection rate of each bucket drum is an important metric to 
+properly scale IPEx to meet the mission KPPs. Figure 14 below shows a plot of the 
+collection rate of a single drum against the drum size, cut speed, and cut depth.   
+Figure 14. Example bucket drum test output data 
+
+ 
+   
+ 
+ 
+Excavation energy per mass of regolith collected 
+The energy used to excavate the regolith is also a metric that will inform the IPEx 
+design. Figure 15 below shows a plot of the mechanical energy (from torque and 
+RPM at the bucket drum) per kilogram of collected regolith against the tested bucket 
+drum sizes, cut speeds, and cut depths.  
+ 
+ 
+CONCLUSION 
+The experimental data from the testing described above results in the following 
+conclusions:   
+• The horizontal excavation force per unit width of bucket drum increases with 
+increasing linear cut speed and cut depth.  The plot of this data can be used to 
+estimate the forces for various scale bucket drums, cut speeds, and cut depths.  
+• The medium and small scale bucket drums tested are able to collect the 
+necessary amount of regolith at the desired rate to support the IPEx concept of 
+operations.  
+• Excavation energy per mass of regolith collected is reduced as cut speed 
+increases, drum size increases, and cut depth decreases.  
+Figure 15. Example bucket drum test output data 
+
+ 
+   
+ 
+These data and the corresponding trends will be used to inform the design of the IPEx 
+bucket drum subsystem and can form a baseline for future bucket drum designs. 
+Additional tests should be conducted to increase the data available and the fidelity of 
+the predicted trends.  
+ 
+REFERENCES 
+ 
+Clark, D., R. Patterson, and D. Wurts. "A novel approach to planetary regolith 
+collection: the bucket drum soil excavator." AIAA Space 2009 Conference & 
+Exposition. 2009. 
+ 
+Dickson, D. C., Sibille, L., Galloway, G. M., Mueller, R. P., Smith, J. D., Mantovani, 
+J. G., & Schreiner, S. (2016). Modeling Dynamics of Counter-Rotating Bucket Drum 
+Excavation for In Situ Resource Utilization (ISRU) in Low-Gravity Environments. 
+Earth and Space 2016. 
+ 
+Gallo, C.A., Wilkinson, R.A., Mueller, R.P., Schuler, J. M., & Nick, A.J. (2010). 
+Comparison of ISRU Excavation System Model Blade Force Methodology and 
+Experimental Results. NASA/TM- 2010-215591. Glenn Research Center, Cleveland, 
+OH. 
+ 
+Mueller, R. P., Cox, R. E., Ebert, T., Smith, J. D., Schuler, J. M., & Nick, A. J. (2013, 
+March). Regolith Advanced Surface Systems Operations Robot (RASSOR). In 
+Aerospace Conference, 2013 IEEE (pp. 1-12). IEEE. 
+ 
+Mueller, R. P., Smith, J. D., Schuler, J. M., Nick, A. J., Gelino, N. J., Leucht, K. W., 
+Townsend, I. I., & Dokos, A. G. (2016). Design of an Excavation Robot: Regolith 
+Advanced Surface Systems Operations Robot (RASSOR) 2.0. Earth and Space 2016.  
+ 
+Suescun-Florez, E., Roslyakov, S., Iskander, M., and Baamer, M. (2014). 
+Geotechnical Properties of BP-1 Lunar Regolith Simulant. American Society of Civil 
+Engineers (ASCE), Reston, VA. 
+ 
+Wilkinson, A. & DeGenarro, A. (2007). “Digging and pushing lunar regolith: 
+Classical soil mechanics and the forces needed for excavation and traction.” Journal 
+of Terramechanics 44, 133–152. 
+ 
+Zelenin, A., Balovnev, V., & Kerov, I. (1975). Machines for Moving the Earth: 
+Fundamentals of the Theory of Soil Loosening, Modeling of Work Processes and 
+Forecasting Machine Parameters. Amerind Publishing Co. and Mashinostroenie, 
+Moscow. 
+ 
+Zeng, X., Burnoski, L., Agui, J., & Wilkinson, A. (2007). Calculation of Excavation 
+Force for ISRU on Lunar Surface. 45th AIAA Aerospace Sciences Meeting and 
+Exhibit, Reno, NV. 

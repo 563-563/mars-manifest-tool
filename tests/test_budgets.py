@@ -12,8 +12,8 @@ from mars_manifest.budgets import BudgetEngine
 
 
 @pytest.fixture(scope="module")
-def budget(catalog, baseline, precursor):
-    return BudgetEngine(catalog, baseline).compute(precursor)
+def budget(catalog, workbook_port, precursor):
+    return BudgetEngine(catalog, workbook_port).compute(precursor)
 
 
 def test_manifest_is_the_26_component_batch(precursor):

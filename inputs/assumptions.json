@@ -38,7 +38,7 @@
       "battery_component": "battery_module_100kwh"
     },
     "overheads": {
-      "spares_fraction_of_dry": 0.35,
+      "spares_fraction_of_dry": 0.13,
       "contingency_fraction": 0.1
     },
     "isru": {
@@ -47,9 +47,9 @@
       "co2_electrolysis_kwh_per_kg_o2": 11.0,
       "raptor_o_f_ratio": 3.6,
       "electrolysis_kwh_per_kg_h2o": 6.1,
-      "co2_capture_kwh_per_kg_co2": 0.7,
+      "co2_capture_kwh_per_kg_co2": 1.0,
       "sabatier_support_kwh_per_kg_ch4": 1.5,
-      "liquefaction_kwh_per_kg_propellant": 0.8,
+      "liquefaction_kwh_per_kg_propellant": 1.5,
       "water_processing_kwh_per_kg_h2o": 0.35,
       "excavation_kwh_per_kg_h2o": 0.1,
       "plant_availability": 0.85,
@@ -63,7 +63,8 @@
         "co2_capture": "co2_acquisition",
         "sabatier": "sabatier_reactor",
         "liquefaction": "cryo_liquefaction"
-      }
+      },
+      "water_extraction_kg_h2o_per_hr_per_unit": 16.7
     },
     "edl": {
       "_comment": "Per-ship Entry/Descent/Landing success probability, improving as EDL matures. Musk rated the first uncrewed attempt '50/50'; nothing heavier than ~1 t has ever landed on Mars, so window 0 is genuinely uncertain. success_prob = min(max_prob, base + improvement*synod_index). Tier D judgment; carried as a scenario axis, not a claim.",
@@ -283,6 +284,24 @@
           "Recon & science": 0.1
         },
         "_note": "Literature-informed per-group sparing replacing the flat 35%. Anchors: ECLSS spares 34-41% of system mass for a 919-day Mars mission (Owens/de Weck-line ECLSS reliability analyses; ISS ECLSS = 34% of all logistics mass, NTRS 20210000437) -> 0.40 for life support, and 0.40 for ISRU (same continuous-process class, zero flight heritage). Mechanisms in abrasive regolith 0.30-0.35. FSP reactors are specified for 10 years unattended -> 0.15. Passive distribution/structures 0.10. Groups not listed fall back to spares_fraction_of_dry. See PROVENANCE.md section 3."
+      }
+    },
+    "garden_regolith": {
+      "inherits": "baseline",
+      "overrides": {
+        "isru.water_extraction_kg_h2o_per_hr_per_unit": 1.2,
+        "isru.water_processing_kwh_per_kg_h2o": 3.5,
+        "_note": "The pessimistic water resource: only hydrated/garden regolith (~1-2% water) at the site, no minable clean ice. Per-unit extraction collapses to NASA WER-class ~29 kg/day, making water the program-dominating constraint (tens of units per chain) and slipping crew. The downside the flight-1 minable-ice gate exists to rule out. Analogous to conservative_feasibility."
+      }
+    },
+    "workbook_port": {
+      "inherits": "baseline",
+      "overrides": {
+        "overheads.spares_fraction_of_dry": 0.35,
+        "overheads.contingency_fraction": 0.1,
+        "isru.co2_capture_kwh_per_kg_co2": 0.7,
+        "isru.liquefaction_kwh_per_kg_propellant": 0.8,
+        "_note": "FROZEN reproduction of the original hand-built spreadsheet (HANDOFF.md 5.1/7): spares 0.35-of-dry, contingency 0.10, pre-2026-07-21 ISRU energies. The workbook-port regression fixtures (tests/test_budgets.py) resolve THIS, not baseline, so the live baseline can be re-anchored to verified data without breaking the port check. Do not edit."
       }
     }
   },

@@ -18,7 +18,7 @@
       "flag": "industrial_autarky",
       "population": 1000000,
       "tier": "C",
-      "statement": "Order-of-magnitude population for full industrial closure — needs nothing from Earth ever again. Handmer's analogy: Earth's full industrial stacks each rest on 10-100M people; Mars needs less diversity but still ~1M. Musk quotes the same number without a shown derivation.",
+      "statement": "Order-of-magnitude population for full industrial closure \u2014 needs nothing from Earth ever again. Handmer's analogy: Earth's full industrial stacks each rest on 10-100M people; Mars needs less diversity but still ~1M. Musk quotes the same number without a shown derivation.",
       "source": "Handmer 2017 roadmap (verified by direct fetch); field survey spans 1e5-1e9"
     }
   ],
@@ -32,7 +32,7 @@
     "power_industrial_kwe": {
       "value": 100,
       "tier": "C",
-      "source": "Same source's industrial-city regime — order-of-magnitude above subsistence. Do not conflate the two regimes."
+      "source": "Same source's industrial-city regime \u2014 order-of-magnitude above subsistence. Do not conflate the two regimes."
     },
     "food_area_m2": {
       "salad_supplement": 19.5,
@@ -45,20 +45,25 @@
       "floor": 28.96,
       "realistic": 36.8,
       "tier": "B",
-      "source": "NASA/NTRS 20200002973 verified verbatim: minimum NHV 115.83 m3 / 4 crew (28.96) and 170.14 / 6 (28.36 — flat with crew size); realistic cylindrical design 147.19 / 4 = 36.80 (+27% for access/structure)."
+      "source": "NASA/NTRS 20200002973 verified verbatim: minimum NHV 115.83 m3 / 4 crew (28.96) and 170.14 / 6 (28.36 \u2014 flat with crew size); realistic cylindrical design 147.19 / 4 = 36.80 (+27% for access/structure). [2026-07-21: 36.8 m3/person realistic NHV is the adopted habitat-capacity sizing basis; 28.96 floor is duration-capped (<=180 d) minimum, not a settlement standard.]",
+      "sizing_basis": true
     },
     "pressurized_volume_m3": {
       "value": 76.5,
-      "tier": "B",
-      "source": "Same study: 306 m3 total pressurized for 4 crew (NHV + systems + stowage). Habitat catalog components should be checked against this, not against NHV alone."
+      "tier": "C (case-study back-calc, NOT a standard)",
+      "source": "NOT a NASA standard -- corrected 2026-07-21. The 76.5 figure is one case study's total pressurized volume (306 m3 / 4 crew, Stromgren 2020) and that paper's OWN recommendation is ~37 m3/person NHV. Habitat capacity is now sized against habitable_volume_m3.realistic (36.8, NHV), NOT this pressurized figure.",
+      "sizing_basis": false
     },
     "consumables_kg_per_day": {
-      "food_dry": 0.8,
+      "food_dry": 2.39,
       "oxygen": 0.895,
       "potable_water": 3.217,
-      "total": 4.912,
+      "total": 6.502,
       "tier": "B",
-      "source": "NASA BVAD verified verbatim (\"Oxygen Consumed kg/CM-d 0.895\", food \"kg/CM-d 0.800\", \"Potable Water Content kg/CM-d 3.217\"). This is the zero-closure import floor: ~1.8 t/person/year before any recycling."
+      "basis": "survival / import floor",
+      "full_ops_total": 16.035,
+      "full_ops_water": 12.75,
+      "source": "NASA BVAD as-shipped food 2.39 kg/CM-d (incl. packaging; the 0.800 kg physiological-intake figure is NET of packaging/waste and is NOT an import figure -- corrected 2026-07-21 per adversarial re-check). O2 0.895 and potable water 3.217 kg/CM-d verified verbatim. SURVIVAL basis uses potable water only (3.217); DAY-TO-DAY ops add hygiene/laundry to 12.75 kg/CM-d total throughput (NASA PGH study ICES-2022-388), so full-ops total ~16.0 kg/CM-d. Zero-recycling; ECLSS recovers most water in practice."
     }
   },
   "import_mass": {
@@ -77,7 +82,7 @@
       "tier": "C",
       "source": "Handmer's rule: <$100/kg local production cost always beats importing"
     },
-    "electronics_closure_warning": "Tier B (arxiv 1612.03238, 3-0 verified): incomplete closure of electronics/chips makes import mass grow EXPONENTIALLY with the industry — the decay curve has a floor until Gen 5.0-6.0 closure."
+    "electronics_closure_warning": "Tier B (arxiv 1612.03238, 3-0 verified): incomplete closure of electronics/chips makes import mass grow EXPONENTIALLY with the industry \u2014 the decay curve has a floor until Gen 5.0-6.0 closure."
   },
   "growth": {
     "fleet_min_growth_per_synod": {

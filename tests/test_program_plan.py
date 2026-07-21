@@ -35,7 +35,7 @@ def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
     # (just shy of two loads): the Jan-2035 return demo burns one, leaving a
     # full crew load at the May-2035 commit, refilled at ~3.2 loads/synod
     assert "return_propellant_proven" in w["2033-03"].new_capabilities
-    assert w["2033-03"].propellant_cumulative_t == pytest.approx(3223, abs=15)
+    assert w["2033-03"].propellant_cumulative_t == pytest.approx(2926, abs=20)  # water-capped (clean-ice Rodwell) + more extraction units
     assert w["2033-03"].propellant_cumulative_t > 1400
     # crew lands 2035 on ~5 full return loads
     assert w["2035-05"].propellant_cumulative_t > 5 * 1400

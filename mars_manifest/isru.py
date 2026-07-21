@@ -239,9 +239,19 @@ class IsruEngine:
 
         steps: list[ChainStep] = []
 
-        def step(key, cid, commodity, kwh_per_kg, prop_per_kg):
+        # water extraction is NOT power-limited in reality: melt-cavity
+        # geometry, ice grade, thermal conduction, and pumping cap the yield
+        # far below what electrical power alone would predict (deep-research
+        # 2026-07-20; NASA Rodwell/WER data). A per-unit rate ceiling on the
+        # extraction step encodes that. Keyed to ice grade: baseline is the
+        # clean-ice Rodwell case; the garden_regolith scenario slashes it.
+        water_cap = a.get("isru.water_extraction_kg_h2o_per_hr_per_unit", None)
+
+        def step(key, cid, commodity, kwh_per_kg, prop_per_kg, rate_cap_per_unit=None):
             n, kw = avg_kw(cid)
             thr = kw / kwh_per_kg if kwh_per_kg > 0 else 0.0
+            if rate_cap_per_unit is not None and n > 0:
+                thr = min(thr, n * rate_cap_per_unit)  # process/grade-limited, not power
             steps.append(ChainStep(key, cid, n, kw, thr, commodity,
                                    thr * prop_per_kg, False))
 
@@ -249,7 +259,7 @@ class IsruEngine:
             step("excavation", chain["excavation"], "H2O (net)", e_exc,
                  prop_per_ch4 / H2O_NET_PER_CH4)
         step("water_processing", chain["water_processing"], "H2O (net)", e_wat,
-             prop_per_ch4 / H2O_NET_PER_CH4)
+             prop_per_ch4 / H2O_NET_PER_CH4, rate_cap_per_unit=water_cap)
         step("electrolysis", chain["electrolysis"], "H2O", e_h2o,
              prop_per_ch4 / H2O_ELECTROLYZED_PER_CH4)
         step("co2_capture", chain["co2_capture"], "CO2", e_co2,
