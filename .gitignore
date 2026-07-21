@@ -16,3 +16,7 @@ Colonizing Mars*
 # scratch / temp working files (session artifacts)
 _tmp_*
 scratch_*
+
+# local-only research corpus + downloaded primary sources (kept on disk, not committed)
+marspedia/
+*.pdf
