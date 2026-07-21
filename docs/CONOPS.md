@@ -101,9 +101,10 @@ CO₂ atmosphere is ~6 mbar: thick enough for aerobraking, entry heating,
 and dust, far too thin to breathe or to slow a lander without propulsion.
 
 Global dust storms last weeks to months (the 2018 storm ended the
-Opportunity rover). They starve solar power but only inconvenience
-fission, which is why fission anchors the baseline and solar is carried
-as a scenario. Galactic cosmic radiation is unshielded by the thin
+Opportunity rover). They heavily derate solar power for weeks at a time (a
+diffuse floor persists, but production slows steeply) while only
+inconveniencing fission, which is why fission anchors the baseline and solar
+is carried as a scenario. Galactic cosmic radiation is unshielded by the thin
 atmosphere, so crew-era operations require regolith-covered storm
 shelters (the `radiation_managed` gate).
 

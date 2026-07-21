@@ -21,8 +21,10 @@ pole — reusable launch makes even enormous campaigns affordable next to the
 hardware and the physics.
 
 Two things dominate the near term. **Power** is the tent-pole: the propellant
-plant, mining, life support, and heat all die without it, and solar collapses
-in months-long dust storms — which is why fission anchors the crewed era.
+plant, mining, life support, and heat all die without it, and solar is heavily
+derated for weeks at a time in dust storms (a diffuse floor survives, but a fuel
+factory can't run on a third of its power) — which is why fission anchors the
+crewed era.
 **Water is the deciding uncertainty**: we know Mars has ice, but not how deep,
 how pure, how rocky, how far from a landing site. You cannot design a mining
 machine against error bars that large. So the earliest job is not to build the
@@ -144,7 +146,7 @@ ride-home loads), a ~90% demonstrated landing record, and their own
 **What fills the holds:** the future at pilot scale, plus depth — 12
 agriculture modules, the first regolith refinery, the first polymer plant
 (both process-anchored to NASA demonstrations: molten regolith electrolysis
-and Sabatier-derived polyethylene), hot-spare ISRU components, pad-sintering
+and Fischer-Tropsch-derived polyethylene), hot-spare ISRU components, pad-sintering
 rigs for the next fleet, and 100 robots on the surface to run it all.
 Fourteen ships, because the fleet is sized to the cargo, not the other way
 around — and every hold flies near ~88% of mass, packed with pilots and

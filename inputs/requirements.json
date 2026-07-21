@@ -362,7 +362,8 @@
       "id": "L1-RAD-01",
       "parent": "L0-MSN-01",
       "statement": "A storm shelter and radiation protection shall be in place before crew.",
-      "source": "Deep dive Problem 4 (RAD dose data)",
+      "rationale": "Mars surface dose-equivalent is ~230-250 mSv/yr (Guo 2015 ApJ 810:24: 0.7 mSv/day at quality factor Q=3.05; Slaba NASA-TP-2013-217983 Table 1: 155-274 mSv/yr over the solar cycle). Shielding must be IN-SITU regolith, not hauled metal: Slaba shows aluminium INCREASES surface dose (+63% at 100 g/cm2 via secondary neutrons + regolith albedo). That is why `radiation_shelter` is ~1 t of equipment (liners, entrances) gated behind `sintering_rig` - the mass shield is built from regolith on site (~2-3 m / 300-500 g/cm2 for chronic-GCR reduction, 5-8 m for an SPE storm cell), counted as construction workload, not launch mass.",
+      "source": "Guo 2015 ApJ 810:24; Slaba/Mertens/Blattnig NASA-TP-2013-217983; deep dive Problem 4 (RAD dose data)",
       "verify": {
         "method": "Inspection",
         "kind": "capability",
