@@ -73,7 +73,9 @@ material split, strike-corridor selection at the real site.
 Function: storm-proof baseload; the tent-pole of everything. Spec: Tier B
 — the one catalog row with a published program spec behind it (NASA
 Fission Surface Power: 40 kWe, <6 t, decade unattended; verified
-verbatim). Design basis: FSP/Kilopower lineage, closed Brayton. Heritage:
+verbatim — though the FSP reference design is LUNAR, Mars use is an
+extensibility argument, not an independently Mars-validated result).
+Design basis: FSP/Kilopower lineage, closed Brayton. Heritage:
 Kilopower/KRUSTY ground demo (2018); the 2025 100 kWe directive is
 carried as the `fsp_2025` scenario. Open: none blocking at concept level;
 this is the best-anchored active component in the catalog.
@@ -116,12 +118,13 @@ Function: pull 6-mbar atmosphere, catalyze CO₂ + H₂ → CH₄ + H₂O
 (exothermic; the 1.5 kWh/kg-CH₄ is balance-of-plant, D). Heritage: ISS
 runs a Sabatier CO₂ reduction system today; MOXIE proved atmospheric
 acquisition + solid-oxide processing on Mars itself; cryo-freezing CO₂
-capture spans ~0.3–2 kWh/kg in the literature (our 0.7 is mid-range, D).
+capture spans ~0.3–2 kWh/kg; re-anchored to 1.0 (NASA Glenn TSA, C).
 Open: dust management at intakes; catalyst life.
 
 ### Cryogenic liquefaction (9 t / 80 kW)
 Function: liquefy CH₄/O₂ and re-liquefy boil-off at Mars ambient. Spec:
-0.8 kWh/kg (C/D; typical estimates 0.5–1). Heritage: industrial gas
+1.5 kWh/kg-propellant (B — re-anchored 2026-07-21 to NASA cryo studies,
+1.6–2.2 kWh/kg-O₂ blended over methalox; was 0.8). Heritage: industrial gas
 liquefaction is a mature terrestrial industry; flight cryocoolers exist
 at small scale — tonne-per-day-class space-rated liquefaction is the
 genuinely novel scale-up. Open: the heaviest, most power-hungry chain
@@ -134,9 +137,13 @@ Spec basis: excavation 0.1 kWh/kg-water (C — anchored 2026-07-20 to the
 published RASSOR 2.0 design law: ≥2.7 t regolith/day from a 66 kg robot
 at ~4 W per kg/h; our 2 t production digger is conservative at any ore
 grade >~5%); processing 0.35 kWh/kg (C — re-anchored 2026-07-20 so
-end-to-end water energy matches RedWater's measured 0.45 kWh/kg at
-169 kg/h, TRL-6). Heritage: RASSOR (NASA KSC prototype line), RedWater
-(Honeybee, TRL-6), Rodwell practice in Antarctica. Open: abrasive-wear
+end-to-end water energy ~0.45 kWh/kg). **RATE is grade-limited, not
+power-limited** (re-anchored 2026-07-21): baseline uses the NASA Rodwell
+clean-ice model ~0.4 t/day/unit -- the RedWater 169 kg/h headline is
+MODELED, its demonstrated chamber rate was ~11 kg/h, and garden regolith
+falls to ~29 kg/day/unit (NASA WER). Heritage: RASSOR (NASA KSC prototype,
+dry-simulant design rate only), RedWater (Honeybee, TRL 5-6 chamber), Rodwell
+Antarctic practice (TRL 6 by analogy, no Mars flight). Open: abrasive-wear
 rates — why the water chain carries deep spares.
 
 ## Robotics & site

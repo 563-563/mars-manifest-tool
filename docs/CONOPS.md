@@ -49,11 +49,11 @@ Six flights, one every 26 months, each earning permission for the next:
 | Flight | Window | Ships | People | Role |
 |---|---|---|---|---|
 | 1 | 2031 | 5 | - | Precursor: land, power, prospect; start the clocks |
-| 2 | 2033 | 10 | - | Fuel factory ×2 + survival bridge; all gates green |
-| 3 | 2035 | 15 | 12 | **First crew** + pilots for everything that scales |
-| 4 | 2037 | 34 | 112 | Village (CONOPS-2) |
-| 5 | 2039 | 97 | 512 | Town (CONOPS-2) |
-| 6 | 2041 | 161 | 1,112 | Settlement (CONOPS-2) |
+| 2 | 2033 | 11 | - | Fuel factory ×2 + survival bridge; all gates green |
+| 3 | 2035 | 16 | 12 | **First crew** + pilots for everything that scales |
+| 4 | 2037 | 32 | 112 | Village (CONOPS-2) |
+| 5 | 2039 | 94 | 512 | Town (CONOPS-2) |
+| 6 | 2041 | 158 | 1,112 | Settlement (CONOPS-2) |
 
 Five doctrines shape every manifest, and this document applies them
 operationally:
@@ -106,10 +106,14 @@ as a scenario. Galactic cosmic radiation is unshielded by the thin
 atmosphere, so crew-era operations require regolith-covered storm
 shelters (the `radiation_managed` gate).
 
-Water exists as subsurface ice at mid-latitudes. It is known from orbit
-in general and unproven at any specific site at mining grade, and that
-gap is the single uncertainty this mission's first month exists to
-retire.
+Water exists as subsurface ice, but bimodally: mid-latitude massive ice
+is >90% pure and 1-2 m deep (Dundas 2018/2021; mapped by SWIM, Arcadia-
+class), while equatorial "garden" regolith holds only ~1-8%. Orbital data
+proves ice is PRESENT regionally; whether it is MINABLE at the plant site
+(grade/depth/form/extent) needs ground truth -- the single uncertainty
+this mission's first month exists to retire, and the difference between
+the baseline (~4 extraction units/load) and the garden_regolith downside
+(tens of units, crew slips).
 
 ## 5. How to read the numbers
 
@@ -240,10 +244,11 @@ relocates (costing a synod) or switches ISRU mode to the DRA-5.0-style
 oxygen-only fallback, which needs no water and imports methane at ~4
 ships per return load.
 
-**10.1 Arrival (Oct 2033).** Ten ships (~88% full) land on the graded
+**10.1 Arrival (Oct 2033).** Eleven ships (~84% full) land on the graded
 zone prepared by the window-0 robots. Cargo: two rate-matched ISRU
-chains (window-0's pilot becomes the hot spare), their reactors
-(3,000 kWe total), and the 45 t survival bridge.
+chains plus the water-extraction depth the clean-ice resource actually
+needs (~7 Rodwell-class extraction units, not the 1-2 a power-limited
+model would imply), their reactors, and the 45 t survival bridge.
 
 The bridge is one synod of food, water, and oxygen for twelve, and it is
 the single exception to fly-with provisioning (the bridge-not-depth
@@ -254,8 +259,10 @@ any crew commits. Everything beyond one synod flies with the crew in
 
 **10.2 Plant operations.** The doubled plant commissions on the ramp
 (60% first-synod factor) toward 7.7 t of methalox per day, a full
-1,400 t return load roughly every six months, with 3,223 t banked by the
-2035 window. Robots position and bury the radiation shelters, verify the
+1,400 t return load; with the honest clean-ice extraction rate
+(~0.4 t/day/unit, grade-limited not power-limited), 2,926 t is banked by
+the 2035 window -- enough to burn a full load on the Jan-2035 demo and
+still land the crew on five-plus loads. Robots position and bury the radiation shelters, verify the
 bridge caches, and begin sintering landing pads for the next fleet.
 Mid-2034 the 1,000-sol ECLSS demonstration completes.
 
@@ -348,13 +355,14 @@ to 2037 removes it. The program carries the 2035 option because the hedge
 (bridge, caches, a proven profile before the crew's own return) prices the
 residual risk honestly.
 
-**12.2 Fleet arrival sequencing (Dec 2035).** Fifteen ships. Cargo hulls
+**12.2 Fleet arrival sequencing (Dec 2035).** Sixteen ships. Cargo hulls
 enter first and the crew ship last, onto sintered pads, with the
 constellation providing EDL telemetry and the surface beacons precision
-guidance. The crew lands on 8,057 t of banked propellant (five-plus
-return loads), 1,500 m³ of pressurized volume (125 m³ per person against
-the 76.5 m³ standard), and a 26-month consumables bridge that flew beside
-them.
+guidance. The crew lands on 7,067 t of banked propellant (five-plus
+return loads), 1,500 m³ of pressurized volume (~60 m³ net habitable per
+person, ~1.6x the honest 36.8 m³ NHV standard -- the 76.5 m³ "standard" we
+once cited turned out to be one case study's back-calc, not a standard),
+and a 26-month consumables bridge that flew beside them.
 
 **12.3 Surface operations.** The twelve are commissioning engineers, not
 survivors. Their cargo is the future at pilot scale: 12 agriculture
