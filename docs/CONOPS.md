@@ -263,8 +263,8 @@ loop clock (started window 0), not by a pre-staged consumables cache.
 1,400 t return load; with the honest clean-ice extraction rate
 (~0.4 t/day/unit, grade-limited not power-limited), 2,926 t is banked by
 the 2035 window -- enough to burn a full load on the Jan-2035 demo and
-still land the crew on five-plus loads. Robots position and bury the radiation shelters, verify the
-bridge caches, and begin sintering landing pads for the next fleet.
+still land the crew on five-plus loads. Robots position and bury the radiation shelters and begin
+sintering landing pads for the next fleet.
 Mid-2034 the 1,000-sol ECLSS demonstration completes.
 
 **10.3 Return-flight ground segment.** The receipt flight needs a ground
@@ -340,38 +340,37 @@ the crew's own March 2037 departure will use.
 **12.1 Commit posture (May 2035).** Twelve crew launch with the
 demonstrator still inbound: **the program's one deliberately cut corner,
 priced in the open.** Commit criteria: all six crew gates green on
-demonstrated state, ≥1,400 t in the tanks *after* the demo's burn, the
-verified bridge on the surface, and the demo in flight. If the demo fails
-during their cruise (its report lands in August; they land in December),
-the crew proceeds to a powered, provisioned base and holds one window
-while the fix flies. The caches cover a missed return window with years
-of margin. Their own return, ~March 2037, flies a profile proven nineteen
-months earlier.
+demonstrated state, ≥1,400 t in the tanks *after* the demo's burn, and the
+demo in flight. If the demo fails during their cruise (its report lands in
+August; they land in December), the crew proceeds to a powered, provisioned
+base and holds one window while the fix flies. Their carried 26-month
+provisions plus the next synod's resupply cover a missed return window. Their
+own return, ~March 2037, flies a profile proven nineteen months earlier.
 
 This blind spot is the price of the accelerated schedule, and it is worth
 stating plainly: under the archived conservative program (crew 2037), the
 demo's August 2035 report lands ~23 months *before* the crew commit and
 the corner does not exist. Accelerating crew to 2035 created it; reverting
 to 2037 removes it. The program carries the 2035 option because the hedge
-(bridge, caches, a proven profile before the crew's own return) prices the
-residual risk honestly.
+(crew-carried provisions, next-synod resupply, and a profile proven before
+the crew's own return) prices the residual risk honestly.
 
-**12.2 Fleet arrival sequencing (Dec 2035).** Sixteen ships. Cargo hulls
+**12.2 Fleet arrival sequencing (Dec 2035).** Fourteen ships. Cargo hulls
 enter first and the crew ship last, onto sintered pads, with the
 constellation providing EDL telemetry and the surface beacons precision
 guidance. The crew lands on 7,067 t of banked propellant (five-plus
 return loads), 1,500 m³ of pressurized volume (~60 m³ net habitable per
 person, ~1.6x the honest 36.8 m³ NHV standard -- the 76.5 m³ "standard" we
 once cited turned out to be one case study's back-calc, not a standard),
-and a 26-month consumables bridge that flew beside them.
+and their 26-month provisions, which flew with them.
 
 **12.3 Surface operations.** The twelve are commissioning engineers, not
 survivors. Their cargo is the future at pilot scale: 12 agriculture
 modules (first crops), the first regolith refinery (molten-regolith
-electrolysis), the first polymer plant (Sabatier to Fischer-Tropsch to
+electrolysis), the first polymer plant (CO₂ to RWGS to Fischer-Tropsch to
 HDPE), hot-spare ISRU depth, and a robot workforce grown to ~100. Every
 pilot's data shapes the 2037 village's scale buy, one synod ahead. Site
-prep for the 34-ship village fleet continues throughout.
+prep for the 32-ship village fleet continues throughout.
 
 **12.4 Contingency postures.**
 - *Return-demo failure:* land anyway; hold one window on caches; the fix
