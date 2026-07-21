@@ -229,10 +229,6 @@
       {
        "id": "radiation_shelter",
        "qty": 2
-      },
-      {
-       "id": "consumables_cache",
-       "qty": 3
       }
      ]
     }

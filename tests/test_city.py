@@ -48,7 +48,6 @@ def test_verified_anchor_values(city):
     assert pc["habitable_volume_m3"]["floor"] == pytest.approx(28.96)
     assert pc["consumables_kg_per_day"]["total"] == pytest.approx(6.502)  # as-shipped food (corrected 2026-07-21)
     assert city["import_mass"]["no_local_production_t_per_person_year"]["value"] == 10
-    assert city["growth"]["fleet_min_growth_per_synod"]["value"] == 2.0
 
 
 def test_population_milestones_gate_in_the_planner(catalog, baseline, manager, city):

@@ -107,7 +107,6 @@ class CampaignPlanner:
         capability_unlocks: dict,
         crewed_requires: list[str],
         city: Optional[dict] = None,
-        min_fleet_growth: Optional[float] = None,
     ):
         self.catalog = catalog
         self.a = assumptions
@@ -117,7 +116,6 @@ class CampaignPlanner:
         self.packing_engine = PackingEngine(catalog, assumptions)
         self.isru_engine = IsruEngine(catalog, assumptions)
         self.city = city
-        self.min_fleet_growth = min_fleet_growth
 
     def run(self, campaign: Campaign) -> CampaignResult:
         state = SurfaceState()
@@ -129,7 +127,6 @@ class CampaignPlanner:
             "launch_cost_musd": 0.0, "cargo_cost_low_musd": 0.0, "cargo_cost_high_musd": 0.0,
         }
 
-        prev_ships = 0
         for window in sorted(campaign.windows, key=lambda w: w.synod_index):
             warnings: list[str] = []
             outcomes: list[MissionOutcome] = []
@@ -157,18 +154,13 @@ class CampaignPlanner:
                 budget = self.budget_engine.compute(mission)
                 # Top-down fleet sizing ("no air freight"): when a mission does
                 # not pin `ships`, derive the hull count from the cargo mass at
-                # the target fill, floored by the cumulative >=Nx growth rule.
-                # Fleet size becomes a computed output, not a hand-set input, so
-                # it self-corrects whenever the manifest mass changes.
+                # the target fill. Fleet size is a computed output, not a hand-set
+                # input, so it self-corrects whenever the manifest mass changes.
                 ships_override = None
                 if not mission.ships and mission.packing_policy == "balanced":
                     fill = self.a.get("fleet.target_fill", 0.9)
                     mass_cap = self.a.get("fleet.payload_mass_per_ship_t")
-                    cargo_ships = max(1, math.ceil(budget.mass.grand_total_t / (mass_cap * fill)))
-                    growth_floor = 0
-                    if _mi == 0 and self.min_fleet_growth and prev_ships > 0:
-                        growth_floor = max(0, math.ceil((self.min_fleet_growth - 1) * prev_ships))
-                    ships_override = max(cargo_ships, growth_floor)
+                    ships_override = max(1, math.ceil(budget.mass.grand_total_t / (mass_cap * fill)))
                 packing = self.packing_engine.pack(mission, budget, ships_override=ships_override)
                 outcomes.append(MissionOutcome(mission.id, mission.crewed, blocked, missing, budget, packing))
                 warnings.extend(budget.warnings)
@@ -239,20 +231,6 @@ class CampaignPlanner:
                     f"{rate:g} t/person/yr ({stage}) need {import_required:,.0f} t this synod; "
                     f"manifests deliver {w_consumables_t:,.0f} t of consumables"
                 )
-
-            # fleet growth rule (B2): the TOTAL landed fleet should at least
-            # double each synod (New Space 2022, verbatim: "total number of
-            # landed vehicles to double at a minimum with each consecutive
-            # opportunity" — cumulative, not per-window)
-            cum_after = cumulative["ships"] + int(w_ships)
-            if (self.min_fleet_growth and prev_ships > 0
-                    and cum_after < prev_ships * self.min_fleet_growth):
-                warnings.append(
-                    f"{window.id}: cumulative landed fleet below the "
-                    f">={self.min_fleet_growth:g}x/synod recommendation "
-                    f"({cum_after} total after {prev_ships})"
-                )
-            prev_ships = cum_after
 
             # surface snapshot: what is physically on Mars after this window
             inventory = []

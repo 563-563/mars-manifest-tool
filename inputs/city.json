@@ -85,11 +85,6 @@
     "electronics_closure_warning": "Tier B (arxiv 1612.03238, 3-0 verified): incomplete closure of electronics/chips makes import mass grow EXPONENTIALLY with the industry \u2014 the decay curve has a floor until Gen 5.0-6.0 closure."
   },
   "growth": {
-    "fleet_min_growth_per_synod": {
-      "value": 2.0,
-      "tier": "B",
-      "source": "New Space 2022 (PMC9527650), 3-0 verified: \"total number of landed vehicles to double at a minimum with each consecutive opportunity.\" The ONLY ships-per-synod rule that survived adversarial verification; every Musk cadence figure was refuted or superseded."
-    },
     "population_ramp_scenarios": {
       "handmer_doubling": {
         "doubling_per_synod": true,

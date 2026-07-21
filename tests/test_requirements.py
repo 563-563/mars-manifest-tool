@@ -26,10 +26,9 @@ def _run(catalog, assumptions, manager, campaign_path):
     from mars_manifest.city import city_rules, load_city_ramp
     city = load_city_ramp(ROOT / "inputs" / "city.json")
     rules = {**manager.capability_unlocks(), **city_rules(city)}
-    growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
     campaign = load_campaign(campaign_path, catalog)
     planner = CampaignPlanner(catalog, assumptions, rules, manager.crewed_requires(),
-                              city=city, min_fleet_growth=growth)
+                              city=city)
     return planner.run(campaign)
 
 

@@ -42,11 +42,11 @@ quietly used.
 | Window | Fleet | What it buys |
 |---|---|---|
 | **2031-01** | 5 ships | Loss-tolerant robotic precursor: EDL proof, 840 kWe fission, pilot fuel plant at qty-3 on its bottleneck steps (chain survival ~44% at coin-flip landing odds, vs ~24% at qty-2), prospect-before-commit water survey, both demonstration clocks started. Retires ~50% of weighted program risk on first landing. |
-| **2033-03** | 11 ships | The fuel factory, doubled: two rate-matched ISRU chains + the water-extraction depth clean-ice mining actually needs (~7 Rodwell-class units), + the 45 t survival bridge. `return_propellant_proven`, `life_support_closed`, and `radiation_managed` all retire — every crew gate green a full synod before anyone launches. The uncrewed Earth-return demo departs ~Jan 2035 on the plant's surplus. |
-| **2035-05** | 16 ships | **First crew.** 12 people land on ~7,100 t of banked propellant (5+ return loads) with their 26-month bridge aboard — plus pilots for everything the village scales: 12 agri modules, refinery + polymer test articles, ISRU hot-spare depth, 100 robots on the surface, pad rigs for the next fleet. |
+| **2033-03** | 10 ships | The fuel factory, doubled: two rate-matched ISRU chains + the water-extraction depth clean-ice mining actually needs (~7 Rodwell-class units). `return_propellant_proven`, `life_support_closed`, and `radiation_managed` all retire — every crew gate green a full synod before anyone launches. The uncrewed Earth-return demo departs ~Jan 2035 on the plant's surplus. |
+| **2035-05** | 14 ships | **First crew.** 12 people land on ~7,100 t of banked propellant (5+ return loads) with their 26-month provisions aboard — plus pilots for everything the village scales: 12 agri modules, refinery + polymer test articles, ISRU hot-spare depth, 100 robots on the surface, pad rigs for the next fleet. |
 | **2037-07** | 32 ships | The village: 112 people, past the 110-person survival floor. Every 2035 pilot deploys at scale (20 agri, 2 refineries + polymer, +2 fuel chains now that crew rotation is the customer). |
 | **2039-09** | 94 ships | The town: 512 people, Gen-3 closure (food, polymers, structures local), electronics-fab pilot at its earliest credible window. |
-| **2041-11** | 158 ships | The settlement: 1,112 adults — the NSS 1,000-adult milestone. Imports walk the ~500× decay curve as local industry closes. |
+| **2041-11** | 151 ships | The settlement: 1,112 adults — the NSS 1,000-adult milestone. Imports walk the ~500× decay curve as local industry closes. |
 
 ### Flights at a glance
 
@@ -55,13 +55,13 @@ quietly used.
 | Flight | Window | Ships | Holds full | Population | Capabilities unlocked |
 |---|---|---|---|---|---|
 | 1 | 2031-01 | 5 | 83% | — | `autonomy_proven`, `comms_established`, `edl_proven`, `habitat_ready`, `infrastructure_ready`, `mobility`, `power_baseload`, `precision_landing`, `water_confirmed`, `water_supply` |
-| 2 | 2033-03 | 11 | 84% | — | `life_support_closed`, `radiation_managed`, `return_propellant_proven` |
-| 3 | 2035-05 | 16 | 77% | 12 | — |
+| 2 | 2033-03 | 10 | 87% | — | `life_support_closed`, `radiation_managed`, `return_propellant_proven` |
+| 3 | 2035-05 | 14 | 88% | 12 | — |
 | 4 | 2037-07 | 32 | 90% | 112 | `closure_gen_1`, `closure_gen_2`, `survival_floor` |
 | 5 | 2039-09 | 94 | 89% | 512 | `closure_gen_3` |
-| 6 | 2041-11 | 158 | 86% | 1,112 | `settlement_established` |
+| 6 | 2041-11 | 151 | 90% | 1,112 | `settlement_established` |
 
-Cumulative: **316 ships · 5,372 launches** (tankers included) · 27,376 t landed · first crew **2035-05**.
+Cumulative: **306 ships · 5,202 launches** (tankers included) · 27,324 t landed · first crew **2035-05**.
 <!-- FLIGHT_SUMMARY:END -->
 
 The 2031 start reflects the verified public record (no 2026 flight;
@@ -111,7 +111,7 @@ shaped the model most, and they're worth reading in their own right.
 **Architecture & doctrine**
 
 - Casey Handmer — [Starship is Still Not Understood](https://caseyhandmer.wordpress.com/2021/10/28/starship-is-still-not-understood/) and the Feb-2025 follow-ups: the "orbit, reuse, refill, chill" gate sequence, prospect-before-commit, and the cargo-ships-stay economics this plan adopts.
-- *New Space* 2022 — [A Roadmap for a Sustainable Human Mars Settlement](https://pmc.ncbi.nlm.nih.gov/articles/PMC9527650/): the ≥2× fleet-growth rule (the one cadence claim that survived our fact-check), the 10–20 first-crew band, and the RedWater well anchor.
+- *New Space* 2022 — [A Roadmap for a Sustainable Human Mars Settlement](https://pmc.ncbi.nlm.nih.gov/articles/PMC9527650/): the ≥2× fleet-growth rule (the one cadence claim that survived our fact-check, though we ultimately did not impose it as a sizing floor), the 10–20 first-crew band, and the RedWater well anchor.
 - NASA [Design Reference Architecture 5.0](https://ntrs.nasa.gov/citations/20090040343): the institutional baseline we diff against; source of the oxygen-only ISRU fallback scenario.
 - Maiwald et al. (DLR), *Scientific Reports* 2024: the peer-reviewed skeptic case — low-TRL ISRU/refill/chill — encoded here as the `conservative_feasibility` scenario rather than argued with.
 

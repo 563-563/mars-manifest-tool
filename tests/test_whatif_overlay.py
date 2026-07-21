@@ -49,9 +49,8 @@ def program(catalog):
 def _run(catalog, manager, city, scenario):
     a = manager.resolve(scenario)
     rules = {**manager.capability_unlocks(), **city_rules(city)}
-    growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
     planner = CampaignPlanner(catalog, a, rules, manager.crewed_requires(),
-                              city=city, min_fleet_growth=growth)
+                              city=city)
     return a, planner
 
 

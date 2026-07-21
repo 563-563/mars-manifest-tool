@@ -25,7 +25,6 @@ campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
 mission_red = campaign.windows[0].missions[0]
 from mars_manifest.city import city_rules, load_city_ramp
 CITY = load_city_ramp(ROOT / "inputs" / "city.json")
-GROWTH = CITY["growth"]["fleet_min_growth_per_synod"]["value"]
 RULES = {**manager.capability_unlocks(), **city_rules(CITY)}
 
 
@@ -155,7 +154,7 @@ out["isru"]["design"] = {
     "total": round(design.total_mass_t, 1),
 }
 
-planner = CampaignPlanner(catalog, a, RULES, manager.crewed_requires(), city=CITY, min_fleet_growth=GROWTH)
+planner = CampaignPlanner(catalog, a, RULES, manager.crewed_requires(), city=CITY)
 r = planner.run(campaign)
 
 from mars_manifest.requirements import RequirementsEngine, load_requirements

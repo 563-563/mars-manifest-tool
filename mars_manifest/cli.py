@@ -175,12 +175,8 @@ def main(argv: list[str] | None = None) -> int:
         return rules
 
     def make_planner(a) -> CampaignPlanner:
-        growth = None
-        if city_data:
-            growth = (city_data.get("growth", {})
-                      .get("fleet_min_growth_per_synod", {}).get("value"))
         return CampaignPlanner(catalog, a, unlock_rules(), manager.crewed_requires(),
-                               city=city_data, min_fleet_growth=growth)
+                               city=city_data)
 
     if args.command == "catalog":
         if args.cat_command == "list":

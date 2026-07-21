@@ -14,10 +14,9 @@ def plan_result(catalog, baseline, manager):
     from mars_manifest.city import city_rules, load_city_ramp
     city = load_city_ramp(ROOT / "inputs" / "city.json")
     rules = {**manager.capability_unlocks(), **city_rules(city)}
-    growth = city["growth"]["fleet_min_growth_per_synod"]["value"]
     campaign = load_campaign(ROOT / "inputs" / "program.json", catalog)
     planner = CampaignPlanner(catalog, baseline, rules, manager.crewed_requires(),
-                              city=city, min_fleet_growth=growth)
+                              city=city)
     return planner.run(campaign)
 
 
@@ -42,10 +41,11 @@ def test_propellant_gate_retires_with_the_fuel_factory(plan_result):
 
 
 def test_honest_fleet_counts(plan_result):
-    # fleet sized to cargo at <=90% mass, subject to the cumulative >=2x
-    # growth floor ("no air freight"): 2035 and 2041 are growth-floored and
-    # topped up with risk depth; 2037/2039 are genuinely cargo-bound
-    assert [w.ships for w in plan_result.windows] == [5, 11, 16, 32, 94, 158]
+    # fleet sized purely to cargo at <=90% mass ("no air freight"); no growth
+    # floor — every window is cargo-bound (the >=2x doubling doctrine was
+    # removed 2026-07-21 as not requirement-derived). 2033 dropped the 2033
+    # survival bridge (consumables no longer gate life_support_closed).
+    assert [w.ships for w in plan_result.windows] == [5, 10, 14, 32, 94, 151]
 
 
 def test_every_window_fits_its_fleet(plan_result, baseline):

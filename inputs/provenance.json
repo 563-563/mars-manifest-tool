@@ -97,7 +97,7 @@
        "input": "`fleet.target_fill` / top-down sizing",
        "value": "0.90",
        "tier": "**C — added 2026-07-21**",
-       "source_validation": "Fleet size is now COMPUTED, not hand-declared: ships/window = max(ceil(cargo mass / (100 t x 0.90)), cumulative >=2x growth floor). \"No air freight\" becomes a self-correcting property -- when manifest mass changes, the fleet resizes automatically toward 90% fill. Replaces hand-tuned ship counts. Program.json windows no longer pin `ships`; frozen fixtures still may."
+       "source_validation": "Fleet size is now COMPUTED, not hand-declared: ships/window = ceil(cargo mass / (100 t x 0.90)). \"No air freight\" becomes a self-correcting property -- when manifest mass changes, the fleet resizes automatically toward 90% fill. Replaces hand-tuned ship counts. (A cumulative >=2x growth floor was tried on top and removed 2026-07-21 as not requirement-derived -- see docs/CONSIDERED.md; sizing is now purely cargo-bound.) Program.json windows no longer pin `ships`; frozen fixtures still may."
       }
      ]
     }

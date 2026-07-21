@@ -5,10 +5,10 @@
 | Flight | Window | Ships | Holds full | Population | Capabilities unlocked |
 |---|---|---|---|---|---|
 | 1 | 2031-01 | 5 | 83% | — | `autonomy_proven`, `comms_established`, `edl_proven`, `habitat_ready`, `infrastructure_ready`, `mobility`, `power_baseload`, `precision_landing`, `water_confirmed`, `water_supply` |
-| 2 | 2033-03 | 11 | 84% | — | `life_support_closed`, `radiation_managed`, `return_propellant_proven` |
-| 3 | 2035-05 | 16 | 77% | 12 | — |
+| 2 | 2033-03 | 10 | 87% | — | `life_support_closed`, `radiation_managed`, `return_propellant_proven` |
+| 3 | 2035-05 | 14 | 88% | 12 | — |
 | 4 | 2037-07 | 32 | 90% | 112 | `closure_gen_1`, `closure_gen_2`, `survival_floor` |
 | 5 | 2039-09 | 94 | 89% | 512 | `closure_gen_3` |
-| 6 | 2041-11 | 158 | 86% | 1,112 | `settlement_established` |
+| 6 | 2041-11 | 151 | 90% | 1,112 | `settlement_established` |
 
-Cumulative: **316 ships · 5,372 launches** (tankers included) · 27,376 t landed · first crew **2035-05**.
+Cumulative: **306 ships · 5,202 launches** (tankers included) · 27,324 t landed · first crew **2035-05**.

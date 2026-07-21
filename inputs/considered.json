@@ -157,10 +157,10 @@
      "why_where_recorded": "Packing fact, not preference: +4 chains = 106% of the 20-hull fleet's mass. Double fits at 74%; and the post-2033 3.2 loads/synod already fuels ~3 full evacuations of a 12-person base per synod. Capacity follows demand to the 2037 village wave."
     },
     {
-     "idea": "Deep pre-landed consumable caches (90 t+ before crew)",
-     "source": "original baseline doctrine",
-     "status": "**superseded (bridge-not-depth)**",
-     "why_where_recorded": "Pre-land exactly one synod of survival (45 t bridge, verified before commit); depth flies with the crew at near-zero marginal cost since crew fleets fly light. Same-window provisions are conditioned on the crew's own landing anyway; the bridge hedges the common-mode arrival failure."
+     "idea": "Pre-landed consumables ahead of the crew (deep caches, then the one-synod survival bridge)",
+     "source": "original baseline doctrine; revisited 2026-07-21",
+     "status": "**rejected (no pre-land)**",
+     "why_where_recorded": "Two-step history. First the deep 90 t+ caches were cut to a single 45 t 'survival bridge' (bridge-not-depth). Then on 2026-07-21 the bridge itself was removed: per-ship pairing already defeats independent single-ship loss (lose a crew hull, lose its people AND their food together), so the only remaining rationale was a common-mode arrival failure — judged not worth a hull. The crew fly their own one-synod provisions and resupply arrives the next synod; a missed return window is hedged by that carried supply plus the 2037 resupply flight (L1-RET-01). This forced the paired change below: `consumables_cache` was a required article of the `life_support_closed` gate (ECLSS-demo feedstock), so removing all pre-land would have blocked crew-2035 — the cache was therefore dropped from the gate definition (assumptions.json), the 1,000-sol closed-loop clock now resting on the habitat+ECLSS article alone."
     },
     {
      "idea": "Front-loading village-scale hardware onto the half-empty 2035 fleet",
@@ -208,7 +208,13 @@
      "idea": "Half-empty growth-rule fleets (“the holds are the doctrine” framing)",
      "source": "blue-sky review 2026-07-14",
      "status": "**superseded (no air freight)**",
-     "why_where_recorded": "A half-empty hold is an unexamined inherited number, not a virtue. Fleet = max(cargo at ≤90% mass, cumulative-doubling floor); growth-floored windows (2035, 2041) top up with doctrine-clean risk depth. 385 → 322 ships, ~1,070 fewer launches, ~$96 billion saved, landed mass UP 26.5 → 28.4 kt."
+     "why_where_recorded": "A half-empty hold is an unexamined inherited number, not a virtue. Fleet is now sized purely to cargo at ≤90% mass. (This row originally kept a cumulative-doubling floor on top; that floor was removed 2026-07-21 — see the next row — so no window is floored above its cargo need any more.)"
+    },
+    {
+     "idea": "≥2× cumulative fleet-growth floor (impose a minimum ships/synod on top of cargo)",
+     "source": "New Space 2022 (PMC9527650); removed 2026-07-21",
+     "status": "**rejected (not requirement-derived)**",
+     "why_where_recorded": "The rule — 'total landed vehicles double at a minimum each opportunity' — was the only ships-per-synod cadence claim that survived adversarial verification, so it was carried as a hard sizing floor. Removed once challenged: it is a literature ramp-momentum doctrine, NOT one of the L0/L1/L2 requirements, and every hard requirement (population 12→1,112, propellant ≥1,400 t, all capability gates, seat count) is met by cargo-sized fleets — the floor only inflated 2035 (16→14) and 2041 (158→151). Fleet is now purely cargo-bound; the New Space 2022 figure survives here as reference. Ships 316 → 306 (5-10-14-32-94-151). If a growth rate ever needs enforcing, make it an explicit requirement rather than an implicit floor."
     },
     {
      "idea": "Return cargo: organics / astrobiology samples",
@@ -286,7 +292,7 @@
      "idea": "Solar-first surface power (mass-produced panels, oversize the farm)",
      "source": "Handmer; New Space 2022",
      "status": "**rejected for baseline, kept as scenario**",
-     "why_where_recorded": "After adopting Handmer's survival-vs-production load split (which un-rigged our storm math), the trade is honest: solar is lighter but accepts months of production halt in a global storm. Fission stays baseline for the crewed era; `solar_only` scenario carries the alternative. PROVENANCE §2."
+     "why_where_recorded": "After adopting Handmer's survival-vs-production load split (which un-rigged our storm math), the trade is honest: solar is lighter but accepts months of production halt in a global storm. Fission stays baseline for the crewed era; `solar_only` scenario carries the alternative. Density re-validated 2026-07-21: the catalog carried an aspirational 1.5 kg/m2 (blanket-only, vendor-projected, no flown support) while PROVENANCE §2 held the flown ROSA figure ~4.0 kg/m2 — catalog synced up to 4.0. At flown density, once night storage is added to make solar baseload-equivalent to fission (~2.5 t battery per module), fission wins on kW/t (6.7 vs ~4.6) even before the dust-storm disqualifier. `solar_only` fleet unchanged at 330 (ship count is mass-dominated by non-power hardware). Durability of the call (asked 2026-07-21): future solar improvement can win back the DENSITY leg — if flown arrays reach the ~1.5 kg/m2 vendor projection, or specific power keeps climbing (perovskite tandems, thinner blankets), solar beats fission per baseload-tonne again, which is why `solar_only` / a future `advanced_solar` stay live scenarios. But improvement does NOT touch the DECISIVE leg: a global dust storm removes the light for weeks-to-months, which is meteorological, not technological — better panels and dust-cleaning don't help against atmospheric opacity. The only counter is storm-duration storage (~500-1,000 t/60-120-day storm per §2b); even a 3-5x battery leap leaves that order-of-magnitude prohibitive for baseload. So better solar makes solar a stronger daytime SUPPLEMENT but never displaces fission as the storm-proof baseload. The decision is robust to solar getting better, sensitive only to solar getting weather-independent (which panels can't). PROVENANCE §2."
     },
     {
      "idea": "Split cargo/crew missions — cargo pre-deployed one synod ahead",
@@ -400,7 +406,7 @@
      "idea": "Top-down fleet sizing (ships computed from cargo, not declared)",
      "source": "re-baseline review 2026-07-21",
      "status": "**adopted (engine)**",
-     "why_where_recorded": "Ships/window = max(cargo at <=90% fleet mass, cumulative >=2x growth floor), computed by the planner (fleet.target_fill=0.90). Replaces hand-declared counts + a check. Self-corrects on any mass change; resolved the fill-drift churn the literature-review re-baseline caused. Fleet went 322 -> 316 (5-11-16-32-94-158)."
+     "why_where_recorded": "Ships/window = ceil(cargo grand_total / (100 t * 0.90 target_fill)), computed by the planner. Replaces hand-declared counts + a check. Self-corrects on any mass change; resolved the fill-drift churn the literature-review re-baseline caused. Originally floored by a cumulative >=2x growth rule; that floor was removed 2026-07-21 (see its own row) so sizing is now purely cargo-bound. Fleet went 322 -> 316 (with floor) -> 306 (floor removed + 2033 bridge dropped): 5-10-14-32-94-151."
     },
     {
      "idea": "Water production rate ~3.6 t/day/unit (power-derived)",

@@ -219,8 +219,8 @@
     {
       "id": "L1-RET-01",
       "parent": "L0-MSN-01",
-      "statement": "An uncrewed Mars-surface-to-Earth return demonstration shall depart before the first crew launches and shall complete before the crew's own return flight, and pre-landed surface-hold reserves shall cover a missed return window if the demonstration fails.",
-      "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. Synodic geometry gives exactly one useful slot: the demonstrator departs Mars ~Jan 2035 (on the doubled 2033 plant's surplus), reports at Earth ~Aug 2035 while the crew is in transit, and the crew's own ~Mar 2037 return flies a profile flown 19 months earlier. The accepted residual is the crew committing (May 2035) three months before the demo reports; the hedge is the pre-landed bridge plus fleet caches (years of surface-hold if the crew must wait out a window for a fix).",
+      "statement": "An uncrewed Mars-surface-to-Earth return demonstration shall depart before the first crew launches and shall complete before the crew's own return flight, and the crew's carried provisions plus the next synod's resupply shall cover a missed return window if the demonstration fails.",
+      "rationale": "L0-MSN-01 promises a demonstrated return path, but producing propellant (L1-PROP-01) is not flying it home. Synodic geometry gives exactly one useful slot: the demonstrator departs Mars ~Jan 2035 (on the doubled 2033 plant's surplus), reports at Earth ~Aug 2035 while the crew is in transit, and the crew's own ~Mar 2037 return flies a profile flown 19 months earlier. The accepted residual is the crew committing (May 2035) three months before the demo reports; if the demo fails and the crew must wait out a window for a fix, the hedge is their own one-synod provisions flown with them plus the next synod's (2037) resupply flight, which arrives before that supply runs out. Nothing consumable pre-lands ahead of the crew (decision 2026-07-21: the only prior pre-land, the survival bridge, was removed once consumables were dropped from the life_support_closed gate).",
       "source": "SpaceX-to-Mars deep dive Problem 1/6; full-profile-uncrewed-first precedent (Crew Dragon Demo-1, Artemis I); return-leg astrodynamics, PROVENANCE section 5a"
     },
     {
@@ -304,13 +304,13 @@
     {
       "id": "L2-LS-03",
       "parent": "L1-LS-01",
-      "statement": "Pre-landed consumable caches of 90 t or more shall be on the surface before crew.",
-      "rationale": "Survival margin independent of ISRU and resupply.",
+      "statement": "The first crew shall fly with at least one synod of consumable provisions (food, water, oxygen); nothing consumable need be pre-landed ahead of them.",
+      "rationale": "Survival margin travels with the people, not ahead of them. Pre-landing was removed 2026-07-21 (see CONSIDERED and L1-RET-01): per-ship pairing already defeats independent ship loss, and a missed return window is covered by this carried supply plus the next synod's resupply. Three caches (~45 t) is one synod for twelve.",
       "verify": {
         "method": "Inspection",
         "kind": "min_qty",
         "component": "consumables_cache",
-        "qty": 6
+        "qty": 3
       },
       "planned_window": "2035-05"
     },

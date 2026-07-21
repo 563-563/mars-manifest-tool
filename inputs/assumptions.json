@@ -433,7 +433,6 @@
           {
             "all_of": [
               "eclss_habitat",
-              "consumables_cache",
               "habitat_inflatable"
             ],
             "min_sols_on_surface": {
@@ -444,7 +443,6 @@
           {
             "all_of": [
               "eclss_habitat",
-              "consumables_cache",
               "habitat_module"
             ],
             "min_sols_on_surface": {

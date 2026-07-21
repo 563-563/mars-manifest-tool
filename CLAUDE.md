@@ -25,22 +25,23 @@ governs NOW.*
 ## The baseline
 
 - **`inputs/program.json` is the program** (the blue-sky baseline,
-  re-baselined 2026-07-14): 2031-01 precursor (5 ships) → doubled fuel
-  factory + pre-landed survival bridge 2033-03 (10 ships; 3.2 loads/synod;
-  uncrewed return demo departs ~Jan 2035 on its surplus) → **first crew
-  2035-05** (15 ships, 12 crew, flying with the village's pilots: agri,
-  refinery+polymer test articles, ISRU hot-spare depth) → village 2037-07
-  (34) → town 2039-09 (97) → settlement 2041-11 (161; 1,112 adults).
-  Governing doctrines: fly-with instead of pre-land (the one-synod survival
-  bridge excepted), pilots one synod ahead of their scale deployment, fuel
-  capacity follows demand, ≥2× cumulative fleet growth per synod, and no
-  air freight: fleets sized to cargo at ≤90% mass, growth-floored windows
-  topped up with risk depth.
+  re-baselined 2026-07-14, growth-floor + bridge removed 2026-07-21):
+  2031-01 precursor (5 ships) → doubled fuel factory 2033-03 (10 ships;
+  3.2 loads/synod; uncrewed return demo departs ~Jan 2035 on its surplus)
+  → **first crew 2035-05** (14 ships, 12 crew, flying with the village's
+  pilots: agri, refinery+polymer test articles, ISRU hot-spare depth) →
+  village 2037-07 (32) → town 2039-09 (94) → settlement 2041-11 (151;
+  1,112 adults). Governing doctrines: fly-with, not pre-land (nothing
+  consumable lands ahead of the crew — provisions fly with them, resupply
+  the next synod); pilots one synod ahead of their scale deployment; fuel
+  capacity follows demand; and no air freight — fleets sized purely to
+  cargo at ≤90% mass, ship count a computed output with no growth floor.
 - Crew gating is strict by design: propellant *banked* (≥1,400 t), 1,000-sol
-  ECLSS demonstration, prospect-before-commit (`water_confirmed`), no
-  single-ship loss may cost a schedule-critical capability, and the return
-  demo departs before crew (L1-RET-01, transit-demo posture: it reports
-  during crew transit; surface-hold reserves hedge a failure).
+  ECLSS demonstration (habitat+ECLSS clock, not a consumables cache),
+  prospect-before-commit (`water_confirmed`), no single-ship loss may cost
+  a schedule-critical capability, and the return demo departs before crew
+  (L1-RET-01, transit-demo posture: it reports during crew transit; the
+  crew's carried provisions plus next-synod resupply hedge a failure).
 - **`examples/conservative_program.json`** is the archived gate-maximalist
   alternative (crew 2037). It is also what the baseline *becomes* under
   `conservative_feasibility` — the gates hold and crew auto-slips.

@@ -49,11 +49,11 @@ Six flights, one every 26 months, each earning permission for the next:
 | Flight | Window | Ships | People | Role |
 |---|---|---|---|---|
 | 1 | 2031 | 5 | - | Precursor: land, power, prospect; start the clocks |
-| 2 | 2033 | 11 | - | Fuel factory ×2 + survival bridge; all gates green |
-| 3 | 2035 | 16 | 12 | **First crew** + pilots for everything that scales |
+| 2 | 2033 | 10 | - | Fuel factory ×2; all six gates green |
+| 3 | 2035 | 14 | 12 | **First crew** + pilots for everything that scales |
 | 4 | 2037 | 32 | 112 | Village (CONOPS-2) |
 | 5 | 2039 | 94 | 512 | Town (CONOPS-2) |
-| 6 | 2041 | 158 | 1,112 | Settlement (CONOPS-2) |
+| 6 | 2041 | 151 | 1,112 | Settlement (CONOPS-2) |
 
 Five doctrines shape every manifest, and this document applies them
 operationally:
@@ -64,11 +64,12 @@ operationally:
    (§5). Claims that fail verification are recorded as failing.
 3. **No single ship loss may cost a schedule-critical capability.**
    Critical hardware flies at quantity ≥2, spread across hulls.
-4. **Pilot one synod ahead; scale when the demand ships.** Provisions
-   pre-land one synod of survival (the *bridge*); depth flies with the
-   people.
-5. **No air freight.** Fleets are sized to their cargo at ≤90% of mass
-   capacity, and floored windows top up with risk depth.
+4. **Pilot one synod ahead; scale when the demand ships.** Nothing
+   consumable pre-lands ahead of the crew: their provisions fly with them
+   and resupply arrives the next synod. Depth flies with the people.
+5. **No air freight.** Fleets are sized purely to their cargo at ≤90% of
+   mass capacity. Ship count is a computed output of manifest mass, with no
+   growth floor imposed on top.
 
 On the dates: first crew in 2035 sits beyond the aggressive end of
 published consensus, and the plan says so plainly. It is an option on
@@ -163,8 +164,8 @@ retire on demonstrated state rather than on specifications.
   chemical) and later aerobrakes to its operational orbit.
 - **Surface segment.** Fission power grid, ISRU propellant plant(s),
   water mining chain, habitat/ECLSS demonstration articles, robot
-  workforce (humanoids, rovers, cranes, sintering rigs), comms/nav ground
-  stations, and pre-landed consumables (the survival bridge).
+  workforce (humanoids, rovers, cranes, sintering rigs), and comms/nav
+  ground stations.
 - **Earth segment.** Launch and refueling infrastructure (the four
   L1-TRANS preconditions: orbit, reuse, refill, chill), mission operations
   under light delay, and the materials-and-labs loop that receives
@@ -244,18 +245,17 @@ relocates (costing a synod) or switches ISRU mode to the DRA-5.0-style
 oxygen-only fallback, which needs no water and imports methane at ~4
 ships per return load.
 
-**10.1 Arrival (Oct 2033).** Eleven ships (~84% full) land on the graded
+**10.1 Arrival (Oct 2033).** Ten ships (~87% full) land on the graded
 zone prepared by the window-0 robots. Cargo: two rate-matched ISRU
 chains plus the water-extraction depth the clean-ice resource actually
 needs (~7 Rodwell-class extraction units, not the 1-2 a power-limited
-model would imply), their reactors, and the 45 t survival bridge.
+model would imply) and their reactors.
 
-The bridge is one synod of food, water, and oxygen for twelve, and it is
-the single exception to fly-with provisioning (the bridge-not-depth
-doctrine in the considered ledger). Its customer is a common-mode arrival
-failure, so it must exist and be robot-verified on the ground *before*
-any crew commits. Everything beyond one synod flies with the crew in
-2035.
+Nothing consumable pre-lands. The crew's own provisions fly with them in
+2035 and resupply arrives the next synod; there is no scenario in which
+food must sit on the surface ahead of people. The life-support gate is
+demonstrated by the habitat+ECLSS article running its 1,000-sol closed-
+loop clock (started window 0), not by a pre-staged consumables cache.
 
 **10.2 Plant operations.** The doubled plant commissions on the ramp
 (60% first-synod factor) toward 7.7 t of methalox per day, a full
@@ -456,7 +456,6 @@ Added 2026-07-20 alongside `docs/CONOPS.md`. These are the doctrine-layer quanti
 | **SAR** | Synthetic Aperture Radar, the shallow-ice mapping instrument |
 | **Rodwell** | A water well melted into an ice sheet (Antarctic practice; RedWater's Mars version) |
 | **RASSOR** | NASA's counter-rotating bucket-drum excavator line, the ancestor of our diggers |
-| **The bridge** | The pre-landed 45 t, one-synod survival cache: the only provisions that fly ahead of people |
 | **The receipt flight** | The January 2035 uncrewed Mars-to-Earth demonstration |
 | **Gate** | A capability requirement that retires on demonstrated state, never on delivery |
 | **Tier (A/B/C/D)** | Confidence grade of a number; see §5 |
