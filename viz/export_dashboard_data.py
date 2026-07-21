@@ -3,6 +3,7 @@
 Run from the repo: `python viz/export_dashboard_data.py` -> viz/dashboard_data.json.
 Then `python viz/build_scrolly.py` -> viz/mars_manifest_story.html."""
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -77,6 +78,13 @@ for name in SCENARIOS:
     eng = PackingEngine(catalog, a)
     p_bal = eng.pack(mission_bal, BudgetEngine(catalog, a).compute(mission_bal))
     b_red = BudgetEngine(catalog, a).compute(mission_red)
+    # program windows no longer pin `ships` (top-down sizing); size window 0
+    # the way the planner does so capacity/util can be reported
+    if not mission_red.ships:
+        _fill = a.get("fleet.target_fill", 0.9)
+        _cap = a.get("fleet.payload_mass_per_ship_t")
+        mission_red.ships = max(1, math.ceil(b_red.mass.grand_total_t / (_cap * _fill)))
+        b_red = BudgetEngine(catalog, a).compute(mission_red)
     p_red = eng.pack(mission_red, b_red)
     lm_red = p_red.launch
     out["scenarios"][name].update({
