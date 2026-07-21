@@ -12,3 +12,7 @@ out/
 
 # local working exports (chat handoffs, rendered pages)
 Colonizing Mars*
+
+# scratch / temp working files (session artifacts)
+_tmp_*
+scratch_*
