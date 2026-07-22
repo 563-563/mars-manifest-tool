@@ -718,7 +718,7 @@
      "rows": [
       {
        "quantity": "Hyperbolic periapsis speed (300 km alt)",
-       "value": "~5.5 km/s",
+       "value": "≈5.5 km/s",
        "tier": "**C**",
        "derivation_heritage": "v = √(v∞² + v_esc²) with v_esc(300 km) = √(2μ/3690 km) ≈ 4.82 km/s, so √(2.65² + 4.82²) = 5.50 km/s. Pure two-body arithmetic on §5a constants."
       },
@@ -726,35 +726,35 @@
        "quantity": "Satellite capture Δv: minimal / 1-sol resonant / direct-to-LMO",
        "value": "0.68 / 0.90 / 2.09 km/s",
        "tier": "**C**",
-       "derivation_heritage": "Burns at 300 km periapsis: to barely-bound = 5.50 − 4.82; to a 1-sol-period ellipse (T = 88,775 s → a ≈ 20,440 km, apoapsis ≈ 37,200 km, v_p = 4.60) = 5.50 − 4.60; to 300 km circular (v_c = 3.41) = 5.50 − 3.41. The resonant ellipse is the CONOPS choice: daily periapsis passes over the site during the 30-sol survey, for ~26% propellant fraction on storables (Isp 320 s)."
+       "derivation_heritage": "Burns at 300 km periapsis: to barely-bound = 5.50 − 4.82; to a 1-sol-period ellipse (T = 88,775 s → a ≈ 20,440 km, apoapsis ≈ 37,200 km, v_p = 4.60) = 5.50 − 4.60; to 300 km circular (v_c = 3.41) = 5.50 − 3.41. The resonant ellipse is the CONOPS choice: daily periapsis passes over the site during the 30-sol survey, for ≈26% propellant fraction on storables (Isp 320 s)."
       },
       {
        "quantity": "Areostationary circularization (from 300 km × areostationary-radius ellipse)",
-       "value": "~0.65 km/s",
+       "value": "≈0.65 km/s",
        "tier": "**C**",
        "derivation_heritage": "Areostationary radius 20,428 km (T = 1 sol). Apoapsis burn: v_circ = √(μ/20,428) = 1.45 km/s; ellipse apoapsis speed = 0.80 km/s, so Δv = 0.65. Relay all-in ≈ capture 0.68 + 0.65 + trims ≈ 1.4 km/s."
       },
       {
-       "quantity": "Aerobraking in place of ~1 km/s of propellant",
+       "quantity": "Aerobraking in place of ≈1 km/s of propellant",
        "value": "months-scale, flown twice",
        "tier": "**B (verified 2026-07-20)**",
-       "derivation_heritage": "ExoMars TGO aerobraked March 2017 to February 2018 (11 months, paused for conjunction), shedding ~3,600 km/h (~1 km/s) from a 98,000 × 200 km capture ellipse to reach 400 km circular ([Universe Today](https://www.universetoday.com/138480/esas-exomars-completed-aerobraking-maneuvers-bring-circular-400-km-orbit-around-mars/), [ESA](https://blogs.esa.int/rocketscience/2017/12/06/keeping-up-with-tgo/)); MRO used the same technique in 2006. This is why the science sats survey from the capture ellipse first and circularize after the gate closes."
+       "derivation_heritage": "ExoMars TGO aerobraked March 2017 to February 2018 (11 months, paused for conjunction), shedding ≈3,600 km/h (≈1 km/s) from a 98,000 × 200 km capture ellipse to reach 400 km circular ([Universe Today](https://www.universetoday.com/138480/esas-exomars-completed-aerobraking-maneuvers-bring-circular-400-km-orbit-around-mars/), [ESA](https://blogs.esa.int/rocketscience/2017/12/06/keeping-up-with-tgo/)); MRO used the same technique in 2006. This is why the science sats survey from the capture ellipse first and circularize after the gate closes."
       },
       {
        "quantity": "Dispenser release on hyperbolic approach",
        "value": "flown heritage (MSL, M2020)",
        "tier": "**B (verified 2026-07-20)**",
-       "derivation_heritage": "MSL jettisoned two 75 kg tungsten cruise balance masses minutes before entry; their impact scars were imaged by CTX/HiRISE ~80 km from the landing site ([JPL PIA16456](https://www.jpl.nasa.gov/images/pia16456-impact-scars-from-msl-cruise-stage-and-two-balance-weights)). Proves both halves of the concept for free: dense masses released pre-entry survive to surface at multi-km/s, and the craters are orbitally observable."
+       "derivation_heritage": "MSL jettisoned two 75 kg tungsten cruise balance masses minutes before entry; their impact scars were imaged by CTX/HiRISE ≈80 km from the landing site ([JPL PIA16456](https://www.jpl.nasa.gov/images/pia16456-impact-scars-from-msl-cruise-stage-and-two-balance-weights)). Proves both halves of the concept for free: dense masses released pre-entry survive to surface at multi-km/s, and the craters are orbitally observable."
       },
       {
        "quantity": "Penetrator unit: mass, impact speed, energy",
        "value": "100-150 kg · 3.5-4 km/s · 0.6-1.2 GJ",
        "tier": "**D (physics C)**",
-       "derivation_heritage": "Deorbited from the survey ellipse: periapsis speed 4.6-5.5 km/s less drag on a high-β rod gives 3.5-4+ km/s at the surface. KE = ½mv² = 0.6-1.2 GJ ≈ 150-290 kg TNT. Crater ~5-10 m class in regolith (impact-scaling order of magnitude), which exposes ice through the 1-3 m overburden expected at SWIM-favorable sites. Unit mass is a design choice, bracketed by MSL's 75 kg (observable) and diminishing returns above ~300 kg."
+       "derivation_heritage": "Deorbited from the survey ellipse: periapsis speed 4.6-5.5 km/s less drag on a high-β rod gives 3.5-4+ km/s at the surface. KE = ½mv² = 0.6-1.2 GJ ≈ 150-290 kg TNT. Crater ≈5-10 m class in regolith (impact-scaling order of magnitude), which exposes ice through the 1-3 m overburden expected at SWIM-favorable sites. Unit mass is a design choice, bracketed by MSL's 75 kg (observable) and diminishing returns above ≈300 kg."
       },
       {
        "quantity": "Penetrator set composition",
-       "value": "~20 rods + dispenser per 3 t set",
+       "value": "≈20 rods + dispenser per 3 t set",
        "tier": "**D**",
        "derivation_heritage": "Set arithmetic: 3,000 kg ÷ (100-150 kg + dispenser/bus allocation) ≈ 18-25 rods. Two sets flown (window-0 top-up), so 35-50 ground-truth points."
       },
@@ -772,15 +772,15 @@
       },
       {
        "quantity": "Calibrated survey coverage",
-       "value": "~10⁴ km² class",
+       "value": "≈10⁴ km² class",
        "tier": "**D (judgment)**",
-       "derivation_heritage": "30-40 ground-truth points across a ~100 km district, each calibrating the SAR return signature for its terrain unit; coverage extends over geologically similar terrain. The program's actual mining appetite is ~1 ha/yr. The survey's real product is a ranked decade of sites plus a validated method."
+       "derivation_heritage": "30-40 ground-truth points across a ≈100 km district, each calibrating the SAR return signature for its terrain unit; coverage extends over geologically similar terrain. The program's actual mining appetite is ≈1 ha/yr. The survey's real product is a ranked decade of sites plus a validated method."
       },
       {
        "quantity": "Smallsat bus class",
-       "value": "~600-800 kg science / ~2 t relay",
+       "value": "≈600-800 kg science / ≈2 t relay",
        "tier": "**D (analog C)**",
-       "derivation_heritage": "Starlink-derived bus masses (~260 kg V1.0 to ~800 kg V2 Mini class, public figures, not re-verified) plus Mars hardening and capture propellant (~26-36% fractions per the Δv rows) inside the 6 t catalog set. Count (3-4 + 1) is a sketch; the sizing decision is open in the ledger."
+       "derivation_heritage": "Starlink-derived bus masses (≈260 kg V1.0 to ≈800 kg V2 Mini class, public figures, not re-verified) plus Mars hardening and capture propellant (≈26-36% fractions per the Δv rows) inside the 6 t catalog set. Count (3-4 + 1) is a sketch; the sizing decision is open in the ledger."
       }
      ]
     }
