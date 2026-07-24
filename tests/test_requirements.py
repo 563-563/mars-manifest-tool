@@ -45,8 +45,14 @@ def test_tree_shape(reqs):
 
 def test_program_plan_closes_everything(catalog, baseline, manager, reqs, engine):
     matrix = engine.evaluate(reqs, _run(catalog, baseline, manager, PROGRAM))
-    assert not matrix.open_ids
+    # The CONOPS-1 (first-crew) mission closes fully; the CONOPS-2 operations
+    # spine (L0-SETTLE-01 + its L1s) stands OPEN by design -- Inspection shells
+    # for a city era the engine does not yet model. Everything OPEN must be
+    # inside that subtree; nothing in the CONOPS-1 mission may be open.
+    settle_ids = {"L0-SETTLE-01"} | {r.id for r in reqs if r.parent == "L0-SETTLE-01"}
+    assert set(matrix.open_ids) <= settle_ids, set(matrix.open_ids) - settle_ids
     v = {x.requirement.id: x for x in matrix.verdicts}
+    assert v["L0-SETTLE-01"].status == "OPEN"
     # mission-level requirement closes a full synod before the 2035 crew:
     # life support, radiation, and the return branch all retire at 2033
     assert v["L0-MSN-01"].status == "CLOSED"

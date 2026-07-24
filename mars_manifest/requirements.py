@@ -147,6 +147,11 @@ class RequirementsEngine:
 
     def _check(self, verify: dict, w: WindowResult, windows: list[WindowResult]) -> bool:
         kind = verify["kind"]
+        if kind == "inspection":
+            # Narrative requirement signed off (or not) by human review, not modeled
+            # by the engine. `met: true` closes it (window-agnostic); `met: false`
+            # keeps it OPEN — the honest state of a not-yet-designed capability.
+            return bool(verify.get("met", False))
         if kind == "precondition":
             # Earth-side readiness flag from the active scenario; window-agnostic
             return bool(self.a.get(f"transport_readiness.{verify['flag']}", True))

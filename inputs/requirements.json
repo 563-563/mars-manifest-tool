@@ -457,6 +457,109 @@
           "precision_landing"
         ]
       }
+    },
+    {
+      "id": "L2-RAD-02",
+      "level": 2,
+      "parent": "L1-RAD-01",
+      "statement": "Radiation protection shall be provided by in-situ regolith over the habitats (>= 2-3 m for chronic GCR, a dedicated 5-8 m or water/regolith cell for SPE), not by hauled metal shielding; crew dose shall be held to the exploration budget.",
+      "rationale": "Mars surface dose-equivalent ~230-250 mSv/yr (Guo 2015 ApJ 810:24; Slaba NASA-TP-2013-217983). Slaba shows hauled ALUMINIUM increases surface dose (+63% via secondary neutrons), so the mass shield must be in-situ regolith - which is why radiation_shelter depends on sintering_rig.",
+      "source": "Guo 2015 ApJ 810:24; Slaba/Mertens/Blattnig NASA-TP-2013-217983",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": true }
+    },
+    {
+      "id": "L2-RET-06",
+      "level": 2,
+      "parent": "L1-RET-01",
+      "statement": "A launch-grade pad shall be established at >= 1 km debris standoff (sintered in window 0 after water-confirm), the return vehicle shall land on it, and it shall be robotically serviced (TPS survey + tile replacement, engine checkout) and static-fired before the receipt flight.",
+      "rationale": "Land-on-pad ground segment: a Starship-class Mars ascent throws ejecta ~1 km (Metzger & Lane 2021, Tier C); the pad is built before its own user so no ~50 m vehicle is moved. Service tower ~150-300 t amortized (Tier C); servicing robotics Tier D.",
+      "source": "Metzger & Lane 2021 arXiv 2104.06248; SpaceX catch tower; CONOPS 9/10.3/11",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": true }
+    },
+    {
+      "id": "L2-NAV-02",
+      "level": 2,
+      "parent": "L1-NAV-01",
+      "statement": "The designated return candidate shall precision-land on the established launch pad on arrival.",
+      "rationale": "The land-on-pad architecture makes precision landing a hard requirement for the return hull - land on a specific pad, not a zone.",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": true }
+    },
+    {
+      "id": "L0-SETTLE-01",
+      "level": 0,
+      "statement": "The settlement and its crew rotation shall be sustained safely and indefinitely: keep-alive and rotation logistics, without claiming a self-sufficiency it has not reached.",
+      "rationale": "CONOPS-2 (2037+) mission, operations-focused per the program owner: sustain (not necessarily grow or close) the settlement. Its children are Inspection-verified shells that stand OPEN until a city-era model exists - i.e. they are the current design gaps.",
+      "source": "CONOPS-2 scoping 2026-07-21"
+    },
+    {
+      "id": "L1-ROT-01",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Crew rotation shall be sustained: at every window, deployed return capacity (berths at 100 pax/ship, banked methalox ~1,200 t/ship, ~50 t consumables/ship) shall meet the reserve policy - full evacuation of the resident population achievable over <= 3 departure windows, rolling-cohort reserve otherwise; the return ground segment (pads x service stands) shall clear scheduled + reserve departures within the ~30-day departure window (pad/stand count a computed output); and no rotating cohort shall be stranded more than one synod past its window.",
+      "rationale": "Rotation research 2026-07-21. Mars propellant serves returns only; the full-evac reserve (phased over <=3 windows per owner decision) drives ground-segment sizing; robotic TPS-repair time is the throughput unknown; decouple slow service stands from fast launch mounts.",
+      "source": "CONOPS-2 rotation research; NASA DRA 5.0; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
+    },
+    {
+      "id": "L1-LS-05",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Life support shall be sustained indefinitely without Earth return: O2 recovery >= 75% and whole-loop water >= 95%; each crew-critical function shall carry N+2 redundancy including >= 1 dissimilar path (common-cause coverage); spares shall be Poisson-sized to < 1% stockout per function per synod on demonstrated (not estimated) failure rates; and a standing consumables + critical-spares reserve of >= one missed synod shall be held.",
+      "rationale": "Life-support-at-scale research 2026-07-21 (Jones NASA-Ames ICES on ISS MADS): intrinsic MTBF gives whole-system life-support failure ~every 42 days, so sustainment rests on N+2 dissimilar redundancy + demonstrated-MTBF sparing (14/20 ISS ORUs were worse than estimated). Residual resupply is food-dominated (~870 kg/person-yr). Buy-off = repurpose the 1,000-sol ECLSS demonstration.",
+      "source": "Jones ICES-2017-84 / ICES-2019-14; NASA BVAD; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
+    },
+    {
+      "id": "L1-PWR-05",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Power shall be sustained at settlement scale: installed generation shall exceed total load with >= 15% reserve margin at every window; installed generation minus the single largest unit shall cover the crew-critical (keep-alive) load, with agricultural grow-lighting shed to a crop keep-alive floor before any crew-critical curtailment; and a funded reactor-replacement cadence (fission units are ~10-year replace assets) shall keep the rolling fleet balance positive, replacements pre-positioned >= 1 synod ahead of end-of-life.",
+      "rationale": "Power-sustainment research 2026-07-21 (NASA FSP/Kilopower): the Stirling convertor, not the fuel, is the ~10-yr life-limiter, so end-of-life is REPLACE; a settlement can pass a static capacity test today and brown out later if replacements are not manifested. N+1-on-critical extends the no-single-loss doctrine to the power fleet. Needs a new engine model: asset lifetime/retirement + a critical-vs-sheddable load split.",
+      "source": "NASA FSP/Kilopower/KRUSTY; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
+    },
+    {
+      "id": "L1-MED-01",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Resident health shall be sustained with on-site definitive care (NASA-STD-3001 Level of Care V equivalent: surgery, trauma, imaging, pharmacy trending to on-site production, dental, mental health) and NO reliance on Earth medical evacuation for acute conditions; a surface medical reserve of >= one synod shall be held separately from and shall not draw down the return-propellant bank; no single provider or facility loss shall remove a life-critical capability (>= 2 surgically-competent providers). Reproductive/obstetric capability shall not be established before the ~1,100-resident settlement phase and, when established, shall be a coordinated (managed, gated) capability - free/open reproduction is a post-CONOPS-2 future goal, gated on characterisation of 0.38 g development.",
+      "rationale": "Settlement-medical research 2026-07-21: Earth medevac is not a clinical option (synodic window + 210-day transit), so care is treat-in-place and a fueled ambulance-ship reserve buys ~no benefit (hedge is surface inventory). Obstetric policy per the program owner: coordinated only at settlement scale, free reproduction a future goal.",
+      "source": "NASA ExMC / NASA-STD-3001; Antarctic/submarine analogs; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2041-11"
+    },
+    {
+      "id": "L1-HAB-03",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Habitats and infrastructure shall be sustained indefinitely: steady-state atmospheric leakage shall be bounded with a make-up-gas reserve of >= one synod plus one credible breach; each pressure shell shall be certified to factor-of-safety 4.0 on pressure and lifetime (JSC-67721) with the structural shell - not regolith overburden - bearing the pressure load and redundant seals so no single seal failure depressurizes; >= 2-3 m of in-situ regolith radiation cover shall be maintained (sized by radiation, decoupled from dead-weight containment depth); and a recurring maintenance + spares provision of >= 10%/yr of installed sustainment-system dry mass shall be manifested (Earth resupply and/or in-situ manufacture) at < 1%/yr capability-loss probability.",
+      "rationale": "Habitat/infra research 2026-07-21: BEAM-class inflatables seal well; JSC-67721 FoS 4.0; because we fly engineered pressure vessels the regolith is sized by radiation (~2-3 m), NOT the ~6.5-19 m dead-weight containment figure (which never applies) - 2-3 m of cover slightly REDUCES net wall stress. The ~10%/yr-of-installed-mass maintenance figure (Handmer) is the dominant cost-to-keep-running, offset only by ISRU-made spares.",
+      "source": "NASA JSC-67721; BEAM/TransHab; Handmer make-buy; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
+    },
+    {
+      "id": "L1-COM-02",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Continuous base-Earth communications shall be maintained through solar conjunction via a Sun-Earth L4/L5 (or heliocentric-drift) relay bridge; the orbital constellation shall be refreshed/augmented on a <= 2-synod cadence before design-life lapse (the window-0 seed expires ~2036-2038); bandwidth shall scale with population; and the segment shall be loss-tolerant (no single-node dependency) since it also carries EDL telemetry and launch weather-watch for rotation launches.",
+      "rationale": "Comms-refresh research 2026-07-21 (NASA/AIAA ASCEND): no Mars-local orbit can see around the Sun during conjunction; the single-node fly-once constellation violates the program's own no-single-loss doctrine for a crew-adjacent, schedule-critical asset.",
+      "source": "NASA/AIAA ASCEND 2020 NTRS 20205007788; SpaceX Marslink; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
+    },
+    {
+      "id": "L1-GRAV-01",
+      "level": 1,
+      "parent": "L0-SETTLE-01",
+      "statement": "Crew partial-gravity health shall be sustained: adult 0.38 g deconditioning shall be countered by exercise + pharmacologic countermeasures (with an optional short-arm centrifuge reserve), and in-situ human reproduction shall be gated until development in 0.38 g is characterised (linked to L1-MED-01).",
+      "rationale": "Gravity-physiology research 2026-07-21: animal centrifuge data (JAXA MARS 0.33 g, MHU lunar) suggest adult 0.38 g is manageable with countermeasures (not a crew gate, do not slip 2035); reproduction/Mars-born-child development is a genuine Tier-D unknown (no mammal has completed a life cycle in reduced g), so it is a timeline gate, not a mass number.",
+      "source": "NASA HRP; JAXA MARS/MHU; docs/CONSIDERED.md",
+      "verify": { "method": "Inspection", "kind": "inspection", "met": false },
+      "planned_window": "2037-07"
     }
   ]
 }

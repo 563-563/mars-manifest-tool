@@ -108,12 +108,20 @@
      "statement": "The life-support demonstration shall run as an integrated article: the ECLSS loop operating inside a landed, pressurized habitat, both on the surface for the full 1,000-sol clock."
     },
     {
+     "id": "L2-NAV-02",
+     "statement": "The designated return candidate shall precision-land on the established launch pad on arrival."
+    },
+    {
      "id": "L2-PROP-02",
      "statement": "An integrated pilot chain shall run at 40 kg/hr propellant-equivalent or more in the first window."
     },
     {
      "id": "L2-PWR-02",
      "statement": "Installed generation shall reach 500 kWe or more in the first window."
+    },
+    {
+     "id": "L2-RAD-02",
+     "statement": "Radiation protection shall be provided by in-situ regolith over the habitats (>= 2-3 m for chronic GCR, a dedicated 5-8 m or water/regolith cell for SPE), not by hauled metal shielding; crew dose shall be held to the exploration budget."
     },
     {
      "id": "L2-RET-02",
@@ -126,6 +134,10 @@
     {
      "id": "L2-RET-04",
      "statement": "Transfer and loading of ISRU-produced methalox into the return vehicle, and its cryogenic hold through the surface wait, shall be demonstrated; the return flight shall carry propellant samples for Earth-side verification."
+    },
+    {
+     "id": "L2-RET-06",
+     "statement": "A launch-grade pad shall be established at >= 1 km debris standoff (sintered in window 0 after water-confirm), the return vehicle shall land on it, and it shall be robotically serviced (TPS survey + tile replacement, engine checkout) and static-fired before the receipt flight."
     }
    ],
    "ships_detail": [
