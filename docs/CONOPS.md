@@ -295,9 +295,12 @@ already on the manifest:
   standoff, so the return candidate *lands on it* on arrival rather than being
   moved — building the pad before its own user is what avoids the alternative
   of dragging or hopping a 50 m vehicle. This window only emplaces the
-  insulated cryo transfer run from the tank farm to the pad. Standoff distances
-  are doctrine, not yet quantified (plume-ejecta modeling is an open item in
-  the ledger).
+  insulated cryo transfer run from the tank farm to the pad. Standoff is ≈1 km
+  (Tier C): a Starship-class Mars ascent throws ejecta to about a kilometre,
+  but the thin atmosphere drags it so the keep-out is a finite circle rather
+  than the Moon's unbounded sandblast (Metzger & Lane 2021). How much a sintered
+  pad tightens that, and the launch-plume spall that sets pad-to-pad spacing,
+  stay open (docs/CONSIDERED.md).
 - *Demonstrator selection.* One window-1 hull is designated the return
   candidate *before arrival* and precision-lands on the pad; a healthy sibling
   can hop over only as an off-nominal fallback if the primary lands degraded.
